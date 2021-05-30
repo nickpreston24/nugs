@@ -1,20 +1,18 @@
 <template>
-  <ul id="array-rendering">
-    <!-- <li v-bind-key="value" v-for="value in myObject">
-      {{ value }}
-    </li> -->
-    <!-- <li>Pink</li>
-     -->
-    <li v-for="(value, name) in myObject">{{ name }}: {{ value }}</li>
+  <ul id="stack">
+    <ul id="object-example">
+      <li :key="index" v-for="(value, name, index) in myObject">
+        {{ index }}. {{ name }}: {{ value }}
+      </li>
+    </ul>
+
+    <!-- <ul id="3">
+    </ul> -->
   </ul>
 </template>
 
 <script>
-import ListItem from "./ListItem.vue";
 export default {
-  created () {
-  },
-  components: { ListItem },
   data() {
     return {
       myObject: {
@@ -24,7 +22,6 @@ export default {
       },
     };
   },
-  computed: {},
 };
 </script>
 

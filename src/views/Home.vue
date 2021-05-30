@@ -1,15 +1,10 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-
-    <Reverser />
-    <Books />
-    <InventoryList />
-    <!-- <ol>
-      <list-item />
-      <list-item />
-      <list-item />
-    </ol> -->
+  <div class="home flex items-center">
+    <ul>
+      <TailwindCard />
+      <ChitChatToast />
+      <!-- <Palette /> -->
+    </ul>
   </div>
 </template>
 
@@ -19,15 +14,24 @@ import Reverser from "@/components/Reverser.vue";
 import Books from "@/components/Books.vue";
 import ListItem from "@/components/ListItem.vue";
 import InventoryList from "@/components/InventoryList.vue";
+import TodoList from "@/components/todo/TodoList.vue";
+import TailwindCard from "@/components/TailwindCard.vue";
+import ChitChatToast from "@/components/ChitChatToast.vue";
+import Palette from "@/components/Palette.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
-    Reverser,
-    Books,
+    // Reverser,
+    // Books,
     // ListItem,
-    InventoryList,
+    // InventoryList,
+    // TodoList,
+    TailwindCard,
+    ChitChatToast,
+    // Palette,
   },
 });
 </script>
-<style scoped></style>
+<style scoped>
+</style>
