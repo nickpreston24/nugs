@@ -942,6 +942,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hookstate/vue@^3.0.0-rc.3":
+  version "3.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@hookstate/vue/-/vue-3.0.0-rc.3.tgz#5c73f44f2d0f5b0904558e62d33f9fe8fada8c42"
+  integrity sha512-MbsZ9gNFEPAqdzG17KJe/uwYrTs4EhhUGViNghRrAKzP891tCg248uCBYWRazwXR981YrbLXHL8MZzr/WYhk0g==
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
