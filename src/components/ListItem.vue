@@ -4,8 +4,7 @@
 
 <script>
 export default {
-  props: {
-  },
+  props: {},
   data() {
     return {
       value: "Nehi Grape",
@@ -21,5 +20,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

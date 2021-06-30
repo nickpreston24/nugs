@@ -1,36 +1,18 @@
 <template>
-  <div class="home flex items-center">
-    <ul>
-      <!-- <NugList /> -->
-      <AddBatteries />
-      <!-- <HookStateCounter /> -->
-      <!-- <TailwindCard /> -->
-      <!-- <ChitChatToast /> -->
-      <!-- <Capacitor/> -->
-    </ul>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-// import TailwindCard from "@/components/TailwindCard.vue";
-// import ChitChatToast from "@/components/ChitChatToast.vue";
-import AddBatteries from "@/components/AddBatteries.vue";
-// import Capacitor from "@/components/Capacitor.vue";
-// import NugList from "../components/nugs/NugList.vue";
+<script>
+// @ is an alias to /src
+import HelloWorld from "@/components/HelloWorld.vue";
 
-export default defineComponent({
+export default {
   name: "Home",
   components: {
-    // TailwindCard,
-    // ChitChatToast,
-    // NugList,
-    AddBatteries,
+    HelloWorld,
   },
-  mounted() {
-    console.log(process.env);
-  },
-});
+};
 </script>
-<style scoped>
-</style>
