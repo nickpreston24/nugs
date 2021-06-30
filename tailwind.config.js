@@ -1,4 +1,3 @@
-// const colors = require("tailwindcss/colors");
 
 module.exports = {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
@@ -11,11 +10,6 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
-      // gray: colors.coolGray,
-      // blue: colors.lightBlue,
-      // red: colors.rose,
-      // pink: colors.fuchsia,
-      // green: colors.green,
       transparent: "transparent",
       black: "#000",
       white: "#fff",
