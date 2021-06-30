@@ -1,17 +1,4 @@
 <template>
-  <!-- <div class="chat-notification">
-    <div class="chat-notification-logo-wrapper">
-      <img
-        class="chat-notification-logo"
-        src="../assets/logo.png"
-        alt="ChitChat Logo"
-      />
-    </div>
-    <div class="chat-notification-content">
-      <h4 class="chat-notification-title">ChitChat</h4>
-      <p class="chat-notification-message">You have a new message!</p>
-    </div>
-  </div> -->
   <div
     class="p-6 max-w-sm mx-auto bg-green-300 rounded-xl shadow-md flex items-center space-x-4"
   >

@@ -5,9 +5,6 @@
         {{ index }}. {{ name }}: {{ value }}
       </li>
     </ul>
-
-    <!-- <ul id="3">
-    </ul> -->
   </ul>
 </template>
 
