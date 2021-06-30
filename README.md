@@ -1,4 +1,4 @@
-# nug-nug
+# Nugs Factory!
 
 ## Project setup
 ```
