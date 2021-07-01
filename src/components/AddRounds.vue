@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Add New Rounds</h1>
+    <h1>Add</h1>
     <!-- 
       https://css-tricks.com/centering-in-css/
       https://css-tricks.com/achieving-vertical-alignment-thanks-subgrid/ -->
@@ -29,12 +29,12 @@
         <input v-model="round.Manufacturer" type="text" />
         <label>Manufacturer</label>
       </div>
+
       <span>{{ round }}</span>
-      <!-- <br />
-      <button @click="addBuild">+ Build</button> -->
+      <button v-on:click="addRound">Add Round</button>
+
+      <br />
     </div>
-    <br />
-    <button v-on:click="addRound">[+] Round</button>
   </div>
 </template>
 <style scoped>
@@ -59,13 +59,10 @@ button {
 
 <script>
 import { config } from "../config";
-import { createOrders, createRounds, createBuilds } from "../../api/airtable";
+import { createRounds } from "../../api/airtable";
 export default {
   props: {},
   methods: {
-    async addBuild() {
-      await createBuilds(this.builds);
-    },
     async addRound() {
       await createRounds([
         {
@@ -82,61 +79,8 @@ export default {
   data() {
     return {
       config,
-      round: {},
-      builds: [
-        {
-          Name: "Scarecrow MK I",
-          Reasoning:
-            "For comparison. All custom parts and DIY workmanship.  Each Minor, unregulated Part can wait according to priority.  Cost estimate is VERY W.I.P.",
-          "Parts Included": [
-            "rec7rbeflVZeUBeni",
-            "recpUmGztuIUZwr5L",
-            "recFmNKALgjyVoh1F",
-            "recKHH1q1KbQzngYt",
-            "recev397VEIbcof9N",
-            "recOkTQ8jR5Yo7PMA",
-            "reckWJIdETh3fsEUS",
-            "recBCnARpgnCj0rYu",
-            "recUWLNdhWaNWdrmx",
-            "recRoodpz9x8Cl9vz",
-            "recAIjKjympEEN7Y9",
-            "rec3iyzJli7Q3a063",
-          ],
-          Caliber: ["5.56 NATO"],
-          Users: ["Nick"],
-          Status: ["Complete"],
-          "Orders 2": ["recTMlhhcQCI0Y5hS"],
-        },
-        {
-          Name: "Virtus Ghost",
-          "Parts Included": [
-            "recXx2gFplVhrki1g",
-            "recpUmGztuIUZwr5L",
-            "recn1182VLloKBAHD",
-            "recFmNKALgjyVoh1F",
-            "rec7rbeflVZeUBeni",
-          ],
-        },
-      ],
-      orders: [
-        {
-          fields: {
-            Cart: ["recFQ63Pgm7IbQQEz"],
-            "Buy?": true,
-            "Count Desired": 1,
-          },
-        },
-        {
-          fields: {
-            Cart: ["recWCRM1cS8VZxrv3"],
-            "Count Desired": 1,
-          },
-        },
-      ],
+      round: {}, //form
     };
-  },
-  async mounted() {
-    console.log(`orders`, this.orders);
   },
 };
 </script>
