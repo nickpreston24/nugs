@@ -1,88 +1,142 @@
 <template>
   <div>
-    <h1>Add Rounds</h1>
-
-    <div action="" style="display:flex align:center">
-      <ul>
+    <h1>Add New Rounds</h1>
+    <!-- 
+      https://css-tricks.com/centering-in-css/
+      https://css-tricks.com/achieving-vertical-alignment-thanks-subgrid/ -->
+    <div class="gentle-flex">
+      <div>
+        <input v-model="round.Name" type="text" />
         <label>Name</label>
-        <br /><input v-model="round.Name" type="text" />
-        <br /><label>Grain</label>
-        <br /><input v-model="round.Grain" type="text" />
-        <br /><label>Muzzle Velocity</label>
-        <br /><input v-model="round['Muzzle Velocity']" type="text" />
-        <br /><label>Found</label>
-        <br /><input v-model="Found" type="text" />
-        <br /><label>Diameter</label>
-        <br /><input v-model="Diameter" type="text" />
-        <br /><label>Manufacturer</label>
-        <br /><input v-model="Manufacturer" type="text" />
-        <br />
-        <span>{{ round }}</span>
-        <br />
-        <button v-on:click="AddRounds">Submit</button>
-      </ul>
+      </div>
+      <div>
+        <input v-model="round.Grain" type="text" />
+        <label>Grain</label>
+      </div>
+      <div>
+        <input v-model="round['Muzzle Velocity']" type="text" />
+        <label>Muzzle Velocity</label>
+      </div>
+      <div>
+        <input v-model="round.Found" type="text" />
+        <label>Found</label>
+      </div>
+      <div>
+        <input v-model="round.Diameter" type="text" />
+        <label>Diameter</label>
+      </div>
+      <div>
+        <input v-model="round.Manufacturer" type="text" />
+        <label>Manufacturer</label>
+      </div>
+      <span>{{ round }}</span>
+      <!-- <br />
+      <button @click="addBuild">+ Build</button> -->
     </div>
-
-    <!-- <div v-bind="record">
-      <ul>
-        <li>{{ Name }}</li>
-        <li>{{ Id }}</li>
-      </ul>
-    </div> -->
+    <br />
+    <button v-on:click="addRound">[+] Round</button>
   </div>
 </template>
 <style scoped>
 label {
-  color: #a45;
+  padding: 1rem;
+  font-weight: 500;
 }
+
 input {
-  background: #a45;
-  color: limegreen;
+  background: #42b983;
+  color: #eee;
+  font-weight: inherit;
 }
+
 button {
-  background: steelblue;
-  box-shadow: turquoise;
+  box-shadow: #aaa;
+  color: #42b983;
+  padding: 1rem;
+  font-weight: 700;
 }
 </style>
 
 <script>
 import { config } from "../config";
-import { createOrder, createRound, Round } from "../../api/airtable";
+import { createOrders, createRounds, createBuilds } from "../../api/airtable";
 export default {
+  props: {},
   methods: {
-    async AddRounds() {
-      console.log(`this.round`, this.round);
-      console.log(`this.round.Name`, this.round.Name)
-      console.log(`this.round (keys)`, Object.keys( this.round))
-      // alert("added");
-      await createRound([{ Name: "Test ammo" }]);
+    async addBuild() {
+      await createBuilds(this.builds);
+    },
+    async addRound() {
+      await createRounds([
+        {
+          ...this.round,
+
+          // Idea: there's gotta be a way to automate this:
+          Grain: parseFloat(this.round.Grain),
+          Diameter: parseFloat(this.round.Diameter),
+          "Muzzle Velocity": parseFloat(this.round["Muzzle Velocity"]),
+        },
+      ]);
     },
   },
   data() {
     return {
-      customerName: "",
       config,
-      // round: Round = {},
-      round: {}
+      round: {},
+      builds: [
+        {
+          Name: "Scarecrow MK I",
+          Reasoning:
+            "For comparison. All custom parts and DIY workmanship.  Each Minor, unregulated Part can wait according to priority.  Cost estimate is VERY W.I.P.",
+          "Parts Included": [
+            "rec7rbeflVZeUBeni",
+            "recpUmGztuIUZwr5L",
+            "recFmNKALgjyVoh1F",
+            "recKHH1q1KbQzngYt",
+            "recev397VEIbcof9N",
+            "recOkTQ8jR5Yo7PMA",
+            "reckWJIdETh3fsEUS",
+            "recBCnARpgnCj0rYu",
+            "recUWLNdhWaNWdrmx",
+            "recRoodpz9x8Cl9vz",
+            "recAIjKjympEEN7Y9",
+            "rec3iyzJli7Q3a063",
+          ],
+          Caliber: ["5.56 NATO"],
+          Users: ["Nick"],
+          Status: ["Complete"],
+          "Orders 2": ["recTMlhhcQCI0Y5hS"],
+        },
+        {
+          Name: "Virtus Ghost",
+          "Parts Included": [
+            "recXx2gFplVhrki1g",
+            "recpUmGztuIUZwr5L",
+            "recn1182VLloKBAHD",
+            "recFmNKALgjyVoh1F",
+            "rec7rbeflVZeUBeni",
+          ],
+        },
+      ],
+      orders: [
+        {
+          fields: {
+            Cart: ["recFQ63Pgm7IbQQEz"],
+            "Buy?": true,
+            "Count Desired": 1,
+          },
+        },
+        {
+          fields: {
+            Cart: ["recWCRM1cS8VZxrv3"],
+            "Count Desired": 1,
+          },
+        },
+      ],
     };
   },
   async mounted() {
-    // let orders = [
-    //   {
-    //     fields: {
-    //       Cart: ["recFQ63Pgm7IbQQEz"],
-    //       "Buy?": true,
-    //       "Count Desired": 1,
-    //     },
-    //   },
-    //   {
-    //     fields: {
-    //       Cart: ["recWCRM1cS8VZxrv3"],
-    //       "Count Desired": 1,
-    //     },
-    //   },
-    // ];
-    // await createOrder(orders);
+    console.log(`orders`, this.orders);
   },
 };
 </script>

@@ -127,7 +127,7 @@
                     rounded-full
                     mx-auto
                   "
-                  src="../assets/mikepreston.jpg"
+                  src="../../assets/mikepreston.jpg"
                   alt=""
                   width="384"
                   height="512"
