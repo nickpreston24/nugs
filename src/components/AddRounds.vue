@@ -1,37 +1,20 @@
 <template>
   <div>
-    <h1>Add</h1>
     <!-- 
       https://css-tricks.com/centering-in-css/
       https://css-tricks.com/achieving-vertical-alignment-thanks-subgrid/ -->
     <div class="gentle-flex">
-      <div>
-        <input v-model="round.Name" type="text" />
-        <label>Name</label>
-      </div>
-      <div>
-        <input v-model="round.Grain" type="text" />
-        <label>Grain</label>
-      </div>
-      <div>
-        <input v-model="round['Muzzle Velocity']" type="text" />
-        <label>Muzzle Velocity</label>
-      </div>
-      <div>
-        <input v-model="round.Found" type="text" />
-        <label>Found</label>
-      </div>
-      <div>
-        <input v-model="round.Diameter" type="text" />
-        <label>Diameter</label>
-      </div>
-      <div>
-        <input v-model="round.Manufacturer" type="text" />
-        <label>Manufacturer</label>
-      </div>
+      <!-- DYNAMICALLY GENERATED FORM!!! -->
+      <ul class="gentle-flex">
+        <li v-for="(value, key, index) in round" :key="index">
+          <!-- <label v-bind:[key]="something">{{ key }}: </label> -->
+          <input v-model="round[key]" type="text" v-bind:placeholder="key" />
+        </li>
+      </ul>
 
-      <span>{{ round }}</span>
-      <button v-on:click="addRound">Add Round</button>
+      <span v-if="devmode">{{ { ...round, force, wound } }}</span>
+
+      <button v-show="ready" v-on:click="addRound">Add Round</button>
 
       <br />
     </div>
@@ -44,8 +27,8 @@ label {
 }
 
 input {
-  background: #42b983;
-  color: #eee;
+  border: 2px solid #42b983;
+  border-radius: 0% 50% 50% 0%;
   font-weight: inherit;
 }
 
@@ -60,8 +43,9 @@ button {
 <script>
 import { config } from "../config";
 import { createRounds } from "../../api/airtable";
+import { hasEmptyValues } from "../helpers/generators";
 export default {
-  props: {},
+  watch: {},
   methods: {
     async addRound() {
       await createRounds([
@@ -71,7 +55,7 @@ export default {
           // Idea: there's gotta be a way to automate this:
           Grain: parseFloat(this.round.Grain),
           Diameter: parseFloat(this.round.Diameter),
-          "Muzzle Velocity": parseFloat(this.round["Muzzle Velocity"]),
+          MuzzleVelocity: parseFloat(this.round.MuzzleVelocity),
         },
       ]);
     },
@@ -79,8 +63,33 @@ export default {
   data() {
     return {
       config,
-      round: {}, //form
+      round: {
+        Name: "",
+        Diameter: 0.224,
+        Grain: 70,
+        MuzzleVelocity: 2975,
+      },
     };
+  },
+  mounted() {
+    console.log(`round`, this.round);
+  },
+  computed: {
+    
+    ready() {
+      if (!this) return false;
+      return !hasEmptyValues(this.round);
+    },
+    // a computed getter
+    force() {
+      if (!this || !this.round) return 0;
+
+      // console.log(`this`, this);
+      // let { MuzzleVelocity: mv, Diameter: d } = this.round;
+      // console.log(`rpops`, mv, d);
+      // console.log(`n`, typeof this.round);
+      return 1;
+    },
   },
 };
 </script>

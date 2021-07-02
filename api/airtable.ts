@@ -2,11 +2,11 @@ import * as Airtable from 'airtable'
 
 export type Order = {
     Cart: [],
-    "Buy?": boolean,
+    Buy: boolean,
     "Count Desired": 0,
 }
 
-export type Round = {
+export interface IRound {
     Name: "",
     Grain: 0,
     "Muzzle Velocity": 0,
@@ -14,6 +14,29 @@ export type Round = {
     "Caliber": "",
     "Manufacturer": "",
     "Diameter": 0.0
+}
+
+export type RoundType = {
+    Name: "",
+    Grain: 0,
+    "Muzzle Velocity": 0,
+    "Found": "",
+    "Caliber": "",
+    "Manufacturer": "",
+    "Diameter": 0.0
+}
+
+export class Round implements IRound {
+    constructor(props) {
+        Object.assign(this, props)
+    }
+    Name: '';
+    Grain: 0;
+    "Muzzle Velocity": 0;
+    "Found": '';
+    "Caliber": '';
+    "Manufacturer": '';
+    "Diameter": 0;
 }
 
 export type Build = {
@@ -82,6 +105,7 @@ const get = async (baseName: string = null, id = null) => {
 }
 
 export const createRounds = async (rounds: Round[]) => {
+    console.log(`rounds`, rounds)
     create("Rounds", rounds)
 }
 

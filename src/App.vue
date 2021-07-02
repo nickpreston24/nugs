@@ -8,12 +8,27 @@
 
 <style global>
 
+/* No hover borders */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+/* Auto-center component and contents */
 .gentle-flex {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1ch;
+}
+
+.bullet-border {
+  border: 2px solid #42b983;
+  border-radius: 0% 50% 50% 0%;
+  outline: none;
 }
 
 #app {
