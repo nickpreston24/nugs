@@ -1,4 +1,5 @@
 import * as Airtable from 'airtable'
+import { devmode } from './../src/helpers/generators';
 
 export type Order = {
     Cart: [],
@@ -47,7 +48,7 @@ const base = new Airtable({ apiKey: "keyl5Wo5ETa4HR4tt" }).base(
     "app33DDBeyXEGRflo"
 );
 
-const create = async (baseName: string = null, items = []) => {
+export const create = async (baseName: string = null, items = []) => {
 
     const collection = items.map(i => {
         return {
@@ -105,11 +106,12 @@ const get = async (baseName: string = null, id = null) => {
 }
 
 export const createRounds = async (rounds: Round[]) => {
-    console.log(`rounds`, rounds)
+    devmode && console.log(`rounds`, rounds)
     create("Rounds", rounds)
 }
 
 export const createOrders = async (orders: Order[]) => {
+    devmode && console.log(`orders`, orders)
     create("Orders", orders)
 }
 

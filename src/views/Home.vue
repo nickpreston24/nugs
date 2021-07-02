@@ -35,6 +35,7 @@
 
     <!-- Todo: Once the form is created for each of these pages, refactor both view and form -->
     <div id="orders-page" v-if="showOrders">
+      <!-- <add-orders /> -->
       <div id="orders-view">
         <h2>Orders</h2>
         <i>Below are the current orders</i>
@@ -51,6 +52,7 @@
     </div>
 
     <div id="builds-page" v-if="showBuilds">
+      <add-builds />
       <div id="builds-view">
         <h2>Builds</h2>
         <i>Below are full sample builds</i>
@@ -67,6 +69,7 @@
     </div>
 
     <div id="parts-page" v-if="showParts">
+      <add-parts />
       <div id="parts-view">
         <h2>Recommended Parts</h2>
         <ul style="color: red">
@@ -88,6 +91,9 @@
 
 <script>
 import AddRounds from "@/components/AddRounds.vue";
+import AddBuilds from "../components/AddBuilds.vue";
+import AddOrders from "../components/AddOrders.vue";
+import AddParts from "../components/AddParts.vue";
 
 export default {
   data() {
@@ -102,6 +108,9 @@ export default {
   name: "Home",
   components: {
     AddRounds,
+    AddBuilds,
+    AddParts,
+    // AddOrders,  // todo: make an UpdateOrdders view
   },
 };
 </script>

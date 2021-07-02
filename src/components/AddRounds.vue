@@ -8,9 +8,9 @@
 
       <auto-form title="Pop!" v-bind:schema="round" />
       <reversed-list :list="list" />
-      <ul v-show="false" class="gentle-flex">
+      <!-- <ul v-show="false" class="gentle-flex">
         <li v-for="(value, key, index) in round" :key="index">
-          <!-- <label v-bind:[key]="something">{{ key }}: </label> -->
+          <label v-bind:[key]="something">{{ key }}: </label>
           <input
             class="bullet-border"
             v-model="round[key]"
@@ -18,7 +18,7 @@
             v-bind:placeholder="key"
           />
         </li>
-      </ul>
+      </ul> -->
 
       <span v-if="devmode">{{ { ...round } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
@@ -55,7 +55,6 @@ export default {
   components: { AutoForm, ReversedList },
   methods: {
     async addRound() {
-      this.clear();
       await createRounds([
         {
           ...this.round,
@@ -66,6 +65,7 @@ export default {
           MuzzleVelocity: parseFloat(this.round.MuzzleVelocity),
         },
       ]);
+      this.clear();
     },
     clear() {
       this.round = {};
