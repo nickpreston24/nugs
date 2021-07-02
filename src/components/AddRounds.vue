@@ -43,7 +43,7 @@ button {
 <script>
 import { config } from "../config";
 import { createRounds } from "../../api/airtable";
-import { hasEmptyValues } from "../helpers/generators";
+import { hasEmptyValues, devmode } from "../helpers/generators";
 export default {
   watch: {},
   methods: {
@@ -63,6 +63,7 @@ export default {
   data() {
     return {
       config,
+      devmode,
       round: {
         Name: "",
         Diameter: 0.224,
@@ -75,7 +76,6 @@ export default {
     console.log(`round`, this.round);
   },
   computed: {
-    
     ready() {
       if (!this) return false;
       return !hasEmptyValues(this.round);
