@@ -7,13 +7,18 @@
 </template>
 
 <style global>
-
 /* No hover borders */
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
   outline: none;
+}
+
+label {
+  padding: 1rem;
+  font-weight: 500;
+  color: #42b983;
 }
 
 /* Auto-center component and contents */

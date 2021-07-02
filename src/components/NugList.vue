@@ -6,7 +6,6 @@
 
 <script>
 import axios from "axios";
-// import * from '@/helpers/cors.js'
 export default {
   data() {
     return {
