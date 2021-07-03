@@ -2,10 +2,20 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <router-link v-if="devmode" to="/sandbox"> | Sandbox</router-link>
   </div>
   <router-view />
 </template>
-
+<script>
+import { devmode } from "./helpers/generators";
+export default {
+  data() {
+    return {
+      devmode,
+    };
+  },
+};
+</script>
 <style global>
 /* No hover borders */
 input:focus,

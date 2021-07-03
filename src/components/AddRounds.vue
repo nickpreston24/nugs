@@ -7,7 +7,7 @@
       <!-- DYNAMICALLY GENERATED FORM!!! -->
 
       <auto-form title="Pop!" v-bind:schema="round" />
-      <reversed-list :list="list" />
+      <!-- <reversed-list :list="list" /> -->
       <!-- <ul v-show="false" class="gentle-flex">
         <li v-for="(value, key, index) in round" :key="index">
           <label v-bind:[key]="something">{{ key }}: </label>
@@ -50,9 +50,9 @@ import { config } from "../config";
 import { createRounds } from "../../api/airtable";
 import { hasEmptyValues, devmode } from "../helpers/generators";
 import AutoForm from "./molecules/AutoForm.vue";
-import ReversedList from "./examples/ReversedList.vue";
 export default {
-  components: { AutoForm, ReversedList },
+  props: {},
+  components: { AutoForm },
   methods: {
     async addRound() {
       await createRounds([

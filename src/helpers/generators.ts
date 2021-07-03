@@ -1,40 +1,23 @@
-export const formScaffolder = (myCustomTypeToMakeIntoAForm: any) => {
-    // idk how to go about this, but it would be nice 
-    // to scaffold out a form by type while keeping all vuejs based events and props.
-    // e.g. a string field would auto to <input/>,
-    // a number fields would auto to a slider or by default the classic Counter example.
-    return null
-
-}
-
-export const typeScaffolder = (myURLWithContentToMakeIntoADynamicClass: string) => {
-    //Think of your DynamicXML library, but for JS.
-    return null
-
-}
-
-export const airtableFormScaffodler = (obj: any) => {
-    // Take a db object and generate a form based on the Airtable types.
-    return null
-}
-
-/**
- * Enforces type safety when seeking a prop of a type by its name
- * Usage:
- * 
-const test = { Name: "hi" } as MyType
-console.log(`prop`, prop(test, "id"))
-
-type MyType = {
-    Name: string,
-    Age: number
-}
-
-// Should give an error
+/* Should give an error when the specified key is not the correct type.
  */
 export function prop<T, K extends keyof T>(obj: T, key: K) {
     return obj[key];
 }
+
+/*
+* Found: https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
+* Usage: type Person = yup.InferType<typeof personSchema>;
+*/
+// export const infer = <T>(schema: any) => { }
+// export function infer(schema: any) {
+//     return yup.InferType<typeof schema>;
+// }
+
+// type ValidationReturnType = string | boolean;
+
+// function isEqual(number1: number, number2: number): ValidationReturnType {
+//     return number1 == number2 ? true : 'Numbers are not equal.';
+// }
 
 /**
  * Checks the type of an object casted to said type.
@@ -62,3 +45,37 @@ const lorems = [
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta sapiente distinctio culpa sed voluptatibus voluptates rem dolore molestias placeat! A exercitationem maxime est sapiente accusamus perferendis qui odio maiores at!",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque eveniet modi, ex veniam architecto repellendus pariatur magnam expedita fugit necessitatibus accusamus culpa laudantium repudiandae ea, natus quis vitae laborum aliquid?",
 ]
+
+
+// export const formScaffolder = (myCustomTypeToMakeIntoAForm: any) => {
+//     // idk how to go about this, but it would be nice 
+//     // to scaffold out a form by type while keeping all vuejs based events and props.
+//     // e.g. a string field would auto to <input/>,
+//     // a number fields would auto to a slider or by default the classic Counter example.
+//     return null
+
+// }
+
+// export const typeScaffolder = (myURLWithContentToMakeIntoADynamicClass: string) => {
+//     //Think of your DynamicXML library, but for JS.
+//     return null
+
+// }
+
+// export const airtableFormScaffodler = (obj: any) => {
+//     // Take a db object and generate a form based on the Airtable types.
+//     return null
+// }
+
+/**
+ * Enforces type safety when seeking a prop of a type by its name
+ * Usage:
+ *
+const test = { Name: "hi" } as MyType
+console.log(`prop`, prop(test, "id"))
+
+type MyType = {
+    Name: string,
+    Age: number
+ }
+*/

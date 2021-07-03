@@ -92,7 +92,6 @@
 <script>
 import AddRounds from "@/components/AddRounds.vue";
 import AddBuilds from "../components/AddBuilds.vue";
-import AddOrders from "../components/AddOrders.vue";
 import AddParts from "../components/AddParts.vue";
 
 export default {
