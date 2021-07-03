@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <type-casting />
+
     <ul class="gentle-flex">
       <button v-on:click="showRounds = !showRounds">
         {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
@@ -91,8 +93,9 @@
 
 <script>
 import AddRounds from "@/components/AddRounds.vue";
-import AddBuilds from "../components/AddBuilds.vue";
-import AddParts from "../components/AddParts.vue";
+import AddBuilds from "@/components/AddBuilds.vue";
+import AddParts from "@/components/AddParts.vue";
+import TypeCasting from '@/components/examples/TypeCasting.vue'
 
 export default {
   data() {
@@ -109,6 +112,7 @@ export default {
     AddRounds,
     AddBuilds,
     AddParts,
+    TypeCasting,
     // AddOrders,  // todo: make an UpdateOrdders view
   },
 };

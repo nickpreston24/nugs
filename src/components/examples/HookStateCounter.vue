@@ -13,7 +13,6 @@ export default {
       state: useState(0),
     };
   },
-
   methods: {
     increment() {
       this.state.set((p) => p + 1);
