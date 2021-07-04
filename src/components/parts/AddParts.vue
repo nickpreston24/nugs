@@ -32,7 +32,7 @@ import {
   devmode,
   randomInt,
   randomName,
-  randomBoolean,
+  randomFloat,
   randomParagraph,
 } from "../../helpers/generators";
 export default {
@@ -50,7 +50,7 @@ export default {
         Cost: randomInt(3000),
         Link: "example.com",
         Notes: randomParagraph(),
-        Weight: parseFloat(randomInt(7 * 16.0).toFixed(2)), // idk why it won't work
+        Weight: randomFloat(7 * 16),
       };
       this.part = fake;
     },

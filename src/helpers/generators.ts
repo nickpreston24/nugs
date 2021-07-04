@@ -35,6 +35,7 @@ export const devmode = () => process.env.NODE_ENV === "development";
 
 /**Random Int */
 export const randomBoolean = () => Math.random() > .5
+export const randomFloat = (limit = 1) => parseFloat(randomInt(limit).toFixed(2))
 export const randomInt = (limit: number) => Math.ceil(Math.random() * limit)
 export const randomName = (prefix: string, postFix: string, limit = 100) => `${prefix} ${randomInt(limit)} ${postFix}`;
 export const randomParagraph = () => lorems[randomInt(lorems.length + 1)]

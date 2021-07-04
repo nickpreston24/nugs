@@ -1,17 +1,17 @@
 <template>
   <card>
-    <template>
-      <h2>{{ title }}</h2>
-    </template>
-    <!-- <template v-slot:header>
+    <!-- <template>
       <h2>{{ title }}</h2>
     </template> -->
-    <!-- <template v-slot:default>
+    <template v-slot:header>
+      <h2>{{ title }}</h2>
+    </template>
+    <template v-slot:default>
       <img src="https://picsum.photos/0" />
     </template>
     <template v-slot:footer>
       <button>Show Details</button>
-    </template> -->
+    </template>
   </card>
 </template>
 
