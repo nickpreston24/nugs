@@ -16,11 +16,13 @@ export const create = async (baseName: string = null, items = []) => {
         }
     }) as any
 
+    devmode && console.log(`collection`, collection)
+
     base(baseName).create(
         collection,
         (err, records) => {
             if (err) {
-                console.error(err);
+                console.error('ERROR: ', err);
                 return;
             }
             records.forEach((record) => {
@@ -86,22 +88,6 @@ export const get = async (baseName: string = null, id = null) => {
         console.log('Retrieved ', record.id)
     })
 }
-
-// export const createRounds = async (rounds: Round[]) => {
-//     devmode && console.log(`rounds`, rounds)
-//     create("Rounds", rounds)
-// }
-
-// export const createOrders = async (orders: Order[]) => {
-//     devmode && console.log(`orders`, orders)
-//     create("Orders", orders)
-// }
-
-// export const createBuilds = async (builds: Build[]) => {
-//     // console.log(`builds to create :>>`, builds)
-//     create("Builds", builds)
-// }
-
 
 // export type Order = {
 //     Cart: [],

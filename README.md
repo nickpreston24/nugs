@@ -1,24 +1,13 @@
 # Nugs Factory!
 
-## Project setup
-```
-yarn install
-```
+# Fixes :bug:
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
+- [x] Disable all lorems in prod.
+- [x] Fix all CREATE forms.
+- [ ] Add and test all findAll methods.
+- [ ] Finish basic cards.
+- [ ] Add image upload xor link support
+- [ ] Add Yup validation to each form -- allow only valid data to turn on the Submit buttons.
 
 # Nice to Have:
 
@@ -30,3 +19,8 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+# Notes
+
+> Go ahead!  Build your Budget Blaster, Dream DMR or Hunting 

@@ -3,7 +3,7 @@
     <div class="gentle-flex">
       <ul>
         <li v-for="(value, key, index) in build" :key="index">
-          <label v-bind:[key]="something">{{ key }}: </label>
+          <!-- <label v-bind:[key]="N_A">{{ key }}: </label> -->
           <input
             class="bullet-border"
             v-model="build[key]"
@@ -22,29 +22,14 @@
     </div>
   </div>
 </template>
-<style scoped>
-input {
-  border: 2px solid #42b983;
-  border-radius: 0% 50% 50% 0%;
-  font-weight: inherit;
-}
-
-button {
-  box-shadow: #aaa;
-  color: #42b983;
-  padding: 1rem;
-  font-weight: 700;
-  border: #42b983 1px solid;
-}
-</style>
-
 <script>
-import { createBuilds } from "../../../api/airtable";
+import { create } from "../../../api/airtable";
 import { hasEmptyValues, devmode } from "../../helpers/generators";
 export default {
   methods: {
     async addBuild() {
-      await createBuilds([{ ...this.build }]);
+      // await createBuilds([{ ...this.build }]);
+      create("Builds", [{ ...this.build }]);
       this.clear();
     },
     clear() {

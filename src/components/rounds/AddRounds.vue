@@ -29,25 +29,10 @@
     </div>
   </div>
 </template>
-<style scoped>
-input {
-  border: 2px solid #42b983;
-  border-radius: 0% 50% 50% 0%;
-  font-weight: inherit;
-}
-
-button {
-  box-shadow: #aaa;
-  color: #42b983;
-  padding: 1rem;
-  font-weight: 700;
-  border: #42b983 1px solid;
-}
-</style>
 
 <script>
 import { config } from "../../config";
-import { createRounds } from "../../../api/airtable";
+import { create } from "../../../api/airtable";
 import { hasEmptyValues, devmode } from "../../helpers/generators";
 import AutoForm from "../molecules/AutoForm.vue";
 export default {
@@ -55,7 +40,7 @@ export default {
   components: { AutoForm },
   methods: {
     async addRound() {
-      await createRounds([
+      await create("Rounds", [
         {
           ...this.round,
 
@@ -112,7 +97,6 @@ export default {
         (700000 * Math.pow(Diameter, 2))
       ).toFixed(2);
     },
-    // a computed getter
     force() {
       if (!this || !this.round || !this.round.Diameter) return 0;
       const { MuzzleVelocity, Grain } = this.round;

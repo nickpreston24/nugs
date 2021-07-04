@@ -26,6 +26,15 @@ button:focus {
   outline: none;
 }
 
+button {
+  box-shadow: #aaa;
+  color: #42b983;
+  padding: 1rem;
+  font-weight: 700;
+  /* Make a button component in Vue, first */
+  /* border: #42b983 1px solid; */
+}
+
 label {
   padding: 1rem;
   font-weight: 500;
