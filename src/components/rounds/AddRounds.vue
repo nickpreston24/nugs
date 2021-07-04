@@ -46,10 +46,10 @@ button {
 </style>
 
 <script>
-import { config } from "../config";
-import { createRounds } from "../../api/airtable";
-import { hasEmptyValues, devmode } from "../helpers/generators";
-import AutoForm from "./molecules/AutoForm.vue";
+import { config } from "../../config";
+import { createRounds } from "../../../api/airtable";
+import { hasEmptyValues, devmode } from "../../helpers/generators";
+import AutoForm from "../molecules/AutoForm.vue";
 export default {
   props: {},
   components: { AutoForm },

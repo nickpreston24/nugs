@@ -1,17 +1,22 @@
 <template>
-  <div>
+  <ul class="gentle-flex">
     <yup-login />
-    <!-- <h1>Casting TS types from Yup schemas</h1>
-    <label for="">person: </label>
-    <span>{{ person }}</span>
-    <i>{{ isPersonValid }}</i> -->
-  </div>
+  </ul>
 </template>
 
 <script lang='ts'>
-import { Book } from "./types";
-import { Person, personSchema } from "../../helpers/yup";
-import YupLogin from "./YupLogin.vue";
+import YupLogin from "../../views/SignIn.vue";
+import * as yup from "yup";
+
+export const personSchema = yup.object({
+  firstName: yup.string(),
+  nickName: yup.string().nullable(),
+  email: yup.string().nullable().notRequired().email(),
+  birthDate: yup.date().nullable().notRequired().min(new Date(1900, 0, 1)),
+});
+
+export type Person = yup.InferType<typeof personSchema>;
+
 export default {
   components: { YupLogin },
   data() {
@@ -24,7 +29,7 @@ export default {
         title: "Vue 3 Guide",
         author: "Vue Team",
         year: 2020,
-      } as Book,
+      }// as Book,
     };
   },
   // computed: {

@@ -1,7 +1,6 @@
 <template>
   <div class="gentle-flex">
     <form class="login-form" @submit.prevent="loginUser">
-      <h2>Login</h2>
       <form-input
         label="Email"
         v-model="values.email"
@@ -25,7 +24,7 @@
 
 <script>
 import * as yup from "yup";
-import FormInput from "../examples/FormInput.vue";
+import FormInput from "@/components/atoms/FormInput.vue";
 
 const loginFormSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -74,7 +73,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style>
 .login-form {
   max-width: 400px;
   width: 100%;

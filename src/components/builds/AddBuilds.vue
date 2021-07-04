@@ -39,8 +39,8 @@ button {
 </style>
 
 <script>
-import { createBuilds } from "../../api/airtable";
-import { hasEmptyValues, devmode } from "../helpers/generators";
+import { createBuilds } from "../../../api/airtable";
+import { hasEmptyValues, devmode } from "../../helpers/generators";
 export default {
   methods: {
     async addBuild() {

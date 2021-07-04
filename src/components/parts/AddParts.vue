@@ -39,7 +39,7 @@ button {
 </style>
 
 <script>
-import { create } from "../../api/airtable";
+import { create } from "../../../api/airtable";
 import {
   hasEmptyValues,
   devmode,
@@ -47,7 +47,7 @@ import {
   randomName,
   randomBoolean,
   randomParagraph,
-} from "../helpers/generators";
+} from "../../helpers/generators";
 export default {
   methods: {
     async addPart() {
@@ -64,7 +64,7 @@ export default {
         Cost: randomInt(3000),
         Link: "example.com",
         Notes: randomParagraph(),
-        // Weight: randomInt(7 * 16.0).toFixed(2), // idk why it won't work
+        Weight: randomInt(7 * 16.0).toFixed(2), // idk why it won't work
         Bought: randomBoolean(),
       };
       this.part = fake;

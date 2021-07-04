@@ -1,21 +1,4 @@
-import * as yup from 'yup'
-
-export const personSchema = yup.object({
-    firstName: yup.string(),
-    nickName: yup.string().nullable(),
-    email: yup
-        .string()
-        .nullable()
-        .notRequired()
-        .email(),
-    birthDate: yup
-        .date()
-        .nullable()
-        .notRequired()
-        .min(new Date(1900, 0, 1))
-});
-
-export type Person = yup.InferType<typeof personSchema>;
+// import * as yup from 'yup'
 
 // Wonder if we can cast arbitrary db types to a schema without static definitions?
 

@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <type-casting />
-
     <ul class="gentle-flex">
       <button v-on:click="showRounds = !showRounds">
         {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
@@ -72,7 +70,8 @@
 
     <div id="parts-page" v-if="showParts">
       <add-parts />
-      <div id="parts-view">
+
+      <!-- <div id="parts-view">
         <h2>Recommended Parts</h2>
         <ul style="color: red">
           <li><b>NOTE: Group by Build</b></li>
@@ -86,16 +85,15 @@
           height="533"
           style="background: transparent; border: 1px solid #ccc"
         ></iframe>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import AddRounds from "@/components/AddRounds.vue";
-import AddBuilds from "@/components/AddBuilds.vue";
-import AddParts from "@/components/AddParts.vue";
-import TypeCasting from '@/components/examples/TypeCasting.vue'
+import AddRounds from "@/components/rounds/AddRounds.vue";
+import AddBuilds from "@/components/builds/AddBuilds.vue";
+import AddParts from "@/components/parts/AddParts.vue";
 
 export default {
   data() {
@@ -112,7 +110,6 @@ export default {
     AddRounds,
     AddBuilds,
     AddParts,
-    TypeCasting,
     // AddOrders,  // todo: make an UpdateOrdders view
   },
 };
