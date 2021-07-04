@@ -71,7 +71,7 @@
     <div id="parts-page" v-if="showParts">
       <add-parts />
 
-      <div id="parts-view">
+      <!-- <div id="parts-view">
         <h2>Recommended Parts</h2>
         <ul style="color: red">
           <li><b>NOTE: Group by Build</b></li>
@@ -85,7 +85,7 @@
           height="533"
           style="background: transparent; border: 1px solid #ccc"
         ></iframe>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

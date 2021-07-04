@@ -36,9 +36,6 @@ import {
   randomParagraph,
 } from "../../helpers/generators";
 export default {
-  mounted() {
-    console.log(`devmode?`, devmode);
-  },
   methods: {
     async addPart() {
       await create("Parts", [{ ...this.part }]);
@@ -50,18 +47,18 @@ export default {
     lorem() {
       let fake = {
         Name: randomName("ACME", "Upper Receiver", 10),
-        Cost: randomFloat(3000),  
+        Cost: randomFloat(3000),
         Link: "example.com",
         Notes: randomParagraph(),
         Weight: randomFloat(7 * 16),
       };
-      console.log(`fake`, fake)
+      console.log(`fake`, fake);
       this.part = fake;
     },
   },
   data() {
     return {
-      devmode,
+      devmode: devmode,
 
       part: {
         Name: null,

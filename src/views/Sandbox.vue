@@ -1,5 +1,6 @@
 <template>
   <div v-if="devmode" class="sandbox gentle-flex">
+    <h1>Sandbox</h1>
     <!-- Props passing attempt 1 -->
     <div v-for="part in parts" v-bind:key="part.id">
       <card>
@@ -59,6 +60,7 @@ export default {
         { id: 3, title: "Why Vue is so fun" },
       ],
       result: [],
+      devmode: devmode,
     };
   },
   mounted() {
