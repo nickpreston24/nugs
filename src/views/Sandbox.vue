@@ -1,5 +1,5 @@
 <template>
-  <div class="sandbox gentle-flex">
+  <div v-if="devmode" class="sandbox gentle-flex">
     <!-- Props passing attempt 1 -->
     <div v-for="part in parts" v-bind:key="part.id">
       <card>

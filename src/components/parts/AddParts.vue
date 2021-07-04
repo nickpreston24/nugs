@@ -13,7 +13,7 @@
         </li>
       </ul>
 
-      <span v-if="devmode">{{ { ...part } }}</span>
+      <span v-show="devmode">{{ { ...part } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
       <label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</label>
       <button v-show="ready" v-on:click="addPart">Add Part</button>
@@ -36,10 +36,13 @@ import {
   randomParagraph,
 } from "../../helpers/generators";
 export default {
+  mounted() {
+    console.log(`devmode?`, devmode);
+  },
   methods: {
     async addPart() {
       await create("Parts", [{ ...this.part }]);
-      // this.clear();
+      this.clear();
     },
     clear() {
       this.part = {};
@@ -47,7 +50,7 @@ export default {
     lorem() {
       let fake = {
         Name: randomName("ACME", "Upper Receiver", 10),
-        Cost: randomInt(3000),
+        Cost: randomFloat(3000),
         Link: "example.com",
         Notes: randomParagraph(),
         Weight: randomFloat(7 * 16),
