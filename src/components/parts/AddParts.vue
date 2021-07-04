@@ -50,11 +50,12 @@ export default {
     lorem() {
       let fake = {
         Name: randomName("ACME", "Upper Receiver", 10),
-        Cost: randomFloat(3000),
+        Cost: randomFloat(3000),  
         Link: "example.com",
         Notes: randomParagraph(),
         Weight: randomFloat(7 * 16),
       };
+      console.log(`fake`, fake)
       this.part = fake;
     },
   },

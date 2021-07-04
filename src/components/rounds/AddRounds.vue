@@ -6,7 +6,7 @@
     <div class="gentle-flex">
       <!-- DYNAMICALLY GENERATED FORM!!! -->
 
-      <auto-form title="Pop!" v-bind:schema="round" />
+      <auto-form title="Pop!" v-model="round" />
       <!-- <reversed-list :list="list" /> -->
       <!-- <ul v-show="false" class="gentle-flex">
         <li v-for="(value, key, index) in round" :key="index">

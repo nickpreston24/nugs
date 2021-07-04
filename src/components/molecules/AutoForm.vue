@@ -10,7 +10,7 @@
           @input="$emit('update:value', $event.target.value)"
           :value="value"
           type="text"
-          v-bind:placeholder="key"
+          v-mode:placeholder="key"
         />
       </li>
     </ul>
