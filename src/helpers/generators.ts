@@ -28,7 +28,8 @@ export const identity = <T>(x: T) => x
 
 
 /**Check for any unassigned values */
-export const hasEmptyValues = (obj: any) => !!obj && Object.values(obj).some((v) => v === null || v === undefined)
+export const isEmpty = (obj: any) => !obj || obj === {} || Object.values(obj).every((v) => v === null || v === undefined || v === [] || v === {} || v === "")
+// export const isFull = (obj: any) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
 
 /*Environment*/
 export const devmode = () => process.env.NODE_ENV === "development";

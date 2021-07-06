@@ -5,12 +5,9 @@
       https://css-tricks.com/achieving-vertical-alignment-thanks-subgrid/ -->
     <div class="gentle-flex">
       <!-- DYNAMICALLY GENERATED FORM!!! -->
-
-      <auto-form title="Pop!" v-model="round" />
-      <!-- <reversed-list :list="list" /> -->
-      <!-- <ul v-show="false" class="gentle-flex">
+      <ul class="gentle-flex">
         <li v-for="(value, key, index) in round" :key="index">
-          <label v-bind:[key]="something">{{ key }}: </label>
+          <!-- <label v-bind:[key]="something">{{ key }}: </label> -->
           <input
             class="bullet-border"
             v-model="round[key]"
@@ -18,7 +15,7 @@
             v-bind:placeholder="key"
           />
         </li>
-      </ul> -->
+      </ul>
 
       <span v-if="devmode">{{ { ...round } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
@@ -33,11 +30,9 @@
 <script>
 import { config } from "../../config";
 import { create } from "../../../api/airtable";
-import { hasEmptyValues, devmode } from "../../helpers/generators";
+import { isEmpty, devmode } from "../../helpers/generators";
 import AutoForm from "../molecules/AutoForm.vue";
 export default {
-  props: {},
-  components: { AutoForm },
   methods: {
     async addRound() {
       await create("Rounds", [
@@ -69,7 +64,7 @@ export default {
   data() {
     return {
       config,
-      devmode,
+      devmode: devmode,
 
       list: ["hi", "hi", "good morning!"],
       round: {
@@ -87,8 +82,7 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      // return !hasEmptyValues(this.round);
-      return this.round;
+      return !isEmpty(this.round);
     },
     wound() {
       if (!this || !this.round || !this.round.Diameter) return 0;

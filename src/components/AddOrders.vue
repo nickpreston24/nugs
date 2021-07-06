@@ -41,7 +41,7 @@ button {
 <script>
 import { createOrders } from "../../api/airtable";
 import {
-  hasEmptyValues,
+  isEmpty,
   devmode,
   randomInt,
   randomName,
@@ -83,7 +83,7 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      return !hasEmptyValues(this.order);
+      return !isEmpty(this.order);
     },
   },
 };

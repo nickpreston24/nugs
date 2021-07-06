@@ -28,12 +28,11 @@
 <script>
 import { create } from "../../../api/airtable";
 import {
-  hasEmptyValues,
   devmode,
-  randomInt,
   randomName,
   randomFloat,
   randomParagraph,
+  isEmpty,
 } from "../../helpers/generators";
 export default {
   methods: {
@@ -72,8 +71,7 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      // return !hasEmptyValues(this.part);
-      return this.part;
+      return !isEmpty(this.part);
     },
   },
 };

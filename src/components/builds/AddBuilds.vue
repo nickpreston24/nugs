@@ -24,12 +24,12 @@
 </template>
 <script>
 import { create } from "../../../api/airtable";
-import { hasEmptyValues, devmode } from "../../helpers/generators";
+import { isEmpty, devmode, isFull } from "../../helpers/generators";
 export default {
   methods: {
     async addBuild() {
       // await createBuilds([{ ...this.build }]);
-      create("Builds", [{ ...this.build }]);
+      create("Builds", [{ ...this.build, CreatedAt: Date.now() }]);
       this.clear();
     },
     clear() {
@@ -38,13 +38,14 @@ export default {
     lorem() {
       let fake = {
         Name: `BFG MK ${Math.ceil(Math.random() * 150)}`,
+        CreatedAt: Date.now(),
       };
       this.build = fake;
     },
   },
   data() {
     return {
-      devmode,
+      devmode: devmode,
 
       build: {
         Name: "",
@@ -57,8 +58,7 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      // return !hasEmptyValues(this.build);
-      return this.build;
+      return !isEmpty(this.build);
     },
   },
 };
