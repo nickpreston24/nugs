@@ -57,7 +57,8 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      return !hasEmptyValues(this.build);
+      // return !hasEmptyValues(this.build);
+      return this.build;
     },
   },
 };

@@ -87,7 +87,8 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      return !hasEmptyValues(this.round);
+      // return !hasEmptyValues(this.round);
+      return this.round;
     },
     wound() {
       if (!this || !this.round || !this.round.Diameter) return 0;

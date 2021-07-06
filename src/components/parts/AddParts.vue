@@ -72,7 +72,8 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      return !hasEmptyValues(this.part);
+      // return !hasEmptyValues(this.part);
+      return this.part;
     },
   },
 };
