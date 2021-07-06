@@ -52,15 +52,13 @@ const lorems = [
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque eveniet modi, ex veniam architecto repellendus pariatur magnam expedita fugit necessitatibus accusamus culpa laudantium repudiandae ea, natus quis vitae laborum aliquid?",
 ]
 
-
-// export const formScaffolder = (myCustomTypeToMakeIntoAForm: any) => {
-//     // idk how to go about this, but it would be nice 
-//     // to scaffold out a form by type while keeping all vuejs based events and props.
-//     // e.g. a string field would auto to <input/>,
-//     // a number fields would auto to a slider or by default the classic Counter example.
-//     return null
-
-// }
+/**
+ * Type to Form Generator
+ */
+export const formScaffolder = (myCustomTypeToMakeIntoAForm: any) => {
+    // TODO: https://www.meziantou.net/generate-an-html-form-from-an-object-in-typescript.htm
+    return null
+}
 
 // export const typeScaffolder = (myURLWithContentToMakeIntoADynamicClass: string) => {
 //     //Think of your DynamicXML library, but for JS.

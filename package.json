@@ -20,6 +20,7 @@
     "vue": "^3.0.0",
     "vue-my-toasts": "^2.0.1",
     "vue-router": "^4.0.0-0",
+    "vue-youtube-embed": "^2.2.2",
     "yup": "^0.32.9"
   },
   "devDependencies": {

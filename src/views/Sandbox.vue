@@ -11,7 +11,9 @@
         </template>
         <template v-slot:default>
           <!-- <img src="https://picsum.photos/300" /> -->
-          <img src="{{part.Attachments[0].url}}" alt="" />
+          <!-- <img src="{{part.Attachments[0].url}}" alt="" /> -->
+          <h3>Watch:</h3>
+          <Embed style="border 2px solid red" />
         </template>
         <template v-slot:footer>
           <!-- Toggle the remaining detils like weight, url, etc -->
@@ -47,6 +49,7 @@
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
+import Embed from "../components/atoms/Embed.vue";
 import { base } from "../../api/airtable";
 import Card from "../components/molecules/Card.vue";
 import { devmode } from "../helpers/generators";
@@ -98,7 +101,7 @@ export default {
         }
       );
   },
-  components: { TailwindCard, Card },
+  components: { TailwindCard, Card, Embed },
 };
 </script>
 <style scoped>

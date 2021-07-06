@@ -14,18 +14,22 @@ What if there was a way to create your dream rifle from popular parts on the int
 - [ ] Add Yup validation to each form -- allow only valid data to turn on the Submit buttons.
 - [x] Add Youtube Support to database 
 - [ ] Create a custom Embed atom for viewing YT videos.
-- [ ] Put YT embeds in cards for now.
+- [ ] Put YT embeds in cards for now. (https://morioh.com/p/487a79571ccb)
+- [ ] [Scaffold forms by Type](https://www.meziantou.net/generate-an-html-form-from-an-object-in-typescript.htm)
+- [ ] 
+    [Validation with Yup and Typescript](https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e)
+    [Yup Validation #2](https://github.com/vijitail/vue-form-validation-yup/blob/master/src/App.vue)
+- [ ] [Floating Action Button](https://vuejsexamples.com/floating-action-button-for-vue/)
+- [ ]
+    [Fix altering a prop](https://dev.to/jakzaizzat/avoid-mutating-a-prop-directly-ab9)
+    [fixing altering a prop #2](https://michaelnthiessen.com/avoid-mutating-prop-directly/)
 
 # Nice to Have:
 
 * [Toasts](https://vuejsexamples.com/a-vue-toast-plugin-that-lets-you-create-your-own-toast-component/)
-* [Validation with Yup and Typescript](https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e)
-* [Yup Validation #2](https://github.com/vijitail/vue-form-validation-yup/blob/master/src/App.vue)
-* [Floating Action Button](https://vuejsexamples.com/floating-action-button-for-vue/)
 * [Share on social media](https://github.com/nicolasbeauvais/vue-social-sharing)
 * [Form builder in Vue](https://vueformulate.com/)
 * [Automated Web Scraping with Chron and Python](https://towardsdatascience.com/automated-web-scraping-python-cron-e6bedf4c39eb) See your spider.py implementation
-
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
