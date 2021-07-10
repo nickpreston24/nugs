@@ -13,7 +13,7 @@
           <!-- <img src="https://picsum.photos/300" /> -->
           <!-- <img src="{{part.Attachments[0].url}}" alt="" /> -->
           <h3>Watch:</h3>
-          <Embed style="border 2px solid red" />
+          <Embed v-show='devmode' />
         </template>
         <template v-slot:footer>
           <!-- Toggle the remaining detils like weight, url, etc -->

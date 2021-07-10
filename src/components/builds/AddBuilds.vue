@@ -25,20 +25,21 @@
 <script>
 import { create } from "../../../api/airtable";
 import { isEmpty, devmode, isFull } from "../../helpers/generators";
+const initial = {
+  Name: "",
+};
 export default {
   methods: {
     async addBuild() {
-      // await createBuilds([{ ...this.build }]);
       create("Builds", [{ ...this.build, CreatedAt: Date.now() }]);
       this.clear();
     },
     clear() {
-      this.build = {};
+      this.build = initial;
     },
     lorem() {
       let fake = {
         Name: `BFG MK ${Math.ceil(Math.random() * 150)}`,
-        CreatedAt: Date.now(),
       };
       this.build = fake;
     },
@@ -47,9 +48,7 @@ export default {
     return {
       devmode: devmode,
 
-      build: {
-        Name: "",
-      },
+      build: initial,
     };
   },
   mounted() {

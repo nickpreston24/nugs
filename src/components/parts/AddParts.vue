@@ -34,6 +34,13 @@ import {
   randomParagraph,
   isEmpty,
 } from "../../helpers/generators";
+const initial = {
+  Name: null,
+  Cost: null,
+  Link: null,
+  Notes: null,
+  Weight: null,
+};
 export default {
   methods: {
     async addPart() {
@@ -41,7 +48,7 @@ export default {
       this.clear();
     },
     clear() {
-      this.part = {};
+      this.part = initial;
     },
     lorem() {
       let fake = {
@@ -59,13 +66,7 @@ export default {
     return {
       devmode: devmode,
 
-      part: {
-        Name: null,
-        Cost: null,
-        Link: null,
-        Notes: null,
-        Weight: null,
-      },
+      part: initial,
     };
   },
   computed: {
