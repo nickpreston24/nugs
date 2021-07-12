@@ -1,9 +1,8 @@
 <template>
-  <div v-if="devmode" class="sandbox gentle-flex">
-    <h1>Sandbox</h1>
+  <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300">
     <!-- Props passing attempt 1 -->
-    <div v-for="part in parts" v-bind:key="part.id">
-      <card>
+    <div v-show="false" v-for="part in parts" v-bind:key="part.id">
+      <Card>
         <template v-slot:header>
           <h1>
             {{ part.Name }}
@@ -12,14 +11,18 @@
         <template v-slot:default>
           <!-- <img src="https://picsum.photos/300" /> -->
           <!-- <img src="{{part.Attachments[0].url}}" alt="" /> -->
-          <h3>Watch:</h3>
-          <Embed v-show='devmode' />
+          <!-- <p>{{ part.GelTest.replace("watch?v=", "embed/")
+            .replace("t=","start=")
+             }}</p> -->
+          <!-- <Embed v-bind:url="part.GelTest" v-if="true" /> -->
+          <p>{{ part.GelTest }}</p>
+          <!-- <iframe width="640" height="480" src="part.GelTest"></iframe> -->
         </template>
         <template v-slot:footer>
           <!-- Toggle the remaining detils like weight, url, etc -->
-          <button>Show Details</button>
+          <Button v-if="false">Show Details</Button>
         </template>
-      </card>
+      </Card>
     </div>
 
     <!-- <h1>Like this content? Share with your friends!</h1> -->
@@ -53,7 +56,13 @@ import Embed from "../components/atoms/Embed.vue";
 import { base } from "../../api/airtable";
 import Card from "../components/molecules/Card.vue";
 import { devmode } from "../helpers/generators";
+import Button from "../components/atoms/Button.vue";
 export default {
+  methods: {
+    speak() {
+      alert("clicky!");
+    },
+  },
   data() {
     return {
       parts: [],
@@ -67,7 +76,7 @@ export default {
     };
   },
   mounted() {
-    base("Parts")
+    base("Rounds")
       .select({
         maxRecords: 10,
         view: "Grid view",
@@ -101,7 +110,7 @@ export default {
         }
       );
   },
-  components: { TailwindCard, Card, Embed },
+  components: { TailwindCard, Card, Button },
 };
 </script>
 <style scoped>

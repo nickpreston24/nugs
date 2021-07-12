@@ -1,12 +1,28 @@
 <template>
-  <iframe
-    width="640"
-    height="480"
-    src="https://www.youtube.com/embed/JrEmQNe-TrA?start=438"
-  >
-  </iframe>
+  <div>
+    <h1>url</h1>
+    <p>{{ url.replace("watch?v=", "embed/") }}</p>
+    <!-- <iframe width="640" height="480" src="{{url}}"> </iframe> -->
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    console.log(`this.url`, this.url);
+  },
+  // props: ["url"],
+  computed: {
+    embedUrl() {
+      console.log(`this.url`, this.url);
+      return this.url.replace("watch?v=", "embed/").replace("t=", "start=");
+    },
+  },
+  props: {
+    url: {
+      required: true,
+      type: String,
+    },
+  },
+};
 </script>

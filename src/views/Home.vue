@@ -22,6 +22,7 @@
       <AddRounds />
       <div id="rounds-view">
         <iframe
+          v-if="false"
           class="airtable-embed"
           src="https://airtable.com/embed/shr3OhGRrERrqhP0e?backgroundColor=blue&layout=card&viewControls=on"
           frameborder="0"
@@ -40,6 +41,8 @@
         <h2>Orders</h2>
         <i>Below are the current orders</i>
         <iframe
+          v-if="false"
+
           class="airtable-embed"
           src="https://airtable.com/embed/shraaIuwqj2wm3n3z?backgroundColor=blue&viewControls=on"
           frameborder="0"
@@ -57,6 +60,7 @@
         <h2>Builds</h2>
         <i>Below are full sample builds</i>
         <iframe
+          v-if="false"
           class="airtable-embed"
           src="https://airtable.com/embed/shrdyDkisxdh7HSkb?backgroundColor=blue&layout=card&viewControls=on"
           frameborder="0"
@@ -77,6 +81,7 @@
           <li><b>NOTE: Group by Build</b></li>
         </ul>
         <iframe
+          v-if="false"
           class="airtable-embed"
           src="https://airtable.com/embed/shr59vb7q50MCWDl6?backgroundColor=blue&viewControls=on"
           frameborder="0"

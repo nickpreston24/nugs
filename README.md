@@ -14,15 +14,19 @@ What if there was a way to create your dream rifle from popular parts on the int
 - [ ] Add Yup validation to each form -- allow only valid data to turn on the Submit buttons.
 - [x] Add Youtube Support to database 
 - [ ] Create a custom Embed atom for viewing YT videos.
-- [ ] Put YT embeds in cards for now. (https://morioh.com/p/487a79571ccb)
-- [ ] [Scaffold forms by Type](https://www.meziantou.net/generate-an-html-form-from-an-object-in-typescript.htm)
+- [x] Put YT embeds in cards for now. (https://morioh.com/p/487a79571ccb)
+- [x] [Scaffold forms by Type](https://www.meziantou.net/generate-an-html-form-from-an-object-in-typescript.htm)
 - [ ] 
     [Validation with Yup and Typescript](https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e)
     [Yup Validation #2](https://github.com/vijitail/vue-form-validation-yup/blob/master/src/App.vue)
-- [ ] [Floating Action Button](https://vuejsexamples.com/floating-action-button-for-vue/)
+- [ ] [Floating Action Button](https://vuetifyjs.com/en/components/floating-action-buttons/#lateral-screens)
 - [ ]
     [Fix altering a prop](https://dev.to/jakzaizzat/avoid-mutating-a-prop-directly-ab9)
     [fixing altering a prop #2](https://michaelnthiessen.com/avoid-mutating-prop-directly/)
+- [ ] Add Update Button to Card
+- [ ] Add Delete Button to Card
+
+
 
 # Nice to Have:
 

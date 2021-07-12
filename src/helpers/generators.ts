@@ -4,21 +4,6 @@ export function prop<T, K extends keyof T>(obj: T, key: K) {
     return obj[key];
 }
 
-/*
-* Found: https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-* Usage: type Person = yup.InferType<typeof personSchema>;
-*/
-// export const infer = <T>(schema: any) => { }
-// export function infer(schema: any) {
-//     return yup.InferType<typeof schema>;
-// }
-
-// type ValidationReturnType = string | boolean;
-
-// function isEqual(number1: number, number2: number): ValidationReturnType {
-//     return number1 == number2 ? true : 'Numbers are not equal.';
-// }
-
 /**
  * Checks the type of an object casted to said type.
  * Usage:
@@ -37,9 +22,7 @@ export const devmode = () => process.env.NODE_ENV === "development";
 /**Random Int */
 export const randomBoolean = () => Math.random() > .5
 export const randomFloat = (limit = 1) => {
-
     let float = parseFloat((Math.random() * limit).toFixed(2));
-    console.log(`float`, float)
     return float
 }
 export const randomInt = (limit: number) => Math.ceil(Math.random() * limit)
