@@ -1,11 +1,8 @@
 <template>
   <div>
     <div class="gentle-flex">
-      <label>Nested State</label>
-      <!-- <p><input @input="onChange" class="bullet-border" /></p> -->
-
       <ul v-show="true">
-        <li v-for="(value, key, index) in part" :key="index">
+        <li class="p-1" v-for="(value, key, index) in part" :key="index">
           <!-- <label>{{ key }}:</label> -->
           <input
             class="bullet-border"
@@ -16,10 +13,7 @@
         </li>
       </ul>
 
-      <!-- v-model="part[key]" -->
       <span v-show="devmode">{{ { ...part } }}</span>
-      <!-- <span v-show="devmode">{{ state.name.get() }}</span> -->
-      <!-- <p>Current Part: {{ this.part?.Name.get() }}</p> -->
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
       <label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</label>
       <List>
@@ -72,12 +66,18 @@ export default {
     onChange(e) {
       const target = e.target;
       const value = target.type === "checkbox" ? target.checked : target.value;
-      const name = target.name;
-      // console.log(`e.target.value`, e.target.value);
-      // console.log(`state`, state);
+      const name = target.placeholder;
+      // console.log(`target`, target);
+      // console.log(`name`, name);
       // console.log(`e.target`, e.target);
-      console.log(`state[name]`, state[name].get())
-      state.name.set(e.target.value);
+      // console.log(`state[name]`, state[`${name}`].get()); // Trying to lookup by key and set that state
+      // state[name].set(value);
+      // state.merge((p) => ({
+      //   name: value,
+      // }));
+      // console.log(`state`, state);
+      console.log(`this.part`, this.part);
+      this.part[name].set(value);
     },
     async addPart() {
       devmode && console.log(`this.part`, this.part);
@@ -92,9 +92,6 @@ export default {
     },
     clear() {
       console.log(`initial`, initial);
-      // console.log(`this.part`, this.part.Name.get())
-      // this.part.set(null)
-      // this.part = initial;
     },
     lorem() {
       let fake = {
