@@ -42,7 +42,6 @@
         <i>Below are the current orders</i>
         <iframe
           v-if="false"
-
           class="airtable-embed"
           src="https://airtable.com/embed/shraaIuwqj2wm3n3z?backgroundColor=blue&viewControls=on"
           frameborder="0"
@@ -74,23 +73,7 @@
 
     <div id="parts-page" v-if="showParts">
       <add-parts />
-
-      <div id="parts-view">
-        <h2>Recommended Parts</h2>
-        <ul style="color: red">
-          <li><b>NOTE: Group by Build</b></li>
-        </ul>
-        <iframe
-          v-if="false"
-          class="airtable-embed"
-          src="https://airtable.com/embed/shr59vb7q50MCWDl6?backgroundColor=blue&viewControls=on"
-          frameborder="0"
-          onmousewheel=""
-          width="100%"
-          height="533"
-          style="background: transparent; border: 1px solid #ccc"
-        ></iframe>
-      </div>
+      <parts-grid />
     </div>
   </div>
 </template>
@@ -99,7 +82,7 @@
 import AddRounds from "@/components/rounds/AddRounds.vue";
 import AddBuilds from "@/components/builds/AddBuilds.vue";
 import AddParts from "@/components/parts/AddParts.vue";
-
+import PartsGrid from "../components/parts/PartsGrid.vue";
 export default {
   data() {
     return {
@@ -115,6 +98,7 @@ export default {
     AddRounds,
     AddBuilds,
     AddParts,
+    PartsGrid,
     // AddOrders,  // todo: make an UpdateOrdders view
   },
 };

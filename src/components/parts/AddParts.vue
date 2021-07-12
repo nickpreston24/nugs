@@ -76,7 +76,7 @@ export default {
       //   name: value,
       // }));
       // console.log(`state`, state);
-      console.log(`this.part`, this.part);
+      // console.log(`this.part`, this.part);
       this.part[name].set(value);
     },
     async addPart() {
@@ -110,51 +110,6 @@ export default {
       part: state,
     };
   },
-  mounted() {
-    // alert('ping')
-    // console.log(`state`, state);
-    // let test = useState(state.part)
-    // console.log(`test`, test)
-    // this.part  =
-    // // this.part = useState( state.part)
-    // this.part = useState(state);
-    // console.log(`this.part`, this.part.Name);
-    // this.part.Name.set("Nick");
-    // this.part.set({});
-    // this.part = useState({});
-  },
-
-  // mounted() {
-  //   base("Parts")
-  //     .select({
-  //       maxRecords: 10,
-  //       view: "Grid view",
-  //     })
-  //     .eachPage(
-  //       (records, fetchNextPage) => {
-  //         devmode && console.log(`records`, records);
-  //         let parts = records.map((r) => {
-  //           const { id, fields } = r;
-  //           return {
-  //             id,
-  //             ...fields,
-  //           };
-  //         });
-  //         console.log(`parts`, parts);
-  //         // this.parts = useState(parts);
-  //         // To fetch the next page of records, call `fetchNextPage`.
-  //         // If there are more records, `page` will get called again.
-  //         // If there are no more records, `done` will get called.
-  //         fetchNextPage();
-  //       },
-  //       function done(err) {
-  //         if (err) {
-  //           console.error(err);
-  //           return;
-  //         }
-  //       }
-  //     );
-  // },
 
   computed: {
     ready() {
