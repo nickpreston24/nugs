@@ -49,11 +49,6 @@ const initial = {
   Notes: "",
   Weight: "",
 };
-// const state = createState({
-//   part: {
-//     ...initial,
-//   },
-// });
 
 const state = useState({ ...initial });
 
@@ -67,16 +62,6 @@ export default {
       const target = e.target;
       const value = target.type === "checkbox" ? target.checked : target.value;
       const name = target.placeholder;
-      // console.log(`target`, target);
-      // console.log(`name`, name);
-      // console.log(`e.target`, e.target);
-      // console.log(`state[name]`, state[`${name}`].get()); // Trying to lookup by key and set that state
-      // state[name].set(value);
-      // state.merge((p) => ({
-      //   name: value,
-      // }));
-      // console.log(`state`, state);
-      // console.log(`this.part`, this.part);
       this.part[name].set(value);
     },
     async addPart() {
