@@ -13,7 +13,7 @@ What if there was a way to create your dream rifle from popular parts on the int
 - [ ] Add image upload xor link support to cards.
 - [ ] Add Yup validation to each form -- allow only valid data to turn on the Submit buttons.
 - [x] Add Youtube Support to database 
-- [ ] Create a custom Embed atom for viewing YT videos.
+- [x] Create a custom Embed atom for viewing YT videos.
 - [x] Put YT embeds in cards for now. (https://morioh.com/p/487a79571ccb)
 - [x] [Scaffold forms by Type](https://www.meziantou.net/generate-an-html-form-from-an-object-in-typescript.htm)
 - [ ] 
