@@ -7,6 +7,7 @@
     <router-link to="/builds">Builds</router-link> |
     <router-link to="/parts">Parts</router-link> |
     <router-link v-if="devmode" to="/sandbox"> Sandbox</router-link>
+    <p>{{devmode}}</p>
   </div>
   <router-view />
 </template>
@@ -14,8 +15,6 @@
 import { devmode } from "./helpers/generators";
 export default {
   data() {
-    console.log('devmode?>>', devmode)
-    console.log('devmode?>>', devmode())
     return {
       devmode: devmode(),
     };
