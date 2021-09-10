@@ -14,8 +14,10 @@
 import { devmode } from "./helpers/generators";
 export default {
   data() {
+    console.log('devmode?>>', devmode)
+    console.log('devmode?>>', devmode())
     return {
-      devmode,
+      devmode: devmode(),
     };
   },
 };
