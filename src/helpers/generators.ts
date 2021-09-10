@@ -17,6 +17,7 @@ export const isEmpty = (obj: any) => !obj || obj === {} || Object.values(obj).ev
 // export const isFull = (obj: any) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
 
 /*Environment*/
+console.log('devmode?', process.env.NODE_ENV)
 export const devmode = () => process.env.NODE_ENV === "development";
 
 /**Random Int */
