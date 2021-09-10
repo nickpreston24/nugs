@@ -25,6 +25,21 @@ const routes: Array<RouteRecordRaw> = [
     path: "/signin",
     name: "Sign In",
     component: () => import('@/views/SignIn.vue')
+  },
+  {
+    path: "/orders",
+    name: "Place Order",
+    component: () => import('@/views/Orders.vue')
+  },
+  {
+    path: "/builds",
+    name: "Customize your Nug",
+    component: () => import('@/views/Builds.vue')
+  },
+  {
+    path: "/parts",
+    name: "Add new Parts",
+    component: () => import('@/views/Parts.vue')
   }
 ];
 
