@@ -1,7 +1,15 @@
 <template>
   <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300">
+    <h2>Api Call result:</h2>
+    <p>{{ order }}</p>
+    <Button @click="onSubmit">
+      Get order.
+    </Button>
+
     <!-- Props passing attempt 1 -->
+
     <div v-show="false" v-for="part in parts" v-bind:key="part.id">
+      <h2>Cards Example</h2>
       <Card>
         <template v-slot:header>
           <h1>
@@ -41,7 +49,9 @@
       </ShareNetwork>
     </template> -->
 
-    <tailwind-card v-show="false" />
+    <tailwind-card v-show="true" />
+
+    
     <label>Result</label>
     <span v-if="!!result">{{ result }}</span>
     <img
@@ -62,6 +72,25 @@ export default {
     speak() {
       alert("clicky!");
     },
+    onSubmit: async (e) => {
+      await e.preventDefault();
+
+      const res = await fetch("api/orders/1234?name=severus", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({ to: number, body: body }),
+      });
+
+      const data = await res.json();
+      console.log("data", data);
+      if (data.success) {
+        alert("success!");
+      } else {
+        console.log("failed");
+      }
+    },
   },
   data() {
     return {
@@ -73,6 +102,7 @@ export default {
       ],
       result: [],
       devmode: devmode,
+      order: { id: "empty" },
     };
   },
   mounted() {

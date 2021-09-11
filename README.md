@@ -25,8 +25,11 @@ What if there was a way to create your dream rifle from popular parts on the int
     [fixing altering a prop #2](https://michaelnthiessen.com/avoid-mutating-prop-directly/)
 - [ ] Add Update Button to Card
 - [ ] Add Delete Button to Card
-
-
+- [ ] [Emulate this awesome menu](https://codesandbox.io/s/xn8xx?file=/src/SmartHome/SmartHome.vue)
+- [ ] Store things across function calls: https://lihbr.com/blog/rate-limiting-without-overhead-netlify-or-vercel-functions
+- [ ] API playground for vue https://functions.netlify.com/playground/
+- [ ] Send sms? https://www.twilio.com/blog/use-serverless-functions-send-sms-react-vercel-twilio
+- [ ] Add Order, Part and Build placement (Airtable's embeds)  
 
 # Nice to Have:
 
