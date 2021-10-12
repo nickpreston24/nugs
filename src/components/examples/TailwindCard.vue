@@ -119,15 +119,15 @@
               <div>
                 <img
                   class="
-                    sm:w-32
-                    sm:h-32
-                    md:w-48
+                    sm:w-64
+                    sm:h-64
+                    md:w-128
                     md:h-auto
                     md:rounded-none
                     rounded-full
                     mx-auto
                   "
-                  src="../../assets/mikepreston.jpg"
+                  src="../../assets/valkyrie-barrel.jpg"
                   alt=""
                   width="384"
                   height="512"

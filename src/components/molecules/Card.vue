@@ -1,11 +1,11 @@
 <template>
   <div
     v-bind:class="animation"
-    class="card gentle-flex"
+    class="py-6 flex flex-col justify-center sm:py-12 bg-gray-100 mih-h-screen"
     @mouseover="isHovering = true"
     @mouseout="isHovering = false"
   >
-    <div id="card-header">
+    <div id="card-header" class="relative py-3 sm:max-w-xl sm:mx-auto">
       <slot name="header"></slot>
     </div>
     <div id="card-content">

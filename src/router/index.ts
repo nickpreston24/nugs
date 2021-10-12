@@ -40,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/parts",
     name: "Add new Parts",
     component: () => import('@/views/Parts.vue')
+  },
+  {
+    path:"/orders/add-part",
+    name: "Add new Part to existing Order",
+    component: ()=>import ('@/views/AddPartToOrder.vue')
   }
 ];
 

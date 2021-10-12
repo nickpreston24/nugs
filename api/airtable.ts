@@ -1,8 +1,9 @@
 import * as Airtable from 'airtable'
 import { devmode } from './../src/helpers/generators';
+import dotenv from 'dotenv'
 
-export const base = new Airtable({ apiKey: "keyl5Wo5ETa4HR4tt" }).base(
-    "app33DDBeyXEGRflo"
+export const base = new Airtable({ apiKey: process.env.VUE_APP_AIRTABLE_API_KEY }).base(
+    process.env.VUE_APP_BASE_KEY
 );
 
 export const create = async (baseName: string = null, items = []) => {
