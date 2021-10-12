@@ -6,6 +6,8 @@
       Get order.
     </Button>
 
+    <gallery v-show="true"/>
+
     <!-- Props passing attempt 1 -->
 
     <div v-show="false" v-for="part in parts" v-bind:key="part.id">
@@ -18,7 +20,7 @@
         </template>
         <template v-slot:default>
           <!-- <img src="https://picsum.photos/300" /> -->
-          <!-- <img src="{{part.Attachments[0].url}}" alt="" /> -->
+          <img src="{{part.Attachments[0].url}}" alt="" />
           <!-- <p>{{ part.GelTest.replace("watch?v=", "embed/")
             .replace("t=","start=")
              }}</p> -->
@@ -27,30 +29,13 @@
           <!-- <iframe width="640" height="480" src="part.GelTest"></iframe> -->
         </template>
         <template v-slot:footer>
-          <!-- Toggle the remaining detils like weight, url, etc -->
+          <!-- Toggle the remaining details like weight, url, etc -->
           <Button v-if="false">Show Details</Button>
         </template>
       </Card>
     </div>
 
-    <!-- <h1>Like this content? Share with your friends!</h1> -->
-    <!-- <template>
-      <ShareNetwork
-        network="twitter"
-        url="https://news.vuejs.org/issues/180"
-        title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
-        description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
-        quote="The hot reload is so fast it\'s near instant. - Evan You"
-        hashtags="vuejs,vite,javascript"
-        twitterUser="youyuxi"
-      >
-        <i class="fab fah fa-lg fa-twitter"></i>
-        <span>Share on Twitter</span>
-      </ShareNetwork>
-    </template> -->
-
-    <tailwind-card v-show="true" />
-
+    <tailwind-card v-show="false" />
     
     <label>Result</label>
     <span v-if="!!result">{{ result }}</span>
@@ -62,11 +47,11 @@
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
-import Embed from "../components/atoms/Embed.vue";
 import { base } from "../../api/airtable";
 import Card from "../components/molecules/Card.vue";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
+import Gallery from '../components/examples/Gallery.vue';
 export default {
   methods: {
     speak() {
@@ -140,7 +125,7 @@ export default {
         }
       );
   },
-  components: { TailwindCard, Card, Button },
+  components: { TailwindCard, Card, Button, Gallery },
 };
 </script>
 <style scoped>
