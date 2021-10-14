@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import Photo from "../views/Photo.vue";
+import PartPhoto from '../components/parts/PartPhoto.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,14 +44,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Parts.vue')
   },
   {
-    path:"/orders/add-part",
+    path: "/orders/add-part",
     name: "Add new Part to existing Order",
-    component: ()=>import ('@/views/AddPartToOrder.vue')
+    component: () => import('@/views/AddPartToOrder.vue')
   },
   {
     path: '/photo/:id',
     name: 'photo',
     component: Photo,
+  },
+  {
+    path: '/part/:id',
+    name: 'part',
+    component: PartPhoto,
   },
 ];
 

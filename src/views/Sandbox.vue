@@ -6,7 +6,7 @@
       Get order.
     </Button>
 
-    <gallery v-show="true"/>
+    <!-- <gallery v-show="true"/> -->
 
     <!-- Props passing attempt 1 -->
 
@@ -125,7 +125,7 @@ export default {
         }
       );
   },
-  components: { TailwindCard, Card, Button, Gallery },
+  components: { TailwindCard, Card, Button },
 };
 </script>
 <style scoped>

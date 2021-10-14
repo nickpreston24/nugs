@@ -2,7 +2,6 @@
   <div class="parts">
 
     <PartsGallery />
-    <!-- <PartPhoto/> -->
     <!-- <Button>+</Button> -->
     <!-- 
 
@@ -22,9 +21,9 @@
 <script>
 import Button from "../components/atoms/Button.vue";
 import PartsGallery from "../components/examples/PartsGallery.vue";
-import PartPhoto from '../components/parts/PartPhoto.vue';
+// import PartPhoto from '../components/parts/PartPhoto.vue';
 export default {
-  name: 'parts',
+  // name: 'parts',
   // data() {
   //   return {
   //     addButton: {

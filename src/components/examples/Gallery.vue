@@ -5,7 +5,6 @@
          :key="photo.id">
       <router-link :to="`/photo/${photo.id}`">
         <img :src="photo.url">
-        <!-- <img :src="thumbUrl(photo.filename)"> -->
       </router-link>
     </div>
   </div>
