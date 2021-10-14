@@ -1,19 +1,19 @@
 <template>
 <div>
   <Gallery/>
-  <Photo />
+  <PartPhoto/>
 </div>
 </template>
 
 <script>
-import Photo from '../components/atoms/Photo.vue'
 import Gallery from '../components/examples/Gallery.vue';
+import PartPhoto from '../components/parts/PartPhoto.vue';
 
 export default {
-  name: 'photo',
+  name: 'part-photo',
   components: {
     Gallery,
-    Photo
+    PartPhoto,
   },
 };
 </script>
