@@ -3,7 +3,12 @@
     <img :src="part.url" />
     <div class="lightbox-info">
       <div class="lightbox-info-inner">
-        <p v-if="part?.Name">{{ part.Name }}</p>
+        <a :href="part.Link" target="_blank" rel="noopener noreferrer">
+          <h2 class="p-2 font-normal text-arctic-600" v-if="part?.Name">
+            {{ part.Name }}
+          </h2>
+        </a>
+        <p v-if="part.Notes">{{ part.Notes }}</p>
       </div>
     </div>
   </div>
@@ -11,6 +16,7 @@
 
 <script>
 import useParts from "./useParts";
+
 export default {
   setup() {
     let { state } = useParts();
@@ -18,19 +24,13 @@ export default {
       state,
     };
   },
-  // name: 'part',
-  // data() {
-  //   return {
-  //     parts:[], // todo: fill using the useParts()
-  //   };
-  // },
   computed: {
     part() {
       let parts = this.state.parts.filter((p) => p?.Attachments);
       // console.log("parts", parts);
       let names = parts.map((b) => b.id);
       // console.log("names", names);
-      console.log(this.$route);
+      // console.log(this.$route);
       let found = parts.find((part) => {
         // console.log(part)
         return part.id === this.$route.params.id;
@@ -47,6 +47,7 @@ export default {
       this.$router.push("/parts");
     },
   },
+  components: {},
 };
 </script>
 
@@ -67,6 +68,8 @@ export default {
   margin: auto;
   width: 100%;
   grid-column-start: 2;
+  border-radius: 0.75rem;
+
 }
 
 .lightbox-info {
@@ -77,5 +80,27 @@ export default {
   background-color: #ffffff;
   display: inline-block;
   padding: 2rem;
+
+  border-radius: 0.75rem;
+}
+
+/*Bounce animations*/
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>

@@ -6,6 +6,16 @@ export const base = new Airtable({ apiKey: process.env.VUE_APP_AIRTABLE_API_KEY 
     process.env.VUE_APP_BASE_KEY
 );
 
+export const formatRecords = (records = []) => {
+    return records.map((r) => {
+        const { id, fields } = r;
+        return {
+            id,
+            ...fields,
+        };
+    });
+}
+
 export const create = async (baseName: string = null, items = []) => {
 
     // Reshape the airtable data passed to the UI:
@@ -65,25 +75,24 @@ export const findAll = (baseName: string = null, limit = 10) => {
         for (let index = 0; index < records.length; index++) {
             const element = records[index];
             result.push(element)
+            console.log(`element:>> ${index}`, element)
         }
 
-        console.log(`result`, result[0].id)
         // To fetch the next page of records, call `fetchNextPage`.
         // If there are more records, `page` will get called again.
         // If there are no more records, `done` will get called.
         fetchNextPage();
-        console.log(`result 2`, result)
+        // console.log(`result 2`, result)
 
     }, function done(err) {
         if (err) { console.error(err); return; }
 
     });
     console.log(`ret`, result)
-    // return ["hello"]
-    return result
 
     // devmode && console.log(`Returning result ... `, result[0])
-    // return result
+    return formatRecords(result)
+
 }
 
 export const get = async (baseName: string = null, id = null) => {

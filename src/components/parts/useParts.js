@@ -1,19 +1,12 @@
 import { ref, onMounted, toRefs, reactive, toRef } from 'vue'
-import { base } from "../../../api/airtable";
+import { base, findAll, formatRecords } from "../../../api/airtable";
 
 export default function useParts() {
-    // const parts = reactive([])
-    // const searchParameters = ref([])
+
     const state = reactive({
-        parts: []
+        parts: [],
     })
 
-    // const stateRef = toRefs(state)
-
-    //   const fooRef = toRef(state, 'foo')
-
-    //   fooRef.value++
-    //   console.log(state.foo) // 2
     onMounted(() => {
         base("Parts")
             .select({
@@ -22,25 +15,10 @@ export default function useParts() {
             })
             .eachPage(
                 (records, fetchNextPage) => {
-                    let raw = records.map((r) => {
-                        const { id, fields } = r;
-                        return {
-                            id,
-                            ...fields,
-                        };
-                    });
-                    // console.log(`raw`, raw);
+                    let raw = formatRecords(records);
+                    console.log('records:>>', records)
                     state.parts = raw;
-                    // console.log('state', state)
 
-
-
-                    // this.parts = parts;
-                    // parts = raw;
-                    // parts.value = raw;
-                    // parts.push(...raw)
-                    // console.log('parts ref/', this.parts)
-                    // this.parts = useState(parts);
                     // To fetch the next page of records, call `fetchNextPage`.
                     // If there are more records, `page` will get called again.
                     // If there are no more records, `done` will get called.
@@ -55,6 +33,15 @@ export default function useParts() {
             );
     })
 
+    const searchParts = (limit = 5) => {
+        let results = findAll("Parts", limit);
+        console.log(results);
+
+        state.parts = results;
+
+        console.log('state', state)
+    }
+
     // const searchParts = (id) => {
     //     return parts.filter(() => {
     //         // some search code
@@ -64,5 +51,5 @@ export default function useParts() {
     //     stuff: toRefs(state)
     // }
     // return toRefs(state)
-    return { state }
+    return { state, searchParts }
 }

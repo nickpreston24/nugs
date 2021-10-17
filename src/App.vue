@@ -1,15 +1,19 @@
 <template>
   <div id="nav">
     <router-link v-if="devmode" to="/">Home | </router-link>
-    <router-link v-if="devmode"  to="/about">About | </router-link>
-    <router-link v-if="devmode"  to="/signin">Sign In | </router-link>
+    <router-link v-if="devmode" to="/about">About | </router-link>
+    <router-link v-if="devmode" to="/signin">Sign In | </router-link>
     <router-link to="/orders">Orders | </router-link>
     <router-link to="/builds">Builds | </router-link>
     <router-link to="/parts">Parts | </router-link>
     <router-link to="/orders/add-part">To Ship | </router-link>
     <router-link v-if="devmode" to="/sandbox"> Sandbox</router-link>
   </div>
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <transition name="route" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 </template>
 <script>
 import { devmode } from "./helpers/generators";
@@ -29,7 +33,6 @@ textarea:focus,
 button:focus {
   outline: none;
 }
-
 
 /* Todo: move to tailwind component */
 label {
@@ -73,5 +76,23 @@ input.bullet-border {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+/*route transitions*/
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.route-enter-active {
+  transition: all 0.15s ease-in-out;
+}
+
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.route-leave-active {
+  transition: all 0.15s ease-in;
 }
 </style>

@@ -14,6 +14,28 @@ module.exports = {
       transparent: "transparent",
       black: "#000",
       white: "#fff",
+      purple: {
+        100: '#faf5ff',
+        200: '#e9d8fd',
+        300: '#d6bcfa',
+        400: '#b794f4',
+        500: '#9f7aea',
+        600: '#805ad5',
+        700: '#6b46c1',
+        800: '#553c9a',
+        900: '#44337a',
+      },
+      pink: {
+        100: '#fff5f7',
+        200: '#fed7e2',
+        300: '#fbb6ce',
+        400: '#f687b3',
+        500: '#ed64a6',
+        600: '#d53f8c',
+        700: '#b83280',
+        800: '#97266d',
+        900: '#702459',
+      },
       red: "#a45",
       'ocean-green': {
         DEFAULT: '#42B983',
@@ -107,6 +129,12 @@ module.exports = {
       none: 'none',
     },
     extend: {
+      keyframes: {
+        // wiggle: {
+        //   '0%, 100%': { transform: 'rotate(-3deg)' },
+        //   '50%': { transform: 'rotate(3deg)' },
+        // }
+      },
       spacing: {
         128: "32rem",
         144: "36rem",
@@ -114,6 +142,10 @@ module.exports = {
       borderRadius: {
         "4xl": "2rem",
       },
+      animation: {
+        //   'spin-slow': 'spin 3s linear infinite',
+        //   wiggle: 'wiggle 1s ease-in-out infinite'
+      }
     },
   },
   variants: {

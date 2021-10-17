@@ -1,16 +1,110 @@
 <template>
   <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300">
-    <h2>Api Call result:</h2>
-    <p>{{ order }}</p>
-    <Button @click="onSubmit">
-      Get order.
-    </Button>
+    <!-- <div id="demo">
+      <Button @click="show = !show">Toggle</Button>
+
+      <transition name="fade">
+        <p v-if="show">hello</p>
+      </transition>
+    </div>
+
+    <Button>Wiggle</Button> -->
+    <!-- <transition name="wiggle spin-slow" class="wiggle spin-slow">
+      <p>Wiggle</p>
+    </transition> -->
+
+    <!-- <bear-svg/> -->
+    <!-- <c-accordion :allow-toggle="true">
+      <c-accordion-item>
+        <c-accordion-header>
+          <c-box flex="1" text-align="left"> Section 1 title </c-box>
+          <c-accordion-icon />
+        </c-accordion-header>
+        <c-accordion-panel pb="4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </c-accordion-panel>
+      </c-accordion-item>
+      <c-accordion-item>
+        <c-accordion-header>
+          <c-box flex="1" text-align="left"> Section 2 title </c-box>
+          <c-accordion-icon />
+        </c-accordion-header>
+        <c-accordion-panel pb="4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </c-accordion-panel>
+      </c-accordion-item>
+    </c-accordion> -->
+    <!-- <button type="button" class="bg-red-600" disabled>
+      <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+        <bear />
+      </svg>
+      Processing
+    </button> -->
+
+    <!-- <div
+      class="
+        border border-blue-300
+        shadow
+        rounded-md
+        p-4
+        max-w-sm
+        w-full
+        mx-auto
+      "
+    >
+      <div class="animate-pulse flex space-x-4">
+        <div class="rounded-full bg-blue-400 h-12 w-12"></div>
+        <div class="flex-1 space-y-4 py-1">
+          <div class="h-4 bg-blue-400 rounded w-3/4"></div>
+          <div class="space-y-2">
+            <div class="h-4 bg-blue-400 rounded"></div>
+            <div class="h-4 bg-blue-400 rounded w-5/6"></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <span class="flex h-3 w-3">
+      <span
+        class="
+          animate-ping
+          absolute
+          inline-flex
+          h-full
+          w-full
+          rounded-full
+          bg-purple-400
+          opacity-75
+        "
+      ></span>
+      <span
+        class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"
+      ></span>
+    </span> -->
+
+    <div v-if="true">
+      <Button @click="onSubmit"> Get order. </Button>
+      <label>Result</label>
+      <p>{{ order }}</p>
+      <span v-if="!!result.id">{{ result }}</span>
+
+      <img
+        v-else-if="!result"
+        src="https://media.giphy.com/media/13gQDQyb4JIWic/giphy.gif"
+      />
+    </div>
 
     <!-- <gallery v-show="true"/> -->
 
     <!-- Props passing attempt 1 -->
 
-    <div v-show="false" v-for="part in parts" v-bind:key="part.id">
+    <div v-show="true" v-for="part in parts" v-bind:key="part.id">
       <h2>Cards Example</h2>
       <Card>
         <template v-slot:header>
@@ -30,19 +124,12 @@
         </template>
         <template v-slot:footer>
           <!-- Toggle the remaining details like weight, url, etc -->
-          <Button v-if="false">Show Details</Button>
+          <Button v-if="true">Show Details</Button>
         </template>
       </Card>
     </div>
 
-    <tailwind-card v-show="false" />
-    
-    <label>Result</label>
-    <span v-if="!!result">{{ result }}</span>
-    <img
-      v-else-if="!result"
-      src="https://media.giphy.com/media/13gQDQyb4JIWic/giphy.gif"
-    />
+    <tailwind-card v-show="true" />
   </div>
 </template>
 <script>
@@ -51,7 +138,6 @@ import { base } from "../../api/airtable";
 import Card from "../components/molecules/Card.vue";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
-import Gallery from '../components/examples/Gallery.vue';
 export default {
   methods: {
     speak() {
@@ -79,6 +165,7 @@ export default {
   },
   data() {
     return {
+      show: false,
       parts: [],
       posts: [
         { id: 1, title: "My journey with Vue" },

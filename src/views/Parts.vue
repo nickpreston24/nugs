@@ -1,12 +1,14 @@
 <template>
   <div class="parts">
 
-    <PartsGallery />
-    <!-- <Button>+</Button> -->
-    <!-- 
+    <Button @click="show = !show">{{
+      !show ? "Add Parts" : "View Parts"
+    }}</Button>
+
+    <PartsGallery v-show="!show" />
 
     <iframe
-      v-if="false"
+      v-show="show"
       class="airtable-embed"
       src="https://airtable.com/embed/shreqIf5JuPgS9pyq?backgroundColor=blue"
       frameborder="0"
@@ -14,36 +16,29 @@
       width="100%"
       height="533"
       style="background: transparent; border: 1px solid #ccc"
-    ></iframe> -->
-    
+    ></iframe>
+
   </div>
 </template>
 <script>
 import Button from "../components/atoms/Button.vue";
 import PartsGallery from "../components/examples/PartsGallery.vue";
-// import PartPhoto from '../components/parts/PartPhoto.vue';
 export default {
-  // name: 'parts',
-  // data() {
-  //   return {
-  //     addButton: {
-  //       show: true,
-  //       class: "",
-  //       text: "New Part",
-  //     },
-  //   };
-  // },
-  // methods: {
-  //   toggleButton() {
-  //     // this.addButton = { ...this.addButton };
-  //     // this.$refs.btnToggle.innerText = this.addButton.show? false : true;
-  //   },
-  // },
+  data() {
+    return {
+      show: false,
+    };
+  },
   components: {
     PartsGallery,
-    // PartPhoto,
-    // Button,
-    // Photo,
+    Button,
   },
 };
 </script>
+<style scoped>
+html,
+body {
+  min-height: 100vh;
+  background-color: #030303;
+}
+</style>
