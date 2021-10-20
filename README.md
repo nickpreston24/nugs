@@ -23,13 +23,19 @@ What if there was a way to create your dream rifle from popular parts on the int
 - [ ]
     [Fix altering a prop](https://dev.to/jakzaizzat/avoid-mutating-a-prop-directly-ab9)
     [fixing altering a prop #2](https://michaelnthiessen.com/avoid-mutating-prop-directly/)
-- [ ] Add Update Button to Card
-- [ ] Add Delete Button to Card
 - [ ] [Emulate this awesome menu](https://codesandbox.io/s/xn8xx?file=/src/SmartHome/SmartHome.vue)
 - [ ] Store things across function calls: https://lihbr.com/blog/rate-limiting-without-overhead-netlify-or-vercel-functions
 - [ ] API playground for vue https://functions.netlify.com/playground/
 - [ ] Send sms? https://www.twilio.com/blog/use-serverless-functions-send-sms-react-vercel-twilio
-- [ ] Add Order, Part and Build placement (Airtable's embeds)  
+- [x] Add Order, Part and Build placement (Airtable's embeds)  
+- [ ] Builds:
+    - Greedy Algorithm
+        a. Favors more expensive/least expensive (toggle this as a mode)
+        b. Introduce slots (grip, LPK, lower, etc.)...make custom builder object for this
+        c. Display the fully built AR, within price.
+        d. Dipspay a slider bar for budget.
+        e. Add a Randomizer button.
+        f. Finish the Types and Categories in Airtable (build the form for this later)
 
 # Nice to Have:
 

@@ -10,7 +10,7 @@ export default function useParts() {
     onMounted(() => {
         base("Parts")
             .select({
-                maxRecords: 20,
+                maxRecords: 100,
                 view: "Grid view",
             })
             .eachPage(
