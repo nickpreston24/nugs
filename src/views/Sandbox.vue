@@ -1,5 +1,35 @@
 <template>
   <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300">
+    <div class="container" v-show="false">
+      <form @submit.prevent="handleSubmit">
+        <div
+          class="form-group form-check"
+          v-for="item in Items"
+          v-bind:key="item.id"
+        >
+          <label class="form-check-label" :for="item.id">{{ item.name }}</label>
+          <input
+            type="checkbox"
+            :id="item.name"
+            :value="item.name"
+            @click="item.show = !item.show"
+          />
+        </div>
+
+        <div class="form-group">
+          {{ sandboxViews }}
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <h2>Airtable Promises (Cursor)</h2>
+    <Button @click="onNext">{{ ">>>" }}</Button>
+    <p v-show="true">{{ pagedData }}</p>
+
     <!-- <div id="demo">
       <Button @click="show = !show">Toggle</Button>
 
@@ -88,43 +118,37 @@
       ></span>
     </span> -->
 
-    <div v-if="true">
-      <Button @click="onSubmit"> Get order. </Button>
-      <label>Result</label>
-      <p>{{ order }}</p>
-      <span v-if="!!result.id">{{ result }}</span>
-
-      <img
-        v-else-if="!result"
-        src="https://media.giphy.com/media/13gQDQyb4JIWic/giphy.gif"
-      />
-    </div>
-
     <!-- <gallery v-show="true"/> -->
 
     <!-- Props passing attempt 1 -->
 
-    <div v-show="true" v-for="part in parts" v-bind:key="part.id">
-      <h2>Cards Example</h2>
+    <div v-show="false" v-for="part in parts" v-bind:key="part.id">
       <Card>
         <template v-slot:header>
           <h1>
             {{ part.Name }}
           </h1>
+          <a :href="part.Link" target="_blank" rel="noopener noreferrer">
+            <h2 class="p-2 font-normal text-arctic-600" v-if="part?.Name">
+              {{ part.Name }}
+            </h2>
+          </a>
         </template>
         <template v-slot:default>
-          <!-- <img src="https://picsum.photos/300" /> -->
-          <img src="{{part.Attachments[0].url}}" alt="" />
+          <!-- <img src="https://picsum.parts/300" /> -->
+          <!-- <img src="{{part.Attachments[0].url}}" alt="" /> -->
           <!-- <p>{{ part.GelTest.replace("watch?v=", "embed/")
             .replace("t=","start=")
              }}</p> -->
           <!-- <Embed v-bind:url="part.GelTest" v-if="true" /> -->
-          <p>{{ part.GelTest }}</p>
+          <a rel="nofollow" :href="part.GelTest" />
+          <!-- <a rel="nofollow" :href="part.source.url">{{ part.source.name }}</a> -->
+          <!-- <p>{{ part.GelTest }}</p> -->
           <!-- <iframe width="640" height="480" src="part.GelTest"></iframe> -->
         </template>
         <template v-slot:footer>
           <!-- Toggle the remaining details like weight, url, etc -->
-          <Button v-if="true">Show Details</Button>
+          <!-- <Button v-if="true">Show Details</Button> -->
         </template>
       </Card>
     </div>
@@ -138,11 +162,26 @@ import { base } from "../../api/airtable";
 import Card from "../components/molecules/Card.vue";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
+import useTable from "../components/useTable";
+
 export default {
+  setup() {
+    let { state } = useTable();
+    return {
+      state,
+    };
+  },
   methods: {
-    speak() {
-      alert("clicky!");
+    handleSubmit() {
+      alert(JSON.stringify(this.user));
     },
+
+    onNext() {
+      let { searchPagified } = useTable();
+      let parts = searchPagified();
+      console.log(parts)
+    },
+
     onSubmit: async (e) => {
       await e.preventDefault();
 
@@ -166,15 +205,41 @@ export default {
   data() {
     return {
       show: false,
-      parts: [],
-      posts: [
-        { id: 1, title: "My journey with Vue" },
-        { id: 2, title: "Blogging with Vue" },
-        { id: 3, title: "Why Vue is so fun" },
-      ],
-      result: [],
       devmode: devmode,
       order: { id: "empty" },
+      pagedData: {},
+
+      Items: [
+        {
+          name: "Tailwind",
+          show: false,
+        },
+        {
+          name: "Orange",
+          show: false,
+        },
+        {
+          name: "Mango",
+          show: false,
+        },
+        {
+          name: "Cherry",
+          show: false,
+        },
+      ],
+      sandboxViews: [],
+    };
+  },
+  computed() {
+    return {
+      records() {
+        console.log(this.state.records)
+        return this.state.records;
+        // .filter((p) => p?.Attachments)
+        // .map((p) => {
+        //   return { ...p, url: p?.Attachments ? [0].url : "" };
+        // });
+      },
     };
   },
   mounted() {

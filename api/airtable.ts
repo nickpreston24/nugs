@@ -16,6 +16,63 @@ export const formatRecords = (records = []) => {
     });
 }
 
+export const initialOptions = {
+    sort: [{ field: "Name", direction: "asc" }],
+    pageSize: 10,
+    maxRecords: 20,
+    // filterByFormula: "",
+    /*other stuff*/
+};
+
+export function pagify(table, options = null) {
+    console.log('table>>', table)
+    
+    if (!table)
+        throw Error("Can't load an empty table name!")
+    if (!options)
+        options = initialOptions;
+
+    console.log(options)
+    const cursor = {
+        reject: null
+        , resolve: null
+        , nextPage: null
+    };
+
+    const doneCallback = error => {
+        if (error) {
+            cursor.reject(error);
+        } else {
+            cursor.resolve();
+        }
+    };
+
+    const eachPageCallback = (records, fetchNextPage) => {
+        cursor.nextPage = () => {
+            return new Promise((res, rej) => {
+                cursor.reject = rej;
+                cursor.resolve = res;
+                fetchNextPage();
+            });
+        };
+        cursor.resolve(records);
+    };
+
+    cursor.nextPage = () => {
+        return new Promise((res, rej) => {
+            cursor.reject = rej;
+            cursor.resolve = res;
+            base(table)
+                .select(options)
+                .eachPage(eachPageCallback, doneCallback);
+        });
+    };
+
+    return cursor;
+}
+
+
+
 export const create = async (baseName: string = null, items = []) => {
 
     // Reshape the airtable data passed to the UI:
@@ -105,46 +162,3 @@ export const get = async (baseName: string = null, id = null) => {
         console.log('Retrieved ', record.id)
     })
 }
-
-// export type Order = {
-//     Cart: [],
-//     Buy: boolean,
-//     "Count Desired": 0,
-// }
-
-// export interface IRound {
-//     Name: "",
-//     Grain: 0,
-//     "Muzzle Velocity": 0,
-//     "Found": "",
-//     "Caliber": "",
-//     "Manufacturer": "",
-//     "Diameter": 0.0
-// }
-
-// export type RoundType = {
-//     Name: "",
-//     Grain: 0,
-//     "Muzzle Velocity": 0,
-//     "Found": "",
-//     "Caliber": "",
-//     "Manufacturer": "",
-//     "Diameter": 0.0
-// }
-
-// export class Round implements IRound {
-//     constructor(props) {
-//         Object.assign(this, props)
-//     }
-//     Name: '';
-//     Grain: 0;
-//     "Muzzle Velocity": 0;
-//     "Found": '';
-//     "Caliber": '';
-//     "Manufacturer": '';
-//     "Diameter": 0;
-// }
-
-// export type Build = {
-//     // Idea: is there a way to extract the fields and then match shape w/o types?
-// }

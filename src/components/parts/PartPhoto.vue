@@ -1,6 +1,6 @@
 <template>
-  <div v-if="part.url" class="lightbox" @click.self="closeLightbox">
-    <img :src="part.url" />
+  <div v-if="part?.url" class="lightbox" @click.self="closeLightbox">
+    <img :src="part?.url" />
     <div class="lightbox-info">
       <div class="lightbox-info-inner">
         <a :href="part.Link" target="_blank" rel="noopener noreferrer">
@@ -15,31 +15,36 @@
 </template>
 
 <script>
-import useParts from "./useParts";
+import useTable from "../useTable";
 
 export default {
   setup() {
-    let { state } = useParts();
+    let { state } = useTable();
     return {
       state,
     };
   },
   computed: {
     part() {
-      let parts = this.state.parts.filter((p) => p?.Attachments);
-      // console.log("parts", parts);
-      let names = parts.map((b) => b.id);
-      // console.log("names", names);
-      // console.log(this.$route);
-      let found = parts.find((part) => {
-        // console.log(part)
-        return part.id === this.$route.params.id;
-      });
-      // console.log("found:>>", found);
-      return {
-        ...found,
-        url: found?.Attachments[0].url || "",
-      };
+      // console.log('this.state :>> ', this.state);
+
+      // let parts = this.state.parts.filter((p) => p?.Attachments);
+      // // console.log("parts", parts);
+      // let names = parts.map((b) => b.id);
+      // // console.log("names", names);
+      // // console.log(this.$route);
+      // let found = parts.find((part) => {
+      //   // console.log(part)
+      //   return part.id === this.$route.params.id;
+      // });
+      // // console.log("found:>>", found);
+      // return {
+      //   ...found,
+      //   url: found?.Attachments[0].url || "",
+      // };
+      console.log("this.state.records :>> ", this.state.records[0]);
+
+      return this.state.records[0];
     },
   },
   methods: {
@@ -69,7 +74,6 @@ export default {
   width: 100%;
   grid-column-start: 2;
   border-radius: 0.75rem;
-
 }
 
 .lightbox-info {

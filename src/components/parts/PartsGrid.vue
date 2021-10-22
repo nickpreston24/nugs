@@ -29,7 +29,6 @@
   </div>
 </template>
 <script>
-import { base } from "../../../api/airtable";
 import { devmode } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 import Card from "../molecules/Card.vue";
@@ -56,38 +55,39 @@ export default {
     };
   },
 
-  mounted() {
-    base("Parts")
-      .select({
-        maxRecords: 10,
-        view: "Grid view",
-      })
-      .eachPage(
-        (records, fetchNextPage) => {
-          devmode && console.log(`records`, records);
-          let parts = records.map((r) => {
-            const { id, fields } = r;
-            return {
-              id,
-              ...fields,
-            };
-          });
-          console.log(`parts`, parts);
-          this.parts = parts;
-          // this.parts = useState(parts);
-          // To fetch the next page of records, call `fetchNextPage`.
-          // If there are more records, `page` will get called again.
-          // If there are no more records, `done` will get called.
-          fetchNextPage();
-        },
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        }
-      );
-  },
+  // mounted() {
+  //   base("Parts")
+  //     .select({
+  //       maxRecords: 10,
+  //       view: "Grid view",
+  //     })
+  //     .eachPage(
+  //       (records, fetchNextPage) => {
+  //         devmode && console.log(`records`, records);
+  //         let parts = records;
+  //         // .map((r) => {
+  //         //   const { id, fields } = r;
+  //         //   return {
+  //         //     id,
+  //         //     ...fields,
+  //         //   };
+  //         // });
+  //         console.log(`parts`, parts);
+  //         this.parts = parts;
+  //         // this.parts = useState(parts);
+  //         // To fetch the next page of records, call `fetchNextPage`.
+  //         // If there are more records, `page` will get called again.
+  //         // If there are no more records, `done` will get called.
+  //         fetchNextPage();
+  //       },
+  //       function done(err) {
+  //         if (err) {
+  //           console.error(err);
+  //           return;
+  //         }
+  //       }
+  //     );
+  // },
   components: {
     Card,
     List,

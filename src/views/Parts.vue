@@ -1,6 +1,5 @@
 <template>
   <div class="parts">
-
     <Button @click="show = !show">{{
       !show ? "Add Parts" : "View Parts"
     }}</Button>
@@ -17,7 +16,6 @@
       height="533"
       style="background: transparent; border: 1px solid #ccc"
     ></iframe>
-
   </div>
 </template>
 <script>
