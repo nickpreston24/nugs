@@ -1,4 +1,4 @@
-
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: 'class', // or 'media' or 'class'
@@ -25,6 +25,8 @@ module.exports = {
         800: '#553c9a',
         900: '#44337a',
       },
+      eunry: { DEFAULT: '#CBA3A3', '50': '#FFFFFF', '100': '#FFFFFF', '200': '#FFFFFF', '300': '#F0E4E4', '400': '#DDC4C4', '500': '#CBA3A3', '600': '#B98282', '700': '#A66262', '800': '#884D4D', '900': '#673A3A' },
+      'medium-purple': { DEFAULT: '#9F7AEA', '50': '#FFFFFF', '100': '#FFFFFF', '200': '#FEFEFF', '300': '#DFD2F8', '400': '#BFA6F1', '500': '#9F7AEA', '600': '#7F4EE3', '700': '#6023DB', '800': '#4C1CAF', '900': '#391583' },
       pink: {
         100: '#fff5f7',
         200: '#fed7e2',
@@ -155,5 +157,16 @@ module.exports = {
       opacity: ['disabled'],
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addBase, theme }) {
+      addBase({
+        'h1': { fontSize: theme('fontSize.2xl') },
+        'h2': { fontSize: theme('fontSize.xl') },
+        'h3': { fontSize: theme('fontSize.lg') },
+        'h4': { fontSize: theme('fontSize.md') },
+        'h5': { fontSize: theme('fontSize.sm') },
+        'h6': { fontSize: theme('fontSize.xs') },
+      })
+    })
+  ],
 };

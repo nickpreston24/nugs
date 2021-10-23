@@ -36,6 +36,10 @@ What if there was a way to create your dream rifle from popular parts on the int
         d. Dipspay a slider bar for budget.
         e. Add a Randomizer button.
         f. Finish the Types and Categories in Airtable (build the form for this later)
+- [ ] Portal 2 Style Animation
+    - Borrow the code from your 1st website
+        a. Animate each 'tile' (Part, Build, etc.) transition to be timed like in your portfolio
+        b. Set a nice patterned background (see Braden's linked background cdn from Scrib)
 
 # Nice to Have:
 

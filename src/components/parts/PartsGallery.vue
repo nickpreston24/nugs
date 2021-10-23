@@ -17,7 +17,7 @@
         color="grey"
       />
       <div class="gallery-panel" v-for="part in parts" :key="part.id">
-        <!-- <h1>{{part.Name}}</h1> -->
+        <h1>{{part.Name}}</h1>
 
         <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
           <img

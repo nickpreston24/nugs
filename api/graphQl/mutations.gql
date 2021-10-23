@@ -1,0 +1,26 @@
+mutation {
+    createMovies(
+      input: {
+        title: "Matrix, The"
+        plot: "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
+        year: 1999
+        actors: {
+          create: [
+            { node: { name: "Hugo Weaving" } }
+            { node: { name: "Laurence Fishburne" } }
+            { node: { name: "Keanu Reeves" } }
+            { node: { name: "Carrie-Anne Moss" } }
+          ]
+        }
+      }
+    ) {
+      movies {
+        title
+        plot
+        year
+        actors {
+          name
+        }
+      }
+    }
+  }

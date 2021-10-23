@@ -1,6 +1,13 @@
 <template>
   <div class="orders">
+    <Button @click="show = !show">{{
+      !show ? "Add Orders" : "View Orders"
+    }}</Button>
+
+    <OrdersGallery v-show="!show" />
+
     <iframe
+      v-if="show"
       class="airtable-embed"
       src="https://airtable.com/embed/shrbrxYaV6KdOymx4?backgroundColor=blue"
       frameborder="0"
@@ -11,3 +18,27 @@
     ></iframe>
   </div>
 </template>
+
+<script>
+import Button from "../components/atoms/Button.vue";
+import OrdersGallery from "../components/orders/OrdersGallery.vue";
+export default {
+  data() {
+    return {
+      show: false,
+    };
+  },
+  components: {
+    OrdersGallery,
+    Button,
+  },
+};
+</script>
+<style scoped>
+html,
+body {
+  min-height: 100vh;
+  background-color: #030303;
+}
+</style>
+

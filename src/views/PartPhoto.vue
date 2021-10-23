@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import PartsGallery from "../components/examples/PartsGallery.vue";
+import PartsGallery from "../components/parts/PartsGallery.vue";
 import PartPhoto from "../components/parts/PartPhoto.vue";
 export default {
   name: "part",

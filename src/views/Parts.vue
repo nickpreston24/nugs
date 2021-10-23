@@ -20,7 +20,7 @@
 </template>
 <script>
 import Button from "../components/atoms/Button.vue";
-import PartsGallery from "../components/examples/PartsGallery.vue";
+import PartsGallery from "../components/parts/PartsGallery.vue";
 export default {
   data() {
     return {
