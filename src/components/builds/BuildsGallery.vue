@@ -9,7 +9,7 @@
       </select>
     </div>
 
-    <p>{{ builds[0] }}</p>
+    <!-- <p>{{ builds[0] }}</p> -->
 
     <div class="builds-gallery">
       <!-- <spinner
@@ -18,8 +18,7 @@
         class="color-arctic-500"
         color="grey"
       /> -->
-      <p>slider</p>
-      <slider v-model="budget"></slider>
+      <!-- <slider v-model="value"></slider> -->
 
       <div class="gallery-panel" v-for="build in builds" :key="build.id">
         <build-card
@@ -31,13 +30,7 @@
         <!-- <div>
           
           <h6>${{ build["Total Cost"] }}</h6>
-          <router-link v-if="build?.Attachments" :to="`/build/${build.id}`">
-            <img
-              v-if="build.Attachments"
-              :src="build.Attachments?.[0]?.url"
-              class="transform transition-all hover:scale-125"
-            />
-          </router-link>
+          
 
           <div v-else class="img-upload text-arctic-600 gentle-flex">
             <span>No Image Found...Please Upload one!</span>
@@ -53,14 +46,19 @@ import { initialOptions } from "../../../api/airtable";
 // import Spinner from "../atoms/Spinner.vue";
 import BuildCard from "../../components/builds/BuildCard.vue";
 import useTable from "../useTable";
+import Slider from "@vueform/slider";
 
 export default {
-  components: { BuildCard },
+  components: {
+    BuildCard,
+    // Slider
+  },
   data() {
     return {
       selected: 10,
       limits: [10, 20, 50, 100],
       loading: false,
+      value: 20,
     };
   },
 

@@ -9,7 +9,7 @@
         {{ !showBuilds ? "[+] Builds" : "[-] Builds" }}
       </button>
 
-      <button v-on:click="showOrders = !showOrders">
+      <button v-show="false" v-on:click="showOrders = !showOrders">
         {{ !showOrders ? "[+] Orders" : "[-] Orders" }}
       </button>
 
