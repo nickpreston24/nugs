@@ -21,14 +21,10 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary">Submit</button>
+          <Button class="btn btn-primary">Submit</Button>
         </div>
       </form>
     </div>
-
-    <h2>Airtable Promises (Cursor)</h2>
-    <Button @click="onNext">{{ ">>>" }}</Button>
-    <p v-show="true">{{ pagedData }}</p>
 
     <!-- <div id="demo">
       <Button @click="show = !show">Toggle</Button>
@@ -70,7 +66,7 @@
         </c-accordion-panel>
       </c-accordion-item>
     </c-accordion> -->
-    <!-- <button type="button" class="bg-red-600" disabled>
+    <!-- <Button type="button" class="bg-red-600" disabled>
       <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
         <bear />
       </svg>
@@ -166,7 +162,7 @@ import useTable from "../components/useTable";
 
 export default {
   setup() {
-    let { state } = useTable();
+    let { state } = useTable("Builds");
     return {
       state,
     };
@@ -179,7 +175,7 @@ export default {
     onNext() {
       let { searchPagified } = useTable();
       let parts = searchPagified();
-      console.log(parts)
+      console.log(parts);
     },
 
     onSubmit: async (e) => {
@@ -233,7 +229,7 @@ export default {
   computed() {
     return {
       records() {
-        console.log(this.state.records)
+        console.log(this.state.records);
         return this.state.records;
         // .filter((p) => p?.Attachments)
         // .map((p) => {

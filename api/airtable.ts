@@ -29,8 +29,8 @@ export function pagify(table, options = null) {
     
     if (!table)
         throw Error("Can't load an empty table name!")
-    if (!options)
-        options = initialOptions;
+    // if (!options)
+        // options = initialOptions;
 
     console.log(options)
     const cursor = {

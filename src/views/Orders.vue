@@ -6,7 +6,7 @@
 
     <OrdersGallery v-show="!show" />
 
-    <iframe
+    <!-- <iframe
       v-if="show"
       class="airtable-embed"
       src="https://airtable.com/embed/shrbrxYaV6KdOymx4?backgroundColor=blue"
@@ -15,17 +15,20 @@
       width="100%"
       height="533"
       style="background: transparent; border: 1px solid #ccc"
-    ></iframe>
+    ></iframe> -->
   </div>
 </template>
 
 <script>
 import Button from "../components/atoms/Button.vue";
 import OrdersGallery from "../components/orders/OrdersGallery.vue";
+import { devmode } from "../helpers/generators";
+
 export default {
   data() {
     return {
       show: false,
+      devmode: devmode(),
     };
   },
   components: {

@@ -1,5 +1,6 @@
 import { ref, onMounted, toRefs, reactive, toRef } from 'vue'
-import { base, findAll, formatRecords, pagify } from "../../api/airtable";
+import { base, findAll, formatRecords, get, pagify } from "../../api/airtable";
+import { devmode } from '../helpers/generators';
 
 
 function concat(...args) {
@@ -45,6 +46,9 @@ export default function useTable(tableName = "Parts") {
         console.log('options :>> ', options);
 
         const atPageCursor = pagify(state.table, options);
+        let filter = options?.filter ? options.filter : x => x;
+
+        console.log('filter :>> ', filter);
 
         try {
             // nextPage return a promise that resolves to an array of Record objects.
@@ -73,5 +77,13 @@ export default function useTable(tableName = "Parts") {
         }
     }
 
-    return { state, searchPagified }
+    const getById = async (id) => {
+
+        let raw = await get(state.table, id);
+        let record = formatRecords([raw]);
+        devmode ?? console.log('record :>> ', record);
+        return record;
+    }
+
+    return { state, searchPagified, getById }
 }

@@ -16,8 +16,8 @@
       <span v-if="devmode">{{ { ...build } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
       <label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</label>
-      <button v-show="ready" v-on:click="addBuild">Add Build</button>
-      <button @click="lorem" v-if="devmode">Lorem</button>
+      <Button v-show="ready" v-on:click="addBuild">Add Build</Button>
+      <Button @click="lorem" v-if="devmode">Lorem</Button>
       <br />
     </div>
   </div>

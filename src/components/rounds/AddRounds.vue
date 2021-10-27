@@ -20,8 +20,8 @@
       <span v-if="devmode">{{ { ...round } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
       <label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</label>
-      <button v-show="ready" v-on:click="addRound">Add Round</button>
-      <button @click="lorem" v-if="devmode">Lorem</button>
+      <Button v-show="ready" v-on:click="addRound">Add Round</Button>
+      <Button @click="lorem" v-if="devmode">Lorem</Button>
       <br />
     </div>
   </div>
@@ -31,8 +31,10 @@
 import { config } from "../../config";
 import { create } from "../../../api/airtable";
 import { isEmpty, devmode } from "../../helpers/generators";
-import AutoForm from "../molecules/AutoForm.vue";
+import Button from "../atoms/Button.vue";
+
 export default {
+  components: { Button },
   methods: {
     async addRound() {
       await create("Rounds", [
@@ -54,8 +56,8 @@ export default {
       let fake = {
         Name: "Blammo Ammo " + Math.ceil(Math.random() * 150),
         Diameter: 0.3,
-        Grain: 115,
-        MuzzleVelocity: 3000,
+        Grain: 55 + Math.ceil(Math.random() * 80),
+        MuzzleVelocity: 575 + Math.ceil(Math.random() * 2700),
         Found: "example.com",
       };
       this.round = fake;

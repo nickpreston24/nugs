@@ -9,15 +9,21 @@
       </select>
     </div>
 
+    <p>{{ state.records[0] }}</p>
+
     <div class="gallery">
-      <spinner
+      <Spinner
+        v-if="devmode"
         :animation-duration="2000"
         :size="60"
         class="color-arctic-500"
         color="grey"
       />
       <div class="gallery-panel" v-for="order in orders" :key="order.id">
-        <h1>{{order.Name}}</h1>
+        <h1>{{ order.Name }}</h1>
+        <h4>Subtotal: {{ order.SubTotal }}</h4>
+        <h4>Total: {{ order.Total }}</h4>
+        <h3>Date Ordered: {{ order.Created }}</h3>
 
         <router-link v-if="order?.Attachments" :to="`/order/${order.id}`">
           <img
@@ -28,8 +34,7 @@
         </router-link>
 
         <div v-else class="img-upload text-arctic-600 gentle-flex">
-          <span>No Image Found...Please Upload one!</span>
-          <!-- <button v-data="{{show: false}}" @click="show = true">Expand</button> -->
+          <span v-if="devmode">No Image Found...Please Upload one!</span>
           <input type="text" v-show="show" />
         </div>
       </div>
@@ -37,9 +42,9 @@
   </div>
 </template>
 <script>
-import { initialOptions } from "../../../api/airtable";
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
+import { devmode } from "../../../src/helpers/generators";
 
 export default {
   components: { Spinner },
@@ -48,6 +53,7 @@ export default {
       selected: 10,
       limits: [10, 20, 50, 100],
       loading: false,
+      devmode: devmode(),
     };
   },
 
@@ -73,7 +79,6 @@ export default {
     selected() {
       if (this.selected > 0) {
         let options = {
-          ...initialOptions,
           maxRecords: parseInt(this.selected),
         };
         this.loading = true;
