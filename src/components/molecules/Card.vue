@@ -18,7 +18,6 @@
 </template>
 <script>
 export default {
-  watch: {},
   data() {
     return {
       isHovering: false,

@@ -6,14 +6,26 @@ export const base = new Airtable({ apiKey: process.env.VUE_APP_AIRTABLE_API_KEY 
     process.env.VUE_APP_BASE_KEY
 );
 
-export const formatRecords = (records = []) => {
-    return records.map((r) => {
-        const { id, fields } = r;
+export const formatRecords = (records: any | [] = []) => {
+    // console.log('records (format) :>> ', records);
+    let collection = [].concat(records)
+    // devmode && console.log('collection', collection);
+
+    const format = (record) => {
+        if (!record) return {};
+        let { id, fields } = record;
         return {
             id,
             ...fields,
         };
-    });
+    }
+    // console.log('collection :>> ', collection);
+    let result = (collection.length > 1)
+        ? collection.map(format)
+        : collection
+
+    // console.log('result (colection) :>> ', result);
+    return result
 }
 
 export const initialOptions = {
@@ -25,14 +37,12 @@ export const initialOptions = {
 };
 
 export function pagify(table, options = null) {
-    console.log('table>>', table)
-    
+    // console.log('table>>', table)
+
     if (!table)
         throw Error("Can't load an empty table name!")
-    // if (!options)
-        // options = initialOptions;
 
-    console.log(options)
+    // devmode && console.log(options)
     const cursor = {
         reject: null
         , resolve: null
@@ -73,7 +83,7 @@ export function pagify(table, options = null) {
 
 
 
-export const create = async (baseName: string = null, items = []) => {
+export const create = async (table: string = null, items = []) => {
 
     // Reshape the airtable data passed to the UI:
     const collection = items.map(i => {
@@ -84,9 +94,9 @@ export const create = async (baseName: string = null, items = []) => {
         }
     }) as any
 
-    devmode && console.log(`collection`, collection)
+    // devmode && console.log(`collection`, collection)
 
-    base(baseName).create(
+    base(table).create(
         collection,
         (err, records) => {
             if (err) {
@@ -100,8 +110,8 @@ export const create = async (baseName: string = null, items = []) => {
     );
 }
 
-export const destroy = async (baseName: string = null, ids = []) => {
-    base(baseName).destroy(ids, (err, deletedRecords) => {
+export const destroy = async (table: string = null, ids = []) => {
+    base(table).destroy(ids, (err, deletedRecords) => {
         if (err) {
             console.error(err);
             return;
@@ -110,8 +120,8 @@ export const destroy = async (baseName: string = null, ids = []) => {
     });
 }
 
-export const update = async (baseName: string = null, items = []) => {
-    base(baseName).update(items, (err, deletedRecords) => {
+export const update = async (table: string = null, items = []) => {
+    base(table).update(items, (err, deletedRecords) => {
         if (err) {
             console.error(err);
             return;
@@ -120,11 +130,11 @@ export const update = async (baseName: string = null, items = []) => {
     });
 }
 
-export const findAll = (baseName: string = null, limit = 10) => {
+export const findAll = (table: string = null, limit = 10) => {
 
     let result = [];
 
-    base(baseName).select({
+    base(table).select({
         maxRecords: limit,
         view: "Grid view"
     }).eachPage((records, fetchNextPage) => {
@@ -145,20 +155,26 @@ export const findAll = (baseName: string = null, limit = 10) => {
         if (err) { console.error(err); return; }
 
     });
-    console.log(`ret`, result)
+    console.log(`result (findall)`, result)
 
     // devmode && console.log(`Returning result ... `, result[0])
     return formatRecords(result)
 
 }
 
-export const get = async (baseName: string = null, id = null) => {
-    if (!id) return;
-    base(baseName).find(id, (err, record) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log('Retrieved ', record.id)
-    })
+export const get = async (table: string = null, id = null) => {
+
+    if (!id) return null;
+
+    return new Promise((resolve, reject) => {
+        base(table)
+            .find(id, (error, record) => {
+                // devmode && console.log('Retrieved ', record)
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(formatRecords(record));
+                }
+            })
+    });
 }

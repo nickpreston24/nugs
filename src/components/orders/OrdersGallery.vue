@@ -9,33 +9,64 @@
       </select>
     </div>
 
-    <p>{{ state.records[0] }}</p>
+    <!-- <p>{{ state.records[0] }}</p> -->
+
+    <!-- <Accordion :list="state.records">
+      <template v-slot:header>
+        <h1>&#x1F503;</h1>
+      </template>
+    </Accordion> -->
 
     <div class="gallery">
       <Spinner
-        v-if="devmode"
+        v-if="false"
         :animation-duration="2000"
         :size="60"
         class="color-arctic-500"
         color="grey"
       />
+
+      <p>{{ builds }}</p>
+
+      <!-- <Button v-on:click="show = !show">Toggle transition</Button>
+      <fade-transition>
+        <div v-if="show" class="w-100 box">HI</div>
+      </fade-transition> -->
+
       <div class="gallery-panel" v-for="order in orders" :key="order.id">
-        <h1>{{ order.Name }}</h1>
-        <h4>Subtotal: {{ order.SubTotal }}</h4>
-        <h4>Total: {{ order.Total }}</h4>
-        <h3>Date Ordered: {{ order.Created }}</h3>
+        <!-- <h1>{{ order.Payments[0] }}</h1> -->
 
-        <router-link v-if="order?.Attachments" :to="`/order/${order.id}`">
-          <img
-            v-if="order.Attachments"
-            :src="order.Attachments?.[0]?.url"
-            class="transform transition-all hover:scale-125"
-          />
-        </router-link>
+        <div class="gallery-item">
+          <h2>&#x0023;&#xFE0F;&#x20E3; {{ order.Build.length }}</h2>
+          <h3>&#x1F4C5; {{ order.Created }}</h3>
+          <h4>&#x1F4B2; {{ order.SubTotal }}</h4>
+          <i>{{ order.Build }}</i>
 
-        <div v-else class="img-upload text-arctic-600 gentle-flex">
-          <span v-if="devmode">No Image Found...Please Upload one!</span>
-          <input type="text" v-show="show" />
+          <!-- <h4>Total: {{ order.Total }}</h4> -->
+
+          <!-- <Button>
+            <flowing-border-transition>
+              &#x1F639; SMASH
+            </flowing-border-transition>
+          </Button> -->
+
+          <!-- <Button v-on:click="show = !show">Toggle transition</Button>
+          <flowing-border-transition>
+            <div v-if="show" class="box"></div>
+          </flowing-border-transition> -->
+
+          <router-link v-if="order?.Attachments" :to="`/order/${order.id}`">
+            <img
+              v-if="order.Attachments"
+              :src="order.Attachments?.[0]?.url"
+              class="transform transition-all hover:scale-125"
+            />
+          </router-link>
+
+          <div v-else class="img-upload text-arctic-600 gentle-flex">
+            <!-- <span v-if="devmode">&#x1F63C;</span> -->
+            <input type="text" v-show="show" />
+          </div>
         </div>
       </div>
     </div>
@@ -45,24 +76,53 @@
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
 import { devmode } from "../../../src/helpers/generators";
+import Button from "../atoms/Button.vue";
+// import Accordion from "../molecules/Accordion.vue";
+// import FlowingBorderTransition from "../transitions/FlowingBorderTransition.vue";
+// import FadeTransition from "../transitions/FadeTransition.vue";
 
 export default {
-  components: { Spinner },
+  components: {
+    Spinner,
+    // Button,
+    // FlowingBorderTransition,
+    // Accordion
+    // FadeTransition,
+  },
   data() {
     return {
       selected: 10,
       limits: [10, 20, 50, 100],
       loading: false,
       devmode: devmode(),
+      show: true,
+      // builds: [],
     };
   },
 
+  methods: {
+    // getBuilds(ids = []) {
+    //   let buildIds = [...ids];
+    //   console.log("buildIds :>> ", buildIds);
+    //   // console.log('promises :>> ', promises);
+    //   // let orders = this.state.records;
+    //   // console.log('orders[id] :>> ', orders[id]);
+    //   // let buildId = ;
+    //   // let build = await this.getById(buildId, "Builds");
+    //   // console.log("build :>> ", build);
+    //   // console.log('build.Name :>> ', build.fields.Name);
+    //   // let matchingBuilds = this.state.records
+    //   // console.log("matchingBuild :>> ", matchingBuild);
+    // },
+  },
+
   setup() {
-    let { state, searchPagified } = useTable("Orders");
+    let { state, searchPagified, getById } = useTable("Orders");
 
     return {
       state,
       searchPagified,
+      getById,
     };
   },
 
@@ -70,8 +130,16 @@ export default {
 
   computed: {
     orders() {
-      console.log("computed:  >> ", this.state.records);
+      // devmode && console.log("computed:  >> ", this.state.records);
       return this.state.records;
+    },
+    builds() {
+      // let promises = buildIds.map((id) => this.getById(id, "Builds"));
+      // Promise.all(promises).then((result) => {
+      //   let set = result.reduce((acc, val) => acc.concat(val), []);
+      //   this.builds.push(set);
+      // });
+      return this.state.records.reduce((acc, val) => acc.concat(val.Build), []);
     },
   },
 
@@ -111,18 +179,12 @@ body {
   object-fit: cover;
   border-radius: 0.75rem;
 }
-
-/* Fades */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-.img-upload {
-  font-family: fantasy;
+.box {
+  width: 200px;
+  height: 200px;
+  margin-top: 20px;
+  background-color: rgb(108, 141, 213);
+  box-shadow: rgba(108, 141, 213, 0.5) 0px 6px 20px;
+  border-radius: 10px;
 }
 </style>

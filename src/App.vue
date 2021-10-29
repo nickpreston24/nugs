@@ -1,13 +1,13 @@
 <template>
   <div id="nav">
     <router-link v-if="devmode" to="/">Home | </router-link>
-    <router-link v-if="devmode" to="/about">About | </router-link>
-    <router-link v-if="devmode" to="/signin">Sign In | </router-link>
+    <router-link v-if="!devmode" to="/about">About | </router-link>
+    <router-link v-if="!devmode" to="/signin">Sign In | </router-link>
     <router-link to="/orders">Orders | </router-link>
     <router-link to="/builds">Builds | </router-link>
     <router-link to="/parts">Parts | </router-link>
     <router-link v-if="devmode" to="/orders/add-part">To Ship | </router-link>
-    <router-link v-if="devmode" to="/sandbox"> Sandbox</router-link>
+    <router-link v-if="!devmode" to="/sandbox"> Sandbox</router-link>
   </div>
   <router-view v-slot="{ Component }">
     <transition name="route" mode="out-in">

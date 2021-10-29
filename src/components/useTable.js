@@ -24,7 +24,7 @@ export default function useTable(tableName = "Parts") {
             .eachPage(
                 (records, fetchNextPage) => {
                     let raw = formatRecords(records);
-                    console.log('first records:>>', records)
+                    // console.log('first records:>>', records)
                     state.records = raw;
 
                     // To fetch the next page of records, call `fetchNextPage`.
@@ -43,12 +43,12 @@ export default function useTable(tableName = "Parts") {
 
     const searchPagified = async (options = null) => {
 
-        console.log('options :>> ', options);
+        // console.log('options :>> ', options);
 
         const atPageCursor = pagify(state.table, options);
         let filter = options?.filter ? options.filter : x => x;
 
-        console.log('filter :>> ', filter);
+        // console.log('filter :>> ', filter);
 
         try {
             // nextPage return a promise that resolves to an array of Record objects.
@@ -66,10 +66,10 @@ export default function useTable(tableName = "Parts") {
             }
 
             let allPages = pages.reduce((a, b) => concat(a, b))
-            console.log("All Pages :>> ", allPages)
-            console.log('BEFORE: ', state)
+            // console.log("All Pages :>> ", allPages)
+            // console.log('BEFORE: ', state)
             state.records = allPages
-            console.log('AFTER :>> ', state)
+            // console.log('AFTER :>> ', state)
 
         } catch (err) {
             // Errors thrown from the nextPage call would be caught here.
@@ -77,11 +77,15 @@ export default function useTable(tableName = "Parts") {
         }
     }
 
-    const getById = async (id) => {
+    const getById = async (id, table = null) => {
+        // console.log('id :>> ', id);
 
-        let raw = await get(state.table, id);
-        let record = formatRecords([raw]);
-        devmode ?? console.log('record :>> ', record);
+        if (table)
+            state.table = table;
+
+        let record = await get(state.table, id);
+        console.log('record :>> ', record);
+        
         return record;
     }
 
