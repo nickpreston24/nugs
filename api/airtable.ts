@@ -9,9 +9,10 @@ export const base = new Airtable({ apiKey: process.env.VUE_APP_AIRTABLE_API_KEY 
 export const formatRecords = (records: any | [] = []) => {
     // console.log('records (format) :>> ', records);
     let collection = [].concat(records)
-    // devmode && console.log('collection', collection);
+    devmode && console.log('collection', collection);
 
     const format = (record) => {
+        // console.log('record (format) :>> ', record);
         if (!record) return {};
         let { id, fields } = record;
         return {
@@ -20,11 +21,11 @@ export const formatRecords = (records: any | [] = []) => {
         };
     }
     // console.log('collection :>> ', collection);
-    let result = (collection.length > 1)
+    let result = (collection.length > 0)
         ? collection.map(format)
-        : collection
+        : format(collection)
 
-    // console.log('result (colection) :>> ', result);
+    // console.log('result (collection) :>> ', result);
     return result
 }
 

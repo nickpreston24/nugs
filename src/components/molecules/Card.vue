@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     animation() {
-      return this.isHovering ? "shadow-lg" : "shadow-md";
+      return this.isHovering ? "shadow-xl" : "shadow-lg";
     },
   },
 };

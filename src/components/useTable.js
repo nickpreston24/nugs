@@ -12,7 +12,7 @@ export default function useTable(tableName = "Parts") {
 
     const state = reactive({
         records: [],
-        table: tableName
+        table: tableName,
     })
 
     onMounted(() => {
@@ -41,10 +41,11 @@ export default function useTable(tableName = "Parts") {
             );
     })
 
-    const searchPagified = async (options = null) => {
+    const searchPagified = async (options = null, tableName = "Parts") => {
 
         // console.log('options :>> ', options);
-
+        if (tableName)
+            state.table = tableName;
         const atPageCursor = pagify(state.table, options);
         let filter = options?.filter ? options.filter : x => x;
 
@@ -67,9 +68,9 @@ export default function useTable(tableName = "Parts") {
 
             let allPages = pages.reduce((a, b) => concat(a, b))
             // console.log("All Pages :>> ", allPages)
-            // console.log('BEFORE: ', state)
+            console.log('BEFORE: ', state)
             state.records = allPages
-            // console.log('AFTER :>> ', state)
+            console.log('AFTER :>> ', state)
 
         } catch (err) {
             // Errors thrown from the nextPage call would be caught here.
@@ -84,8 +85,8 @@ export default function useTable(tableName = "Parts") {
             state.table = table;
 
         let record = await get(state.table, id);
-        console.log('record :>> ', record);
-        
+        devmode && console.log('record :>> ', record);
+
         return record;
     }
 

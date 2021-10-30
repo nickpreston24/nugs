@@ -9,81 +9,110 @@
       </select>
     </div>
 
-    <!-- <p>{{ state.records[0] }}</p> -->
-
-    <!-- <Accordion :list="state.records">
-      <template v-slot:header>
-        <h1>&#x1F503;</h1>
-      </template>
-    </Accordion> -->
-
-    <div class="gallery">
-      <Spinner
+    <div class="gallery gentle-flex">
+      <!-- <Spinner
         v-if="false"
         :animation-duration="2000"
         :size="60"
         class="color-arctic-500"
         color="grey"
-      />
-
-      <p>{{ builds }}</p>
-
-      <!-- <Button v-on:click="show = !show">Toggle transition</Button>
-      <fade-transition>
-        <div v-if="show" class="w-100 box">HI</div>
-      </fade-transition> -->
+      /> -->
 
       <div class="gallery-panel" v-for="order in orders" :key="order.id">
         <!-- <h1>{{ order.Payments[0] }}</h1> -->
 
-        <div class="gallery-item">
-          <h2>&#x0023;&#xFE0F;&#x20E3; {{ order.Build.length }}</h2>
-          <h3>&#x1F4C5; {{ order.Created }}</h3>
-          <h4>&#x1F4B2; {{ order.SubTotal }}</h4>
-          <i>{{ order.Build }}</i>
+        <card
+          class="gallery-item bg-arctic-500 max-height-300"
+          @mouseenter="getBuild(order?.Build)"
+        >
+          <template v-slot:header>
+            <list>
+              <li>
+                <h2>&#x0023;&#xFE0F;&#x20E3; {{ order.Build?.length }}</h2>
+              </li>
+              <!-- <li>
+                <h2>&#x1F4C5; {{ order.Created }}</h2>
+              </li> -->
+              <li>
+                <h4>&#x1F4B2; {{ order.SubTotal }}</h4>
+              </li>
+            </list>
+          </template>
 
-          <!-- <h4>Total: {{ order.Total }}</h4> -->
+          <!-- /**[ "id", "Name", "Reasoning", "Parts Included", "Caliber", "Status", "Orders", "Customers", "Calibers (from 2Parts)", "Cost (from 2Parts)", "Link (from 2Parts)", "Pics", "Total Cost", "Weight (Lbs)" ] */ -->
 
-          <!-- <Button>
-            <flowing-border-transition>
-              &#x1F639; SMASH
-            </flowing-border-transition>
-          </Button> -->
+          <template v-slot:default>
+            <list v-for="build in relatedBuilds(order?.Build)" :key="build.id">
+              <card class="bg-arctic-300">
+                <template v-slot:header>
+                  <b>{{ build.Name }}</b>
+                </template>
+                <template v-slot:default>
+                  <ul>
+                    <h3>Calibers &#x1F52B;</h3>
+                    <ul v-for="caliber in build.Caliber" :key="caliber">
+                      <li>{{ caliber }}</li>
+                    </ul>
+                    <!-- <list class="flex-col" v-for="picture in build.Pics" :key="picture.url">
+                      <img :src="picture.thumbnails.small.url" />
+                    </list> -->
+                  </ul>
+                </template>
+                <template v-slot:footer>
+                  <Button> &#x1F639; SMASH </Button>
+                </template>
+              </card>
+            </list>
 
-          <!-- <Button v-on:click="show = !show">Toggle transition</Button>
+            <!-- <Button v-on:click="show = !show">Toggle transition</Button>
           <flowing-border-transition>
             <div v-if="show" class="box"></div>
           </flowing-border-transition> -->
 
-          <router-link v-if="order?.Attachments" :to="`/order/${order.id}`">
-            <img
-              v-if="order.Attachments"
-              :src="order.Attachments?.[0]?.url"
-              class="transform transition-all hover:scale-125"
-            />
-          </router-link>
+            <!-- <router-link v-if="order?.Attachments" :to="`/order/${order.id}`">
+              <img
+                v-if="order.Attachments"
+                :src="order.Attachments?.[0]?.url"
+                class="transform transition-all hover:scale-125"
+              />
+            </router-link> -->
 
-          <div v-else class="img-upload text-arctic-600 gentle-flex">
-            <!-- <span v-if="devmode">&#x1F63C;</span> -->
+            <!-- <div v-else class="img-upload text-arctic-600 gentle-flex">
             <input type="text" v-show="show" />
-          </div>
-        </div>
+          </div> -->
+          </template>
+        </card>
       </div>
     </div>
   </div>
+
+  <!-- <Button v-on:click="show = !show">Toggle transition</Button>
+      <fade-transition>
+        <div v-if="show" class="w-100 box">HI</div>
+      </fade-transition> -->
+  <!-- <Accordion :list="state.records">
+      <template v-slot:header>
+        <h1>&#x1F503;</h1>
+      </template>
+    </Accordion> -->
 </template>
 <script>
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
 import { devmode } from "../../../src/helpers/generators";
 import Button from "../atoms/Button.vue";
-// import Accordion from "../molecules/Accordion.vue";
-// import FlowingBorderTransition from "../transitions/FlowingBorderTransition.vue";
+import { formatRecords } from "../../../api/airtable";
+import List from "../molecules/List.vue";
+import Card from "../molecules/Card.vue";
+import Accordion from "../molecules/Accordion.vue";
+import FlowingBorderTransition from "../transitions/FlowingBorderTransition.vue";
 // import FadeTransition from "../transitions/FadeTransition.vue";
 
 export default {
   components: {
-    Spinner,
+    // Spinner,
+    List,
+    Card,
     // Button,
     // FlowingBorderTransition,
     // Accordion
@@ -96,24 +125,24 @@ export default {
       loading: false,
       devmode: devmode(),
       show: true,
-      // builds: [],
+      builds: [],
     };
   },
 
   methods: {
-    // getBuilds(ids = []) {
-    //   let buildIds = [...ids];
-    //   console.log("buildIds :>> ", buildIds);
-    //   // console.log('promises :>> ', promises);
-    //   // let orders = this.state.records;
-    //   // console.log('orders[id] :>> ', orders[id]);
-    //   // let buildId = ;
-    //   // let build = await this.getById(buildId, "Builds");
-    //   // console.log("build :>> ", build);
-    //   // console.log('build.Name :>> ', build.fields.Name);
-    //   // let matchingBuilds = this.state.records
-    //   // console.log("matchingBuild :>> ", matchingBuild);
-    // },
+    getBuild(ids) {
+      // console.log("ids :>> ", ids);
+      let promises = ids.map((id) => this.getById(id, "Builds"));
+      Promise.all(promises).then((result) => {
+        let set = result.reduce((acc, val) => acc.concat(val), []);
+        let existing = this.builds.map((b) => b.id);
+        set
+          .map((s) => s.id)
+          .forEach((value) => {
+            if (!existing.includes(value)) this.builds.push(...set);
+          });
+      });
+    },
   },
 
   setup() {
@@ -130,16 +159,26 @@ export default {
 
   computed: {
     orders() {
-      // devmode && console.log("computed:  >> ", this.state.records);
+      devmode && console.log("computed:  >> ", this.state.records);
       return this.state.records;
     },
-    builds() {
-      // let promises = buildIds.map((id) => this.getById(id, "Builds"));
-      // Promise.all(promises).then((result) => {
-      //   let set = result.reduce((acc, val) => acc.concat(val), []);
-      //   this.builds.push(set);
-      // });
-      return this.state.records.reduce((acc, val) => acc.concat(val.Build), []);
+    relatedBuilds() {
+      return (ids) => {
+        let builds = this.builds.filter((b) => ids.includes(b.id));
+        return builds;
+      };
+    },
+    relatedPics() {
+      return (ids) => {
+        console.log("ids :>> ", ids);
+
+        let pics = this.builds
+          .map((m) => m.Pics)
+          .filter((p) => ids.includes(p.id));
+        console.log("pics :>> ", pics);
+
+        return pics;
+      };
     },
   },
 
@@ -150,7 +189,7 @@ export default {
           maxRecords: parseInt(this.selected),
         };
         this.loading = true;
-        this.searchPagified(options);
+        this.searchPagified(options, "Orders");
         this.loading = false;
       }
     },
@@ -173,12 +212,12 @@ body {
   padding: 0 5rem;
 }
 
-.gallery-panel img {
+/* .gallery-panel img {
   width: 100%;
   height: 22vw;
   object-fit: cover;
   border-radius: 0.75rem;
-}
+} */
 .box {
   width: 200px;
   height: 200px;
