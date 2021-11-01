@@ -1,5 +1,7 @@
 # Nugs Factory!
 
+[Visit the Website Here](https://nugs.vercel.app/parts)
+
 # Why this?
 
 What if there was a way to create your dream rifle from popular parts on the internet?  This project hopes to acheive that with suggested builds within budget.
