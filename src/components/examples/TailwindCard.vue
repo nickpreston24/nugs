@@ -13,9 +13,7 @@
           shadow-lg
           transform
           -skew-y-6
-          sm:skew-y-0
-          sm:-rotate-6
-          sm:rounded-3xl
+          sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl
         "
       ></div>
       <div
@@ -30,8 +28,7 @@
                 leading-6
                 space-y-4
                 text-gray-700
-                sm:text-lg
-                sm:leading-7
+                sm:text-lg sm:leading-7
               "
             >
               <p>
@@ -41,7 +38,7 @@
               <ul class="list-disc space-y-2">
                 <li class="flex items-start">
                   <span class="h-6 flex items-center sm:h-7">
-                    <svg
+                    <!-- <svg
                       class="flex-shrink-0 h-5 w-5 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -51,7 +48,8 @@
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                         clip-rule="evenodd"
                       />
-                    </svg>
+                    </svg> -->
+                    <status-icon status="success" />
                   </span>
                   <p class="ml-2">
                     Customizing your
@@ -63,7 +61,7 @@
                 </li>
                 <li class="flex items-start">
                   <span class="h-6 flex items-center sm:h-7">
-                    <svg
+                    <!-- <svg
                       class="flex-shrink-0 h-5 w-5 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -73,7 +71,8 @@
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                         clip-rule="evenodd"
                       />
-                    </svg>
+                    </svg> -->
+                    <status-icon status="success" />
                   </span>
                   <p class="ml-2">
                     Extracting classes with
@@ -82,7 +81,7 @@
                 </li>
                 <li class="flex items-start">
                   <span class="h-6 flex items-center sm:h-7">
-                    <svg
+                    <!-- <svg
                       class="flex-shrink-0 h-5 w-5 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -92,7 +91,8 @@
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                         clip-rule="evenodd"
                       />
-                    </svg>
+                    </svg> -->
+                    <status-icon status="success" />
                   </span>
                   <p class="ml-2">Code completion with instant preview</p>
                 </li>
@@ -119,11 +119,8 @@
               <div>
                 <img
                   class="
-                    sm:w-64
-                    sm:h-64
-                    md:w-128
-                    md:h-auto
-                    md:rounded-none
+                    sm:w-64 sm:h-64
+                    md:w-128 md:h-auto md:rounded-none
                     rounded-full
                     mx-auto
                   "
@@ -152,7 +149,13 @@
 </template>
 
 <script>
-export default {};
+import StatusIcon from "../StatusIcon.vue";
+
+export default {
+  components: {
+    StatusIcon,
+  },
+};
 </script>
 
 <!-- <figure

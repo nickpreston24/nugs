@@ -1,5 +1,21 @@
 <template>
-  <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300">
+  <!-- <div class="z-40">
+    <rect x="100" class="bg-ocean-green-500" width="100" height="100">5</rect>
+  </div>
+  <div class="z-30">
+    <rect x="100" class="bg-ocean-green-500" width="100" height="100">4</rect>
+  </div>
+  <div class="z-20">
+    <rect x="100" class="bg-ocean-green-500" width="100" height="100">3</rect>
+  </div>
+  <div class="z-10">
+    <rect x="100" class="bg-ocean-green-500" width="100" height="100">2</rect>
+  </div>
+  <div class="z-0">
+    <rect x="100" class="bg-ocean-green-500" width="100" height="100">1</rect>
+  </div> -->
+
+  <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
     <div class="container" v-show="false">
       <form @submit.prevent="handleSubmit">
         <div
@@ -118,49 +134,23 @@
 
     <!-- Props passing attempt 1 -->
 
-    <div v-show="false" v-for="part in parts" v-bind:key="part.id">
-      <Card>
-        <template v-slot:header>
-          <h1>
-            {{ part.Name }}
-          </h1>
-          <a :href="part.Link" target="_blank" rel="noopener noreferrer">
-            <h2 class="p-2 font-normal text-arctic-600" v-if="part?.Name">
-              {{ part.Name }}
-            </h2>
-          </a>
-        </template>
-        <template v-slot:default>
-          <!-- <img src="https://picsum.parts/300" /> -->
-          <!-- <img src="{{part.Attachments[0].url}}" alt="" /> -->
-          <!-- <p>{{ part.GelTest.replace("watch?v=", "embed/")
-            .replace("t=","start=")
-             }}</p> -->
-          <!-- <Embed v-bind:url="part.GelTest" v-if="true" /> -->
-          <a rel="nofollow" :href="part.GelTest" />
-          <!-- <a rel="nofollow" :href="part.source.url">{{ part.source.name }}</a> -->
-          <!-- <p>{{ part.GelTest }}</p> -->
-          <!-- <iframe width="640" height="480" src="part.GelTest"></iframe> -->
-        </template>
-        <template v-slot:footer>
-          <!-- Toggle the remaining details like weight, url, etc -->
-          <!-- <Button v-if="true">Show Details</Button> -->
-        </template>
-      </Card>
-    </div>
-
     <tailwind-card v-show="true" />
   </div>
+
+  <!-- <TriangleSVG class="bg-left-top" /> -->
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
 import { base } from "../../api/airtable";
-import Card from "../components/molecules/Card.vue";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
 import useTable from "../components/useTable";
 
 export default {
+  components: {
+    TailwindCard,
+    Button,
+  },
   setup() {
     let { state } = useTable("Builds");
     return {
@@ -273,12 +263,14 @@ export default {
         }
       );
   },
-  components: { TailwindCard, Card, Button },
 };
 </script>
 <style scoped>
 .part-card {
   width: 300px;
   background: yellow;
+}
+.sandbox {
+  background-image: url(../assets/svgs/triangles.svg);
 }
 </style>

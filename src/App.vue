@@ -7,7 +7,7 @@
     <router-link to="/builds">Builds | </router-link>
     <router-link to="/parts">Parts | </router-link>
     <router-link v-if="devmode" to="/orders/add-part">To Ship | </router-link>
-    <router-link v-if="!devmode" to="/sandbox"> Sandbox</router-link>
+    <router-link to="/sandbox"> Sandbox</router-link>
   </div>
   <router-view v-slot="{ Component }">
     <transition name="route" mode="out-in">
