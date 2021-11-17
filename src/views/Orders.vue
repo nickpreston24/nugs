@@ -6,7 +6,7 @@
 
     <OrdersGallery v-if="!show" />
 
-    <div v-if="show">
+    <div v-if="show && devmode">
       <iframe
         class="airtable-embed"
         src="https://airtable.com/embed/shrbrxYaV6KdOymx4?backgroundColor=blue"
