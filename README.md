@@ -4,7 +4,30 @@
 
 # Why this?
 
-What if there was a way to create your dream rifle from popular parts on the internet?  This project hopes to acheive that with suggested builds within budget.
+What if there was a way to create your dream Nug (legally) from popular parts on the internet?  This project hopes to acheive that with suggested builds within budget, while eliminating confusion and compatibility issues for new private builders!
+
+# Domain Objects
+
+Parts - A specific Nug part, complete with pictures (when able).
+Build - Specific custom Nugs for a User.  Builds will have notifications of incompatible Parts.
+Recipe - A "grocery list" (parts list) in checklist format to make buying and building a lot easier for the User.
+
+
+# Features
+
+## Major
+
+1. Builds should be recorded by Neo4j and can be 'liked' and shared with buddies.
+2. Recipes should be updated and treated as a Todo list of Parts
+3. 
+
+## Minor
+
+1. 
+2. 
+3. Parts may be submitted via url and Name.  Matching domains should be farmed for current prices and photos.
+
+
 
 # Fixes :bug:
 
@@ -25,7 +48,7 @@ What if there was a way to create your dream rifle from popular parts on the int
 
 - [ ] Store things across function calls: https://lihbr.com/blog/rate-limiting-without-overhead-netlify-or-vercel-functions
 use-serverless-functions-send-sms-react-vercel-twilio
-- [x] Add Order, Part and Build placement (Airtable's embeds)  
+- [x] Add Recipe, Part and Build placement (Airtable's embeds)  
 - [ ] Builds:
     - Greedy Algorithm
         a. Favors more expensive/least expensive (toggle this as a mode)
@@ -34,9 +57,10 @@ use-serverless-functions-send-sms-react-vercel-twilio
         d. Dipspay a slider bar for budget.
         e. Add a Randomizer button.
         f. Finish the Types and Categories in Airtable (build the form for this later)
-- [ ] Build Checklist (todolist) on Builds and Orders and Shipping
+- [ ] Build Checklist (todolist) on Builds and Recipes and Shipping
 - [x] Add a generic Controller or Hook for Vue using the Composition API, to encourage sharing between components. 🐫
 - [ ] Add Basic Update forms and Update functions to the useTable hook.
+- [ ] 
 
 # Nice to Have:
 
@@ -65,6 +89,6 @@ use-serverless-functions-send-sms-react-vercel-twilio
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-# Notes
+# Closing Remarks
 
-> Go ahead!  Build your Budget Blaster, Dream DMR or Hunting 
+> Go ahead!  Build your Budget Blaster, Dream DMR or Hunter's Heatmaker!

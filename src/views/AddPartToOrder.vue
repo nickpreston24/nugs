@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Add a Part to Existing Order</h1>
+    <h1>Add a Part to Existing Recipe</h1>
 
     <iframe
       class="airtable-embed"

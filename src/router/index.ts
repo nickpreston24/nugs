@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/orders",
-    name: "Place Order",
+    name: "Place Recipe",
     component: () => import('@/views/Orders.vue')
   },
   {
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/orders/add-part",
-    name: "Add new Part to existing Order",
+    name: "Add new Part to existing Recipe",
     component: () => import('@/views/AddPartToOrder.vue')
   },
   {

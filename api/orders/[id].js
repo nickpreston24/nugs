@@ -13,6 +13,6 @@ module.exports = (req, res) => {
     // const order = 
     // await get('Orders', id);
     // console.log('order found: ', order)
-    // res.send(`Order ${name}`);
+    // res.send(`Recipe ${name}`);
     res.send({ order: { name, id, cost } })
 }
