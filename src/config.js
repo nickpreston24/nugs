@@ -3,7 +3,7 @@
 process.env.NODE_ENV === 'development' && console.log(`process.env`, process.env)
 
 const get = (key) => parse(process.env[key])
-
+console.log("env:>>", process.env);
 export const config = {
     Neo4j: {
         neoUri: get('VUE_APP_URI'),
