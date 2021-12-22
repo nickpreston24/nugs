@@ -22,7 +22,8 @@ export default {
     };
   },
   mounted() {
-    console.log("FOO? :>> ", import.meta.env);
+    console.log("VITE_FOO? :>> ", import.meta.env.VITE_FOO);
+    console.log("FOO? :>> ", import.meta.env.FOO);
   },
 };
 </script>
