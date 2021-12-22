@@ -14,6 +14,9 @@ export default {
     return {
       count: 0
     }
-  }
+  },
+  mounted() {
+    console.log(import.meta.env)
+  },
 }
 </script>
