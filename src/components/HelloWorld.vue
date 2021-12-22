@@ -22,7 +22,7 @@ export default {
     };
   },
   mounted() {
-    console.log("FOO? :>> ", import.meta.env.FOO);
+    console.log("FOO? :>> ", import.meta.env);
   },
 };
 </script>
