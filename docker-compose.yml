@@ -1,0 +1,9 @@
+version: '2'
+services:
+  graphql:
+    # depends_on:
+    build: ./api/go/graphql-server
+    image: go/graphql
+    container_name: go-graphql
+    ports:
+      - "9000:8080"
