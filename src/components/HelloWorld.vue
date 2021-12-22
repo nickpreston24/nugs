@@ -7,6 +7,7 @@
       Edit <code>components/HelloWorld.vue</code> to test hot module
       replacement.
     </p>
+    <p>cmon{{ env }}</p>
   </div>
 </template>
 
@@ -19,11 +20,16 @@ export default {
   data() {
     return {
       count: 0,
+      env: {},
     };
   },
   mounted() {
+    // this.env = process.env;
+    // console.log('process.env :>> ', process.env);
+
+    
     console.log("VITE_FOO? :>> ", import.meta.env.VITE_FOO);
-    console.log("FOO? :>> ", import.meta.env.FOO);
+    // console.log("FOO? :>> ", import.meta.env);
   },
 };
 </script>
