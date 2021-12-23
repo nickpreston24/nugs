@@ -1,6 +1,6 @@
 import * as Airtable from 'airtable'
 import { devmode } from './../src/helpers/generators';
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 
 export const base = new Airtable({ apiKey: process.env.VUE_APP_AIRTABLE_API_KEY }).base(
     process.env.VUE_APP_BASE_KEY
