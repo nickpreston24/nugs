@@ -25,9 +25,12 @@ export default {
   },
   mounted() {
     // this.env = process.env;
-    // console.log('process.env :>> ', process.env);
+    // console.log("process.env :>> ", process.env);
+    console.log("import.meta.env :>> ", import.meta.env);
 
-    
+    this.env = { foo: import.meta.env.VITE_FOO };
+    console.log("this.env :>> ", this.env);
+
     console.log("VITE_FOO? :>> ", import.meta.env.VITE_FOO);
     // console.log("FOO? :>> ", import.meta.env);
   },
