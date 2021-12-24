@@ -3,33 +3,38 @@ const fastify = require('fastify')({
   logger: true
 })
 
-
 const dotenv = require('dotenv')
 dotenv.config();
 const dev = process.env.NODE_ENVIRONMENT === 'development'
 const uri = process.env.VITE_VERCEL_URI
-const user = 'neo4j'
+const user = process.env.VITE_VERCEL_USER
 const password = process.env.VITE_VERCEL_PASSWORD
-
 const neo4j = require('neo4j-driver')
-
 const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
-const session = driver.session()
+const cors = require('fastify-cors');
+
+fastify.register(cors, { origin: `http://localhost:${process.env.PORT}` })
 
 fastify.route({
   method: "GET",
-  url: '/api/nugs/item/:slug',
+  url: '/api/nugs/:slug',
   handler: async (req, _) => {
     let { slug } = req.params
     slug = slug.replace(':', "").trim()
-    let data = []; // Call neo4j here.
-    console.log(`data`, data)
-    let results = data[0]?.items?.find(i => i?.id.toString() === slug
-      || i?.name?.includes(slug))
-    console.log(`result`, { results, slug })
-    return {
-      itemsFound: results
-    }
+    const query = 'MATCH (n:Nug) RETURN n LIMIT 100';
+    let stuff = await executeCypherQuery(query, { slug })
+
+    console.log(`stuff`, stuff)
+    return stuff;
+    
+    // let data = []; // Call neo4j here.
+    // console.log(`data`, stuff.records)
+    // let results = data[0]?.items?.find(i => i?.id.toString() === slug
+    //   || i?.name?.includes(slug))
+    // console.log(`result`, { results, slug })
+    // return {
+    //   itemsFound: results
+    // }
   }
 })
 
@@ -71,45 +76,22 @@ fastify.route({
       console.log(`node`, node.properties.name)
     }
     finally {
-      // await session.close() //TODO: closing this causes an error for a new query.
+      await session.close() //TODO: closing this causes an error for a new query.
     }
   }
 })
 
-// Hello World example route:
-fastify.route({
-  method: 'GET',
-  url: '/',
-  // schema: {
-  //     // request needs to have a querystring with a `name` parameter
-  //     querystring: {
-  //         name: { type: 'string' }
-  //     },
-  //     // the response needs to be an object with an `hello` property of type 'string'
-  //     response: {
-  //         200: {
-  //             type: 'object',
-  //             // properties: {
-  //             //     hello: { type: 'string' }
-  //             // }
-  //         }
-  //     }
-  // },
-  // this function is executed for every request before the handler is executed
-  // preHandler: async (request, reply) => {
-  //     // E.g. check authentication
-  // },
-  handler: async (request, reply) => {
-    let query = `MATCH (n) return n LIMIT 25`
-    let result = await session.run(query)
-    const single = result.records[0];
-    const node = single.get(0)
-
-    let nugs = result.records.map(n => n.get(0).properties)
-    dev && console.log(`nugs`, nugs)
-    return nugs
+//Execute Raw Queries here
+async function executeCypherQuery(statement, params = {}) {
+  try {
+    let session = driver.session()
+    const result = await session.run(statement, params);
+    await session.close();
+    return result;
+  } catch (error) {
+    throw error; // we are logging this error at the time of calling this method
   }
-})
+}
 
 // Run the server!
 const start = async () => {
