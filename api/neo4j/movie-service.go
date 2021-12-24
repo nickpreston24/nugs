@@ -1,119 +1,116 @@
-// package main
+// // package main
 
-// import (
-// 	"encoding/json"
-// 	"io"
-// 	"io/ioutil"
-// 	"log"
-// 	"net/http"
-// 	"os"
-// 	"strconv"
+// // import (
+// // 	"encoding/json"
+// // 	"io"
+// // 	"io/ioutil"
+// // 	"log"
+// // 	"net/http"
+// // 	"os"
+// // 	"strconv"
 
-// 	driver "github.com/johnnadratowski/golang-neo4j-bolt-driver"
-// )
+// // 	driver "github.com/johnnadratowski/golang-neo4j-bolt-driver"
+// // )
 
-declare interface MovieResult {
-}
+// declare interface MovieResult {}
 
-declare interface Movie {
-    released: number;
-    title?: string;
-    tagline?: string;
-    cast?: Person[];
-}
-
-declare interface Person {
-    job: string;
-    role: string[];
-    name: string;
-}
-
-declare interface D3Response {
-    nodes: Node[];
-    links: Link[];
-}
-
-declare interface Node {
-    title: string;
-    label: string;
-}
-
-declare interface Link {
-    source: number;
-    target: number;
-}
-
-// var (
-// 	neo4jURL = "bolt://localhost:7687"
-// )
-
-// func interfaceSliceToString(s []interface{}) []string {
-// 	o := make([]string, len(s))
-// 	for idx, item := range s {
-// 		o[idx] = item.(string)
-// 	}
-// 	return o
+// declare interface Movie {
+//   released: number;
+//   title?: string;
+//   tagline?: string;
+//   cast?: Person[];
 // }
 
-// func defaultHandler(w http.ResponseWriter, req *http.Request) {
-// 	w.Header().Set("Content-Type", "text/html")
-// 	body, _ := ioutil.ReadFile("public/index.html")
-// 	w.Write(body)
+// declare interface Person {
+//   job: string;
+//   role: string[];
+//   name: string;
 // }
 
-// func searchHandler(w http.ResponseWriter, req *http.Request) {
-// 	w.Header().Set("Content-Type", "application/json")
-
-// 	query := req.URL.Query()["q"][0]
-// 	cypher := `
-// 	MATCH
-// 		(movie:Movie)
-// 	WHERE
-// 		movie.title =~ {query}
-// 	RETURN
-// 		movie.title as title, movie.tagline as tagline, movie.released as released`
-
-// 	db, err := driver.NewDriver().OpenNeo(neo4jURL)
-// 	if err != nil {
-// 		log.Println("error connecting to neo4j:", err)
-// 		w.WriteHeader(500)
-// 		w.Write([]byte("An error occurred connecting to the DB"))
-// 		return
-// 	}
-// 	defer db.Close()
-
-// 	param := "(?i).*" + query + ".*"
-// 	data, _, _, err := db.QueryNeoAll(cypher, map[string]interface{}{"query": param})
-// 	if err != nil {
-// 		log.Println("error querying search:", err)
-// 		w.WriteHeader(500)
-// 		w.Write([]byte("An error occurred querying the DB"))
-// 		return
-// 	} else if len(data) == 0 {
-// 		w.WriteHeader(404)
-// 		return
-// 	}
-
-// 	results := make([]MovieResult, len(data))
-// 	for idx, row := range data {
-// 		results[idx] = MovieResult{
-// 			Movie{
-// 				Title:    row[0].(string),
-// 				Tagline:  row[1].(string),
-// 				Released: int(row[2].(int64)),
-// 			},
-// 		}
-// 	}
-
-// 	err = json.NewEncoder(w).Encode(results)
-// 	if err != nil {
-// 		log.Println("error writing search response:", err)
-// 		w.WriteHeader(500)
-// 		w.Write([]byte("An error occurred writing response"))
-// 	}
+// declare interface D3Response {
+//   nodes: Node[];
+//   links: Link[];
 // }
 
-// func movieHandler(w http.ResponseWriter, req *http.Request) {
+// declare interface Node {
+//   title: string;
+//   label: string;
+// }
+
+// declare interface Link {
+//   source: number;
+//   target: number;
+// }
+
+// var neo4jURL = "bolt://localhost:7687";
+
+// // function interfaceSliceToString(s []) []string {
+// // o := make([]string, len(s))
+// // for idx, item := range s {
+// // 	o[idx] = item.(string)
+// // }
+// // return o
+// // }
+
+// function defaultHandler(request, response) {
+//   // w.Header().Set("Content-Type", "text/html")
+//   // body, _ := ioutil.ReadFile("public/index.html")
+//   // w.Write(body)
+// }
+
+// function searchHandler(response, request) {
+// 	// response.Header().Set("Content-Type", "application/json")
+
+// 	// query := request.URL.Query()["q"][0]
+// 	// cypher := `
+// 	// MATCH
+// 	// 	(movie:Movie)
+// 	// WHERE
+// 	// 	movie.title =~ {query}
+// 	// RETURN
+// 	// 	movie.title as title, movie.tagline as tagline, movie.released as released`
+
+// 	// db, err := driver.NewDriver().OpenNeo(neo4jURL)
+// 	// if err != nil {
+// 	// 	log.Println("error connecting to neo4j:", err)
+// 	// 	response.WriteHeader(500)
+// 	// 	response.Write([]byte("An error occurred connecting to the DB"))
+// 	// 	return
+// 	// }
+// 	// defer db.Close()
+
+// 	// param := "(?i).*" + query + ".*"
+// 	// data, _, _, err := db.QueryNeoAll(cypher, map[string]interface{}{"query": param})
+// 	// if err != nil {
+// 	// 	log.Println("error querying search:", err)
+// 	// 	response.WriteHeader(500)
+// 	// 	response.Write([]byte("An error occurred querying the DB"))
+// 	// 	return
+// 	// } else if len(data) == 0 {
+// 	// 	response.WriteHeader(404)
+// 	// 	return
+// 	// }
+
+// 	// results := make([]MovieResult, len(data))
+// 	// for idx, row := range data {
+// 	// 	results[idx] = MovieResult{
+// 	// 		Movie{
+// 	// 			Title:    row[0].(string),
+// 	// 			Tagline:  row[1].(string),
+// 	// 			Released: int(row[2].(int64)),
+// 	// 		},
+// 	// 	}
+// 	// }
+
+// 	// err = json.NewEncoder(response).Encode(results)
+// 	// if err != nil {
+// 	// 	log.Println("error writing search response:", err)
+// 	// 	response.WriteHeader(500)
+// 	// 	response.Write([]byte("An error occurred writing response"))
+// 	// }
+// }
+
+// function movieHandler(w http.ResponseWriter, req *http.Request) {
 // 	w.Header().Set("Content-Type", "application/json")
 
 // 	query := req.URL.Path[len("/movie/"):]
@@ -172,7 +169,7 @@ declare interface Link {
 // 	}
 // }
 
-// func graphHandler(w http.ResponseWriter, req *http.Request) {
+// function graphHandler(w http.ResponseWriter, req *http.Request) {
 // 	w.Header().Set("Content-Type", "application/json")
 
 // 	limits := req.URL.Query()["limit"]
@@ -263,14 +260,14 @@ declare interface Link {
 // 	}
 // }
 
-// func init() {
+// function init() {
 // 	if os.Getenv("NEO4J_URL") != "" {
 // 		neo4jURL = os.Getenv("NEO4J_URL")
 // 		log.Printf("neo4j_URL = " + neo4jURL)
 // 	}
 // }
 
-// func main() {
+// function main() {
 // 	serveMux := http.NewServeMux()
 // 	serveMux.HandleFunc("/", defaultHandler)
 // 	serveMux.HandleFunc("/search", searchHandler)

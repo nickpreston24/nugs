@@ -28,10 +28,27 @@ export default {
     return {
       devmode: devmode(),
       db: null,
+      neo4jSampleResult: null,
     };
   },
   mounted() {
     this.db = import.meta.env.VITE_VERCEL_USER;
+
+    // const PORT = 3000;
+    const fetchNugs = async () => {
+      const {
+        data: { data },
+      } = await axios.get(`"http://127.0.0.1:5000/gallery"`);
+      if (data.length > 0) {
+        setImages(
+          data.map((image) => ({
+            original: `${image.url}`,
+            thumbnail: `${image.url}`,
+          }))
+        );
+      }
+    };
+    fetchNugs();
   },
 };
 </script>
