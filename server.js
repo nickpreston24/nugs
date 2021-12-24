@@ -22,11 +22,11 @@ fastify.route({
     let { slug } = req.params
     slug = slug.replace(':', "").trim()
     const query = 'MATCH (n:Nug) RETURN n LIMIT 100';
-    let stuff = await executeCypherQuery(query, { slug })
+    let results = await executeCypherQuery(query, { slug })
 
-    console.log(`stuff`, stuff)
-    return stuff;
-    
+    // console.log(`stuff`, stuff)
+    return results;
+
     // let data = []; // Call neo4j here.
     // console.log(`data`, stuff.records)
     // let results = data[0]?.items?.find(i => i?.id.toString() === slug
@@ -92,6 +92,25 @@ async function executeCypherQuery(statement, params = {}) {
     throw error; // we are logging this error at the time of calling this method
   }
 }
+
+
+fastify.route({
+  method: 'GET',
+  url: '/',
+  handler: async (request, reply) => {
+    let query = `MATCH (n) return n LIMIT 25`
+    let results = await executeCypherQuery(query, {})
+    return results;
+
+    // let result = await session.run(query)
+    // const single = result.records[0];
+    // const node = single.get(0)
+
+    // let nugs = result.records.map(n => n.get(0).properties)
+    // dev && console.log(`nugs`, nugs)
+    // return nugs
+  }
+})
 
 // Run the server!
 const start = async () => {
