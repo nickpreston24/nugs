@@ -101,7 +101,7 @@ import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
 import { devmode } from "../../../src/helpers/generators";
 import Button from "../atoms/Button.vue";
-import { formatRecords } from "../../../api/airtable";
+import { formatRecords } from "../../../api/airtable-curl";
 import List from "../molecules/List.vue";
 import Card from "../molecules/Card.vue";
 import Accordion from "../molecules/Accordion.vue";

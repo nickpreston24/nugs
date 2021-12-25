@@ -11,11 +11,11 @@
       <router-link v-if="devmode" to="/sandbox"> Sandbox</router-link>
     </div>
     <ul id="sandbox" class="gentle-flex">
-      <!-- <img class="w-15 h-15" alt="Vue logo" src="./assets/logo.png" />
+      <img class="w-15 h-15" alt="Vue logo" src="./assets/logo.png" />
 
       <h3>
         <a :href="info.url" target="_blank">Api Call</a>
-      </h3> -->
+      </h3>
 
       <!-- <b>{{ message }}</b> -->
       <label for="">
@@ -46,37 +46,37 @@ export default {
     };
   },
   mounted() {
-    // let self = this;
-    // let info = self.info;
+    let self = this;
+    let info = self.info;
 
-    // devmode && console.log("import.meta.env :>> ", import.meta.env);
-    // let uri = import.meta.env?.VITE_VERCEL_URI || "http://localhost:";
-    // let port = import.meta.env.VITE_PORT;
+    devmode && console.log("import.meta.env :>> ", import.meta.env);
+    let uri = import.meta.env?.VITE_VERCEL_URI || "http://localhost:";
+    let port = import.meta.env.VITE_PORT;
 
-    // const url = devmode
-    //   ? `http://localhost:${"3001"}/api/nugs/1`
-    //   : `${uri}${port}/api/nugs/1`;
-    // info.url = url;
+    const url = devmode
+      ? `http://localhost:${"3001"}/api/nugs/1`
+      : `${uri}${port}/api/nugs/1`;
+    info.url = url;
 
-    // // update the render of info for dev only
-    // if (devmode) {
-    //   info.db = import.meta.env.VITE_VERCEL_USER;
-    //   info.message = "fetching nugs...";
-    //   info.uri = uri;
-    //   info.port = port;
-    // }
+    // update the render of info for dev only
+    if (devmode) {
+      info.db = import.meta.env.VITE_VERCEL_USER;
+      info.message = "fetching nugs...";
+      info.uri = uri;
+      info.port = port;
+    }
 
-    // info.devmode = devmode;
+    info.devmode = devmode;
 
-    // axios
-    //   .get(url)
-    //   .then((response) => {
-    //     info.result = response.data;
-    //   })
-    //   .catch((err) => {
-    //     if (devmode) info.message = err;
-    //     console.log("err :>> ", err);
-    //   });
+    axios
+      .get(url)
+      .then((response) => {
+        info.result = response.data;
+      })
+      .catch((err) => {
+        if (devmode) info.message = err;
+        console.log("err :>> ", err);
+      });
   },
 };
 </script>

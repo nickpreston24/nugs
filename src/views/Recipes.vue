@@ -1,7 +1,7 @@
 <template>
-  <div class="orders">
+  <div class="recipes">
     <Button @click="show = !show">{{
-      !show ? "Add Orders" : "View Orders"
+      !show ? "Add Recipes" : "View Recipes"
     }}</Button>
 
     <OrdersGallery v-if="!show" />
@@ -22,7 +22,7 @@
 
 <script>
 import Button from "../components/atoms/Button.vue";
-import OrdersGallery from "../components/orders/OrdersGallery.vue";
+import OrdersGallery from "../components/recipes/OrdersGallery.vue";
 import { devmode } from "../helpers/generators";
 
 export default {

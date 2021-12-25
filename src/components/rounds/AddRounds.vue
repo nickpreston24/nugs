@@ -28,8 +28,7 @@
 </template>
 
 <script>
-import { config } from "../../config";
-import { create } from "../../../api/airtable";
+import { create } from "../../../api/airtable-curl";
 import { isEmpty, devmode } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 
@@ -65,10 +64,8 @@ export default {
   },
   data() {
     return {
-      config,
       devmode: devmode,
 
-      list: ["hi", "hi", "good morning!"],
       round: {
         Name: "",
         Diameter: null,

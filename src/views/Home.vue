@@ -79,9 +79,9 @@
 </template>
 
 <script>
-import AddRounds from "@/components/rounds/AddRounds.vue";
-import AddBuilds from "@/components/builds/AddBuilds.vue";
-import AddParts from "@/components/parts/AddParts.vue";
+import AddRounds from "../components/rounds/AddRounds.vue";
+import AddBuilds from "../components/builds/AddBuilds.vue";
+import AddParts from "../components/parts/AddParts.vue";
 import PartsGrid from "../components/parts/PartsGrid.vue";
 export default {
   data() {

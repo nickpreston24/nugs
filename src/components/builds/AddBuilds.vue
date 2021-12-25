@@ -23,8 +23,8 @@
   </div>
 </template>
 <script>
-import { create } from "../../../api/airtable";
-import { isEmpty, devmode, isFull } from "../../helpers/generators";
+import { create } from "../../../api/airtable-curl";
+import { isEmpty, devmode } from "../../helpers/generators";
 const initial = {
   Name: "",
 };

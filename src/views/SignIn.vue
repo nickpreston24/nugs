@@ -24,7 +24,7 @@
 
 <script>
 import * as yup from "yup";
-import FormInput from "@/components/atoms/FormInput.vue";
+import FormInput from "../components/atoms/FormInput.vue";
 
 const loginFormSchema = yup.object().shape({
   email: yup.string().email().required(),

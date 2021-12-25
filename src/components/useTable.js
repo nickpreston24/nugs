@@ -1,5 +1,5 @@
 import { ref, onMounted, toRefs, reactive, toRef } from 'vue'
-import { base, findAll, formatRecords, get, pagify } from "../../api/airtable";
+import { findAll, formatRecords, get, pagify } from "../../api/airtable-curl";
 import { devmode } from '../helpers/generators';
 
 
@@ -16,29 +16,29 @@ export default function useTable(tableName = "Parts") {
     })
 
     onMounted(() => {
-        base(state.table)
-            .select({
-                maxRecords: 10,
-                view: "Grid view",
-            })
-            .eachPage(
-                (records, fetchNextPage) => {
-                    let raw = formatRecords(records);
-                    // console.log('first records:>>', records)
-                    state.records = raw;
+        // base(state.table)
+        //     .select({
+        //         maxRecords: 10,
+        //         view: "Grid view",
+        //     })
+        //     .eachPage(
+        //         (records, fetchNextPage) => {
+        //             let raw = formatRecords(records);
+        //             // console.log('first records:>>', records)
+        //             state.records = raw;
 
-                    // To fetch the next page of records, call `fetchNextPage`.
-                    // If there are more records, `page` will get called again.
-                    // If there are no more records, `done` will get called.
-                    fetchNextPage();
-                },
-                function done(err) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-                }
-            );
+        //             // To fetch the next page of records, call `fetchNextPage`.
+        //             // If there are more records, `page` will get called again.
+        //             // If there are no more records, `done` will get called.
+        //             fetchNextPage();
+        //         },
+        //         function done(err) {
+        //             if (err) {
+        //                 console.error(err);
+        //                 return;
+        //             }
+        //         }
+        //     );
     })
 
     const searchPagified = async (options = null, tableName = "Parts") => {

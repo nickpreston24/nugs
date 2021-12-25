@@ -29,9 +29,8 @@
 </style>
 
 <script>
-import { create, base } from "../../../api/airtable";
-import { createState, useState } from "@hookstate/vue";
-import { Part } from "../../helpers/yup";
+import { create } from "../../../api/airtable-curl";
+import { useState } from "@hookstate/vue";
 import {
   devmode,
   randomName,

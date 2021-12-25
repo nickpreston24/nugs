@@ -141,7 +141,6 @@
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
-import { base } from "../../api/airtable";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
 import useTable from "../components/useTable";
@@ -229,39 +228,39 @@ export default {
     };
   },
   mounted() {
-    base("Rounds")
-      .select({
-        maxRecords: 10,
-        view: "Grid view",
-      })
-      .eachPage(
-        (records, fetchNextPage) => {
-          devmode && console.log(`records`, records);
-          let parts = records.map((r) => {
-            const { id, fields } = r;
-            return {
-              id,
-              ...fields,
-            };
-          });
-          console.log(
-            `parts.map(p=>p.Attachments)`,
-            parts.map((p) => p.Attachments)
-          );
-          this.result = parts.map((p) => p.Attachments);
-          this.parts = parts;
-          // To fetch the next page of records, call `fetchNextPage`.
-          // If there are more records, `page` will get called again.
-          // If there are no more records, `done` will get called.
-          fetchNextPage();
-        },
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        }
-      );
+    // base("Rounds")
+    //   .select({
+    //     maxRecords: 10,
+    //     view: "Grid view",
+    //   })
+    //   .eachPage(
+    //     (records, fetchNextPage) => {
+    //       devmode && console.log(`records`, records);
+    //       let parts = records.map((r) => {
+    //         const { id, fields } = r;
+    //         return {
+    //           id,
+    //           ...fields,
+    //         };
+    //       });
+    //       console.log(
+    //         `parts.map(p=>p.Attachments)`,
+    //         parts.map((p) => p.Attachments)
+    //       );
+    //       this.result = parts.map((p) => p.Attachments);
+    //       this.parts = parts;
+    //       // To fetch the next page of records, call `fetchNextPage`.
+    //       // If there are more records, `page` will get called again.
+    //       // If there are no more records, `done` will get called.
+    //       fetchNextPage();
+    //     },
+    //     function done(err) {
+    //       if (err) {
+    //         console.error(err);
+    //         return;
+    //       }
+    //     }
+    //   );
   },
 };
 </script>
