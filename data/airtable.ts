@@ -1,16 +1,6 @@
-import * as Airtable from "airtable";
-import { browser } from "airtable";
-import { devmode } from "../src/helpers/generators";
-import dotenv from "dotenv";
-
-// list all:
-// curl "https://api.airtable.com/v0/app33DDBeyXEGRflo/Parts?maxRecords=3&view=Grid%20view" \
-//   -H "Authorization: Bearer YOUR_API_KEY"
-
-// retrieve a record
-// curl https://api.airtable.com/v0/app33DDBeyXEGRflo/Parts/recOUTQByg9YeKrAA \
-//   -H "Authorization: Bearer YOUR_API_KEY"
-
+const { devmode } = require("../src/helpers/generators");
+const dotenv = require("dotenv");
+const Airtable = require("airtable");
 
 export const base = new Airtable({
   apiKey: process.env.VUE_APP_AIRTABLE_API_KEY,
@@ -44,6 +34,39 @@ export const initialOptions = {
   maxRecords: 20,
   // filterByFormula: "",
   /*other stuff*/
+};
+
+const search = async (tableName = "Parts", options = null) => {
+  // console.log('options :>> ', options);
+  const atPageCursor = pagify(tableName, options);
+  // let filter = options?.filter ? options.filter : x => x;
+  // console.log('filter :>> ', filter);
+
+  try {
+    // nextPage return a promise that resolves to an array of Record objects.
+    let atResultsPage = await atPageCursor.nextPage();
+
+    let pages = [];
+
+    while (atResultsPage && atResultsPage.length) {
+      // Process this page.
+      const records = atResultsPage;
+      pages.push(formatRecords(records));
+
+      // Get next set
+      atResultsPage = await atPageCursor.nextPage();
+    }
+
+    let allPages = pages.reduce((a, b) => concat(a, b));
+    console.log("All Pages found :>> ", allPages);
+    // console.log('BEFORE: ', state)
+    // state.records = allPages
+    // console.log('AFTER :>> ', state)
+    return allPages;
+  } catch (err) {
+    // Errors thrown from the nextPage call would be caught here.
+    alert(err);
+  }
 };
 
 export function pagify(table, options = null) {
@@ -180,3 +203,7 @@ export const get = async (table: string = null, id = null) => {
     });
   });
 };
+
+function concat(...args) {
+  return args.reduce((acc, val) => [...acc, ...val]);
+}
