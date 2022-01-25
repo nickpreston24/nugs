@@ -12,7 +12,7 @@ Steps to install
 
 `npx tailwind init -p`
 
-Add the following to purge [] in `tailwindconfig.js`
+Add the following to purge [] in `tailwind.config.js`
 
 ``` json    
 purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}']
