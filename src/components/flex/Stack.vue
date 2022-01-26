@@ -1,0 +1,14 @@
+<template>
+  <div>
+    <slot></slot>
+  </div>
+</template>
+<style global>
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1ch;
+}
+</style>

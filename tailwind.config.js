@@ -54,6 +54,7 @@ module.exports = {
       },
       gray: {
         300: "#455",
+        500: "#333"
       },
       arctic: {
         100: "#eef5fc",

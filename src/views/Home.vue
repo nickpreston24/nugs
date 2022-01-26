@@ -1,5 +1,13 @@
 <template>
   <div class="home">
+    <parallax
+      title="Ready to build?!"
+      subtitle="(We know we are!)"
+      backgroundImage="https://picsum.photos/id/377/600/400"
+      foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
+      description="Are you really into rifles?  Great!  Because we don't have a clue what you want in your next build...  Fortunately for you (and the sake of humanity), you have two options: 1) Go to 100 different rifle manufacturers and create a spreadsheet - OR - (literally) choose a budget and start buying.  Sound good?  (we know you said 'Yes')"
+    />
+    <!-- 
     <ul class="gentle-flex">
       <button v-on:click="showRounds = !showRounds">
         {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
@@ -12,27 +20,11 @@
       <button v-show="false" v-on:click="showOrders = !showOrders">
         {{ !showOrders ? "[+] Orders" : "[-] Orders" }}
       </button>
-
       <button v-on:click="showParts = !showParts">
         {{ !showParts ? "[+] Parts" : "[-] Parts" }}
       </button>
     </ul>
-
-    <div v-if="showRounds" id="rounds-page">
-      <AddRounds />
-      <div id="rounds-view">
-        <iframe
-          v-if="false"
-          class="airtable-embed"
-          src="https://airtable.com/embed/shr3OhGRrERrqhP0e?backgroundColor=blue&layout=card&viewControls=on"
-          frameborder="0"
-          onmousewheel=""
-          width="100%"
-          height="533"
-          style="background: transparent; border: 1px solid #ccc"
-        ></iframe>
-      </div>
-    </div>
+-->
 
     <!-- Todo: Once the form is created for each of these pages, refactor both view and form -->
     <div id="orders-page" v-if="showOrders">
@@ -79,27 +71,11 @@
 </template>
 
 <script>
-import AddRounds from "../components/rounds/AddRounds.vue";
-import AddBuilds from "../components/builds/AddBuilds.vue";
-import AddParts from "../components/parts/AddParts.vue";
-import PartsGrid from "../components/parts/PartsGrid.vue";
+import parallax from "../components/templates/parallax.vue";
 export default {
-  data() {
-    return {
-      // todo: phase these out as routes instead of toggles
-      showRounds: false, // db
-      showOrders: false,
-      showBuilds: false,
-      showParts: false,
-    };
-  },
   name: "Home",
   components: {
-    AddRounds,
-    AddBuilds,
-    AddParts,
-    PartsGrid,
-    // AddOrders,  // todo: make an UpdateOrdders view
+    parallax,
   },
 };
 </script>

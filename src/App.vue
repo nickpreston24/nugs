@@ -1,16 +1,19 @@
 <template>
   <div>
-    <sidebar/>    
-    <footer class="bg-blue">
-      <div>footer</div>
-    </footer>
+    <sidebar />
+    <router-view v-slot="{ Component }">
+      <transition name="route" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
+    <Footer></Footer>
   </div>
 </template>
 <script>
-import Sidebar from './Sidebar.vue';
+import Sidebar from "./Sidebar.vue";
+import Footer from "./components/molecules/Footer.vue";
 export default {
   components: { Sidebar },
-  
 };
 </script>
 <style global>
@@ -52,8 +55,6 @@ input.bullet-border {
   text-align: center;
   /* color: #2c3e50; */
 }
-
-
 
 /*route transitions*/
 .route-enter-from {
