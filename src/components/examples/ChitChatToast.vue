@@ -1,16 +1,6 @@
 <template>
   <div
-    class="
-      p-6
-      max-w-sm
-      mx-auto
-      bg-green-300
-      rounded-xl
-      shadow-md
-      flex
-      items-center
-      space-x-4
-    "
+    class="p-6 max-w-sm mx-auto bg-green-300 rounded-xl shadow-md flex items-center space-x-4"
   >
     <div class="flex-shrink-0">
       <img class="h-12 w-12" src="../assets/logo.png" alt="ChitChat Logo" />
@@ -26,7 +16,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .chat-notification {
   display: flex;
   max-width: 24rem;

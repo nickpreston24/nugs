@@ -1,12 +1,11 @@
-    /* https://tailwindcss.com/docs/box-shadow */
+/* https://tailwindcss.com/docs/box-shadow */
 
 <template>
-  <button class="rounded-md p-2 font-normal text-arctic-100 bg-ocean-green-500">
-    <slot>CLick Me!</slot>
+  <button class="p-2 font-normal rounded-md text-arctic-100 bg-ocean-500">
+    <slot></slot>
   </button>
 </template>
-<script>
-</script>
+<script></script>
 <style scoped>
 .clicked {
   background-color: red;

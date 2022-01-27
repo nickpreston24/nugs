@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 module.exports = {
-  content: [    "./index.html",    "./src/**/*.{vue,js,ts,jsx,tsx}",  ],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}",],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     screens: {
@@ -9,11 +9,44 @@ module.exports = {
       lg: "976px",
       xl: "1440px",
     },
-    // https://www.tailwindshades.com/#color=42B983&step-up=10&step-down=10&name=ocean-green&overrides=e30%3D
+    fontSize: {
+      'tiny': '.875rem',
+      'base': '1rem',
+      'lg': '1.125rem',
+      'xl': '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
+      '7xl': '5rem',
+    },
+    padding: {
+      'tiny': '.875rem',
+      'base': '1rem',
+      'lg': '1.125rem',
+      'xl': '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
+      '7xl': '5rem',
+    },
+    // https://www.tailwindshades.com/#color=42B983&step-up=10&step-down=10&name=ocean&overrides=e30%3D
     colors: {
       transparent: "transparent",
       black: "#000",
       white: "#fff",
+      current: 'currentColor',
+      'white': '#ffffff',
+      'purple': '#3f3cbb',
+      'midnight': '#121063',
+      'metal': '#565584',
+      'tahiti': '#3ab7bf',
+      'silver': '#ecebff',
+      'bubble-gum': '#ff77e9',
+      'bermuda': '#78dcca',
       purple: {
         100: '#faf5ff',
         200: '#e9d8fd',
@@ -39,7 +72,7 @@ module.exports = {
         900: '#702459',
       },
       red: "#a45",
-      'ocean-green': {
+      'ocean': {
         DEFAULT: '#42B983',
         '50': '#E9F7F1',
         '100': '#D6F1E5',
@@ -54,7 +87,8 @@ module.exports = {
       },
       gray: {
         300: "#455",
-        500: "#333"
+        500: "#333",
+        900: "#1d1f20"
       },
       arctic: {
         100: "#eef5fc",

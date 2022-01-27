@@ -1,18 +1,18 @@
 <template>
   <!-- <div class="z-40">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">5</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">5</rect>
   </div>
   <div class="z-30">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">4</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">4</rect>
   </div>
   <div class="z-20">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">3</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">3</rect>
   </div>
   <div class="z-10">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">2</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">2</rect>
   </div>
   <div class="z-0">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">1</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">1</rect>
   </div> -->
 
   <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">

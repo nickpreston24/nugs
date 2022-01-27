@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-3xl text-ocean-green-600">Parts Saved</h1>
+    <h1 class="text-3xl text-ocean-600">Parts Saved</h1>
     <ul
       @change="onChange(part)"
       v-for="(part, idx) in parts"

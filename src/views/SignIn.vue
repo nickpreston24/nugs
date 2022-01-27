@@ -73,7 +73,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login-form {
   max-width: 400px;
   width: 100%;

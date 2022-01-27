@@ -1,7 +1,7 @@
 <template>
   <body>
     <nav class="navbar">
-      <div class="brand-title">Brand Name</div>
+      <div class="m-2 text-3xl">Nug Builder</div>
       <a href="#" class="toggle-button" @click="toggleBurger">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -46,7 +46,7 @@
     </nav>
   </body>
 </template>
-<style global>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -63,11 +63,6 @@ body {
   align-items: center;
   background-color: #333;
   color: white;
-}
-
-.brand-title {
-  font-size: 1.5rem;
-  margin: 0.5rem;
 }
 
 .navbar-links {

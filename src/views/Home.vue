@@ -1,13 +1,34 @@
 <template>
   <div class="home">
     <parallax
-      title="Ready to build?!"
-      subtitle="(We know we are!)"
+      title="Ready to Build an AR? 😎"
+      subtitle="What would you like to do first? "
       backgroundImage="https://picsum.photos/id/377/600/400"
       foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
-      description="Are you really into rifles?  Great!  Because we don't have a clue what you want in your next build...  Fortunately for you (and the sake of humanity), you have two options: 1) Go to 100 different rifle manufacturers and create a spreadsheet - OR - (literally) choose a budget and start buying.  Sound good?  (we know you said 'Yes')"
+      description="Are you really into rifles?  Great!  Because we don't have a clue what you want in your next build...  Fortunately for you there's two options: 1) Go to 100 different rifle manufacturers and create a spreadsheet - OR - (literally) choose a budget and start buying.  Sound good?  (we know you said 'Yes')"
     />
+
+
+    <section>
+    
+    </section>
+
     <!-- 
+
+    <Row class="h-screen">
+      <div
+        class="text-midnight shadow-3xl bg-gradient-to-r from-purple-700 via-purple-300 to-medium-purple"
+      >
+        We need more lemon pledge...
+      </div>
+
+      <div
+        class="w-auto text-midnight shadow-3xl bg-gradient-to-r from-arctic-500 via-ocean-300 to-pink-600"
+      >
+        We need more lemon pledge...
+      </div>
+    </Row>
+
     <ul class="gentle-flex">
       <button v-on:click="showRounds = !showRounds">
         {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
@@ -72,10 +93,20 @@
 
 <script>
 import parallax from "../components/templates/parallax.vue";
+import BlackHoleIcon from "../components/atoms/BlackHoleIcon.vue";
+import Gradient from "../components/atoms/Gradient.vue";
+import Button from "../components/atoms/Button.vue";
+import Stack from "../components/flex/Stack.vue";
+import Row from "../components/flex/Row.vue";
+
 export default {
   name: "Home",
   components: {
     parallax,
+    BlackHoleIcon,
+    Gradient,
+    Stack,
+    Row,
   },
 };
 </script>

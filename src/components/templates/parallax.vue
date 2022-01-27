@@ -1,21 +1,51 @@
 <template>
   <body class="m-0">
-    <div class="wrapper">
+    <div class="wrapper text-arctic-500">
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
-        <ul>
-          <h1 class="title">{{ title }}</h1>
-          <h4 class="text-lg text-white shadow-xl">{{ subtitle }}</h4>
-        </ul>
+
+        <Stack>
+          <Gradient class="m-20">
+            <Stack>
+              <h1 class="shadow-2xl text-7xl text-arctic-500">{{ title }}</h1>
+              <subtitle class="text-4xl shadow-2xl text-arctic-700">{{
+                subtitle
+              }}</subtitle>
+              <Row class="gap-20">
+                <button
+                  class="h-20 text-3xl text-ocean-500 hover:text-bubble-gum"
+                >
+                  <router-link class="navbar-links" to="/builds"
+                    >Build Now
+                  </router-link>
+                </button>
+                <button
+                  class="h-20 text-3xl text-ocean-500 hover:text-bubble-gum"
+                  @click="alert('alons-y!')"
+                >
+                  I need more info
+                </button>
+              </Row>
+            </Stack>
+          </Gradient>
+        </Stack>
       </header>
-      <section>
+
+      <section class="text-3xl bg-regal-600 h-2/3">
         {{ description }}
       </section>
     </div>
   </body>
 </template>
 <script>
+import BorderedIcon from "../../components/atoms/BorderedIcon.vue";
+import Button from "../../components/atoms/Button.vue";
+import BlackHoleIcon from "../../components/atoms/BlackHoleIcon.vue";
+import Stack from "../../components/flex/Stack.vue";
+import Row from "../../components/flex/Row.vue";
+import Gradient from "../../components/atoms/Gradient.vue";
+
 export default {
   props: {
     title: String,
@@ -24,9 +54,17 @@ export default {
     subtitle: String,
     description: String,
   },
+  components: {
+    BorderedIcon,
+    BlackHoleIcon,
+    Gradient,
+    Stack,
+    Row,
+    Button,
+  },
 };
 </script>
-<style global>
+<style scoped>
 body {
   margin: 0;
 }
@@ -36,6 +74,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   perspective: 10px;
+  width: 100vw;
 }
 
 header {
@@ -49,7 +88,7 @@ header {
 }
 
 .background {
-  transform: translateZ(-10px) scale(2);
+  transform: translateZ(-10px) scale(2.1);
 }
 
 .foreground {
@@ -66,15 +105,6 @@ header {
 }
 
 .title {
-  font-size: 7rem;
-  color: gold;
   text-shadow: 0 0 5px black;
-}
-
-section {
-  font-size: 2rem;
-  padding: 2rem;
-  background-color: #333;
-  color: white;
 }
 </style>

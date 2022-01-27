@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .lightbox {
   position: fixed;
   top: 0;

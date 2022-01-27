@@ -6,14 +6,23 @@
         <component :is="Component"></component>
       </transition>
     </router-view>
-    <Footer></Footer>
+    <Footer>
+      <Row>
+        <a href="#">Affiliates</a>
+        <a href="#">Help</a>
+      </Row>
+    </Footer>
   </div>
 </template>
 <script>
 import Sidebar from "./Sidebar.vue";
 import Footer from "./components/molecules/Footer.vue";
+import Stack from "./components/flex/Stack.vue";
+import Row from "./components/flex/Row.vue";
+import Gradient from "./components/atoms/Gradient.vue";
+
 export default {
-  components: { Sidebar },
+  components: { Sidebar, Footer, Stack, Row, Gradient },
 };
 </script>
 <style global>
