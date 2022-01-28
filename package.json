@@ -4,7 +4,7 @@
   "scripts": {
     "build": "vite build",
     "frontend": "npm start --prefix frontend",
-    "dev": "concurrently \"nodemon server\" \"vite\""
+    "dev": "vite"
   },
   "dependencies": {
     "@chakra-ui/vue": "^0.10.2",
