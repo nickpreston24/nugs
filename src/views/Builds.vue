@@ -28,7 +28,7 @@
             <label class="text-5xl">D.D. MS-KMR-13</label>
           </template>
           <template v-slot:default>
-            <span>lorem ipsum shootsum pricksum</span>
+            <span>lorem ipsum shootsum hitsum</span>
           </template>
           <template v-slot:footer>
             <button class="text-5xl text-white border-radius">+</button>
@@ -42,7 +42,7 @@
             <label class="text-5xl">D.D. MS-KMR-13</label>
           </template>
           <template v-slot:default>
-            <span>lorem ipsum shootsum pricksum</span>
+            <span>lorem ipsum shootsum hitsum</span>
           </template>
           <template v-slot:footer>
             <button class="text-5xl text-white border-radius">+</button>

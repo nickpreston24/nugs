@@ -1,5 +1,5 @@
 import { ref, onMounted, toRefs, reactive, toRef } from 'vue'
-import { findAll, formatRecords, get, pagify } from "../../api/airtable-curl";
+import { findAll, formatRecords, get, pagify } from "../../data/airtable-curl";
 import { devmode } from '../helpers/generators';
 
 

@@ -29,7 +29,7 @@
 </style>
 
 <script>
-import { create } from "../../../api/airtable-curl";
+import { create } from "../../../data/airtable-curl";
 import { useState } from "@hookstate/vue";
 import {
   devmode,
