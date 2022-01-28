@@ -13,6 +13,8 @@
 
       <!-- Slider bar -->
 
+      <Button @click="crud">DOOM</Button>
+
       <!-- Builder -->
 
       <ul>
@@ -70,6 +72,7 @@ import Card from "../components/molecules/Card.vue";
 import Stack from "../components/flex/Stack.vue";
 import Row from "../components/flex/Row.vue";
 import Gradient from "../components/atoms/Gradient.vue";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -112,6 +115,20 @@ export default {
       upper.bcg = "BCM 5.56 NATO BCG Nitrided";
       buttstock.brand = "Bravo Company";
       return null;
+    },
+    crud() {
+      const url = `api/sendMessage?name=${this.checklist.upper.name}`;
+      // console.log("url", url);
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response);
+          // info.result = response.data;
+        })
+        .catch((err) => {
+          // if (devmode) info.message = err;
+          console.log("err :>> ", err);
+        });
     },
   },
   components: {

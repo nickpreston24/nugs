@@ -4,7 +4,7 @@
       title="Ready to Build an AR? 😎"
       backgroundImage="https://picsum.photos/id/377/600/400"
       foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
-      description="Are you really into rifles? \nGreat!  Because we can help you.  \nYou choose a budget and start buying from top brands.  \nSound good?"
+      description="Are you really into rifles? \nGreat!  Because we can help you.  \nYou choose a budget\n We suggest the parts.  \nGet a build in minutes!  \nSound good?\n\n"
     />
 
     <!-- 

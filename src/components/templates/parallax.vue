@@ -36,6 +36,12 @@
         <p v-for="(item, index) in this.description.split('\\n')" :key="index">
           {{ item }}
         </p>
+        <br />
+        <button class="text-white bg-orange-600 rounded-4xl">
+          <router-link class="navbar-links" to="/builds">
+            Let's Go!
+          </router-link>
+        </button>
       </section>
     </div>
   </body>
