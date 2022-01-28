@@ -1,7 +1,9 @@
 <template>
   <body>
     <nav class="navbar">
-      <div class="m-2 text-3xl">Nug Builder</div>
+      <div class="m-2 text-3xl">
+        <router-link class="navbar-links" to="/">Nug Builder</router-link>
+      </div>
       <a href="#" class="toggle-button" @click="toggleBurger">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -11,17 +13,13 @@
       <div class="classList">
         <ul>
           <li>
-            <router-link class="navbar-links" v-if="devmode" to="/"
-              >Home
-            </router-link>
+            <router-link class="navbar-links" to="/">Home </router-link>
           </li>
           <li>
-            <router-link class="navbar-links" v-if="!devmode" to="/about"
-              >About
-            </router-link>
+            <router-link class="navbar-links" to="/about">About </router-link>
           </li>
           <li>
-            <router-link class="navbar-links" v-if="!devmode" to="/signin"
+            <router-link class="navbar-links" v-if="devmode" to="/signin"
               >Sign In
             </router-link>
           </li>
@@ -37,7 +35,7 @@
             <router-link class="navbar-links" to="/parts">Parts </router-link>
           </li>
           <li>
-            <router-link class="navbar-links" v-if="false" to="/sandbox">
+            <router-link class="navbar-links" v-if="devmode" to="/sandbox">
               Sandbox</router-link
             >
           </li>
