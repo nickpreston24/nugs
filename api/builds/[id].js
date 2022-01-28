@@ -1,5 +1,5 @@
 modules.exports = (req, res) => {
-    console.log('req :>> ', req);
+    // console.log('req :>> ', req);
 
     const {
         query: { name, id, cost },
