@@ -33,7 +33,9 @@
       </header>
 
       <section class="text-3xl bg-regal-600 h-2/3">
-        {{ description }}
+        <p v-for="(item, index) in this.description.split('\\n')" :key="index">
+          {{ item }}
+        </p>
       </section>
     </div>
   </body>

@@ -2,16 +2,10 @@
   <div class="home">
     <parallax
       title="Ready to Build an AR? 😎"
-      subtitle="What would you like to do first? "
       backgroundImage="https://picsum.photos/id/377/600/400"
       foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
-      description="Are you really into rifles?  Great!  Because we don't have a clue what you want in your next build...  Fortunately for you there's two options: 1) Go to 100 different rifle manufacturers and create a spreadsheet - OR - (literally) choose a budget and start buying.  Sound good?  (we know you said 'Yes')"
+      description="Are you really into rifles? \nGreat!  Because we can help you.  \nYou choose a budget and start buying from top brands.  \nSound good?"
     />
-
-
-    <section>
-    
-    </section>
 
     <!-- 
 

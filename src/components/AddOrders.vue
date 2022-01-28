@@ -39,7 +39,7 @@ button {
 </style>
 
 <script>
-import { createOrders } from "../../api/airtable-curl";
+import { createOrders } from "../../data/airtable-curl";
 import {
   isEmpty,
   devmode,

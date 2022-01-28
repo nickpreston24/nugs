@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { initialOptions } from "../../../api/airtable-curl";
+import { initialOptions } from "../../../data/airtable-curl";
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
 
