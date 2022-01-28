@@ -1,6 +1,3 @@
 {
-  "version": 2,
-  "functions": {
-    "includeFiles": "api/*"
-  }
+  "version": 2
 }
