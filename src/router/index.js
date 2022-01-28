@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+// import VueRouter from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import Home from "../views/Home.vue";
-import PartPhoto from '../components/parts/PartPhoto.vue'
+import PartPhoto from "../components/parts/PartPhoto.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes = [
   {
     path: "/",
     name: "Home",
@@ -10,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/about",
-    name: "About",
+    // name: "About",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -19,44 +20,39 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/sandbox",
-    name: 'Sandbox',
-    component: () => import("@/views/Sandbox.vue")
+    name: "Sandbox",
+    component: () => import("../views/Sandbox.vue"),
   },
   {
     path: "/signin",
     name: "Sign In",
-    component: () => import('@/views/SignIn.vue')
-  },
-  {
-    path: "/orders",
-    name: "Place Recipe",
-    component: () => import('@/views/Orders.vue')
+    component: () => import("../views/SignIn.vue"),
   },
   {
     path: "/builds",
     name: "Customize your Nug",
-    component: () => import('@/views/Builds.vue')
+    component: () => import("../views/Builds.vue"),
   },
   {
     path: "/parts",
     name: "Add new Parts",
-    component: () => import('@/views/Parts.vue')
+    component: () => import("../views/Parts.vue"),
   },
   {
     path: "/orders/add-part",
     name: "Add new Part to existing Recipe",
-    component: () => import('@/views/AddPartToOrder.vue')
+    component: () => import("../views/AddPartToOrder.vue"),
   },
   {
-    path: '/part/:id',
-    name: 'part',
+    path: "/part/:id",
+    name: "part",
     component: PartPhoto,
   },
 ];
-
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  //  Provide the history implementation to use. We are using the hash history for simplicity here.
+  history: createWebHistory(),
   routes,
-});
+})
 
 export default router;

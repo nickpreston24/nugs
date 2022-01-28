@@ -16,11 +16,29 @@
       height="533"
       style="background: transparent; border: 1px solid #ccc"
     ></iframe>
+
+    <Row>
+      <button v-on:click="showRounds = !showRounds">
+        {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
+      </button>
+
+      <button v-on:click="showBuilds = !showBuilds">
+        {{ !showBuilds ? "[+] Builds" : "[-] Builds" }}
+      </button>
+
+      <button v-show="false" v-on:click="showOrders = !showOrders">
+        {{ !showOrders ? "[+] Orders" : "[-] Orders" }}
+      </button>
+      <button v-on:click="showParts = !showParts">
+        {{ !showParts ? "[+] Parts" : "[-] Parts" }}
+      </button>
+    </Row>
   </div>
 </template>
 <script>
 import Button from "../components/atoms/Button.vue";
 import PartsGallery from "../components/parts/PartsGallery.vue";
+import Row from "../components/flex/Row.vue";
 export default {
   data() {
     return {
@@ -30,6 +48,7 @@ export default {
   components: {
     PartsGallery,
     Button,
+    Row,
   },
 };
 </script>

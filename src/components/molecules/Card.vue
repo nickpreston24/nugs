@@ -1,7 +1,7 @@
 <template>
   <div
     v-bind:class="animation"
-    class="py-6 flex flex-col justify-center sm:py-12 bg-gray-100 mih-h-screen"
+    class="flex flex-col justify-center py-6 sm:py-12"
     @mouseover="isHovering = true"
     @mouseout="isHovering = false"
   >

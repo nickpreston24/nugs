@@ -22,7 +22,7 @@ export default {
   // components: { Card },
 };
 </script>
-<style>
+<style scoped>
 .part-card {
   width: 300px;
   height: 200px;

@@ -10,12 +10,12 @@
     </div>
 
     <div class="gallery">
-      <spinner
+      <!-- <spinner
         :animation-duration="2000"
         :size="60"
         class="color-arctic-500"
         color="grey"
-      />
+      /> -->
       <div class="gallery-panel" v-for="part in parts" :key="part.id">
         <h1>{{part.Name}}</h1>
 
@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { initialOptions } from "../../../api/airtable";
+import { initialOptions } from "../../../api/airtable-curl";
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
 
@@ -64,7 +64,7 @@ export default {
 
   computed: {
     parts() {
-      console.log("computed:  >> ", this.state.records);
+      // console.log("computed:  >> ", this.state.records);
       return this.state.records;
     },
   },

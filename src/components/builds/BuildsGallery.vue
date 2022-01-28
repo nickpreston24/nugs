@@ -73,11 +73,10 @@
   </div>
 </template>
 <script>
-import { initialOptions } from "../../../api/airtable";
+import { initialOptions } from "../../../api/airtable-curl";
 // import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
-import Slider from "@vueform/slider";
-import { devmode } from "@/helpers/generators";
+import { devmode } from "../../helpers/generators";
 import Card from "../molecules/Card.vue";
 
 export default {

@@ -1,35 +1,23 @@
 <template>
-  <transition name="flowing-border" v-bind="$attrs" v-on="$listenters">
+  <div class="bg-gray-900 gradient-border hover:bg-regal-700" id="box">
     <slot></slot>
-  </transition>
+  </div>
 </template>
-<style>
+<script>
+export default {};
+</script>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Raleway:200");
 
-html,
-body {
-  height: 100%;
-}
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  /* background: #1D1F20; */
-}
 #box {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 400px;
-  height: 200px;
   color: white;
   font-family: "Raleway";
-  font-size: 2.5rem;
 }
 .gradient-border {
   --borderWidth: 3px;
-  background: #1d1f20;
   position: relative;
   border-radius: var(--borderWidth);
 }

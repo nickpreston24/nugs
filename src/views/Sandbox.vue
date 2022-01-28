@@ -1,18 +1,18 @@
 <template>
   <!-- <div class="z-40">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">5</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">5</rect>
   </div>
   <div class="z-30">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">4</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">4</rect>
   </div>
   <div class="z-20">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">3</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">3</rect>
   </div>
   <div class="z-10">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">2</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">2</rect>
   </div>
   <div class="z-0">
-    <rect x="100" class="bg-ocean-green-500" width="100" height="100">1</rect>
+    <rect x="100" class="bg-ocean-500" width="100" height="100">1</rect>
   </div> -->
 
   <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
@@ -133,18 +133,34 @@
     <!-- <gallery v-show="true"/> -->
 
     <!-- Props passing attempt 1 -->
-
+    <label for="">
+      result:
+      <i>{{ info }}</i>
+    </label>
     <tailwind-card v-show="true" />
+    <footer>
+      <label>
+        result:
+        <i>{{ info }}</i>
+      </label>
+      <h3>
+        <a :href="info.url" target="_blank">Api Call</a>
+      </h3>
+
+        Powered by {{ info.db }} <br />
+      Mode: {{ !devmode ? "Production" : "Dev" }}
+    
+    </footer>
   </div>
 
   <!-- <TriangleSVG class="bg-left-top" /> -->
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
-import { base } from "../../api/airtable";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
 import useTable from "../components/useTable";
+import axios from 'axios'
 
 export default {
   components: {
@@ -171,13 +187,13 @@ export default {
     onSubmit: async (e) => {
       await e.preventDefault();
 
-      const res = await fetch("api/orders/1234?name=severus", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify({ to: number, body: body }),
-      });
+      // const res = await fetch("api/orders/1234?name=severus", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   // body: JSON.stringify({ to: number, body: body }),
+      // });
 
       const data = await res.json();
       console.log("data", data);
@@ -192,6 +208,8 @@ export default {
     return {
       show: false,
       devmode: devmode,
+      info: { db: null, result: null, message: "" },
+
       order: { id: "empty" },
       pagedData: {},
 
@@ -229,39 +247,37 @@ export default {
     };
   },
   mounted() {
-    base("Rounds")
-      .select({
-        maxRecords: 10,
-        view: "Grid view",
-      })
-      .eachPage(
-        (records, fetchNextPage) => {
-          devmode && console.log(`records`, records);
-          let parts = records.map((r) => {
-            const { id, fields } = r;
-            return {
-              id,
-              ...fields,
-            };
-          });
-          console.log(
-            `parts.map(p=>p.Attachments)`,
-            parts.map((p) => p.Attachments)
-          );
-          this.result = parts.map((p) => p.Attachments);
-          this.parts = parts;
-          // To fetch the next page of records, call `fetchNextPage`.
-          // If there are more records, `page` will get called again.
-          // If there are no more records, `done` will get called.
-          fetchNextPage();
-        },
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        }
-      );
+    // let self = this;
+    // let info = self.info;
+
+    // devmode && console.log("import.meta.env :>> ", import.meta.env);
+    // let uri = import.meta.env?.VITE_VERCEL_URI || "http://localhost:";
+    // let port = import.meta.env.VITE_PORT;
+
+    // const url = devmode
+    //   ? `http://localhost:${"3001"}/api/nugs/1`
+    //   : `${uri}${port}/api/nugs/1`;
+    // info.url = url;
+
+    // // update the render of info for dev only
+    // if (devmode) {
+    //   info.db = import.meta.env.VITE_VERCEL_USER;
+    //   info.message = "fetching nugs...";
+    //   info.uri = uri;
+    //   info.port = port;
+    // }
+
+    // info.devmode = devmode;
+
+    // axios
+    //   .get(url)
+    //   .then((response) => {
+    //     info.result = response.data;
+    //   })
+    //   .catch((err) => {
+    //     if (devmode) info.message = err;
+    //     console.log("err :>> ", err);
+    //   });
   },
 };
 </script>

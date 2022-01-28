@@ -72,31 +72,7 @@ const lorems = [
 /**
  * Type to Form Generator
  */
-export const formScaffolder = (myCustomTypeToMakeIntoAForm: any) => {
+const formScaffolder = (myCustomTypeToMakeIntoAForm: any) => {
   // TODO: https://www.meziantou.net/generate-an-html-form-from-an-object-in-typescript.htm
   return null;
 };
-
-// export const typeScaffolder = (myURLWithContentToMakeIntoADynamicClass: string) => {
-//     //Think of your DynamicXML library, but for JS.
-//     return null
-
-// }
-
-// export const airtableFormScaffodler = (obj: any) => {
-//     // Take a db object and generate a form based on the Airtable types.
-//     return null
-// }
-
-/**
- * Enforces type safety when seeking a prop of a type by its name
- * Usage:
- *
-const test = { Name: "hi" } as MyType
-console.log(`prop`, prop(test, "id"))
-
-type MyType = {
-    Name: string,
-    Age: number
- }
-*/

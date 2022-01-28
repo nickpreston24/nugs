@@ -75,7 +75,7 @@
 }
 
 .radar-spinner .circle-inner {
-  border-left-color: #ff1d5e;
+  border-left-color: #4f4f4f;
   border-right-color: #ff1d5e;
 }
 

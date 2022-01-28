@@ -1,5 +1,34 @@
 <template>
   <div class="home">
+    <parallax
+      title="Ready to Build an AR? 😎"
+      subtitle="What would you like to do first? "
+      backgroundImage="https://picsum.photos/id/377/600/400"
+      foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
+      description="Are you really into rifles?  Great!  Because we don't have a clue what you want in your next build...  Fortunately for you there's two options: 1) Go to 100 different rifle manufacturers and create a spreadsheet - OR - (literally) choose a budget and start buying.  Sound good?  (we know you said 'Yes')"
+    />
+
+
+    <section>
+    
+    </section>
+
+    <!-- 
+
+    <Row class="h-screen">
+      <div
+        class="text-midnight shadow-3xl bg-gradient-to-r from-purple-700 via-purple-300 to-medium-purple"
+      >
+        We need more lemon pledge...
+      </div>
+
+      <div
+        class="w-auto text-midnight shadow-3xl bg-gradient-to-r from-arctic-500 via-ocean-300 to-pink-600"
+      >
+        We need more lemon pledge...
+      </div>
+    </Row>
+
     <ul class="gentle-flex">
       <button v-on:click="showRounds = !showRounds">
         {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
@@ -12,27 +41,11 @@
       <button v-show="false" v-on:click="showOrders = !showOrders">
         {{ !showOrders ? "[+] Orders" : "[-] Orders" }}
       </button>
-
       <button v-on:click="showParts = !showParts">
         {{ !showParts ? "[+] Parts" : "[-] Parts" }}
       </button>
     </ul>
-
-    <div v-if="showRounds" id="rounds-page">
-      <AddRounds />
-      <div id="rounds-view">
-        <iframe
-          v-if="false"
-          class="airtable-embed"
-          src="https://airtable.com/embed/shr3OhGRrERrqhP0e?backgroundColor=blue&layout=card&viewControls=on"
-          frameborder="0"
-          onmousewheel=""
-          width="100%"
-          height="533"
-          style="background: transparent; border: 1px solid #ccc"
-        ></iframe>
-      </div>
-    </div>
+-->
 
     <!-- Todo: Once the form is created for each of these pages, refactor both view and form -->
     <div id="orders-page" v-if="showOrders">
@@ -79,27 +92,21 @@
 </template>
 
 <script>
-import AddRounds from "@/components/rounds/AddRounds.vue";
-import AddBuilds from "@/components/builds/AddBuilds.vue";
-import AddParts from "@/components/parts/AddParts.vue";
-import PartsGrid from "../components/parts/PartsGrid.vue";
+import parallax from "../components/templates/parallax.vue";
+import BlackHoleIcon from "../components/atoms/BlackHoleIcon.vue";
+import Gradient from "../components/atoms/Gradient.vue";
+import Button from "../components/atoms/Button.vue";
+import Stack from "../components/flex/Stack.vue";
+import Row from "../components/flex/Row.vue";
+
 export default {
-  data() {
-    return {
-      // todo: phase these out as routes instead of toggles
-      showRounds: false, // db
-      showOrders: false,
-      showBuilds: false,
-      showParts: false,
-    };
-  },
   name: "Home",
   components: {
-    AddRounds,
-    AddBuilds,
-    AddParts,
-    PartsGrid,
-    // AddOrders,  // todo: make an UpdateOrdders view
+    parallax,
+    BlackHoleIcon,
+    Gradient,
+    Stack,
+    Row,
   },
 };
 </script>
