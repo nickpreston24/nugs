@@ -2,7 +2,9 @@
   <body>
     <nav class="navbar">
       <div class="m-2 text-3xl">
-        <router-link class="navbar-links" to="/">Nug Builder</router-link>
+        <router-link class="navbar-links text-5xl m-10" to="/"
+          >Blaster Builder</router-link
+        >
       </div>
       <a href="#" class="toggle-button" @click="toggleBurger">
         <span class="bar"></span>

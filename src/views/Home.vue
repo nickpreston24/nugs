@@ -1,14 +1,14 @@
 <template>
-  <div class="home">
+  <div>
     <parallax
-      title="Ready to Build an AR? 😎"
+      title="Ready to Build?"
+      subtitle="😎"
       backgroundImage="https://picsum.photos/id/377/600/400"
       foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
-      description="Are you really into rifles? \nGreat!  Because we can help you.  \nYou choose a budget\n We suggest the parts.  \nGet a build in minutes!  \nSound good?\n\n"
+      description="Are you really into rifles? \nGreat!  Because we can help you.  \nYou choose a budget\n We suggest the parts.  \nGet a build in minutes!  \nSound good?\n\n Pick the categories you want, here:"
     />
 
     <!-- 
-
     <Row class="h-screen">
       <div
         class="text-midnight shadow-3xl bg-gradient-to-r from-purple-700 via-purple-300 to-medium-purple"
@@ -39,12 +39,11 @@
         {{ !showParts ? "[+] Parts" : "[-] Parts" }}
       </button>
     </ul>
--->
 
-    <!-- Todo: Once the form is created for each of these pages, refactor both view and form -->
     <div id="orders-page" v-if="showOrders">
-      <!-- <add-orders /> -->
+     
       <div id="orders-view">
+
         <h2>Orders</h2>
         <i>Below are the current orders</i>
         <iframe
@@ -82,6 +81,7 @@
       <add-parts />
       <parts-grid />
     </div>
+-->
   </div>
 </template>
 

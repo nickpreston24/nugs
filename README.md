@@ -82,6 +82,7 @@ use-serverless-functions-send-sms-react-vercel-twilio
 - [ ] [Emulate this awesome menu](https://codesandbox.io/s/xn8xx?file=/src/SmartHome/SmartHome.vue)
 - [ ] Add Yup validation to each form -- allow only valid data to turn on the Submit buttons.
 - [ ] Custom Cartridge pattern background, like [these](https://www.svgbackgrounds.com/)
+- [ ] Normal pic to [fancy SVG pattern](https://picsvg.com/)
 
 
 

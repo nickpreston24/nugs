@@ -14,17 +14,18 @@
               }}</subtitle>
               <Row class="gap-20">
                 <button
-                  class="h-20 text-3xl text-ocean-500 hover:text-bubble-gum"
+                  class="h-20 text-3xl text-ocean-500 hover:text-orange-500"
                 >
-                  <router-link class="navbar-links" to="/builds"
-                    >Build Now
-                  </router-link>
+                  <router-link class="shadow-2xl" to="/builds"
+                    >Build</router-link
+                  >
                 </button>
                 <button
-                  class="h-20 text-3xl text-ocean-500 hover:text-bubble-gum"
-                  @click="alert('alons-y!')"
+                  class="h-20 text-3xl text-ocean-500 hover:text-orange-500"
                 >
-                  I need more info
+                  <router-link class="shadow-2xl" to="/about"
+                    >F.A.Q.</router-link
+                  >
                 </button>
               </Row>
             </Stack>
@@ -32,16 +33,26 @@
         </Stack>
       </header>
 
-      <section class="text-3xl bg-regal-600 h-2/3">
+      <section
+        class="text-3xl bg-gradient-to-tl from-regal-500 to-midnight border-4 border-midnight h-screen"
+      >
         <p v-for="(item, index) in this.description.split('\\n')" :key="index">
           {{ item }}
         </p>
-        <br />
-        <button class="text-white bg-orange-600 rounded-4xl">
-          <router-link class="navbar-links" to="/builds">
-            Let's Go!
-          </router-link>
-        </button>
+
+        <Row class="m-8">
+          <button
+            class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+          >
+            <router-link class="m-8" to="#"> Home Defense </router-link>
+          </button>
+
+          <button
+            class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+          >
+            <router-link class="m-8" to="#"> Hunting </router-link>
+          </button>
+        </Row>
       </section>
     </div>
   </body>

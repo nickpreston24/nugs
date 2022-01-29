@@ -13,7 +13,7 @@
 
       <!-- Slider bar -->
 
-      <Button @click="crud">DOOM</Button>
+      <Button @click="crud">Run Serverless Function</Button>
 
       <!-- Builder -->
 
