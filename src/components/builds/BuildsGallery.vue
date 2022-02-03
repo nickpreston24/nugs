@@ -12,13 +12,13 @@
     <!-- <p>{{ builds[0] }}</p> -->
     <!-- <p>{{ parts[0] }}</p> -->
 
-    <div class="builds-gallery">
-      <!-- <spinner
+    <div>
+      <spinner
         :animation-duration="2000"
         :size="60"
         class="color-arctic-500"
         color="grey"
-      /> -->
+      />
       <slider v-model="value"></slider>
 
       <div class="gallery-panel" v-for="build in builds" :key="build.id">
@@ -75,7 +75,7 @@
 </template>
 <script>
 import { initialOptions } from "../../../data/airtable-curl";
-// import Spinner from "../atoms/Spinner.vue";
+import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
 import { devmode } from "../../helpers/generators";
 import Card from "../molecules/Card.vue";
@@ -83,8 +83,7 @@ import Card from "../molecules/Card.vue";
 export default {
   components: {
     Card,
-    // BuildCard,
-    // Slider
+    Spinner,
   },
   data() {
     return {

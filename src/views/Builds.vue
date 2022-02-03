@@ -23,21 +23,21 @@
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
         <!-- Checklist -->
 
-        <ul>
-          <li v-for="item in types">
-            <Row>
-              <input type="checkbox" checked="item" />
-              <label>{{ item || "item" }}</label>
-            </Row>
-          </li>
-        </ul>
+        <Grid>
+          <Row v-for="item in types">
+            <input type="checkbox" checked="item" />
+            <label>{{ item || "item" }}</label>
+          </Row>
+        </Grid>
 
         <h2 class="text-3xl">Filter</h2>
-        <Row>
-          <chip v-for="type in types" class="text-pink-500 border-orange-500 border-2">{{
-            type
-          }}</chip>
-        </Row>
+        <Grid>
+          <chip
+            v-for="type in types"
+            class="text-arctic-500 border-orange-500 border-2"
+            >{{ type }}</chip
+          >
+        </Grid>
 
         <!-- Builder -->
         <div class="gallery">
@@ -140,11 +140,13 @@ import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import Card from "../components/molecules/Card.vue";
 import Stack from "../components/flex/Stack.vue";
+import Grid from "../components/flex/Grid.vue";
 import Row from "../components/flex/Row.vue";
 import Gradient from "../components/atoms/Gradient.vue";
 import SVGButton from "../components/atoms/SVGButton.vue";
 import Slider from "../components/atoms/Slider.vue";
 import { devmode } from "../helpers/generators.ts";
+import { UniqueArray, unique } from "../helpers/array.ts";
 
 export default {
   components: {
@@ -159,6 +161,7 @@ export default {
     SVGButton,
     Slider,
     Chip,
+    Grid,
   },
   data() {
     return {
@@ -180,7 +183,9 @@ export default {
       return this.state.records;
     },
     types() {
-      return this.state.records.filter((r) => r.Type).map((j) => j.Type);
+      const arr = this.state.records.filter((r) => r.Type).map((j) => j.Type);
+      return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
+      // return this.state.records.filter((r) => r.Type).map((j) => j.Type);
     },
   },
 
