@@ -18,18 +18,26 @@
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <legend>{{ checklist }}</legend>
+        <legend v-if="devmode">{{ checklist }}</legend>
 
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
-        <!-- <chip>TeXt</chip> -->
-
         <!-- Checklist -->
+
         <ul>
-          <li v-for="item in checklist">
-            <label>{{ item?.name || "item" }}</label>
-            <input type="checkbox" checked="item" />
+          <li v-for="item in types">
+            <Row>
+              <input type="checkbox" checked="item" />
+              <label>{{ item || "item" }}</label>
+            </Row>
           </li>
         </ul>
+
+        <h2 class="text-3xl">Filter</h2>
+        <Row>
+          <chip v-for="type in types" class="text-pink-500 border-orange-500 border-2">{{
+            type
+          }}</chip>
+        </Row>
 
         <!-- Builder -->
         <div class="gallery">
@@ -169,7 +177,10 @@ export default {
       return this.$store.state.checklist;
     },
     parts() {
-      return this.state.records; //.filter((j) => j.Type);
+      return this.state.records;
+    },
+    types() {
+      return this.state.records.filter((r) => r.Type).map((j) => j.Type);
     },
   },
 
