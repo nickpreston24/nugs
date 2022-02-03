@@ -23,7 +23,7 @@ export default function useTable(tableName = "Parts") {
     onMounted(() => {
 
         axios({
-            url: `https://api.airtable.com/v0/${baseId}/${tableName}`,
+            url: `https://api.airtable.com/v0/${baseId}/${tableName}?maxRecords=10`,
             headers: {
                 'Content-Type': 'x-www-form-urlencoded',
                 'Authorization': `Bearer ${apiKey}`

@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   setup() {
     const completedSteps = ref(0);

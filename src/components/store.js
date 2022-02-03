@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 export const store = createStore({
     state() {
         return {
-            range: [],
+            range: [300, 2000],
 
             checklist: {
                 buffer: {

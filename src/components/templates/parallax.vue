@@ -30,9 +30,7 @@
             {{ item }}
           </p>
 
-          <h1 class="text-purple-400 text-5xl mb-4">Pick your Budget here!</h1>
-
-          <slider @range-changed="setRange" />
+          <!-- <slider @range-changed="setRange" /> -->
 
           <Row class="m-8">
             <chip

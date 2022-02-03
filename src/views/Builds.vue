@@ -12,8 +12,10 @@
 
         <!-- Slider bar -->
         <Stack>
-          <h1 class="text-7xl">Your Budget is from</h1>
-          <!-- <slider v-show="devmode" min="500" @range-changed="setRange"></slider> -->
+          <!-- <h1 class="text-7xl">Your Budget is from</h1> -->
+          <h1 class="text-purple-400 text-5xl mb-4">Pick your Budget here!</h1>
+
+          <slider v-show="devmode" min="500" @range-changed="setRange"></slider>
         </Stack>
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
@@ -23,9 +25,9 @@
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
         <!-- Checklist -->
 
-        <RadialProgress diameter="300" completedSteps="5" />
+        <RadialProgress v-if="devmode" diameter="300" completedSteps="5" />
 
-        <Grid>
+        <Grid v-if="devmode">
           <Row v-for="(item, outer) in types">
             <!-- <div v-for="(item,inner)"></div> -->
             <!-- <input type="checkbox" checked="item" /> -->
@@ -37,7 +39,7 @@
         <Grid>
           <chip
             v-for="type in types"
-            class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+            class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
             >{{ type }}</chip
           >
         </Grid>
@@ -50,10 +52,16 @@
             :key="part.id"
           >
             <template v-slot:header>
-              <div class="text-orange-400 border-orange-700 border-4 border-double">
-                <h3 class="p-xl text-orange-400 border-orange-700 border-4 border-double">
-                  {{ part.Name }}
-                </h3>
+              <div class="text-orange-400 border-purple-700 border-4 border-double">
+                <div
+                  class="text-orange-400 border-ocean-700 border-4 border-double mt-1 mr-1"
+                >
+                  <h3
+                    class="mt-1 mr-1 p-xl text-orange-400 border-orange-700 border-4 border-double"
+                  >
+                    {{ part.Name }}
+                  </h3>
+                </div>
               </div>
             </template>
             <template v-slot:default>
