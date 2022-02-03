@@ -13,19 +13,11 @@
                 subtitle
               }}</subtitle>
               <Row class="gap-20">
-                <button
-                  class="h-20 text-3xl text-ocean-500 hover:text-orange-500"
-                >
-                  <router-link class="shadow-2xl" to="/builds"
-                    >Build</router-link
-                  >
+                <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+                  <router-link class="shadow-2xl" to="/builds">Build</router-link>
                 </button>
-                <button
-                  class="h-20 text-3xl text-ocean-500 hover:text-orange-500"
-                >
-                  <router-link class="shadow-2xl" to="/about"
-                    >F.A.Q.</router-link
-                  >
+                <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+                  <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
                 </button>
               </Row>
             </Stack>
@@ -60,6 +52,7 @@
 <script>
 import BorderedIcon from "../../components/atoms/BorderedIcon.vue";
 import Button from "../../components/atoms/Button.vue";
+import BorderShiftButton from "../../components/atoms/BorderShiftButton.vue";
 import BlackHoleIcon from "../../components/atoms/BlackHoleIcon.vue";
 import Stack from "../../components/flex/Stack.vue";
 import Row from "../../components/flex/Row.vue";
@@ -80,6 +73,7 @@ export default {
     Stack,
     Row,
     Button,
+    BorderShiftButton,
   },
 };
 </script>

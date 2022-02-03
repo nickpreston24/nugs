@@ -8,7 +8,7 @@
       class="gentle-flex"
       @click="onChange(part)"
     >
-      <Card @change="onChange" class="hover:text-red">
+      <card @change="onChange" class="hover:text-red">
         <template v-slot:header>
           <h1>
             {{ part.Name }}
@@ -24,7 +24,7 @@
             <Button :key="idx" class="text-xs" @click="remove">X</Button>
           </list>
         </template>
-      </Card>
+      </card>
     </ul>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
   methods: {
     onChange(e) {
       // console.log(`e.target`, e.target);
-      console.log(`e`, e)
+      console.log(`e`, e);
     },
     handleSelection(item) {
       console.log(`item`, item);
@@ -91,7 +91,7 @@ export default {
   components: {
     Card,
     List,
-    Button, 
+    Button,
   },
 };
 </script>

@@ -5,7 +5,7 @@
 
       <!-- -->
 
-      <Button @click="galleryToggled = !galleryToggled">{{
+      <Button v-if="false" @click="galleryToggled = !galleryToggled">{{
         !show ? "Add Builds" : "View Builds"
       }}</Button>
 
@@ -24,33 +24,45 @@
         </li>
       </ul>
 
-      <Gradient class="m-4">
-        <Card class="text-white bg-regal-600" @click="addPart">
-          <template v-slot:header>
-            <label class="text-5xl">D.D. MS-KMR-13</label>
-          </template>
-          <template v-slot:default>
-            <span>lorem ipsum shootsum hitsum</span>
-          </template>
-          <template v-slot:footer>
-            <button class="text-5xl text-white border-radius">+</button>
-          </template>
-        </Card>
-      </Gradient>
+      <!-- <Gradient class="m-4"> -->
+      <card class="text-white bg-regal-600" @click="addPart">
+        <template v-slot:header>
+          <label class="text-5xl">Hanguard MS-KMR-13</label>
+        </template>
+        <template v-slot:default>
+          <Stack>
+            <Button class="text-5xl text-white border-radius hover:text-ocean-500"
+              >Add to Build</Button
+            >
+            <Image
+              src="https://cdn11.bigcommerce.com/s-16115g8ghe/images/stencil/1280x1280/products/1680/5284/BCM-BRL-MID-14-ELW-F-STD-2__04035.1571674582.jpg?c=1"
+              alt="test"
+            />
+          </Stack>
+        </template>
+        <!-- <template v-slot:footer> </template> -->
+      </card>
+      <!-- </Gradient> -->
 
-      <Gradient class="m-4">
-        <Card class="text-white bg-regal-600" @click="addPart">
-          <template v-slot:header>
-            <label class="text-5xl">D.D. MS-KMR-13</label>
-          </template>
-          <template v-slot:default>
-            <span>lorem ipsum shootsum hitsum</span>
-          </template>
-          <template v-slot:footer>
-            <button class="text-5xl text-white border-radius">+</button>
-          </template>
-        </Card>
-      </Gradient>
+      <!-- <Gradient class="m-4"> -->
+      <card class="text-white bg-regal-600" @click="addPart">
+        <template v-slot:header>
+          <label class="text-5xl">Hanguard MS-KMR-13</label>
+        </template>
+        <template v-slot:default>
+          <Stack>
+            <Button class="text-5xl text-white border-radius hover:text-ocean-500"
+              >Add to Build</Button
+            >
+            <Image
+              src="https://www.weapondepot.com/wp-content/uploads/product-media/2020/07/BCM-GUNFTR-MCMR-RAIL-556-15-BLK-MLK-15837-1594054300-570x380.png"
+              alt="test"
+            />
+          </Stack>
+        </template>
+        <!-- <template v-slot:footer> </template> -->
+      </card>
+      <!-- </Gradient> -->
 
       <iframe
         v-if="false"
@@ -67,6 +79,7 @@
 </template>
 <script>
 import Button from "../components/atoms/Button.vue";
+import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import Card from "../components/molecules/Card.vue";
 import Stack from "../components/flex/Stack.vue";
@@ -137,6 +150,7 @@ export default {
     Stack,
     Card,
     Gradient,
+    Image,
   },
 };
 </script>

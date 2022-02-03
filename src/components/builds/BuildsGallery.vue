@@ -28,18 +28,19 @@
           <h3 v-if="build.Weight > 0">
             &#x1F3CB;&#xFE0F;&#x200D;&#x2642;&#xFE0F; {{ build.Weight }}
           </h3>
-          <!-- { "id": "reczwF2hwGxLO2wgh", "Name": "Glock 20 Builder Kit", "Link": "https://fandffirearms.com/product/pf45-complete-builders-kit-10mm/", "Cost": 669, "Calibers": [ "10mm", "45 ACP" ], "Builds": [ "recqW0agotxhsG8SB", "recsfaVR11x8gnDSl" ], "Payments": [ "recfj0NG7To0jnOq8" ], "Orders": [ "recbEX83A0bYUyw0U", "recGhkBQbYbZZxzJO" ], "Combo Cost": 0 } -->
-          <!-- <list v-for="part in relatedParts(build?.Parts)" :key="part.id">
+        </card>
+
+        <!-- { "id": "reczwF2hwGxLO2wgh", "Name": "Glock 20 Builder Kit", "Link": "https://fandffirearms.com/product/pf45-complete-builders-kit-10mm/", "Cost": 669, "Calibers": [ "10mm", "45 ACP" ], "Builds": [ "recqW0agotxhsG8SB", "recsfaVR11x8gnDSl" ], "Payments": [ "recfj0NG7To0jnOq8" ], "Orders": [ "recbEX83A0bYUyw0U", "recGhkBQbYbZZxzJO" ], "Combo Cost": 0 } -->
+        <!-- <list v-for="part in relatedParts(build?.Parts)" :key="part.id">
             <card class="">
               <p>{{ part.Name }}</p>
             </card>
           </list> -->
 
-          <!-- <p>{{ build.Parts }}</p> -->
-          <!-- <ul v-for="part in relatedParts(build.id)" :key="part.id">
+        <!-- <p>{{ build.Parts }}</p> -->
+        <!-- <ul v-for="part in relatedParts(build.id)" :key="part.id">
             <p>{{ part.id }}</p>
           </ul> -->
-        </card>
 
         <!-- <card
           class="gallery-item bg-green-200"
@@ -138,9 +139,7 @@ export default {
       return (ids) => {
         console.log("ids :>> ", ids);
 
-        let pics = this.parts
-          .map((m) => m.Pics)
-          .filter((p) => ids.includes(p.id));
+        let pics = this.parts.map((m) => m.Pics).filter((p) => ids.includes(p.id));
         console.log("pics :>> ", pics);
 
         return pics;
