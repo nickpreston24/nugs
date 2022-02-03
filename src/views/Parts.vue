@@ -1,13 +1,13 @@
 <template>
-  <div class="parts">
-    <Button @click="show = !show">{{
-      !show ? "Add Parts" : "View Parts"
+  <Section class="parts">
+    <Button @click="parts.show = !parts.show">{{
+      !parts.show ? "Add Parts" : "View Parts"
     }}</Button>
 
-    <PartsGallery v-show="!show" />
+    <PartsGallery v-show="!parts.show" />
 
     <iframe
-      v-show="show"
+      v-show="parts.show"
       class="airtable-embed"
       src="https://airtable.com/embed/shreqIf5JuPgS9pyq?backgroundColor=blue"
       frameborder="0"
@@ -17,7 +17,7 @@
       style="background: transparent; border: 1px solid #ccc"
     ></iframe>
 
-    <Row>
+    <!-- <Row>
       <button v-on:click="showRounds = !showRounds">
         {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
       </button>
@@ -32,23 +32,26 @@
       <button v-on:click="showParts = !showParts">
         {{ !showParts ? "[+] Parts" : "[-] Parts" }}
       </button>
-    </Row>
-  </div>
+    </Row> -->
+  </Section>
 </template>
 <script>
 import Button from "../components/atoms/Button.vue";
 import PartsGallery from "../components/parts/PartsGallery.vue";
 import Row from "../components/flex/Row.vue";
+import Section from "../components/molecules/Section.vue";
+// import useTable from "../components/useTable";
 export default {
   data() {
     return {
-      show: false,
+      parts: { show: true },
     };
   },
   components: {
     PartsGallery,
     Button,
     Row,
+    Section,
   },
 };
 </script>

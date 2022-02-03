@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 export const formatRecords = (records: any | [] = []) => {
   // console.log('records (format) :>> ', records);
   let collection = [].concat(records);
-  devmode && console.log("collection", collection);
+  // devmode && console.log("collection", collection);
 
   const format = (record) => {
     // console.log('record (format) :>> ', record);

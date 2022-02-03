@@ -9,30 +9,43 @@
       </select>
     </div>
 
-    <div class="gallery">
+    <div class="gallery border-4 border-purple-500">
       <!-- <spinner
         :animation-duration="2000"
         :size="60"
         class="color-arctic-500"
         color="grey"
       /> -->
-      <div class="gallery-panel" v-for="part in parts" :key="part.id">
-        <h1>{{part.Name}}</h1>
+      <card class="gallery-panel" v-for="part in parts" :key="part.id">
+        <template v-slot:header> </template>
+        <template v-slot:default>
+          <!-- Show Image -->
+          <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
+            <Image
+              v-if="part.Attachments"
+              :src="part.Attachments?.[0]?.url"
+              class="transform transition-all hover:scale-125 hover:translate-y-20"
+            />
+          </router-link>
+          <!-- Upload missing image -->
+          <Stack v-else class="img-upload">
+            <i>No Image Found...Please Upload one!</i>
+            <form-input src="updatedUrl" placeholder="URL" class="" />
+            <!-- <Label>Url</Label> -->
+            <!-- <button v-data="{{show: false}}" @click= "show = true">Expand</button> -->
+            <!-- <input type="text" v-show="show" /> -->
+          </Stack>
+        </template>
 
-        <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
-          <img
-            v-if="part.Attachments"
-            :src="part.Attachments?.[0]?.url"
-            class="transform transition-all hover:scale-125"
-          />
-        </router-link>
-
-        <div v-else class="img-upload text-arctic-600 gentle-flex">
-          <span>No Image Found...Please Upload one!</span>
-          <!-- <button v-data="{{show: false}}" @click="show = true">Expand</button> -->
-          <input type="text" v-show="show" />
-        </div>
-      </div>
+        <template v-slot:footer>
+          <div class="m-10">
+            <!-- <svg-button></svg-button> -->
+            <h3 class="p-xl hover:text-orange-500 border-4 border-dotted">
+              {{ part.Name }}
+            </h3>
+          </div>
+        </template>
+      </card>
     </div>
   </div>
 </template>
@@ -40,14 +53,22 @@
 import { initialOptions } from "../../../data/airtable-curl";
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
+import Stack from "../../components/flex/Stack.vue";
+import Section from "../../components/molecules/Section.vue";
+import Label from "../../components/atoms/Label.vue";
+import FormInput from "../../components/atoms/FormInput.vue";
+import Image from "../../components/atoms/Image.vue";
+import SVGButton from "../../components/atoms/SVGButton.vue";
+import Card from "../../components/molecules/Card.vue";
 
 export default {
-  components: { Spinner },
+  components: { Spinner, Stack, Label, Section, Card, Image, FormInput, SVGButton },
   data() {
     return {
       selected: 10,
       limits: [10, 20, 50, 100],
       loading: false,
+      show: true,
     };
   },
 

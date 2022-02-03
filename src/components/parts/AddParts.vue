@@ -2,7 +2,7 @@
   <div>
     <div class="gentle-flex">
       <ul v-show="true">
-        <li class="p-1" v-for="(value, key, index) in part" :key="index">
+        <li class="p-2" v-for="(value, key, index) in part" :key="index">
           <!-- <label>{{ key }}:</label> -->
           <input
             class="bullet-border"
@@ -25,8 +25,7 @@
     </div>
   </div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>
 
 <script>
 import { create } from "../../../data/airtable-curl";

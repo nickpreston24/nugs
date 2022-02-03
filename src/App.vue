@@ -35,11 +35,6 @@ button:focus {
 }
 
 /* Todo: move to tailwind component */
-label {
-  padding: 1rem;
-  font-weight: 500;
-  color: #42b983;
-}
 
 /* Todo: move to tailwind component */
 input.bullet-border {

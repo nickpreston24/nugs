@@ -21,6 +21,17 @@ module.exports = {
       '6xl': '4rem',
       '7xl': '5rem',
     },
+    fontWeight: {
+      'extra-light': 100,
+      thin: 200,
+      light: 300,
+      normal: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+      'extra-bold': 800,
+      black: 900,
+    },
     padding: {
       'tiny': '.875rem',
       'base': '1rem',
@@ -227,6 +238,8 @@ module.exports = {
     },
   },
   plugins: [
+    // https://github.com/vueform/slider
+    require('@vueform/slider/tailwind'),
     plugin(function ({ addBase, theme }) {
       addBase({
         'h1': { fontSize: theme('fontSize.2xl') },

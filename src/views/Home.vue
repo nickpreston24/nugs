@@ -95,12 +95,16 @@ import Row from "../components/flex/Row.vue";
 
 export default {
   name: "Home",
+  data() {
+    return {};
+  },
   components: {
     parallax,
     BlackHoleIcon,
     Gradient,
     Stack,
     Row,
+    // Slider,
   },
 };
 </script>

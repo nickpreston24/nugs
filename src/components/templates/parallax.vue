@@ -25,38 +25,45 @@
         </Stack>
       </header>
 
-      <section
-        class="text-3xl bg-gradient-to-tl from-regal-500 to-midnight border-4 border-midnight h-screen"
-      >
-        <p v-for="(item, index) in this.description.split('\\n')" :key="index">
-          {{ item }}
-        </p>
+      <Section>
+        <Stack>
+          <p v-for="(item, index) in this.description.split('\\n')" :key="index">
+            {{ item }}
+          </p>
 
-        <Row class="m-8">
-          <button
-            class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
-          >
-            <router-link class="m-8" to="#"> Home Defense </router-link>
-          </button>
+          <Row class="m-8">
+            <button
+              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+            >
+              <router-link class="m-8" to="/builds"> Home Defense </router-link>
+            </button>
 
-          <button
-            class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
-          >
-            <router-link class="m-8" to="#"> Hunting </router-link>
-          </button>
-        </Row>
-      </section>
+            <button
+              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+            >
+              <router-link class="m-8" to="#"> Hunting </router-link>
+            </button>
+          </Row>
+
+          <div class="h-2/3 w-64 p-10 m-10">
+            <slider @range-changed="setRange"></slider>
+            <pre>{{ range }}</pre>
+          </div>
+        </Stack>
+      </Section>
     </div>
   </body>
 </template>
 <script>
 import BorderedIcon from "../../components/atoms/BorderedIcon.vue";
 import Button from "../../components/atoms/Button.vue";
+import Section from "../../components/molecules/Section.vue";
 import BorderShiftButton from "../../components/atoms/BorderShiftButton.vue";
 import BlackHoleIcon from "../../components/atoms/BlackHoleIcon.vue";
 import Stack from "../../components/flex/Stack.vue";
 import Row from "../../components/flex/Row.vue";
 import Gradient from "../../components/atoms/Gradient.vue";
+import Slider from "../../components/atoms/Slider.vue";
 
 export default {
   props: {
@@ -66,6 +73,17 @@ export default {
     subtitle: String,
     description: String,
   },
+  data() {
+    return {
+      range: [],
+    };
+  },
+  methods: {
+    setRange(range) {
+      // console.log("range", range);
+      this.range = range;
+    },
+  },
   components: {
     BorderedIcon,
     BlackHoleIcon,
@@ -74,6 +92,8 @@ export default {
     Row,
     Button,
     BorderShiftButton,
+    Slider,
+    Section,
   },
 };
 </script>
