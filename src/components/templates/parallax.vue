@@ -4,25 +4,6 @@
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
-
-        <Stack>
-          <Gradient class="m-20">
-            <Stack>
-              <h1 class="shadow-2xl text-7xl text-arctic-500">{{ title }}</h1>
-              <subtitle class="text-4xl shadow-2xl text-arctic-700">{{
-                subtitle
-              }}</subtitle>
-              <Row class="gap-20">
-                <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-                  <router-link class="shadow-2xl" to="/builds">Build</router-link>
-                </button>
-                <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-                  <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
-                </button>
-              </Row>
-            </Stack>
-          </Gradient>
-        </Stack>
       </header>
 
       <Section class="h-screen">
@@ -35,14 +16,14 @@
             <button
               class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >
-              <!-- <router-link class="m-8" to="/builds"> Home Defense </router-link> -->
-              <chip>TEXT</chip>
+              <router-link class="m-8" to="/builds"> Home Defense </router-link>
+              <!-- <chip>TEXT</chip> -->
             </button>
 
             <button
               class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >
-              <router-link class="m-8" to="#"> Hunting </router-link>
+              <router-link class="m-8" to="/builds"> Hunting </router-link>
             </button>
           </Row>
 
@@ -51,6 +32,25 @@
           </div>
         </Stack>
       </Section>
+
+      <Stack>
+        <Gradient class="m-20">
+          <Stack>
+            <h1 class="shadow-2xl text-7xl text-arctic-500">{{ title }}</h1>
+            <subtitle class="text-4xl shadow-2xl text-arctic-700">{{
+              subtitle
+            }}</subtitle>
+            <Row class="gap-20">
+              <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+                <router-link class="shadow-2xl" to="/builds">Build</router-link>
+              </button>
+              <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+                <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
+              </button>
+            </Row>
+          </Stack>
+        </Gradient>
+      </Stack>
     </div>
   </body>
 </template>
