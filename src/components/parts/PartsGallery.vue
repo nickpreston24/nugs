@@ -36,13 +36,13 @@
               src="updatedUrl"
               placeholder="URL"
             />
-            <Button @click="submit">Update</Button>
+            <!-- <Button @click="submit">Update</Button> -->
           </Stack>
         </template>
 
         <template v-slot:footer>
           <div class="m-10">
-            <SVGButton class="bg-purple-600">View Article</SVGButton>
+            <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton>
             <div class="text-orange-400 border-orange-700 border-4 border-double">
               <h3 class="p-xl text-orange-400 border-orange-700 border-4 border-double">
                 {{ part.Name }}

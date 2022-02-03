@@ -31,6 +31,7 @@ export default {
   },
   components: {
     Row,
+    Stack,
   },
 };
 </script>

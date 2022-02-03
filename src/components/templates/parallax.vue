@@ -35,7 +35,8 @@
             <button
               class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >
-              <router-link class="m-8" to="/builds"> Home Defense </router-link>
+              <!-- <router-link class="m-8" to="/builds"> Home Defense </router-link> -->
+              <chip>TEXT</chip>
             </button>
 
             <button
@@ -45,9 +46,8 @@
             </button>
           </Row>
 
-          <div class="h-2/3 w-64 p-10 m-10">
+          <div class="">
             <slider @range-changed="setRange"></slider>
-            <!-- <pre>{{ range }}</pre> -->
           </div>
         </Stack>
       </Section>
@@ -57,6 +57,7 @@
 <script>
 import BorderedIcon from "../../components/atoms/BorderedIcon.vue";
 import Button from "../../components/atoms/Button.vue";
+import Chip from "../../components/atoms/Chip.vue";
 import Section from "../../components/molecules/Section.vue";
 import BorderShiftButton from "../../components/atoms/BorderShiftButton.vue";
 import BlackHoleIcon from "../../components/atoms/BlackHoleIcon.vue";
@@ -100,6 +101,7 @@ export default {
     BorderShiftButton,
     Slider,
     Section,
+    Chip,
   },
 };
 </script>

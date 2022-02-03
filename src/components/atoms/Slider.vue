@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-2/3 w-64 p-10 m-10">
     <Slider
       @change="$emit('rangeChanged', $event)"
       v-model="value"
@@ -29,12 +29,24 @@ export default {
   components: {
     Slider,
   },
+  setup() {
+    return {
+      // value: this.$store.state.range,
+    };
+  },
   data: () => ({
     value: [600, 1800],
     format: function (value) {
       return `$${Math.round(value)}`;
     },
   }),
+
+  props: {
+    range: {
+      type: [Array],
+      default: [300, 2000],
+    },
+  },
   // methods: {
   //   onChange(e) {
   //     console.log("e", e);

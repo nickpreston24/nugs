@@ -2,7 +2,7 @@
   <div class="builds">
     <Section class="text-purple-400">
       <Stack>
-        <h1 class="text-pink-500 text-7xl">{{ this.$store.state.range }}</h1>
+        <h1 class="text-pink-500 text-7xl">{{ range }}</h1>
 
         <Button v-if="gallery.show" @click="gallery.show = !gallery.show">{{
           gallery.show ? "Add Builds" : "View Builds"
@@ -11,14 +11,17 @@
         <!-- <BuildsGallery v-if="gallery.show" /> -->
 
         <!-- Slider bar -->
-
-        <slider @range-changed="setRange"></slider>
+        <Stack>
+          <h1 class="text-7xl">Your Budget</h1>
+          <slider v-show="devmode" min="500" @range-changed="setRange"></slider>
+        </Stack>
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
         <legend>{{ checklist }}</legend>
 
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
+        <!-- <chip>TeXt</chip> -->
 
         <!-- Checklist -->
         <ul>
@@ -115,11 +118,15 @@
           style="background: transparent; border: 1px solid #ccc"
         ></iframe>
       </Stack>
+      // this.range = range;
     </Section>
   </div>
 </template>
 <script>
+import axios from "axios";
+import useTable from "../components/useTable";
 import Button from "../components/atoms/Button.vue";
+import Chip from "../components/atoms/Chip.vue";
 import Section from "../components/molecules/Section.vue";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
@@ -127,25 +134,30 @@ import Card from "../components/molecules/Card.vue";
 import Stack from "../components/flex/Stack.vue";
 import Row from "../components/flex/Row.vue";
 import Gradient from "../components/atoms/Gradient.vue";
-import axios from "axios";
-import useTable from "../components/useTable";
 import SVGButton from "../components/atoms/SVGButton.vue";
+import Slider from "../components/atoms/Slider.vue";
+import { devmode } from "../helpers/generators.ts";
 
 export default {
   components: {
     BuildsGallery,
     Button,
     Stack,
+    Row,
     Card,
     Gradient,
     Image,
     Section,
     SVGButton,
+    Slider,
+    Chip,
   },
   data() {
     return {
       gallery: { show: false },
       builder: { show: true },
+
+      devmode: devmode(),
 
       build: {
         profile: { id: "12345", Name: "MP" },
@@ -172,7 +184,7 @@ export default {
   },
   methods: {
     addToChecklist(part) {
-      console.log("part.Type", part.Type);
+      console.log("part", part);
       // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
       // const { checklist } = this;
       // const { buffer, upper, buttstock, lower } = checklist;
@@ -181,6 +193,15 @@ export default {
       // upper.bcg = "BCM 5.56 NATO BCG Nitrided";
       // buttstock.brand = "Bravo Company";
       // return null;
+    },
+    setRange(range) {
+      console.log("range", range);
+      this.$store.state.range = range;
+    },
+    computed: {
+      range() {
+        return this.$store.state.range;
+      },
     },
     crud() {
       const url = `api/sendMessage?name=${this.checklist.upper.name}`;
