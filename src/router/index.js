@@ -53,6 +53,21 @@ const router = createRouter({
   //  Provide the history implementation to use. We are using the hash history for simplicity here.
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+
+    if (to.hash) {
+      return {
+        selector: to.hash,
+        behavior: 'smooth'
+        // , offset: { x: 0, y: 100 }
+      }
+    }
+    else if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 export default router;

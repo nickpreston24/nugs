@@ -13,7 +13,8 @@
             }}</subtitle>
             <Row class="gap-20">
               <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-                <router-link class="shadow-2xl" to="/builds">Build</router-link>
+                <!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
+                <router-link class="shadow-2xl" to="#build-section">Build</router-link>
               </button>
               <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
                 <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
@@ -29,24 +30,18 @@
             {{ item }}
           </p>
 
+          <h1 class="text-purple-400 text-5xl mb-4">Pick your Budget here!</h1>
+
+          <slider @range-changed="setRange" />
+
           <Row class="m-8">
-            <button
+            <chip
+              v-for="description in this.usecases"
               class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >
-              <!-- <router-link class="m-8" to="/builds"> Home Defense </router-link> -->
-              <chip>TEXT</chip>
-            </button>
-
-            <button
-              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
-            >
-              <router-link class="m-8" to="#"> Hunting </router-link>
-            </button>
+              <router-link to="/builds">{{ description }} </router-link>
+            </chip>
           </Row>
-
-          <div class="">
-            <slider @range-changed="setRange"></slider>
-          </div>
         </Stack>
       </Section>
     </div>
@@ -76,6 +71,7 @@ export default {
   data() {
     return {
       range: [],
+      usecases: ["Home Defense", "LEO/Military", "Hunting", "Competition"],
     };
   },
   methods: {

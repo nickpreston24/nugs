@@ -12,8 +12,8 @@
 
         <!-- Slider bar -->
         <Stack>
-          <h1 class="text-7xl">Your Budget</h1>
-          <slider v-show="devmode" min="500" @range-changed="setRange"></slider>
+          <h1 class="text-7xl">Your Budget is from</h1>
+          <!-- <slider v-show="devmode" min="500" @range-changed="setRange"></slider> -->
         </Stack>
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
@@ -23,9 +23,12 @@
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
         <!-- Checklist -->
 
+        <RadialProgress diameter="300" completedSteps="5" />
+
         <Grid>
-          <Row v-for="item in types">
-            <input type="checkbox" checked="item" />
+          <Row v-for="(item, outer) in types">
+            <!-- <div v-for="(item,inner)"></div> -->
+            <!-- <input type="checkbox" checked="item" /> -->
             <label>{{ item || "item" }}</label>
           </Row>
         </Grid>
@@ -34,7 +37,7 @@
         <Grid>
           <chip
             v-for="type in types"
-            class="text-arctic-500 border-orange-500 border-2"
+            class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >{{ type }}</chip
           >
         </Grid>
@@ -126,7 +129,6 @@
           style="background: transparent; border: 1px solid #ccc"
         ></iframe>
       </Stack>
-      // this.range = range;
     </Section>
   </div>
 </template>
@@ -136,6 +138,7 @@ import useTable from "../components/useTable";
 import Button from "../components/atoms/Button.vue";
 import Chip from "../components/atoms/Chip.vue";
 import Section from "../components/molecules/Section.vue";
+import RadialProgress from "../components/molecules/RadialProgress.vue";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import Card from "../components/molecules/Card.vue";
@@ -151,6 +154,7 @@ import { UniqueArray, unique } from "../helpers/array.ts";
 export default {
   components: {
     BuildsGallery,
+    RadialProgress,
     Button,
     Stack,
     Row,
@@ -183,9 +187,16 @@ export default {
       return this.state.records;
     },
     types() {
-      const arr = this.state.records.filter((r) => r.Type).map((j) => j.Type);
+      const list = Object.keys(this.$store.state.checklist);
+      return list;
+    },
+    categories() {
+      const arr = list.filter((r) => r.Type).map((j) => j.Type);
       return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
-      // return this.state.records.filter((r) => r.Type).map((j) => j.Type);
+    },
+    completed() {
+      const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
+      return list;
     },
   },
 

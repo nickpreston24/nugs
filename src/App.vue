@@ -6,7 +6,7 @@
         <component :is="Component"></component>
       </transition>
     </router-view>
-    <Footer class="">
+    <Footer class="min-h-64">
       <Row>
         <a href="#">Affiliates</a>
         <a href="#">Help</a>
