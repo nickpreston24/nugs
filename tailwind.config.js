@@ -198,6 +198,8 @@ module.exports = {
       72: "18rem",
       80: "20rem",
       96: "24rem",
+      128: "32rem",
+      144: "36rem",
     },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -216,10 +218,6 @@ module.exports = {
         //   '0%, 100%': { transform: 'rotate(-3deg)' },
         //   '50%': { transform: 'rotate(3deg)' },
         // }
-      },
-      spacing: {
-        128: "32rem",
-        144: "36rem",
       },
       borderRadius: {
         "4xl": "2rem",

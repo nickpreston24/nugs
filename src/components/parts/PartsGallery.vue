@@ -17,38 +17,36 @@
         color="grey"
       /> -->
       <card class="gallery-panel" v-for="part in parts" :key="part.id">
-        <template v-slot:header> </template>
-        <template v-slot:default>
-          <!-- Show Image -->
-          <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
-            <Image
-              v-if="part?.Attachments"
-              :src="part?.Attachments?.[0]?.url"
-              class="transform transition-all hover:scale-125 hover:translate-y-20"
-            />
-          </router-link>
-          <!-- Upload missing image -->
-          <Stack v-else class="img-upload">
-            <i>No Image Found...Please Upload one!</i>
-            <form-input
-              :input="onChange"
-              type="text"
-              src="updatedUrl"
-              placeholder="URL"
-            />
-            <!-- <Button @click="submit">Update</Button> -->
-          </Stack>
-        </template>
-
-        <template v-slot:footer>
+        <!-- <template v-slot:header> </template> -->
+        <template v-slot:header>
           <div class="m-10">
-            <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton>
+            <!-- <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton> -->
             <div class="text-orange-400 border-orange-700 border-4 border-double">
               <h3 class="p-xl text-orange-400 border-orange-700 border-4 border-double">
                 {{ part.Name }}
               </h3>
             </div>
           </div>
+        </template>
+        <template v-slot:default>
+          <!-- Show Image -->
+          <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
+            <Image
+              v-if="part?.Attachments"
+              :src="part?.Attachments?.[0]?.url"
+              class="transform transition-all hover:scale-125"
+            />
+          </router-link>
+          <!-- Upload missing image -->
+          <Stack v-else class="img-upload">
+            <i>No Image Found...Please Upload one!</i>
+            <form-input :input="onChange" type="text" src="updatedUrl" placeholder="URL">
+              <!-- <template v-slot:icon> -->
+              <i class="fa fa-link fa-lg"></i>
+              <!-- </template> -->
+            </form-input>
+            <!-- <Button @click="submit">Update</Button> -->
+          </Stack>
         </template>
       </card>
     </div>

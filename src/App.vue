@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div id="app">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <sidebar />
     <router-view v-slot="{ Component }">
       <transition name="route" mode="out-in">

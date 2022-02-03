@@ -1,5 +1,24 @@
 modules.exports = (req, res) => {
 
+
+
+    // fastify.route({
+    //   method: "DELETE",
+    //   url: '/api/nugs/:slug',
+    //   handler: async (request, reply) => {
+
+    //     let { slug } = request.params
+    //     slug = slug.replace(':', "").trim()
+    //     console.log(`slug`, slug)
+
+    //     const result = await session.run(
+    //       `match(n:Nug {name: $name, caliber: $caliber, msrp: $msrp})
+    //         detach delete n`, { name: slug })
+
+    //     console.log(`result`, result)
+    //   }
+    // })
+
     const {
         query: { name, id, cost },
     } = req;
