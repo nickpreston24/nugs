@@ -22,27 +22,32 @@
           <!-- Show Image -->
           <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
             <Image
-              v-if="part.Attachments"
-              :src="part.Attachments?.[0]?.url"
+              v-if="part?.Attachments"
+              :src="part?.Attachments?.[0]?.url"
               class="transform transition-all hover:scale-125 hover:translate-y-20"
             />
           </router-link>
           <!-- Upload missing image -->
           <Stack v-else class="img-upload">
             <i>No Image Found...Please Upload one!</i>
-            <form-input src="updatedUrl" placeholder="URL" class="" />
-            <!-- <Label>Url</Label> -->
-            <!-- <button v-data="{{show: false}}" @click= "show = true">Expand</button> -->
-            <!-- <input type="text" v-show="show" /> -->
+            <form-input
+              :input="onChange"
+              type="text"
+              src="updatedUrl"
+              placeholder="URL"
+            />
+            <Button @click="submit">Update</Button>
           </Stack>
         </template>
 
         <template v-slot:footer>
           <div class="m-10">
-            <!-- <svg-button></svg-button> -->
-            <h3 class="p-xl hover:text-orange-500 border-4 border-dotted">
-              {{ part.Name }}
-            </h3>
+            <SVGButton class="bg-purple-600">View Article</SVGButton>
+            <div class="text-orange-400 border-orange-700 border-4 border-double">
+              <h3 class="p-xl text-orange-400 border-orange-700 border-4 border-double">
+                {{ part.Name }}
+              </h3>
+            </div>
           </div>
         </template>
       </card>
@@ -58,11 +63,22 @@ import Section from "../../components/molecules/Section.vue";
 import Label from "../../components/atoms/Label.vue";
 import FormInput from "../../components/atoms/FormInput.vue";
 import Image from "../../components/atoms/Image.vue";
+import Button from "../../components/atoms/Button.vue";
 import SVGButton from "../../components/atoms/SVGButton.vue";
 import Card from "../../components/molecules/Card.vue";
 
 export default {
-  components: { Spinner, Stack, Label, Section, Card, Image, FormInput, SVGButton },
+  components: {
+    Spinner,
+    Stack,
+    Label,
+    Section,
+    Card,
+    Image,
+    FormInput,
+    SVGButton,
+    Button,
+  },
   data() {
     return {
       selected: 10,
@@ -103,6 +119,12 @@ export default {
       }
     },
   },
+
+  methods: {
+    onChange(event) {
+      console.log("event.target.value", event.target.value);
+    },
+  },
 };
 </script>
 <style scoped>
@@ -140,5 +162,18 @@ body {
 }
 .img-upload {
   font-family: fantasy;
+}
+
+/* Swoosh in */
+
+.my-list li {
+  animation: fallback-animation;
+}
+
+@supports (--variables) {
+  .my-list li {
+    animation: fancy-animation;
+    animation-delay: calc(var(--animation-order) * 100ms);
+  }
 }
 </style>

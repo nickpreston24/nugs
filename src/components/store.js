@@ -1,15 +1,40 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from "vuex";
 
-Vue.use(Vuex)
+export const store = createStore({
+    state() {
+        return {
+            range: [],
 
-const store = new Vuex.Store({
-    state: {
-        count: 0
+            checklist: {
+                buffer: {
+                    spring: null,
+                    tube: null,
+                    alt: null,
+                },
+                upper: {
+                    handguard: null,
+                    barrel: null,
+                    bcg: null,
+                    gasblock: null,
+                    gastube: null,
+                },
+                buttstock: { id: null, brand: "" },
+                lower: {
+                    LPK: {
+                        brand: "",
+                    },
+                },
+            },
+        };
     },
     mutations: {
-        increment(state) {
-            state.count++
+        // increment(state) {
+        //     state.count++
+        // }
+        setRange(newRange) {
+            state.range = newRange;
         }
-    }
-})
+    },
+});
+
+export default store;

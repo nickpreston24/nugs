@@ -7,8 +7,8 @@
       :name="name"
       :type="type"
       :value="value"
-      @input="$emit('input', $event.target.value)"
       class="form-input text-orange-800"
+      @input="$emit('input', $event.target.value)"
       @blur="$emit('validate')"
       @keypress="$emit('validate')"
     />

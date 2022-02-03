@@ -19,7 +19,7 @@
         class="color-arctic-500"
         color="grey"
       /> -->
-      <!-- <slider v-model="value"></slider> -->
+      <slider v-model="value"></slider>
 
       <div class="gallery-panel" v-for="build in builds" :key="build.id">
         <card class="" @mouseenter="getPart(build.Parts)">

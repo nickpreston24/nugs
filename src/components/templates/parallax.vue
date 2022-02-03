@@ -25,7 +25,7 @@
         </Stack>
       </header>
 
-      <Section>
+      <Section class="h-screen">
         <Stack>
           <p v-for="(item, index) in this.description.split('\\n')" :key="index">
             {{ item }}
@@ -47,7 +47,7 @@
 
           <div class="h-2/3 w-64 p-10 m-10">
             <slider @range-changed="setRange"></slider>
-            <pre>{{ range }}</pre>
+            <!-- <pre>{{ range }}</pre> -->
           </div>
         </Stack>
       </Section>
@@ -81,7 +81,13 @@ export default {
   methods: {
     setRange(range) {
       // console.log("range", range);
-      this.range = range;
+      // this.range = range;
+      this.$store.state.range = range;
+    },
+  },
+  computed: {
+    count() {
+      return this.$store.state.count;
     },
   },
   components: {

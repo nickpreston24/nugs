@@ -8,10 +8,10 @@
       :min="300"
       :step="100"
       :classes="{
-        base: 'w-full h-full relative z-1 bg-arctic-600 rounded ',
+        base: 'w-full h-full relative z-1 bg-orange-400 rounded ',
 
         tooltip:
-          'absolute block text-sm font-semibold whitespace-nowrap py-1 px-1.5 min-w-5 text-center text-white rounded border transform h:-translate-x-1/2 h:left-1/2 v:-translate-y-1/2 v:top-1/2 disabled:bg-gray-400 disabled:border-gray-400 merge-h:translate-x-1/2 merge-h:left-auto merge-v:-translate-x-4 merge-v:top-auto tt-focus:hidden tt-focused:block tt-drag:hidden tt-dragging:block',
+          'absolute block text-sm font-semibold whitespace-nowrap py-1 px-1.5 min-w-5 text-center text-white rounded border transform h:-translate-x-1/2 h:left-1/2 v:-translate-y-1/2 v:top-1/2 disabled:bg-orange-400 disabled:border-orange-400 merge-h:translate-x-1/2 merge-h:left-auto merge-v:-translate-x-4 merge-v:top-auto tt-focus:hidden tt-focused:block tt-drag:hidden tt-dragging:block',
         tooltipTop: 'bottom-6 h:arrow-bottom merge-h:bottom-3.5',
         tooltipBottom: 'top-6 h:arrow-top merge-h:top-5',
         tooltipLeft: 'right-6 v:arrow-right merge-v:right-1',
@@ -35,11 +35,11 @@ export default {
       return `$${Math.round(value)}`;
     },
   }),
-  methods: {
-    onChange(e) {
-      console.log("e", e);
-    },
-  },
+  // methods: {
+  //   onChange(e) {
+  //     console.log("e", e);
+  //   },
+  // },
 };
 </script>
 

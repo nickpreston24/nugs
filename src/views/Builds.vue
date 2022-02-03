@@ -2,22 +2,25 @@
   <div class="builds">
     <Section class="text-purple-400">
       <Stack>
+        <h1 class="text-pink-500 text-7xl">{{ this.$store.state.range }}</h1>
+
         <Button v-if="gallery.show" @click="gallery.show = !gallery.show">{{
           gallery.show ? "Add Builds" : "View Builds"
         }}</Button>
 
-        <BuildsGallery v-show="gallery.show" />
+        <!-- <BuildsGallery v-if="gallery.show" /> -->
 
         <!-- Slider bar -->
 
-        <Button @click="crud">Run Serverless Function</Button>
+        <slider @range-changed="setRange"></slider>
 
-        <!-- Builder -->
+        <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <!-- <legend>{{ checklist }}</legend> -->
+        <legend>{{ checklist }}</legend>
 
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
 
+        <!-- Checklist -->
         <ul>
           <li v-for="item in checklist">
             <label>{{ item?.name || "item" }}</label>
@@ -25,8 +28,46 @@
           </li>
         </ul>
 
+        <!-- Builder -->
+        <div class="gallery">
+          <card
+            class="gallery-panel border-4 max-w-2xl"
+            v-for="part in parts"
+            :key="part.id"
+          >
+            <template v-slot:header>
+              <div class="text-orange-400 border-orange-700 border-4 border-double">
+                <h3 class="p-xl text-orange-400 border-orange-700 border-4 border-double">
+                  {{ part.Name }}
+                </h3>
+              </div>
+            </template>
+            <template v-slot:default>
+              <!-- Show Image -->
+
+              <Stack>
+                <!-- <p class="w-1/3 max-h-64">{{ part.Notes }}</p> -->
+                <p class="w-1/3 max-h-64">{{ part.Type }}</p>
+                <Image
+                  v-if="part.Attachments"
+                  :src="part.Attachments?.[0]?.url"
+                  class="transform transition-all hover:scale-125"
+                />
+              </Stack>
+            </template>
+
+            <template v-slot:footer>
+              <div class="m-10">
+                <SVGButton class="bg-orange-500" @click="addToChecklist(part)"
+                  >Add</SVGButton
+                >
+              </div>
+            </template>
+          </card>
+        </div>
+
         <!-- <Gradient class="m-4"> -->
-        <card class="" @click="addPart">
+        <!-- <card class="" @click="addPart">
           <template v-slot:header>
             <label class="text-5xl">Hanguard MS-KMR-13</label>
           </template>
@@ -41,12 +82,11 @@
               />
             </Stack>
           </template>
-          <!-- <template v-slot:footer> </template> -->
-        </card>
+        </card> -->
         <!-- </Gradient> -->
 
         <!-- <Gradient class="m-4"> -->
-        <card class="" @click="addPart">
+        <!-- <card class="" @click="addPart">
           <template v-slot:header>
             <label class="text-5xl">Hanguard MS-KMR-13</label>
           </template>
@@ -61,8 +101,7 @@
               />
             </Stack>
           </template>
-          <!-- <template v-slot:footer> </template> -->
-        </card>
+        </card> -->
         <!-- </Gradient> -->
 
         <iframe
@@ -90,45 +129,40 @@ import Row from "../components/flex/Row.vue";
 import Gradient from "../components/atoms/Gradient.vue";
 import axios from "axios";
 import useTable from "../components/useTable";
+import SVGButton from "../components/atoms/SVGButton.vue";
 
 export default {
+  components: {
+    BuildsGallery,
+    Button,
+    Stack,
+    Card,
+    Gradient,
+    Image,
+    Section,
+    SVGButton,
+  },
   data() {
     return {
-      // apiKey: import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY,
-
-      gallery: { show: true },
+      gallery: { show: false },
       builder: { show: true },
 
       build: {
-        parts: [],
         profile: { id: "12345", Name: "MP" },
-      },
-
-      checklist: {
-        buffer: {
-          spring: null,
-          tube: null,
-          alt: null,
-        },
-        upper: {
-          handguard: null,
-          barrel: null,
-          bcg: null,
-          gasblock: null,
-          gastube: null,
-        },
-        buttstock: { id: null, brand: "" },
-        lower: {
-          LPK: {
-            brand: "",
-          },
-        },
       },
     };
   },
+  computed: {
+    checklist() {
+      return this.$store.state.checklist;
+    },
+    parts() {
+      return this.state.records; //.filter((j) => j.Type);
+    },
+  },
 
   setup() {
-    let { state, searchPagified, getById } = useTable("Builds");
+    let { state, searchPagified, getById } = useTable("Parts");
 
     return {
       state,
@@ -137,14 +171,16 @@ export default {
     };
   },
   methods: {
-    addPart() {
-      const { checklist } = this;
-      const { buffer, upper, buttstock, lower } = checklist;
-      upper.barrel = "BCM fluted lw 5.56 NATO barrel";
-      upper.name = "MS-KMR-13";
-      upper.bcg = "BCM 5.56 NATO BCG Nitrided";
-      buttstock.brand = "Bravo Company";
-      return null;
+    addToChecklist(part) {
+      console.log("part.Type", part.Type);
+      // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
+      // const { checklist } = this;
+      // const { buffer, upper, buttstock, lower } = checklist;
+      // upper.barrel = "BCM fluted lw 5.56 NATO barrel";
+      // upper.name = "MS-KMR-13";
+      // upper.bcg = "BCM 5.56 NATO BCG Nitrided";
+      // buttstock.brand = "Bravo Company";
+      // return null;
     },
     crud() {
       const url = `api/sendMessage?name=${this.checklist.upper.name}`;
@@ -161,15 +197,6 @@ export default {
         });
     },
   },
-  components: {
-    BuildsGallery,
-    Button,
-    Stack,
-    Card,
-    Gradient,
-    Image,
-    Section,
-  },
 };
 </script>
 <style scoped>
@@ -177,5 +204,21 @@ html,
 body {
   min-height: 100vh;
   background-color: #030303;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-gap: 1rem;
+  max-width: 80rem;
+  margin: 5rem auto;
+  padding: 0 5rem;
+}
+
+.gallery-panel img {
+  width: 100%;
+  height: 22vw;
+  object-fit: cover;
+  border-radius: 0.75rem;
 }
 </style>

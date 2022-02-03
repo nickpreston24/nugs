@@ -1,8 +1,10 @@
 <template>
   <button
-    class="inline-flex items-center px-6 py-3 text-white font-semibold bg-blue-700 rounded-md shadow-sm"
+    class="inline-flex items-center px-6 py-3 text-white font-semibold bg-blue-700 rounded-md shadow-sm border-white border-4 bg-purple-500"
   >
-    <span>View article</span>
+    <div class="m-2">
+      <slot></slot>
+    </div>
     <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
       <path
         fill-rule="evenodd"

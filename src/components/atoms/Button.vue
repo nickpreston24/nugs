@@ -1,7 +1,9 @@
 /* https://tailwindcss.com/docs/box-shadow */
 
 <template>
-  <button class="m-4 font-normal rounded-md text-pink-100 bg-orange-500">
+  <button
+    class="m-0 text-white bg-orange-500 inline-flex items-center px-6 py-3 font-semibold bg-blue-700 rounded-md shadow-sm border-white border-4"
+  >
     <div class="m-2">
       <slot></slot>
     </div>
