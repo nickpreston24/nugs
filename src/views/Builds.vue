@@ -40,8 +40,11 @@
           <chip
             v-for="type in types"
             class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
-            >{{ type }}</chip
-          >
+            >{{ type }}
+            <template v-slot:icon>
+              <icon class="fa fa-plus fa-sm"></icon>
+            </template>
+          </chip>
         </Grid>
 
         <!-- Builder -->

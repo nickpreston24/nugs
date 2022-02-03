@@ -7,7 +7,8 @@
       @click="close"
       class="inline-flex items-center px-6 py-3 m-2 font-semibold bg-blue-700 rounded-md shadow-sm"
     >
-      X
+      <icon class="fa fa-plus fa-sm text-regal-500"></icon>
+
       <!-- <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path
           fill-rule="evenodd"
