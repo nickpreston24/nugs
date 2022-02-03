@@ -83,7 +83,10 @@ use-serverless-functions-send-sms-react-vercel-twilio
 - [ ] Add Yup validation to each form -- allow only valid data to turn on the Submit buttons.
 - [ ] Custom Cartridge pattern background, like [these](https://www.svgbackgrounds.com/)
 - [ ] Normal pic to [fancy SVG pattern](https://picsvg.com/)
-
+- [ ] [Image slider](https://vuejsexamples.com/a-nice-vue-image-slider-with-progress/)
+- [ ] [Percentage Circle](https://vuejsexamples.com/css-percentage-circle-built-with-vue-js/)
+- [ ] [Radial Progress](https://vuejsexamples.com/a-smart-and-light-radial-progress-bar-component-for-vue-3/)
+- [x] [Number Slider](https://vuejsexamples.com/vue-3-slider-component-with-multihandles-and-formatting/)
 
 
 ### Customize configuration

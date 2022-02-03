@@ -4,36 +4,7 @@
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
-      </header>
 
-      <Section class="h-screen">
-        <Stack>
-          <p v-for="(item, index) in this.description.split('\\n')" :key="index">
-            {{ item }}
-          </p>
-
-          <Row class="m-8">
-            <button
-              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
-            >
-              <router-link class="m-8" to="/builds"> Home Defense </router-link>
-              <!-- <chip>TEXT</chip> -->
-            </button>
-
-            <button
-              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
-            >
-              <router-link class="m-8" to="/builds"> Hunting </router-link>
-            </button>
-          </Row>
-
-          <div class="">
-            <slider @range-changed="setRange"></slider>
-          </div>
-        </Stack>
-      </Section>
-
-      <Stack>
         <Gradient class="m-20">
           <Stack>
             <h1 class="shadow-2xl text-7xl text-arctic-500">{{ title }}</h1>
@@ -50,10 +21,38 @@
             </Row>
           </Stack>
         </Gradient>
-      </Stack>
+      </header>
+
+      <Section class="h-screen">
+        <Stack>
+          <p v-for="(item, index) in this.description.split('\\n')" :key="index">
+            {{ item }}
+          </p>
+
+          <Row class="m-8">
+            <button
+              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+            >
+              <!-- <router-link class="m-8" to="/builds"> Home Defense </router-link> -->
+              <chip>TEXT</chip>
+            </button>
+
+            <button
+              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+            >
+              <router-link class="m-8" to="#"> Hunting </router-link>
+            </button>
+          </Row>
+
+          <div class="">
+            <slider @range-changed="setRange"></slider>
+          </div>
+        </Stack>
+      </Section>
     </div>
   </body>
 </template>
+
 <script>
 import BorderedIcon from "../../components/atoms/BorderedIcon.vue";
 import Button from "../../components/atoms/Button.vue";
@@ -81,8 +80,6 @@ export default {
   },
   methods: {
     setRange(range) {
-      // console.log("range", range);
-      // this.range = range;
       this.$store.state.range = range;
     },
   },
