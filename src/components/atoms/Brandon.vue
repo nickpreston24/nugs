@@ -1,14 +1,24 @@
 <template>
-  <button class="text-white bg-midnight w-2/3 h=1/3 border-regal-400 border-2">
-    <div style="font-size: 1.25rem hover-rotate">
-      <i class="fa fa-star fa-xs"></i>
-    </div>
-
-    <Row class="gap-4 p-tiny">
-      <div class="bg-red h-2 w-1/5"></div>
-      <div class="bg-red h-2 w-1/5"></div>
+  <button
+    class="hover:text-pink-900 text-white bg-midnight w-5/6 h=1/3 border-regal-400 border-2"
+  >
+    <!-- Top -->
+    <Row class="gap-1 p-tiny">
+      <div class="bg-red h-1 w-4/5"></div>
+      <div v-for="(item, index) in 5" :key="index" style="font-size: 1.3rem">
+        <i class="fa fa-star fa-xs"></i>
+      </div>
+      <div class="bg-red h-1 w-4/5"></div>
     </Row>
     <slot></slot>
+    <Row class="gap-1 p-tiny">
+      <div class="bg-red h-1 w-4/5"></div>
+      <div v-for="(item, index) in 5" :key="index" style="font-size: 1.3rem">
+        <i class="fa fa-star fa-xs"></i>
+      </div>
+      <div class="bg-red h-1 w-4/5"></div>
+    </Row>
+    <!-- Bottom -->
   </button>
 </template>
 <script>
@@ -23,6 +33,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

@@ -1,5 +1,7 @@
 <template>
-  <img class="m-0 p-xl max-w-xl" v-bind:src="src" v-bind:alt="alt" />
+  <figure>
+    <img class="m-0 p-tiny" v-bind:src="src" v-bind:alt="alt" />
+  </figure>
 </template>
 <script>
 export default {
@@ -12,7 +14,7 @@ export default {
 <style>
 .hover-rotate {
   overflow: hidden;
-  min-width: 240px;
+  /* min-width: 240px; */
   max-width: 320px;
   width: 100%;
 }

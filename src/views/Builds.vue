@@ -12,14 +12,21 @@
 
         <!-- Slider bar -->
         <Stack>
-          <!-- <h1 class="text-7xl">Your Budget is from</h1> -->
-          <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
-
-          <slider v-show="true" min="500" @range-changed="setRange"></slider>
-          <Row>
-            <brandon>Make Budget Build</brandon>
-            <brandon>Let's Go Random!</brandon>
+          <h1 class="text-7xl text-orange-200">Pick your Path</h1>
+          <Row class="gap-10">
+            <brandon>Build Black Blaster</brandon>
+            <brandon>LET'S GO RANDOM!</brandon>
           </Row>
+
+          <!-- Budget Option -->
+          <Stack v-if="budget.show">
+            <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
+            <slider min="500" @range-changed="setRange"></slider>
+          </Stack>
+
+          <Stack v-else-if="random.show">
+            <!-- TODO: Create Randomizer Button & Parts Row set -->
+          </Stack>
         </Stack>
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
@@ -36,7 +43,7 @@
           :completed-steps="completedSteps"
           :total-steps="totalSteps"
         >
-          <!-- Your inner content here -->
+          <h2>{{ percent }}%</h2>
         </radial-progress-bar>
 
         <!-- A Checklist-->
@@ -66,7 +73,7 @@
             :key="part.id"
           >
             <template v-slot:header>
-              <div
+              <!-- <div
                 class="text-orange-400 border-orange-700 border-4 border-double p-tiny"
               >
                 <div
@@ -76,7 +83,7 @@
                     {{ part.Name }}
                   </h3>
                 </div>
-              </div>
+              </div> -->
             </template>
             <template v-slot:default>
               <!-- Show Image -->
@@ -89,6 +96,7 @@
                   :src="part.Attachments?.[0]?.url"
                   class="transform transition-all hover:scale-125"
                 />
+                <!-- <figure class='' v-else-if="!part.Attachments">No Attachment</figure> -->
               </Stack>
             </template>
 
@@ -198,6 +206,8 @@ export default {
     return {
       gallery: { show: false },
       builder: { show: true },
+      random: { show: false },
+      budget: { show: false },
 
       devmode: devmode(),
 
@@ -209,6 +219,9 @@ export default {
   computed: {
     checklist() {
       return this.$store.state.checklist;
+    },
+    percent() {
+      return (this.completedSteps / this.totalSteps) * 100;
     },
     parts() {
       return this.state.records;
