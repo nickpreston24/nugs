@@ -71,7 +71,7 @@
 
         <Stack>
           <PartCard class="" :part="part" v-for="part in parts" :key="part.id">
-            <button>Add</button>
+            <button @click="addToChecklist(part)">Add</button>
           </PartCard>
         </Stack>
 
@@ -276,7 +276,7 @@ export default {
   methods: {
     addToChecklist(part) {
       console.log("part", part);
-
+      this.$store.commit("addPart", part);
       // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
       // const { checklist } = this;
       // const { buffer, upper, buttstock, lower } = checklist;

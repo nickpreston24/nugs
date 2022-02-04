@@ -29,10 +29,10 @@ export const store = createStore({
     },
     getters: {
         completed() {
-            userData.counter = Object.values(userData).filter(x => emptyValues.has(x)).length;
+            userData.counter = Object.values(userData).filter((x) => emptyValues.has(x)).length;
             // const emptyValues = new Set (["", null, undefined])
             // console.log("this.completedSteps", this.completedSteps);
-        }
+        },
     },
     mutations: {
         // increment(state) {
@@ -40,7 +40,10 @@ export const store = createStore({
         // }
         setRange(newRange) {
             state.range = newRange;
-        }
+        },
+        addPart(state, payload) {
+            console.log("part", payload);
+        },
     },
 });
 

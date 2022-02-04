@@ -8,7 +8,7 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
     <p class="title hover:text-arctic-200">{{ part.Name }}</p>
     <div class="overlay"></div>
     <div class="button">
-      <a href=""><slot></slot></a>
+      <a><slot></slot></a>
     </div>
   </div>
 </template>
