@@ -35,7 +35,7 @@
           <Row class="m-8">
             <chip
               v-for="description in categories"
-              class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+              class="transform transition-all hover:scale-110 text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >
               <router-link to="/builds">{{ description }} </router-link>
             </chip>

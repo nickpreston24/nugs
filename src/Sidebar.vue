@@ -1,6 +1,6 @@
 <template>
   <body>
-    <nav class="navbar">
+    <nav class="navbar sm:h-48">
       <div class="m-2 text-3xl">
         <router-link class="navbar-links text-5xl m-10" to="/"
           >Blaster Builder</router-link

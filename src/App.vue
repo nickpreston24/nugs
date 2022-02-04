@@ -12,10 +12,10 @@
       </transition>
     </router-view>
     <Footer class="min-h-64">
-      <Row>
+      <Stack>
         <a href="#">Affiliates</a>
         <a href="#">Help</a>
-      </Row>
+      </Stack>
     </Footer>
   </div>
 </template>

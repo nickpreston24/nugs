@@ -12,7 +12,7 @@
 
         <!-- Slider bar -->
         <Stack>
-          <h1 class="text-7xl text-orange-200">Pick your Path</h1>
+          <h1 class="text-7xl text-purple-500">Build options</h1>
           <Row class="gap-10">
             <brandon>Build Black Blaster</brandon>
             <brandon>LET'S GO RANDOM!</brandon>
@@ -65,8 +65,18 @@
           </chip>
         </Grid> -->
 
+        <!-- Sample CSS Image hover show button
+        https://codepen.io/philcheng/pen/YWyYwG?editors=1000
+         -->
+
+        <Stack>
+          <PartCard class="" :part="part" v-for="part in parts" :key="part.id">
+            <button>Add</button>
+          </PartCard>
+        </Stack>
+
         <!-- Builder -->
-        <div class="gallery">
+        <Grid v-show="false">
           <card
             class="gallery-panel border-4 max-w-2xl"
             v-for="part in parts"
@@ -88,7 +98,7 @@
             <template v-slot:default>
               <!-- Show Image -->
 
-              <Stack>
+              <Stack class="">
                 <!-- <p class="w-1/3 max-h-64">{{ part.Notes }}</p> -->
                 <p class="w-1/3 max-h-64">{{ part.Type }}</p>
                 <Image
@@ -108,7 +118,7 @@
               </div>
             </template>
           </card>
-        </div>
+        </Grid>
 
         <!-- <Gradient class="m-4"> -->
         <!-- <card class="" @click="addPart">
@@ -165,6 +175,10 @@
 <script>
 import axios from "axios";
 import useTable from "../components/useTable";
+import { devmode } from "../helpers/generators.ts";
+import { UniqueArray, unique } from "../helpers/array.ts";
+
+import PartCard from "../components/parts/PartCard.vue";
 import Button from "../components/atoms/Button.vue";
 import Brandon from "../components/atoms/Brandon.vue";
 import Toggle from "../components/atoms/Toggle.vue";
@@ -180,9 +194,8 @@ import Row from "../components/flex/Row.vue";
 import Gradient from "../components/atoms/Gradient.vue";
 import SVGButton from "../components/atoms/SVGButton.vue";
 import Slider from "../components/atoms/Slider.vue";
-import { devmode } from "../helpers/generators.ts";
-import { UniqueArray, unique } from "../helpers/array.ts";
 import RadialProgressBar from "vue3-radial-progress";
+
 import { ref } from "vue";
 
 export default {
@@ -201,6 +214,7 @@ export default {
     Grid,
     RadialProgressBar,
     Brandon,
+    PartCard,
   },
   data() {
     return {
@@ -303,21 +317,5 @@ html,
 body {
   min-height: 100vh;
   background-color: #030303;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  grid-gap: 1rem;
-  max-width: 80rem;
-  margin: 5rem auto;
-  padding: 0 5rem;
-}
-
-.gallery-panel img {
-  width: 100%;
-  height: 22vw;
-  object-fit: cover;
-  border-radius: 0.75rem;
 }
 </style>

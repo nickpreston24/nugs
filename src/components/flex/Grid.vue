@@ -1,10 +1,10 @@
 <template>
-  <div class="gallery">
+  <div class="grid-flex">
     <slot></slot>
   </div>
 </template>
 <style scoped>
-.gallery {
+.grid-flex {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   grid-gap: 1rem;
