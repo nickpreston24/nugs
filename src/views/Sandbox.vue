@@ -178,8 +178,8 @@ export default {
     },
 
     onNext() {
-      let { searchPagified } = useTable();
-      let parts = searchPagified();
+      let { searchTable } = useTable();
+      let parts = searchTable();
       console.log(parts);
     },
 

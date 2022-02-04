@@ -13,9 +13,13 @@
         <!-- Slider bar -->
         <Stack>
           <!-- <h1 class="text-7xl">Your Budget is from</h1> -->
-          <h1 class="text-purple-400 text-5xl mb-4">Pick your Budget here!</h1>
+          <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
 
-          <slider v-show="devmode" min="500" @range-changed="setRange"></slider>
+          <slider v-show="true" min="500" @range-changed="setRange"></slider>
+          <Row>
+            <brandon>Make Budget Build</brandon>
+            <brandon>Let's Go Random!</brandon>
+          </Row>
         </Stack>
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
@@ -25,27 +29,34 @@
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
         <!-- Checklist -->
 
-        <RadialProgress v-if="devmode" diameter="300" completedSteps="5" />
+        <!-- <RadialProgress v-if="devmode" diameter="300" completedSteps="5" /> -->
 
-        <Grid v-if="devmode">
+        <radial-progress-bar
+          :diameter="200"
+          :completed-steps="completedSteps"
+          :total-steps="totalSteps"
+        >
+          <!-- Your inner content here -->
+        </radial-progress-bar>
+
+        <!-- A Checklist-->
+        <!-- <Grid v-if="devmode">
           <Row v-for="(item, outer) in types">
-            <!-- <div v-for="(item,inner)"></div> -->
-            <!-- <input type="checkbox" checked="item" /> -->
+            <input type="checkbox" checked="item" />
             <label>{{ item || "item" }}</label>
           </Row>
-        </Grid>
+        </Grid> -->
 
-        <h2 class="text-3xl">Filter</h2>
+        <!-- A filter for Search Boxes -->
+
+        <!-- <h2 class="text-3xl">Filter</h2>
         <Grid>
           <chip
             v-for="type in types"
             class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
             >{{ type }}
-            <template v-slot:icon>
-              <icon class="fa fa-plus fa-sm"></icon>
-            </template>
           </chip>
-        </Grid>
+        </Grid> -->
 
         <!-- Builder -->
         <div class="gallery">
@@ -55,13 +66,13 @@
             :key="part.id"
           >
             <template v-slot:header>
-              <div class="text-orange-400 border-purple-700 border-4 border-double">
+              <div
+                class="text-orange-400 border-orange-700 border-4 border-double p-tiny"
+              >
                 <div
-                  class="text-orange-400 border-ocean-700 border-4 border-double mt-1 mr-1"
+                  class="text-orange-400 border-ocean-700 border-4 border-double p-tiny"
                 >
-                  <h3
-                    class="mt-1 mr-1 p-xl text-orange-400 border-orange-700 border-4 border-double"
-                  >
+                  <h3 class="p-tiny text-white border-purple-700 border-4 border-double">
                     {{ part.Name }}
                   </h3>
                 </div>
@@ -147,9 +158,11 @@
 import axios from "axios";
 import useTable from "../components/useTable";
 import Button from "../components/atoms/Button.vue";
+import Brandon from "../components/atoms/Brandon.vue";
+import Toggle from "../components/atoms/Toggle.vue";
 import Chip from "../components/atoms/Chip.vue";
 import Section from "../components/molecules/Section.vue";
-import RadialProgress from "../components/molecules/RadialProgress.vue";
+// import RadialProgress from "../components/molecules/RadialProgress.vue";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import Card from "../components/molecules/Card.vue";
@@ -161,11 +174,12 @@ import SVGButton from "../components/atoms/SVGButton.vue";
 import Slider from "../components/atoms/Slider.vue";
 import { devmode } from "../helpers/generators.ts";
 import { UniqueArray, unique } from "../helpers/array.ts";
+import RadialProgressBar from "vue3-radial-progress";
+import { ref } from "vue";
 
 export default {
   components: {
     BuildsGallery,
-    RadialProgress,
     Button,
     Stack,
     Row,
@@ -175,8 +189,10 @@ export default {
     Section,
     SVGButton,
     Slider,
-    Chip,
+    Toggle,
     Grid,
+    RadialProgressBar,
+    Brandon,
   },
   data() {
     return {
@@ -202,27 +218,38 @@ export default {
       return list;
     },
     categories() {
+      const list = Object.keys(this.$store.state.checklist);
       const arr = list.filter((r) => r.Type).map((j) => j.Type);
       return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
     },
     completed() {
       const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
+
+      // this.completedSteps = list?.length || 0;
+      // console.log("this.completedSteps", this.completedSteps);
       return list;
     },
   },
 
   setup() {
-    let { state, searchPagified, getById } = useTable("Parts");
+    let { state, searchTable, getById } = useTable("Parts");
+
+    const completedSteps = ref(5);
+    const totalSteps = ref(10);
 
     return {
       state,
-      searchPagified,
+      searchTable,
       getById,
+
+      completedSteps,
+      totalSteps,
     };
   },
   methods: {
     addToChecklist(part) {
       console.log("part", part);
+
       // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
       // const { checklist } = this;
       // const { buffer, upper, buttstock, lower } = checklist;

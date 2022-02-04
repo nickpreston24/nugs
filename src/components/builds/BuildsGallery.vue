@@ -97,11 +97,11 @@ export default {
   },
 
   setup() {
-    let { state, searchPagified, getById } = useTable("Builds");
+    let { state, searchTable, getById } = useTable("Builds");
 
     return {
       state,
-      searchPagified,
+      searchTable,
       getById,
     };
   },
@@ -159,7 +159,7 @@ export default {
           maxRecords: parseInt(this.selected),
         };
         this.loading = true;
-        this.searchPagified(options, "Builds");
+        this.searchTable(options, "Builds");
         this.loading = false;
       }
     },

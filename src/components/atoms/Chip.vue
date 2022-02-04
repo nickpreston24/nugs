@@ -1,8 +1,10 @@
 <template>
+  <!-- <div :style="{ 'background-color': color }" @click="toggle" class=""> -->
   <Row class="rounded-full">
     <div class="m-2">
       <slot></slot>
     </div>
+
     <button
       @click="close"
       class="inline-flex items-center px-6 py-3 m-2 font-semibold bg-blue-700 rounded-md shadow-sm"
@@ -18,6 +20,7 @@
       </svg> -->
     </button>
   </Row>
+  <!-- </div> -->
   <!-- TODO: Use this when Vuetify catches up to Vue 3 -->
   <!-- <div id="app">
     <v-app id="inspire">
@@ -56,7 +59,22 @@ export default {
     Row,
     Stack,
   },
-  props: ["close"],
+  props: {
+    // primary: { type: String, default: "green" },
+    // secondary: { type: String, default: "red" },
+  },
+  data() {
+    return {
+      // color: "green",
+    };
+  },
+  methods: {
+    // toggle() {
+    //   this.toggled = !this.toggled;
+    //   this.color = this.toggled ? "red" : "bg-orange-500";
+    //   console.log("this.color", this.color);
+    // },
+  },
 };
 </script>
 <style local>

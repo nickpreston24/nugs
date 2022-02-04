@@ -3,17 +3,17 @@
     :diameter="200"
     :completed-steps="completedSteps"
     :total-steps="totalSteps"
-    class="border-red border-4"
   >
-    <slot></slot>
+    <!-- Your inner content here -->
   </radial-progress-bar>
 </template>
 
 <script>
+import RadialProgressBar from "vue3-radial-progress";
 import { ref } from "vue";
 export default {
   setup() {
-    const completedSteps = ref(0);
+    const completedSteps = ref(5);
     const totalSteps = ref(10);
 
     return {

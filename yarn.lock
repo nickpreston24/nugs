@@ -2162,6 +2162,11 @@
   resolved "https://registry.yarnpkg.com/@vueform/slider/-/slider-2.0.8.tgz#efd707d036635d236ad34c42294d74618590ff28"
   integrity sha512-aQQ0VL2JJwbKNLyDhX4vFkvVgYTwemSvyEW16S0hkaledDMUTQC73b5ZWQOwZdOq4cjFreS9lYiUBQ+t4kcYKw==
 
+"@vueform/toggle@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@vueform/toggle/-/toggle-2.0.1.tgz#a5592c95f52ed41bb0b4401081c7952ce0f257e2"
+  integrity sha512-Hx26jK+hJUndP4zUBXdScYnTlDwXhkRl+sPW1srkOHqImAcyV2932LzavZQIqK1MhBBukKt+X0wkR5cJL7duYw==
+
 "@vueuse/core@^6.0.0":
   version "6.9.2"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.9.2.tgz#76b16d01f33cf367dd1a2d7f2e31d106443ceb8a"
@@ -11141,6 +11146,11 @@ vue-youtube-embed@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/vue-youtube-embed/-/vue-youtube-embed-2.2.2.tgz#e4fc27bc09ecd77488e6709f7c6694585c972d2d"
   integrity sha512-l/EJuFMRK43AN73N+qxJnN0LB3uPl2xAghmr3dCvODWGCRWGjmGfrHaOtD93fu9J4co+CZLv1KP3akAsldC1aw==
+
+vue3-radial-progress@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue3-radial-progress/-/vue3-radial-progress-1.1.0.tgz#8387507a31fc6f86fdd2f1e20a950d3ba7cc0062"
+  integrity sha512-BBmIswdqRst5MuLAyocBR1qUdAj5GkxhKP/g2ilLcGdEtKws6jaSqmBYGhFTh4swXnAObC0SvjEv7B4ggPJpeg==
 
 vue@^3.0.4:
   version "3.2.26"

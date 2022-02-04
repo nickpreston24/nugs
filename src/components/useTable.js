@@ -1,7 +1,7 @@
 import { ref, onMounted, toRefs, reactive, toRef } from "vue";
 import { findAll, formatRecords, get, pagify } from "../../data/airtable-curl";
 import { devmode } from "../helpers/generators";
-import axios from 'axios'
+import axios from "axios";
 
 function concat(...args) {
     return args.reduce((acc, val) => [...acc, ...val]);
@@ -11,7 +11,7 @@ const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
 const baseId = import.meta.env.VITE_VERCEL_BASE_KEY;
 // console.log('apiKey', apiKey);
 
-const token = ''
+const token = "";
 
 /** A reactive generic repository */
 export default function useTable(tableName = "Parts") {
@@ -21,26 +21,48 @@ export default function useTable(tableName = "Parts") {
     });
 
     onMounted(() => {
-
         axios({
             url: `https://api.airtable.com/v0/${baseId}/${tableName}?maxRecords=10`,
             headers: {
-                'Content-Type': 'x-www-form-urlencoded',
-                'Authorization': `Bearer ${apiKey}`
-            }
-        })
-            .then((result) => {
-                console.log('result', result);
-                let raw = formatRecords(result?.data?.records);
-                state.records = raw;
+                "Content-Type": "x-www-form-urlencoded",
+                Authorization: `Bearer ${apiKey}`,
+            },
+        }).then((result) => {
+            console.log("result", result);
+            let raw = formatRecords(result?.data?.records);
+            state.records = raw;
 
-                console.log('state.records', state.records);
-            })
-
+            console.log("state.records", state.records);
+        });
     });
 
-    const searchPagified = async (options = null, tableName = "Parts") => {
-        // // console.log('options :>> ', options);
+    const searchTable = async (options = { fields: [] }, tableName = "Parts") => {
+        console.log('options :>> ', options);
+        let url = `https://api.airtable.com/v0/${baseId}/${tableName}?`;
+        for (let i = 0; i < fields.length; i++) {
+            const field = fields[i];
+            if (i > 0) {
+                url.concat(`&`);
+            }
+            url.concat(`fields%5B%5D=${field}`);
+        }
+        console.log('url', url);
+
+
+        axios({
+            url,
+            headers: {
+                "Content-Type": "x-www-form-urlencoded",
+                Authorization: `Bearer ${apiKey}`,
+            },
+        }).then((result) => {
+            console.log("result", result);
+            let raw = formatRecords(result?.data?.records);
+            state.records = raw;
+
+            console.log("state.records", state.records);
+        });
+
         // if (tableName)
         //     state.table = tableName;
         // const atPageCursor = pagify(state.table, options);
@@ -79,5 +101,5 @@ export default function useTable(tableName = "Parts") {
         return record;
     };
 
-    return { state, searchPagified, getById };
+    return { state, searchTable, getById };
 }

@@ -14,7 +14,7 @@
             <Row class="gap-20">
               <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
                 <!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
-                <router-link class="shadow-2xl" to="#build-section">Build</router-link>
+                <router-link class="shadow-2xl" to="/builds">Build</router-link>
               </button>
               <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
                 <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
@@ -26,7 +26,7 @@
 
       <Section class="h-screen">
         <Stack>
-          <p v-for="(item, index) in this.description.split('\\n')" :key="index">
+          <p v-for="(item, index) in description.split('\\n')" :key="index">
             {{ item }}
           </p>
 
@@ -34,7 +34,7 @@
 
           <Row class="m-8">
             <chip
-              v-for="description in this.usecases"
+              v-for="description in categories"
               class="text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
             >
               <router-link to="/builds">{{ description }} </router-link>
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       range: [],
-      usecases: ["Home Defense", "LEO/Military", "Hunting", "Competition"],
+      categories: ["Home Defense", "LEO/Military", "Hunting", "Competition"],
     };
   },
   methods: {
