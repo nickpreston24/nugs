@@ -1,7 +1,5 @@
 <template>
-  <button
-    class="hover:text-arctic-300 text-white bg-midnight w-5/6 h=1/3 border-regal-400 border-2"
-  >
+  <button class="hover:text-arctic-300 text-white bg-midnight border-regal-400 border-2">
     <!-- Top -->
     <Row class="gap-1 p-tiny">
       <div class="bg-red h-1 w-4/5"></div>

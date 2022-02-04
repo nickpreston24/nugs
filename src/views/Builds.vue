@@ -14,8 +14,12 @@
         <Stack>
           <h1 class="text-7xl text-purple-500">Build options</h1>
           <Row class="gap-10">
-            <brandon>Build Black Blaster</brandon>
-            <brandon>LET'S GO RANDOM!</brandon>
+            <brandon class="transform transition-all hover:scale-125"
+              >Build Black Blaster</brandon
+            >
+            <brandon class="transform transition-all hover:scale-125"
+              >LET'S GO RANDOM!</brandon
+            >
           </Row>
 
           <!-- Budget Option -->
