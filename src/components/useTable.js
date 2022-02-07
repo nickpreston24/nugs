@@ -8,21 +8,22 @@ function concat(...args) {
 }
 
 const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
-const baseId = import.meta.env.VITE_VERCEL_BASE_KEY;
+const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY;
 // console.log('apiKey', apiKey);
 
 const token = "";
+const maxRecords = 10;
 
 /** A reactive generic repository */
 export default function useTable(tableName = "Parts") {
     const state = reactive({
-        records: [],
-        table: tableName,
+        records: [], //the current state for whatever table you're on.
+        table: tableName, // current table
     });
 
     onMounted(() => {
         axios({
-            url: `https://api.airtable.com/v0/${baseId}/${tableName}?maxRecords=10`,
+            url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
             headers: {
                 "Content-Type": "x-www-form-urlencoded",
                 Authorization: `Bearer ${apiKey}`,
@@ -38,7 +39,7 @@ export default function useTable(tableName = "Parts") {
 
     const searchTable = async (options = { fields: [] }, tableName = "Parts") => {
         console.log('options :>> ', options);
-        let url = `https://api.airtable.com/v0/${baseId}/${tableName}?`;
+        let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`;
         for (let i = 0; i < fields.length; i++) {
             const field = fields[i];
             if (i > 0) {
@@ -101,5 +102,23 @@ export default function useTable(tableName = "Parts") {
         return record;
     };
 
-    return { state, searchTable, getById };
+    const patchRecord = (table = null, data = null) => {
+
+        if (table) state.table = table;
+
+        const url = `https://api.airtable.com/v0/${baseKey}/${table}`
+        const headers = {
+            "Content-Type": "Content-Type: application/json",
+            Authorization: `Bearer ${apiKey}`,
+        }
+        axios.patch(url, data, headers)
+            .then((result) => {
+                console.log("result", result);
+                let raw = formatRecords(result?.data?.records);
+                state.records = raw;
+                console.log("state.records", state.records);
+            });
+    }
+
+    return { state, searchTable, getById, patchRecord };
 }

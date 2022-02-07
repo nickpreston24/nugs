@@ -27,4 +27,28 @@ export const unique = (array: [], field = '') => {
     )
 }
 
-export default UniqueArray;
+
+const emptyValues = new Set(['', null, undefined])
+
+/**
+ * Gets an array of empty non-zero values in an object
+ */
+export const empties = (obj: object) => Object.values(obj).reduce((acc: any, curr) => acc + emptyValues.has(curr), 0);
+
+export const falsies = (obj: object) => Object.values(obj).reduce((acc: any, curr) => acc + !curr, 0);
+
+declare global {
+    interface Array<T> {
+        take(count: any): Array<T>;
+        remove(o: T): Array<T>;
+    }
+}
+
+Array.prototype.take = function (count = 0) {
+    return this.slice(0, count)
+}
+
+Array.prototype.remove = function (o) {
+    // code to remove "o"
+    return this;
+}

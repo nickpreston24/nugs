@@ -25,6 +25,15 @@ export const store = createStore({
                     },
                 },
             },
+            settings: {
+                // https://gbksoft.com/blog/dimensions-resolution-for-ios-and-android-app-design/
+                screen:
+                {
+                    device: '', // e.g. Apple iPhone 11 Pro
+                    dimensions: [480, 320]
+
+                }
+            }
         };
     },
     getters: {

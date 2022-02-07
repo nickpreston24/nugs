@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .pink-as-hell {
+        background: pink;
+        color: hotpink;
+        border: 3px dotted hotpink;
+    }
+}

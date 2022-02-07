@@ -1,50 +1,31 @@
 <template>
   <Section class="parts">
-    <Button @click="parts.show = !parts.show">{{
+    <Brandon class="w-64" @click="parts.show = !parts.show">{{
       !parts.show ? "Add Parts" : "View Parts"
-    }}</Button>
+    }}</Brandon>
 
     <PartsGallery v-show="!parts.show" />
 
-    <iframe
-      v-show="parts.show"
-      class="airtable-embed"
-      src="https://airtable.com/embed/shreqIf5JuPgS9pyq?backgroundColor=blue"
-      frameborder="0"
-      onmousewheel=""
-      width="100%"
-      height="533"
-      style="background: transparent; border: 1px solid #ccc"
-    ></iframe>
-
-    <!-- <Row>
-      <button v-on:click="showRounds = !showRounds">
-        {{ !showRounds ? "[+] Rounds" : "[-] Rounds" }}
-      </button>
-
-      <button v-on:click="showBuilds = !showBuilds">
-        {{ !showBuilds ? "[+] Builds" : "[-] Builds" }}
-      </button>
-
-      <button v-show="false" v-on:click="showOrders = !showOrders">
-        {{ !showOrders ? "[+] Orders" : "[-] Orders" }}
-      </button>
-      <button v-on:click="showParts = !showParts">
-        {{ !showParts ? "[+] Parts" : "[-] Parts" }}
-      </button>
-    </Row> -->
+    <AddParts />
   </Section>
 </template>
 <script>
 import Button from "../components/atoms/Button.vue";
+import Brandon from "../components/atoms/Brandon.vue";
 import PartsGallery from "../components/parts/PartsGallery.vue";
 import Row from "../components/flex/Row.vue";
 import Section from "../components/molecules/Section.vue";
-// import useTable from "../components/useTable";
+import useTable from "../components/useTable";
+import AddParts from "../components/parts/AddParts.vue";
 export default {
   data() {
     return {
-      parts: { show: true },
+      parts: { show: false },
+      form: {
+        Name: "",
+        URL: "",
+        Cost: 0.0,
+      },
     };
   },
   components: {
@@ -52,6 +33,8 @@ export default {
     Button,
     Row,
     Section,
+    Brandon,
+    AddParts,
   },
 };
 </script>

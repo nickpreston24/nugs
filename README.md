@@ -19,13 +19,14 @@ Recipe - A "grocery list" (parts list) in checklist format to make buying and bu
 
 1. Builds should be recorded by Neo4j and can be 'liked' and shared with buddies.
 2. Recipes should be updated and treated as a Todo list of Parts
-3. 
+3. [Upload Part Images](https://serversideup.net/courses/guide-uploading-files-vuejs-axios/)
 
 ## Minor
 
 1. 
 2. 
 3. Parts may be submitted via url and Name.  Matching domains should be farmed for current prices and photos.
+4. Adjust for mobile button (saves to localstorage)
 
 
 

@@ -4,7 +4,7 @@
       <Stack>
         <h1 class="text-pink-500 text-7xl">{{ range }}</h1>
 
-        <Button v-if="gallery.show" @click="gallery.show = !gallery.show">{{
+        <Button v-if="false" @click="gallery.show = !gallery.show">{{
           gallery.show ? "Add Builds" : "View Builds"
         }}</Button>
 
@@ -14,35 +14,46 @@
         <Stack>
           <h1 class="text-7xl text-purple-500">Build options</h1>
           <Row class="gap-10">
-            <brandon class="transform transition-all hover:scale-125"
-              >Build Black Blaster</brandon
-            >
-            <brandon class="transform transition-all hover:scale-125"
+            <Stack class="gap-0.5">
+              <p class="text-tiny text-orange-300">(coming soon)</p>
+              <button
+                class="scale-50 transform transition-all hover:scale-75 bg-gray-300"
+              >
+                Big Blaster Builder
+              </button>
+            </Stack>
+
+            <brandon
+              class="transform transition-all hover:scale-125"
+              @click="getRandomBuild"
               >LET'S GO RANDOM!</brandon
             >
           </Row>
 
           <!-- Budget Option -->
-          <Stack v-if="budget.show">
+          <Stack v-if="budgetBuild.show">
             <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
             <slider min="500" @range-changed="setRange"></slider>
+            <p>{{ range }}</p>
           </Stack>
 
-          <Stack v-else-if="random.show">
+          <Stack v-else-if="randomBuild.show">
             <!-- TODO: Create Randomizer Button & Parts Row set -->
+
+            <label class="text-orange-300">Build List:</label>
+            <pre v-if="devmode">{{ build }}</pre>
+            <label class="text-orange-300">Checklist:</label>
+            <pre v-if="devmode">{{ checklist }}</pre>
           </Stack>
         </Stack>
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <legend v-if="devmode">{{ checklist }}</legend>
-
         <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
         <!-- Checklist -->
 
-        <!-- <RadialProgress v-if="devmode" diameter="300" completedSteps="5" /> -->
-
         <radial-progress-bar
+          v-if="false"
           :diameter="200"
           :completed-steps="completedSteps"
           :total-steps="totalSteps"
@@ -179,7 +190,7 @@
 <script>
 import axios from "axios";
 import useTable from "../components/useTable";
-import { devmode } from "../helpers/generators.ts";
+import { devmode, random } from "../helpers/generators.ts";
 import { UniqueArray, unique } from "../helpers/array.ts";
 
 import PartCard from "../components/parts/PartCard.vue";
@@ -222,15 +233,16 @@ export default {
   },
   data() {
     return {
-      gallery: { show: false },
+      gallery: { show: true },
       builder: { show: true },
-      random: { show: false },
-      budget: { show: false },
+      budgetBuild: { show: false },
+      randomBuild: { show: true },
 
       devmode: devmode(),
 
       build: {
         profile: { id: "12345", Name: "MP" },
+        parts: [],
       },
     };
   },
@@ -278,6 +290,12 @@ export default {
     };
   },
   methods: {
+    getRandomBuild() {
+      this.build.parts = random.Shuffle(this.parts).take(3);
+      // random.Shuffle(this.parts);
+      // this.build.parts = random.Shuffle(this.parts).take(5);
+      // this.randomBuild.show = true;
+    },
     addToChecklist(part) {
       console.log("part", part);
       this.$store.commit("addPart", part);

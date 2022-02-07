@@ -1,9 +1,24 @@
 // https://codepen.io/philcheng/pen/YWyYwG?editors=1000 //
 https://www.30secondsofcode.org/css/s/image-hover-rotate
 <template>
-  <div v-show="part.Attachments" class="container text-arctic-400">
+  <div v-show="part.Name" class="container text-arctic-400">
     <figure>
-      <img v-if="part.Attachments" :src="part.Attachments?.[0]?.url" />
+      <!-- Show Image -->
+      <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
+        <img
+          v-if="part?.Attachments"
+          :src="part?.Attachments?.[0]?.url"
+          class="transform transition-all hover:scale-125"
+        />
+      </router-link>
+      <!-- Upload missing image -->
+      <Stack v-else class="img-upload">
+        <i>No Image Found...Please Upload one!</i>
+        <form-input :input="onChange" type="text" src="updatedUrl" placeholder="URL">
+          <i class="fa fa-link fa-lg"></i>
+        </form-input>
+        <!-- <Button @click="submit">Update</Button> -->
+      </Stack>
     </figure>
     <p class="title hover:text-arctic-200">{{ part.Name }}</p>
     <div class="overlay"></div>
@@ -14,9 +29,13 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
 </template>
 
 <script>
+import Stack from "../flex/Stack.vue";
 export default {
   props: {
     part: Object,
+  },
+  components: {
+    Stack,
   },
 };
 </script>

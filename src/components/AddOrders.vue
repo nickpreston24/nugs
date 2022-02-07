@@ -16,7 +16,11 @@
       <span v-if="devmode">{{ { ...order } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
       <label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</label>
-      <Button v-show="ready" v-on:click="addOrder">Add Recipe</Button>
+      <Button v-show="ready" v-on:click="addOrder">
+        <div>
+          <i class="fa fa-star fa-xs"></i>
+        </div>
+      </Button>
       <Button @click="lorem" v-if="devmode">Lorem</Button>
       <br />
     </div>
@@ -40,13 +44,7 @@ button {
 
 <script>
 import { createOrders } from "../../data/airtable-curl";
-import {
-  isEmpty,
-  devmode,
-  randomInt,
-  randomName,
-  randomBoolean,
-} from "../helpers/generators";
+import { isEmpty, devmode, random } from "../helpers/generators";
 export default {
   methods: {
     async addOrder() {
@@ -61,8 +59,8 @@ export default {
     },
     lorem() {
       let fake = {
-        Buy: randomBoolean(),
-        QuantityDesired: randomInt(10),
+        Buy: random.Boolean(),
+        QuantityDesired: random.Int(10),
       };
       this.order = fake;
     },

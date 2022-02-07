@@ -5,6 +5,12 @@
         <router-link class="navbar-links text-5xl m-10" to="/"
           >Blaster Builder</router-link
         >
+
+        <!-- IDEA: Evolution of blasters svg
+        https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.KcXLemEwyV_kTP4_m6OcGwHaFj%26pid%3DApi&f=1
+        
+        wheel gun -> pistol -> musket -> shotgun -> bolt action -> AR-15/10
+         -->
       </div>
       <a href="#" class="toggle-button" @click="toggleBurger">
         <span class="bar"></span>

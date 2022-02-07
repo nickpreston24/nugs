@@ -7,7 +7,7 @@
     </div>
     <div>
       <div class="text-xl font-medium text-black">ChitChat</div>
-      <p class="text-gray-500">You have a new message!</p>
+      <p class="text-gray-300">You have a new message!</p>
     </div>
   </div>
 </template>
@@ -17,15 +17,14 @@ export default {};
 </script>
 
 <style scoped>
-.chat-notification {
+/* .chat-notification {
   display: flex;
   max-width: 24rem;
   margin: 0 auto;
   padding: 1.5rem;
   border-radius: 0.5rem;
   background-color: rgb(100, 219, 240);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 .chat-notification-logo-wrapper {
   flex-shrink: 0;
@@ -47,5 +46,5 @@ export default {};
   color: #718096;
   font-size: 1rem;
   line-height: 1.5;
-}
+} */
 </style>

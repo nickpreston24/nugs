@@ -9,47 +9,14 @@
       </select>
     </div>
 
-    <div class="gallery border-4 border-purple-500">
-      <!-- <spinner
-        :animation-duration="2000"
-        :size="60"
-        class="color-arctic-500"
-        color="grey"
-      /> -->
-      <card class="gallery-panel" v-for="part in parts" :key="part.id">
-        <!-- <template v-slot:header> </template> -->
-        <template v-slot:header>
-          <div class="m-10">
-            <!-- <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton> -->
-            <div class="text-orange-400 border-orange-700 border-4 border-double">
-              <h3 class="p-xl text-orange-400 border-orange-700 border-4 border-double">
-                {{ part.Name }}
-              </h3>
-            </div>
-          </div>
-        </template>
-        <template v-slot:default>
-          <!-- Show Image -->
-          <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
-            <Image
-              v-if="part?.Attachments"
-              :src="part?.Attachments?.[0]?.url"
-              class="transform transition-all hover:scale-125"
-            />
-          </router-link>
-          <!-- Upload missing image -->
-          <Stack v-else class="img-upload">
-            <i>No Image Found...Please Upload one!</i>
-            <form-input :input="onChange" type="text" src="updatedUrl" placeholder="URL">
-              <!-- <template v-slot:icon> -->
-              <i class="fa fa-link fa-lg"></i>
-              <!-- </template> -->
-            </form-input>
-            <!-- <Button @click="submit">Update</Button> -->
-          </Stack>
-        </template>
-      </card>
-    </div>
+    <Stack>
+      <PartCard class="" :part="part" v-for="part in parts" :key="part.id">
+        <!-- <button @click="addToChecklist(part)">Add</button> -->
+        <!-- <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton> -->
+      </PartCard>
+    </Stack>
+
+   
   </div>
 </template>
 <script>
@@ -64,6 +31,7 @@ import Image from "../../components/atoms/Image.vue";
 import Button from "../../components/atoms/Button.vue";
 import SVGButton from "../../components/atoms/SVGButton.vue";
 import Card from "../../components/molecules/Card.vue";
+import PartCard from "../../components/parts/PartCard.vue";
 
 export default {
   components: {
@@ -76,6 +44,7 @@ export default {
     FormInput,
     SVGButton,
     Button,
+    PartCard,
   },
   data() {
     return {

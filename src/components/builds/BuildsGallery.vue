@@ -9,9 +9,6 @@
       </select>
     </div>
 
-    <!-- <p>{{ builds[0] }}</p> -->
-    <!-- <p>{{ parts[0] }}</p> -->
-
     <div>
       <spinner
         :animation-duration="2000"
@@ -20,7 +17,7 @@
         color="grey"
       />
       <slider v-model="value"></slider>
-
+      <p>{{ value }}</p>
       <div class="gallery-panel" v-for="build in builds" :key="build.id">
         <card class="" @mouseenter="getPart(build.Parts)">
           <h1>{{ build.Name }}</h1>
