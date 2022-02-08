@@ -2,25 +2,36 @@
   <div class="builds">
     <Section class="text-purple-400">
       <Stack>
-        <h1 class="text-pink-500 text-7xl">{{ range }}</h1>
+        <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
-        <Button v-if="false" @click="gallery.show = !gallery.show">{{
-          gallery.show ? "Add Builds" : "View Builds"
+        <Button v-if="false" @click="views.gallery.show = !views.gallery.show">{{
+          views.gallery.show ? "Add Builds" : "View Builds"
         }}</Button>
 
-        <!-- <BuildsGallery v-if="gallery.show" /> -->
+        <BuildsGallery v-if="views.gallery.show" />
 
+        <!-- DEV Toggles -->
+
+        <Row>
+          <div v-for="(item, key, index) in views">
+            <label class="" for="checkbox">{{ key }}</label>
+            <input type="checkbox" id="key" v-model="views" />
+          </div>
+        </Row>
+
+        <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
+        <!-- randomBuild: { show: true }, -->
         <!-- Slider bar -->
         <Stack>
           <h1 class="text-7xl text-purple-500">Build options</h1>
           <Row class="gap-10">
             <Stack class="gap-0.5">
-              <p class="text-tiny text-orange-300">(coming soon)</p>
-              <button
-                class="btn-primary scale-50 transform transition-all hover:scale-75 bg-gray-300"
+              <!-- <p class="text-tiny text-orange-300">(coming soon)</p> -->
+              <brandon
+                class="btn-primary transform transition-all hover:scale-75 bg-gray-300"
               >
                 Big Blaster Builder
-              </button>
+              </brandon>
             </Stack>
 
             <brandon
@@ -31,13 +42,13 @@
           </Row>
 
           <!-- Budget Option -->
-          <Stack v-if="budgetBuild.show">
+          <Stack v-if="views.budgetBuild.show">
             <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
             <slider min="500" @range-changed="setRange"></slider>
             <p>{{ range }}</p>
           </Stack>
 
-          <Stack v-else-if="randomBuild.show">
+          <Stack v-else-if="views.randomBuild.show">
             <!-- TODO: Create Randomizer Button & Parts Row set -->
 
             <label class="text-orange-300">Build List:</label>
@@ -192,11 +203,12 @@ import axios from "axios";
 import useTable from "../components/useTable";
 import { devmode, random } from "../helpers/generators.ts";
 import { UniqueArray, unique } from "../helpers/array.ts";
+import { nameOf } from "../helpers";
 
 import PartCard from "../components/parts/PartCard.vue";
 import Button from "../components/atoms/Button.vue";
 import Brandon from "../components/atoms/Brandon.vue";
-import Toggle from "../components/atoms/Toggle.vue";
+// import Toggle from "../components/atoms/Toggle.vue";
 import Chip from "../components/atoms/Chip.vue";
 import Section from "../components/molecules/Section.vue";
 // import RadialProgress from "../components/molecules/RadialProgress.vue";
@@ -225,7 +237,7 @@ export default {
     Section,
     SVGButton,
     Slider,
-    Toggle,
+    // Toggle,
     Grid,
     RadialProgressBar,
     Brandon,
@@ -233,10 +245,12 @@ export default {
   },
   data() {
     return {
-      gallery: { show: true },
-      builder: { show: true },
-      budgetBuild: { show: false },
-      randomBuild: { show: true },
+      views: {
+        gallery: { show: true },
+        builder: { show: true },
+        budgetBuild: { show: false },
+        randomBuild: { show: true },
+      },
 
       devmode: devmode(),
 
@@ -275,7 +289,7 @@ export default {
   },
 
   setup() {
-    let { state, searchTable, getById } = useTable("Parts", 100);
+    let { state, searchTable, getById } = useTable("Parts", 10);
 
     const completedSteps = ref(5);
     const totalSteps = ref(10);
@@ -295,7 +309,7 @@ export default {
       // .map((p = p.Name));
       // random.Shuffle(this.parts);
       // this.build.parts = random.Shuffle(this.parts).take(5);
-      // this.randomBuild.show = true;
+      // this.views.randomBuild.show = true;
     },
     addToChecklist(part) {
       console.log("part", part);
@@ -303,10 +317,6 @@ export default {
       // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
       // const { checklist } = this;
       // const { buffer, upper, buttstock, lower } = checklist;
-      // upper.barrel = "BCM fluted lw 5.56 NATO barrel";
-      // upper.name = "MS-KMR-13";
-      // upper.bcg = "BCM 5.56 NATO BCG Nitrided";
-      // buttstock.brand = "Bravo Company";
       // return null;
     },
     setRange(range) {

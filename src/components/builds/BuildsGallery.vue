@@ -10,24 +10,17 @@
     </div>
 
     <div>
-      <spinner
-        :animation-duration="2000"
-        :size="60"
-        class="color-arctic-500"
-        color="grey"
-      />
       <slider v-model="value"></slider>
       <p>{{ value }}</p>
       <div class="gallery-panel" v-for="build in builds" :key="build.id">
-        <card class="" @mouseenter="getPart(build.Parts)">
+        <!-- <card class="" @mouseenter="getPart(build.Parts)">
           <h1>{{ build.Name }}</h1>
           <p>&#x1F4B2; {{ build["Total Cost"] }}</p>
           <h3 v-if="build.Weight > 0">
             &#x1F3CB;&#xFE0F;&#x200D;&#x2642;&#xFE0F; {{ build.Weight }}
           </h3>
-        </card>
+        </card> -->
 
-        <!-- { "id": "reczwF2hwGxLO2wgh", "Name": "Glock 20 Builder Kit", "Link": "https://fandffirearms.com/product/pf45-complete-builders-kit-10mm/", "Cost": 669, "Calibers": [ "10mm", "45 ACP" ], "Builds": [ "recqW0agotxhsG8SB", "recsfaVR11x8gnDSl" ], "Payments": [ "recfj0NG7To0jnOq8" ], "Orders": [ "recbEX83A0bYUyw0U", "recGhkBQbYbZZxzJO" ], "Combo Cost": 0 } -->
         <!-- <list v-for="part in relatedParts(build?.Parts)" :key="part.id">
             <card class="">
               <p>{{ part.Name }}</p>
@@ -41,7 +34,7 @@
 
         <!-- <card
           class="gallery-item bg-green-200"
-          @mouseenter="getPart(order?.Build)"
+          @mouseenter="getPart(build.Id)"
         >
           <template v-slot:header>
             <h1>
@@ -50,12 +43,6 @@
           </template>
         </card> -->
 
-        <!-- <build-card
-          :Name="build.Name"
-          :Calibers="build.Caliber"
-          :Weight="build['Weight (Lbs)']"
-          :Cost="build['Total Cost']"
-        /> -->
         <!-- <div>
           
           <h6>${{ build["Total Cost"] }}</h6>
@@ -89,7 +76,7 @@ export default {
       loading: false,
       value: 20,
       parts: [],
-      orders: [],
+      builds: [],
     };
   },
 
@@ -141,10 +128,10 @@ export default {
         return pics;
       };
     },
-    relatedOrders() {
+    relatedbuilds() {
       return (ids) => {
-        let orders = this.orders.filter((p) => ids.includes(p.id));
-        return orders;
+        let builds = this.builds.filter((p) => ids.includes(p.id));
+        return builds;
       };
     },
   },

@@ -1,4 +1,6 @@
 <template>
+
+
   <!-- <div class="z-40">
     <rect x="100" class="bg-ocean-500" width="100" height="100">5</rect>
   </div>
@@ -18,11 +20,7 @@
   <div v-if="devmode" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
     <div class="container" v-show="false">
       <form @submit.prevent="handleSubmit">
-        <div
-          class="form-group form-check"
-          v-for="item in Items"
-          v-bind:key="item.id"
-        >
+        <div class="form-group form-check" v-for="item in Items" v-bind:key="item.id">
           <label class="form-check-label" :for="item.id">{{ item.name }}</label>
           <input
             type="checkbox"
