@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin')
+const colors = require('tailwindcss/colors')
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}",],
   darkMode: 'class', // or 'media' or 'class'
@@ -46,15 +47,23 @@ module.exports = {
     },
     // https://www.tailwindshades.com/#color=42B983&step-up=10&step-down=10&name=ocean&overrides=e30%3D
     colors: {
-      transparent: "transparent",
-      black: "#000",
-      white: "#fff",
+      ...colors,
       current: 'currentColor',
       'white': '#ffffff',
       'purple': '#3f3cbb',
       'midnight': '#121063',
       'metal': '#565584',
-      'tahiti': '#3ab7bf',
+      'tahiti': {
+        100: '#cffafe',
+        200: '#a5f3fc',
+        300: '#67e8f9',
+        400: '#22d3ee',
+        500: '#06b6d4',
+        600: '#0891b2',
+        700: '#0e7490',
+        800: '#155e75',
+        900: '#164e63',
+      },
       'silver': '#ecebff',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
@@ -69,7 +78,19 @@ module.exports = {
         800: '#553c9a',
         900: '#44337a',
       },
-      eunry: { DEFAULT: '#CBA3A3', '50': '#FFFFFF', '100': '#FFFFFF', '200': '#FFFFFF', '300': '#F0E4E4', '400': '#DDC4C4', '500': '#CBA3A3', '600': '#B98282', '700': '#A66262', '800': '#884D4D', '900': '#673A3A' },
+      eunry: {
+        DEFAULT: '#CBA3A3'
+        , '50': '#FFFFFF'
+        , '100': '#FFFFFF'
+        , '200': '#FFFFFF'
+        , '300': '#F0E4E4',
+        '400': '#DDC4C4',
+        '500': '#CBA3A3',
+        '600': '#B98282',
+        '700': '#A66262',
+        '800': '#884D4D',
+        '900': '#673A3A'
+      },
       'medium-purple': { DEFAULT: '#9F7AEA', '50': '#FFFFFF', '100': '#FFFFFF', '200': '#FEFEFF', '300': '#DFD2F8', '400': '#BFA6F1', '500': '#9F7AEA', '600': '#7F4EE3', '700': '#6023DB', '800': '#4C1CAF', '900': '#391583' },
       pink: {
         100: '#fff5f7',

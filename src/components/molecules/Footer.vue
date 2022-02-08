@@ -1,5 +1,5 @@
 <template>
-  <div class="text-midnight bg-gradient-to-r from-tahiti to-ocean">
+  <div class="text-midnight bg-gradient-to-r from-tahiti-500 to-ocean-500">
     <slot></slot>
   </div>
   <!-- 

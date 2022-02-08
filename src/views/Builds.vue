@@ -17,7 +17,7 @@
             <Stack class="gap-0.5">
               <p class="text-tiny text-orange-300">(coming soon)</p>
               <button
-                class="scale-50 transform transition-all hover:scale-75 bg-gray-300"
+                class="btn-primary scale-50 transform transition-all hover:scale-75 bg-gray-300"
               >
                 Big Blaster Builder
               </button>
@@ -241,7 +241,7 @@ export default {
       devmode: devmode(),
 
       build: {
-        profile: { id: "12345", Name: "MP" },
+        // profile: { id: "12345", Name: "MP" },
         parts: [],
       },
     };
@@ -275,7 +275,7 @@ export default {
   },
 
   setup() {
-    let { state, searchTable, getById } = useTable("Parts");
+    let { state, searchTable, getById } = useTable("Parts", 100);
 
     const completedSteps = ref(5);
     const totalSteps = ref(10);
@@ -292,6 +292,7 @@ export default {
   methods: {
     getRandomBuild() {
       this.build.parts = random.Shuffle(this.parts).take(3);
+      // .map((p = p.Name));
       // random.Shuffle(this.parts);
       // this.build.parts = random.Shuffle(this.parts).take(5);
       // this.randomBuild.show = true;

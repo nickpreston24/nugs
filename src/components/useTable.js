@@ -9,13 +9,9 @@ function concat(...args) {
 
 const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
 const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY;
-// console.log('apiKey', apiKey);
-
-const token = "";
-const maxRecords = 10;
 
 /** A reactive generic repository */
-export default function useTable(tableName = "Parts") {
+export default function useTable(tableName = "Parts", options = { maxRecords: 10 }) {
     const state = reactive({
         records: [], //the current state for whatever table you're on.
         table: tableName, // current table
@@ -23,7 +19,7 @@ export default function useTable(tableName = "Parts") {
 
     onMounted(() => {
         axios({
-            url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
+            url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${options.maxRecords}`,
             headers: {
                 "Content-Type": "x-www-form-urlencoded",
                 Authorization: `Bearer ${apiKey}`,
