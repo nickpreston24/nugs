@@ -50,7 +50,7 @@
 
           <div v-else class="img-upload text-arctic-600 gentle-flex">
             <span>No Image Found...Please Upload one!</span>
-            <input type="text" v-show="show" />
+            <input type="text" v-if="show" />
           </div>
         </div> -->
       </div>
@@ -138,6 +138,7 @@ export default {
 
   watch: {
     selected() {
+      devmode && console.log("this.selected", this.selected);
       if (this.selected > 0) {
         let options = {
           maxRecords: parseInt(this.selected),

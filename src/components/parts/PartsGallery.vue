@@ -15,8 +15,6 @@
         <!-- <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton> -->
       </PartCard>
     </Stack>
-
-   
   </div>
 </template>
 <script>

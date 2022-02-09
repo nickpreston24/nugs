@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { devmode } from "../helpers/generators";
 
 export const store = createStore({
     state() {
@@ -31,29 +32,49 @@ export const store = createStore({
                 {
                     device: '', // e.g. Apple iPhone 11 Pro
                     dimensions: [480, 320]
+                },
 
+                developer: {
+                    borders: {
+                        enabled: false,
+                    },
+                    fakemode: {
+                        enabled: false
+                    },
+                    prodmode: {
+                        enabled: false
+                    }
                 }
-            }
+            },
+
         };
     },
     getters: {
-        completed() {
-            userData.counter = Object.values(userData).filter((x) => emptyValues.has(x)).length;
-            // const emptyValues = new Set (["", null, undefined])
-            // console.log("this.completedSteps", this.completedSteps);
+        getChecklist() {
+            // TODO: determine whether this is worth it or we can just directly change the state.  Look at timemachine vuex.
         },
     },
     mutations: {
-        // increment(state) {
-        //     state.count++
-        // }
-        setRange(newRange) {
+        setRange(state, newRange) {
             state.range = newRange;
         },
         addPart(state, payload) {
-            console.log("part", payload);
+            console.log("payload", payload);
         },
+        toggle(state, payload) {
+            const name = payload.name;
+            const setting = state.settings.developer[name];
+            if (!setting) {
+                console.error(`Could not find setting '${name}'`)
+            }
+            setting.enabled = !setting.enabled;
+        }
     },
+    actions: {
+        toggleSetting({ commit }, payload) {
+            commit('toggle', payload)
+        }
+    }
 });
 
 export default store;

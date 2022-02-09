@@ -2,9 +2,18 @@
   <body>
     <nav class="navbar sm:h-48">
       <div class="m-2 text-3xl">
-        <router-link class="navbar-links text-5xl m-10" to="/"
-          >Blaster Builder</router-link
-        >
+        <router-link class="navbar-links text-5xl m-10" to="/">
+          <Shadow
+            :className="{ basic: true }"
+            :color="{ color: '#1fff11' }"
+            class="text-7xl"
+          >
+            <Row>
+              <!-- <i class="fa fa-beer"></i> -->
+              <h1 class="text-7xl">Blaster Builder</h1>
+            </Row>
+          </Shadow>
+        </router-link>
 
         <!-- IDEA: Evolution of blasters svg
         https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.KcXLemEwyV_kTP4_m6OcGwHaFj%26pid%3DApi&f=1
@@ -149,11 +158,17 @@ body {
 </style>
 <script>
 import { devmode } from "./helpers/generators";
+import { Row } from "./components/flex";
+import { Shadow } from "./components/atoms";
 
 export default {
+  components: {
+    Row,
+    Shadow,
+  },
   data() {
     return {
-      devmode: devmode(),
+      devmode: devmode,
       isActive: false,
     };
   },

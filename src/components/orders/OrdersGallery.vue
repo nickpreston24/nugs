@@ -78,7 +78,7 @@
             </router-link> -->
 
             <!-- <div v-else class="img-upload text-arctic-600 gentle-flex">
-            <input type="text" v-show="show" />
+            <input type="text" v-if="show" />
           </div> -->
           </template>
         </card>
@@ -123,7 +123,7 @@ export default {
       selected: 10,
       limits: [10, 20, 50, 100],
       loading: false,
-      devmode: devmode(),
+      devmode: devmode,
       show: true,
       builds: [],
     };
@@ -172,9 +172,7 @@ export default {
       return (ids) => {
         console.log("ids :>> ", ids);
 
-        let pics = this.builds
-          .map((m) => m.Pics)
-          .filter((p) => ids.includes(p.id));
+        let pics = this.builds.map((m) => m.Pics).filter((p) => ids.includes(p.id));
         console.log("pics :>> ", pics);
 
         return pics;
@@ -184,6 +182,8 @@ export default {
 
   watch: {
     selected() {
+      devmode && console.log("selected :>> ", this.selected);
+
       if (this.selected > 0) {
         let options = {
           maxRecords: parseInt(this.selected),

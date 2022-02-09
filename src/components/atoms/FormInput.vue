@@ -1,7 +1,7 @@
 <template>
-  <Stack :class="['form-group', !!error && 'has-error']">
+  <div :class="['form-group', !!error && 'has-error']">
     <div class="icon">
-      <label v-show="label" class="form-label" for="email">{{ label }}</label>
+      <label v-if="label" class="form-label" for="email">{{ label }}</label>
       <input
         :placeholder="placeholder"
         :id="name"
@@ -9,7 +9,7 @@
         :type="type"
         :value="value"
         class="text-orange-800 w-4/5 md:w-5/6"
-        @input="$emit('input', $event.target.value)"
+        @input="$emit('onInputChanged', $event.target.value)"
         @blur="$emit('validate')"
         @keypress="$emit('validate')"
       />
@@ -18,7 +18,7 @@
       </i>
     </div>
     <p class="" v-if="!!error">{{ error }}</p>
-  </Stack>
+  </div>
 </template>
 
 <script>
@@ -31,8 +31,13 @@ export default {
     label: { required: true },
     name: { required: true },
     value: { required: true },
-    error: { required: true },
+    error: { required: false },
     placeholder: { required: false },
+
+    // vertical: {
+    //   required: false,
+    //   default: true,
+    // },
   },
   components: {
     Row,

@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     border() {
-      return "border-red border-4";
+      return "border-4";
     },
   },
 };

@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     setRange(range) {
-      this.$store.state.range = range;
+      this.$store.setRange(range);
     },
   },
   computed: {

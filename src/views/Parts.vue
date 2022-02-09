@@ -4,7 +4,7 @@
       !parts.show ? "Add Parts" : "View Parts"
     }}</Brandon>
 
-    <PartsGallery v-show="!parts.show" />
+    <PartsGallery v-if="!parts.show" />
 
     <AddParts />
   </Section>

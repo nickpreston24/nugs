@@ -16,7 +16,7 @@
       <span v-if="devmode">{{ { ...order } }}</span>
       <label v-if="force > 0" v-bind="force">Force: {{ force }}</label>
       <label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</label>
-      <Button v-show="ready" v-on:click="addOrder">
+      <Button v-if="ready" v-on:click="addOrder">
         <div>
           <i class="fa fa-star fa-xs"></i>
         </div>

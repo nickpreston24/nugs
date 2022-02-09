@@ -3,7 +3,53 @@
 @tailwind utilities;
 
 @layer components {
-    .btn-primary {
-        /* @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover: bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75; */
-    }
+
+    /* Text */
+
+}
+
+/* Global utility classes */
+.btn-primary {
+    @apply m-0 text-white bg-orange-500 inline-flex items-center font-semibold rounded-md shadow-sm border-white border-4;
+}
+
+.btn-primary:hover {
+    @apply text-tahiti-500
+}
+
+/* Added a focus-within to button won't lose focus w/ dropdown class or html select */
+.btn-primary:focus-within .dropdown .select {
+    @apply outline-none ring-2 ring-tahiti-400 ring-opacity-75
+}
+
+
+/* The following are From: https://youtu.be/Qhaz36TZG5Y?list=TLPQMDkwMjIwMjI3gsnCHkv2gA */
+/* .grid {
+    display: grid;
+    grid-template-columns: 1fr 500px 1fr;
+    grid-template-rows: 100px 200px;
+} */
+
+.article {
+    width: clamp(200px, 50%, 600px);
+}
+
+/* Aspect Ratio (hack) */
+/* .container-16x9 {
+    position: relative;
+    padding-top: 56.25%;
+}
+
+video {
+    width: 100%;
+    position: absolute;
+    top: 0;
+} */
+
+
+/* Aspect Ratio (browser dependent) */
+
+video {
+    width: 100%;
+    aspect-ratio: 16/9;
 }

@@ -1,7 +1,7 @@
 // https://codepen.io/philcheng/pen/YWyYwG?editors=1000 //
 https://www.30secondsofcode.org/css/s/image-hover-rotate
 <template>
-  <div v-show="part.Name" class="container text-arctic-400">
+  <div v-if="part.Name" class="container text-arctic-400">
     <figure>
       <!-- Show Image -->
       <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
@@ -30,12 +30,15 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
 
 <script>
 import Stack from "../flex/Stack.vue";
+import FormInput from "../components/atoms/FormInput.vue";
+
 export default {
   props: {
     part: Object,
   },
   components: {
     Stack,
+    FormInput,
   },
 };
 </script>

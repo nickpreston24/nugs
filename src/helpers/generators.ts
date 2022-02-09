@@ -48,33 +48,31 @@ export const identity = <T>(x: T) => x;
 // export const isFull = (obj: any) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
 
 /*Environment*/
-// console.log('devmode?', process.env.NODE_ENV)
-export const devmode = () => process.env.NODE_ENV !== "production";
-
+export const devmode = (() => process.env.NODE_ENV !== "production")();
+// console.log('devmode', devmode);
 
 /**Random Int */
-export const random =
-{
-  Boolean: () => Math.random() > 0.5
-  , Float: (limit = 1) => {
+export const random = {
+  Boolean: () => Math.random() > 0.5,
+  Float: (limit = 1) => {
     let float = parseFloat((Math.random() * limit).toFixed(2));
     return float;
-  }
-  , Int: (limit: number) => Math.ceil(Math.random() * limit)
-  , Name: (prefix: string, postFix: string, limit = 100) =>
-    `${prefix} ${random.Int(limit)} ${postFix}`
-  , Paragraph: () => lorems[random.Int(lorems.length + 1)]
-  , Shuffle: (array: []) => {
+  },
+  Int: (limit: number) => Math.ceil(Math.random() * limit),
+  Name: (prefix: string, postFix: string, limit = 100) =>
+    `${prefix} ${random.Int(limit)} ${postFix}`,
+  Paragraph: () => lorems[random.Int(lorems.length + 1)],
+  Shuffle: (array: []) => {
     if (array == null) array = [];
     for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
+      const j = Math.floor(Math.random() * (i + 1));
       const temp = array[i];
       array[i] = array[j];
       array[j] = temp;
     }
     return array;
-  }
-}
+  },
+};
 
 const lorems = [
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, veniam voluptatem. Aliquam impedit eaque eveniet eligendi id quia nostrum accusamus, excepturi dolor, alias animi? Assumenda necessitatibus error nesciunt blanditiis nihil.",

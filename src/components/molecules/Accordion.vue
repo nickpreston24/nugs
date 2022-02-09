@@ -29,7 +29,7 @@
         <div
           :ref="'body-' + listItem.id"
           style="margin-top: 8px; display: none; height: 100px"
-          v-show="expandElement(listItem)"
+          v-if="expandElement(listItem)"
         >
           <div id="accordion-content">
             <slot name="content"></slot>

@@ -1,9 +1,16 @@
 <template>
-  <div class="grid-flex">
+  <div class="grid grid-flex">
     <slot></slot>
   </div>
 </template>
 <style scoped>
+/* The following are From: https://youtu.be/Qhaz36TZG5Y?list=TLPQMDkwMjIwMjI3gsnCHkv2gA */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 500px 1fr;
+  grid-template-rows: 100px 200px;
+}
+
 .grid-flex {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));

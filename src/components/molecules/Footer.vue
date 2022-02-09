@@ -1,8 +1,30 @@
 <template>
-  <div class="text-midnight bg-gradient-to-r from-tahiti-500 to-ocean-500">
-    <slot></slot>
-  </div>
-  <!-- 
+  <Row class="text-midnight bg-gradient-to-r from-tahiti-500 to-ocean-500">
+    <Border class="w-1/3">
+      <slot name="left"></slot>
+    </Border>
+    <Border class="w-1/3">
+      <slot></slot>
+    </Border>
+    <Border class="w-1/3">
+      <slot name="right"></slot>
+    </Border>
+  </Row>
+</template>
+<script>
+import { Right, Left, Row } from "../../components/flex";
+import { Border } from "../../components/atoms";
+export default {
+  components: {
+    Left,
+    Right,
+    Row,
+    Border,
+  },
+};
+</script>
+
+<!-- 
 TODO: https://vuetifyjs.com/en/introduction/roadmap/#v30-titan
   <v-footer dark padless>
     <v-card flat tile class="text-center indigo lighten-1 white--text">
@@ -32,4 +54,6 @@ TODO: https://vuetifyjs.com/en/introduction/roadmap/#v30-titan
       </v-card-text>
     </v-card>
   </v-footer>
---></template>
+
+  
+-->

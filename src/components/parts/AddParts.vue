@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="gentle-flex">
-      <ul v-show="true">
+      <ul v-if="true">
         <li class="p-2" v-for="(value, key, index) in part" :key="index">
           <Label>{{ key }}:</Label>
           <input
@@ -13,11 +13,11 @@
         </li>
       </ul>
 
-      <span v-show="devmode">{{ { ...part } }}</span>
+      <span v-if="devmode">{{ { ...part } }}</span>
       <Label v-if="force > 0" v-bind="force">Force: {{ force }}</Label>
       <Label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</Label>
       <List>
-        <Button v-show="ready" v-on:click="addPart">Add Part</Button>
+        <Button v-if="ready" v-on:click="addPart">Add Part</Button>
         <Button @click="lorem" v-if="devmode">Lorem</Button>
         <Button @click="clear">X</Button>
       </List>
@@ -86,7 +86,7 @@ export default {
   },
   data() {
     return {
-      devmode: devmode(),
+      devmode: devmode,
       part: state,
     };
   },

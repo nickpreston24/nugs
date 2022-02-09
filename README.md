@@ -17,7 +17,7 @@ Recipe - A "grocery list" (parts list) in checklist format to make buying and bu
 
 ## Major
 
-1. Builds should be recorded by Neo4j and can be 'liked' and shared with buddies.
+1. Builds should be recorded by [Neo4j](https://neo4j.com/) and can be 'liked' and shared with buddies.
 2. Builds should be updated and treated as a Todo list of Parts
 3. [Upload Part Images](https://serversideup.net/courses/guide-uploading-files-vuejs-axios/)
 
@@ -49,7 +49,7 @@ Recipe - A "grocery list" (parts list) in checklist format to make buying and bu
 - [x] Add a generic Controller or Hook for Vue using the Composition API, to encourage sharing between components. 🐫
 - [x] Add Basic Update forms and Update functions to the useTable hook.
 
-# Nice to Have:
+# Nice to Have
 - [ ] [Percentage Circle](https://vuejsexamples.com/css-percentage-circle-built-with-vue-js/)
 
 - [ ] [Radial Progress](https://vuejsexamples.com/a-smart-and-light-radial-progress-bar-component-for-vue-3/)
@@ -57,7 +57,7 @@ Recipe - A "grocery list" (parts list) in checklist format to make buying and bu
 - [x] [Number Slider](https://vuejsexamples.com/vue-3-slider-component-with-multihandles-and-formatting/)
 
 
-# Help or Guide:
+# Help or Guide
 
 * Normal pic to [fancy SVG pattern](https://picsvg.com/)
 * [Toasts](https://vuejsexamples.com/a-vue-toast-plugin-that-lets-you-create-your-own-toast-component/)
@@ -65,6 +65,11 @@ Recipe - A "grocery list" (parts list) in checklist format to make buying and bu
 * [Form builder in Vue](https://vueformulate.com/)
 * [Automated Web Scraping with Chron and Python](https://towardsdatascience.com/automated-web-scraping-python-cron-e6bedf4c39eb) See your spider.py implementation
 * API playground for vue https://functions.netlify.com/playground/
+
+
+## Guiding Principles
+### [Atomic Design](https://atomicdesign.bradfrost.com/chapter-2/)
+![icon](https://atomicdesign.bradfrost.com/images/content/atomic-design-process.png)
 
 # Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

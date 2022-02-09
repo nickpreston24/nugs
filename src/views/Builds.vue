@@ -11,8 +11,7 @@
         <BuildsGallery v-if="views.gallery.show" />
 
         <!-- DEV Toggles -->
-
-        <Row>
+        <Row v-if="devmode">
           <div v-for="(item, key, index) in views">
             <label class="" for="checkbox">{{ key }}</label>
             <input type="checkbox" id="key" v-model="views" />
@@ -27,9 +26,7 @@
           <Row class="gap-10">
             <Stack class="gap-0.5">
               <!-- <p class="text-tiny text-orange-300">(coming soon)</p> -->
-              <brandon
-                class="btn-primary transform transition-all hover:scale-75 bg-gray-300"
-              >
+              <brandon class="transform transition-all hover:scale-125">
                 Big Blaster Builder
               </brandon>
             </Stack>
@@ -98,11 +95,12 @@
         <Stack>
           <PartCard class="" :part="part" v-for="part in parts" :key="part.id">
             <button @click="addToChecklist(part)">Add</button>
+            <p v-if="devmode">{{ new Date() }}</p>
           </PartCard>
         </Stack>
 
         <!-- Builder -->
-        <Grid v-show="false">
+        <Grid v-if="false">
           <card
             class="gallery-panel border-4 max-w-2xl"
             v-for="part in parts"
@@ -246,13 +244,13 @@ export default {
   data() {
     return {
       views: {
-        gallery: { show: true },
-        builder: { show: true },
+        gallery: { show: false },
+        builder: { show: false },
         budgetBuild: { show: false },
-        randomBuild: { show: true },
+        randomBuild: { show: false },
       },
 
-      devmode: devmode(),
+      devmode: devmode,
 
       build: {
         // profile: { id: "12345", Name: "MP" },
@@ -305,11 +303,8 @@ export default {
   },
   methods: {
     getRandomBuild() {
+      this.views.randomBuild.show = true;
       this.build.parts = random.Shuffle(this.parts).take(3);
-      // .map((p = p.Name));
-      // random.Shuffle(this.parts);
-      // this.build.parts = random.Shuffle(this.parts).take(5);
-      // this.views.randomBuild.show = true;
     },
     addToChecklist(part) {
       console.log("part", part);
@@ -317,11 +312,9 @@ export default {
       // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
       // const { checklist } = this;
       // const { buffer, upper, buttstock, lower } = checklist;
-      // return null;
     },
     setRange(range) {
-      console.log("range", range);
-      this.$store.state.range = range;
+      this.$store.setRange(range);
     },
     computed: {
       range() {

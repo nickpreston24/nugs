@@ -150,7 +150,7 @@ export const findAll = (table: string = null, limit = 10) => {
   //       }
   //     }
   //   );
-  console.log(`result (findall)`, result);
+  devmode && console.log(`result (findall)`, result);
 
   // devmode && console.log(`Returning result ... `, result[0])
   return formatRecords(result);
