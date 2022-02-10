@@ -28,7 +28,7 @@
 <style scoped></style>
 
 <script>
-import { create } from "../../../data/airtable-curl";
+//import { create } from "../../../data/airtable-curl";
 import { useState } from "@hookstate/vue";
 import { empties } from "../../helpers/array.ts";
 import Label from "../atoms/Label.vue";

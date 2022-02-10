@@ -2,7 +2,6 @@
   <Stack>
     <Border class="w-full h-1/2">
       <slot name="header"></slot>
-      <DevConsole />
     </Border>
 
     <Border class="w-full h-2/3">
@@ -28,14 +27,12 @@
 <script>
 import Border from "../../components/atoms/Border.vue";
 import { Row, Right, Stack } from "../../components/flex";
-import DevConsole from "../../components/molecules/DevConsole.vue";
 export default {
   components: {
     Border,
     Row,
     Right,
     Stack,
-    DevConsole,
   },
 };
 </script>

@@ -4,47 +4,28 @@
     <template v-slot:header>
       <header-bar>
         <template v-slot:left>
-          <Shadow class="m-2">
+          <!-- <LogoSVG /> -->
+
+          <!-- <pre class="text-tiny">{{ show }}</pre> -->
+          <!-- <Shadow v-if="show.logo" class="m-2">
             <Row>
               <i class="fa fa-pause"></i>
               <p>Your Logo HERE</p>
             </Row>
-          </Shadow>
+          </Shadow> -->
         </template>
-        <Stack class="bg-white-500 h-32">
-          <Shadow className="inset" class="text-orange-300"
-            >Toggle Sandbox Components</Shadow
-          >
-          <Border>
-            <Settings :options="show" />
-          </Border>
-          <Button @click="toggle('borders')">Toggle Borders</Button>
+        <Stack class="bg-white-500 h-max">
+          <Shadow type="inset" class="text-orange-300">
+            Toggle Sandbox Components
+          </Shadow>
+
+          <button @click="toggle('borders')">Toggle Borders</button>
           <!-- <pre class="text-tiny">{{ values }}</pre> -->
         </Stack>
         <template v-slot:right>
-          <Stack class="bg-orange-500 h-32 w-1/3">
-            <form class="login-form" @submit.prevent="loginUser">
-              <Row>
-                <form-input
-                  :vertical="false"
-                  label="Email"
-                  placeholder="Email"
-                  v-model="values.email"
-                  type="email"
-                  name="email"
-                  :error="errors.email"
-                ></form-input>
-                <form-input
-                  :vertical="false"
-                  label="Password"
-                  v-model="values.password"
-                  type="password"
-                  name="password"
-                  :error="errors.password"
-                ></form-input>
-                <button class="btn btn-primary btn-block">Login</button>
-              </Row>
-            </form>
+          <Stack class="bg-orange-500">
+            <Shadow type="pop" class="text-white">Hello There!</Shadow>
+            <!-- <Settings :options="show" /> -->
           </Stack>
         </template>
       </header-bar>
@@ -57,13 +38,17 @@
           class="pencil-effect"
           src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
         />
+        <p v-else>TOP</p>
       </div>
     </template>
     <template v-slot:left>
-      <div class="bg-pink-500 h-64 w-128"></div>
+      <div class="bg-pink-500 h-64 w-128">LEFT</div>
     </template>
     <template v-slot:right>
-      <div class="bg-pink-500 h-64 w-128">RIGHT</div>
+      <div class="bg-pink-500 h-64 w-128">
+        <!-- <Settings :options="show" /> -->
+        RIGHT
+      </div>
     </template>
     <template v-slot:bottom>
       <div v-if="show.grid" class="bg-pink-500 h-64 w-128">
@@ -80,20 +65,6 @@
 
   <div v-if="false" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
     <div class="container" v-if="false"></div>
-
-    <div id="demo">
-      <Button @click="show = !show">Toggle</Button>
-
-      <transition name="fade">
-        <p v-if="show">hello</p>
-      </transition>
-    </div>
-
-    <Button>Wiggle</Button>
-
-    <transition name="wiggle spin-slow" class="wiggle spin-slow">
-      <p>Wiggle</p>
-    </transition>
 
     <Button type="button" class="bg-red-600" disabled>
       <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
@@ -145,6 +116,7 @@ import Dashboard from "../components/templates/Dashboard.vue";
 import { Row, Stack } from "../components/flex";
 import { Shadow } from "../components/atoms";
 import FormInput from "../components/atoms/FormInput.vue";
+// import { curry } from "../helpers/fn.js";
 
 export default {
   components: {
@@ -182,7 +154,6 @@ export default {
   },
   data() {
     return {
-      show: false,
       devmode: devmode,
       info: { db: null, result: null, message: "" },
 
@@ -201,7 +172,8 @@ export default {
       show: {
         pencilImg: false,
         grid: false,
-        svgs: true,
+        svgs: false,
+        logo: false,
       },
     };
   },

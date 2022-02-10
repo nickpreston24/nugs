@@ -43,13 +43,13 @@ button {
 </style>
 
 <script>
-import { createOrders } from "../../data/airtable-curl";
+//// import { createOrders } from "../../data/airtable-curl";
 import { isEmpty, devmode, random } from "../helpers/generators";
 export default {
   methods: {
     async addOrder() {
-      await createOrders([{ ...this.order }]);
-      this.clear();
+      // await createOrders([{ ...this.order }]);
+      // this.clear();
     },
     clear() {
       this.order = {

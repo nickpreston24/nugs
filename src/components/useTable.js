@@ -1,5 +1,4 @@
 import { ref, onMounted, toRefs, reactive, toRef } from "vue";
-import { findAll, formatRecords, get, pagify } from "../../data/airtable-curl";
 import { devmode } from "../helpers/generators";
 import axios from "axios";
 
@@ -10,19 +9,35 @@ function concat(...args) {
 const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
 const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY;
 
+export const formatRecords = (records = []) => {
+    let collection = [].concat(records);
+
+    const format = (record) => {
+        if (!record) return {};
+        let { id, fields } = record;
+        return {
+            id,
+            ...fields,
+        };
+    };
+    let result =
+        collection.length > 0 ? collection.map(format) : format(collection);
+
+    return result;
+};
+
 /** A reactive generic repository */
 export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) {
-    console.log('maxRecords', maxRecords);
+    console.log("maxRecords", maxRecords);
     const state = ref({
         records: [], //the current state for whatever table you're on.
         table: tableName, // current table
 
-        maxRecords
+        maxRecords,
     });
-    const current = state.value
+    const current = state.value;
 
-
-    devmode && console.log('current', current);
+    devmode && console.log("current", current);
     onMounted(() => {
         axios({
             url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
@@ -40,7 +55,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
     });
 
     const searchTable = async (options = { fields: [] }, tableName = "Parts") => {
-        console.log('options :>> ', options);
+        console.log("options :>> ", options);
         let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`;
         for (let i = 0; i < fields.length; i++) {
             const field = fields[i];
@@ -50,7 +65,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
             url.concat(`fields%5B%5D=${field}`);
         }
 
-        devmode && console.log('url', url);
+        devmode && console.log("url", url);
 
         axios({
             url,
@@ -105,22 +120,20 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
     };
 
     const patchRecord = (table = null, data = null) => {
-
         if (table) current.table = table;
 
-        const url = `https://api.airtable.com/v0/${baseKey}/${table}`
+        const url = `https://api.airtable.com/v0/${baseKey}/${table}`;
         const headers = {
             "Content-Type": "Content-Type: application/json",
             Authorization: `Bearer ${apiKey}`,
-        }
-        axios.patch(url, data, headers)
-            .then((result) => {
-                console.log("result", result);
-                let raw = formatRecords(result?.data?.records);
-                current.records = raw;
-                console.log("current.records", current.records);
-            });
-    }
+        };
+        axios.patch(url, data, headers).then((result) => {
+            console.log("result", result);
+            let raw = formatRecords(result?.data?.records);
+            current.records = raw;
+            console.log("current.records", current.records);
+        });
+    };
 
     return { state: current, searchTable, getById, patchRecord };
 }

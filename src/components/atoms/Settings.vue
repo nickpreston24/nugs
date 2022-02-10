@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <Row>
-      <div v-for="(item, key, index) in options">
-        <label :for="item.id">{{ key }}</label>
-        <input
-          type="checkbox"
-          v-model="options"
-          :id="item.index"
-          :value="item[togglePropName]"
-          @click="item[togglePropName] = !item[togglePropName]"
-          @input="$emit('onOptionChanged', $event.target.value)"
-        />
-      </div>
-    </Row>
-  </div>
+  <Row>
+    <div v-for="(item, key, index) in options">
+      <label :for="key">{{ key }}</label>
+      <input
+        type="checkbox"
+        v-model="options"
+        :id="index"
+        :value="value"
+        @click="options[propName || key] = !options[propName || key]"
+        @input="$emit('onOptionChanged', $event.target.value)"
+      />
+    </div>
+  </Row>
 </template>
 <script>
-import { Row } from "../../components/flex";
+import Row from "../../components/flex/Row.vue";
 export default {
   props: {
     options: {
@@ -26,10 +24,10 @@ export default {
     isToggle: {
       default: false,
     },
-    togglePropName: {
+    propName: {
       type: String,
       required: false,
-      default: "enabled",
+      // default: "enabled",
     },
   },
 };

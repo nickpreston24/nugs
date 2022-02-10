@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="{ color: color }" :class="className">
+  <div v-bind:style="{ color: color }" :class="type">
     <slot></slot>
   </div>
 </template>
@@ -10,7 +10,7 @@ export default {
       type: String,
       default: "rgba(0,0,0,0.0)",
     },
-    className: {
+    type: {
       type: String,
       required: false,
       default: "inset",
