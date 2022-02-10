@@ -7,18 +7,24 @@
           <Shadow class="m-2">
             <Row>
               <i class="fa fa-pause"></i>
-              <h1>Your Logo HERE</h1>
+              <p>Your Logo HERE</p>
             </Row>
           </Shadow>
         </template>
-        <div class="bg-orange-500 h-32">
-          <!-- <Button @click="toggle('borders')">Toggle Borders</Button> -->
+        <Stack class="bg-white-500 h-32">
+          <Shadow className="inset" class="text-orange-300"
+            >Toggle Sandbox Components</Shadow
+          >
+          <Border>
+            <Settings :options="show" />
+          </Border>
+          <Button @click="toggle('borders')">Toggle Borders</Button>
           <!-- <pre class="text-tiny">{{ values }}</pre> -->
-        </div>
+        </Stack>
         <template v-slot:right>
-          <div class="bg-orange-500 h-32">
+          <Stack class="bg-orange-500 h-32 w-1/3">
             <form class="login-form" @submit.prevent="loginUser">
-              <div>
+              <Row>
                 <form-input
                   :vertical="false"
                   label="Email"
@@ -37,9 +43,9 @@
                   :error="errors.password"
                 ></form-input>
                 <button class="btn btn-primary btn-block">Login</button>
-              </div>
+              </Row>
             </form>
-          </div>
+          </Stack>
         </template>
       </header-bar>
     </template>
@@ -47,6 +53,7 @@
     <template v-slot:top>
       <div class="bg-pink-500 h-64 w-full">
         <img
+          v-if="show.pencilImg"
           class="pencil-effect"
           src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
         />
@@ -59,7 +66,7 @@
       <div class="bg-pink-500 h-64 w-128">RIGHT</div>
     </template>
     <template v-slot:bottom>
-      <div class="bg-pink-500 h-64 w-128">
+      <div v-if="show.grid" class="bg-pink-500 h-64 w-128">
         <Grid class="w-full">
           <Border class="bg-ocean-500 h-32 w-32"></Border>
           <Border class="bg-ocean-500 h-32 w-32"></Border>
@@ -129,6 +136,7 @@
 import TailwindCard from "../components/examples/TailwindCard.vue";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
+import Settings from "../components/atoms/Settings.vue";
 import Border from "../components/atoms/Border.vue";
 // import useTable from "../components/useTable";
 import axios from "axios";
@@ -149,12 +157,10 @@ export default {
     Dashboard,
     Shadow,
     FormInput,
+    Settings,
   },
-  setup() {
-    // let { state } = useTable("Builds");
-    // return {
-    //   state,
-    // };
+  created() {
+    this.toggle("borders");
   },
   methods: {
     toggle(setting = "") {
@@ -172,28 +178,7 @@ export default {
 
     onInputChanged(e) {
       console.log("e", e);
-      // console.log("value", value);
     },
-
-    // onSubmit: async (e) => {
-    //   await e.preventDefault();
-
-    //   // const res = await fetch("api/orders/1234?name=severus", {
-    //   //   method: "POST",
-    //   //   headers: {
-    //   //     "Content-Type": "application/json",
-    //   //   },
-    //   //   // body: JSON.stringify({ to: number, body: body }),
-    //   // });
-
-    //   // const data = await res.json();
-    //   // console.log("data", data);
-    //   // if (data.success) {
-    //   //   alert("success!");
-    //   // } else {
-    //   //   console.log("failed");
-    //   // }
-    // },
   },
   data() {
     return {
@@ -213,7 +198,11 @@ export default {
         password: "",
         email: "",
       },
-      // sandboxViews: [],
+      show: {
+        pencilImg: false,
+        grid: false,
+        svgs: true,
+      },
     };
   },
 
@@ -227,6 +216,7 @@ export default {
   background-image: url(../assets/icons/svgs/triangles.svg);
 }
 
+/* https://blog.logrocket.com/advanced-effects-with-css-background-blend-modes-4b750198522a/ */
 .pencil-effect {
   background-size: cover;
   background-blend-mode: difference;

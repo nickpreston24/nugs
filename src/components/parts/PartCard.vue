@@ -30,7 +30,6 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
 
 <script>
 import Stack from "../flex/Stack.vue";
-import FormInput from "../components/atoms/FormInput.vue";
 
 export default {
   props: {
@@ -38,7 +37,6 @@ export default {
   },
   components: {
     Stack,
-    FormInput,
   },
 };
 </script>
