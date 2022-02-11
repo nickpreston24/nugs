@@ -32,7 +32,6 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
     const state = ref({
         records: [], //the current state for whatever table you're on.
         table: tableName, // current table
-
         maxRecords,
     });
     const current = state.value;

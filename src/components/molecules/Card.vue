@@ -1,17 +1,18 @@
 <template>
+  <!-- NOTE: I'm keeping the 'card' class a required so that animated grids can keyframe it -->
   <div
+    class="flex flex-col justify-center items-center overflow-hidden"
     v-bind:class="animation"
-    class="flex flex-col justify-center py-6 sm:py-12 text-white bg-regal-600"
     @mouseover="isHovering = true"
     @mouseout="isHovering = false"
   >
-    <div id="card-header" class="relative py-3 sm:max-w-xl sm:mx-auto h-1/3">
+    <div>
       <slot name="header"></slot>
     </div>
-    <div id="card-content" class="h-.30">
+    <div>
       <slot></slot>
     </div>
-    <div id="card-footer">
+    <div>
       <slot name="footer"></slot>
     </div>
   </div>
@@ -30,3 +31,4 @@ export default {
   },
 };
 </script>
+<style></style>

@@ -1,7 +1,10 @@
 // https://codepen.io/philcheng/pen/YWyYwG?editors=1000 //
 https://www.30secondsofcode.org/css/s/image-hover-rotate
 <template>
-  <div v-if="part.Name" class="container text-arctic-400">
+  <div
+    v-if="part.Name"
+    class="container card flex flex-col items-center text-arctic-400 overflow-hidden"
+  >
     <figure>
       <!-- Show Image -->
       <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">

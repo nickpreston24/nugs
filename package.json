@@ -23,6 +23,7 @@
     "postcss": "^8.4.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.17",
     "vue": "^3.0.4",
+    "vue-inline-svg": "^2.1.0",
     "vue-router": "4",
     "vue-youtube-embed": "^2.2.2",
     "vue3-radial-progress": "^1.1.0",
@@ -50,7 +51,8 @@
     "tailwindcss": "^3.0.7",
     "typescript": "~4.5.4",
     "vite": "^2.7.6",
-    "vue-cli-plugin-tailwind": "~2.2.18"
+    "vue-cli-plugin-tailwind": "~2.2.18",
+    "vue-svg-loader": "^0.17.0-beta.2"
   },
   "license": "ISC"
 }

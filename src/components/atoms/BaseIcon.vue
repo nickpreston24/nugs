@@ -1,34 +1,24 @@
 <template>
-  <component
-    :is="iconComponent"
-    role="img"
+  <div
+    v-html="import(`../assets/icons/${name}.svg`)"
     class="inline-block fill-current"
-    style="height: 1em; width: 1em"
+    style="height: 1em; width: 1em; vertical-align: -0.125em"
   />
 </template>
 
 <script>
-const icons = {
-  // home: require("./icons/HomeIcon.vue"),
-  // user: require("./icons/UserIcon.vue"),
-  // ...
-};
-
+// option 3 from: https://jessarcher.com/blog/creating-an-icon-component-in-vue/
 export default {
   props: {
     name: {
       type: String,
       required: true,
-      validator(value) {
-        return Object.prototype.hasOwnProperty.call(icons, value);
-      },
     },
   },
-
-  computed: {
-    iconComponent() {
-      return icons[this.name];
-    },
-  },
+  // data() {
+  //   return {
+  //     svg: import(`../assets/icons/${name}.svg`),
+  //   };
+  // },
 };
 </script>

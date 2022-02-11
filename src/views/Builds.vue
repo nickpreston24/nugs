@@ -1,7 +1,7 @@
 <template>
   <div class="builds">
     <Section class="text-purple-400">
-      <Stack>
+      <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
         <Button v-if="false" @click="views.gallery.show = !views.gallery.show">{{
@@ -48,10 +48,10 @@
           <Stack v-else-if="views.randomBuild.show">
             <!-- TODO: Create Randomizer Button & Parts Row set -->
 
-            <label class="text-orange-300">Build List:</label>
+            <!-- <label class="text-orange-300">Build List:</label>
             <pre v-if="devmode">{{ build }}</pre>
             <label class="text-orange-300">Checklist:</label>
-            <pre v-if="devmode">{{ checklist }}</pre>
+            <pre v-if="devmode">{{ checklist }}</pre> -->
           </Stack>
         </Stack>
 
@@ -92,12 +92,12 @@
         https://codepen.io/philcheng/pen/YWyYwG?editors=1000
          -->
 
-        <Stack>
-          <PartCard class="" :part="part" v-for="part in parts" :key="part.id">
+        <section class="feed-grid card-tall card-wide">
+          <PartCard :part="part" v-for="part in parts" :key="part.id">
             <button @click="addToChecklist(part)">Add</button>
             <p v-if="devmode">{{ new Date() }}</p>
           </PartCard>
-        </Stack>
+        </section>
 
         <!-- Builder -->
         <Grid v-if="false">
@@ -192,7 +192,7 @@
           height="1014"
           style="background: transparent; border: 1px solid #ccc"
         ></iframe>
-      </Stack>
+      </div>
     </Section>
   </div>
 </template>
@@ -287,7 +287,7 @@ export default {
   },
 
   setup() {
-    let { state, searchTable, getById } = useTable("Parts", 10);
+    let { state, searchTable, getById } = useTable("Parts", { maxRecords: 100 });
 
     const completedSteps = ref(5);
     const totalSteps = ref(10);
@@ -338,10 +338,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-html,
-body {
-  min-height: 100vh;
-  background-color: #030303;
-}
-</style>
