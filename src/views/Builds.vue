@@ -8,7 +8,7 @@
           views.gallery.show ? "Add Builds" : "View Builds"
         }}</Button>
 
-        <BuildsGallery v-if="views.gallery.show" />
+        <!-- <BuildsGallery v-if="views.gallery.show" /> -->
 
         <!-- DEV Toggles -->
         <Row v-if="devmode">
@@ -23,9 +23,18 @@
         <!-- Slider bar -->
         <Stack>
           <h1 class="text-7xl text-purple-500">Build options</h1>
+
+          <Spinner
+            v-if="false"
+            :animation-duration="2000"
+            :size="60"
+            class="color-arctic-500"
+            color="grey"
+          />
+          <!-- <pre>{{ loading }}</pre> -->
+
           <Row class="gap-10">
             <Stack class="gap-0.5">
-              <!-- <p class="text-tiny text-orange-300">(coming soon)</p> -->
               <brandon class="transform transition-all hover:scale-125">
                 Big Blaster Builder
               </brandon>
@@ -88,16 +97,13 @@
           </chip>
         </Grid> -->
 
-        <!-- Sample CSS Image hover show button
-        https://codepen.io/philcheng/pen/YWyYwG?editors=1000
-         -->
-
-        <section class="feed-grid card-tall card-wide">
-          <PartCard :part="part" v-for="part in parts" :key="part.id">
-            <button @click="addToChecklist(part)">Add</button>
-            <p v-if="devmode">{{ new Date() }}</p>
-          </PartCard>
-        </section>
+        <Grid mode="photo">
+          <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
+            <PartCard :part="part">
+              <button @click="addToChecklist(part)">Add</button>
+            </PartCard>
+          </card>
+        </Grid>
 
         <!-- Builder -->
         <Grid v-if="false">
@@ -204,7 +210,7 @@ import { UniqueArray, unique } from "../helpers/array.ts";
 import { nameOf } from "../helpers";
 
 import PartCard from "../components/parts/PartCard.vue";
-import Button from "../components/atoms/Button.vue";
+import { Button } from "../components/atoms";
 import Brandon from "../components/atoms/Brandon.vue";
 // import Toggle from "../components/atoms/Toggle.vue";
 import Chip from "../components/atoms/Chip.vue";
@@ -220,7 +226,7 @@ import Gradient from "../components/atoms/Gradient.vue";
 import SVGButton from "../components/atoms/SVGButton.vue";
 import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
-
+import { Shadow } from "../components/atoms";
 import { ref } from "vue";
 
 export default {
@@ -240,6 +246,7 @@ export default {
     RadialProgressBar,
     Brandon,
     PartCard,
+    Shadow,
   },
   data() {
     return {
@@ -253,7 +260,6 @@ export default {
       devmode: devmode,
 
       build: {
-        // profile: { id: "12345", Name: "MP" },
         parts: [],
       },
     };
@@ -287,7 +293,9 @@ export default {
   },
 
   setup() {
-    let { state, searchTable, getById } = useTable("Parts", { maxRecords: 100 });
+    let { state, searchTable, getById, loading, error } = useTable("Parts", {
+      maxRecords: 14,
+    });
 
     const completedSteps = ref(5);
     const totalSteps = ref(10);

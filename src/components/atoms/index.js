@@ -7,16 +7,17 @@ import Label from './Label.vue'
 import Chip from './Chip.vue'
 import Gradient from './Gradient.vue'
 import Shadow from './Shadow.vue'
+import Button from './Button.vue'
 
 export {
     BlackHoleIcon,
     Border,
     BorderedIcon, BorderShiftButton,
-    Image
-    ,
+    Image,
     Shadow,
     Label,
     Chip,
-    Gradient
+    Gradient,
+    Button
 
 }

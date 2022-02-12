@@ -3,3 +3,13 @@
 @tailwind components;
 
 @tailwind utilities;
+
+input.bullet-border {
+  border: 2px solid #42b983;
+  border-radius: 0% 50% 50% 0%;
+  outline: none;
+}
+
+.img-upload {
+  font-family: fantasy;
+}

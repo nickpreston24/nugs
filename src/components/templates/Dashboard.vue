@@ -1,7 +1,9 @@
 <template>
   <Stack>
     <Border class="w-full h-1/2">
-      <slot name="header"></slot>
+      <div>
+        <slot name="header"></slot>
+      </div>
     </Border>
 
     <Border class="w-full h-2/3">
@@ -26,13 +28,14 @@
 </template>
 <script>
 import Border from "../../components/atoms/Border.vue";
-import { Row, Right, Stack } from "../../components/flex";
+import { Row, Right, Stack, Grid } from "../../components/flex";
 export default {
   components: {
     Border,
     Row,
     Right,
     Stack,
+    Grid,
   },
 };
 </script>

@@ -1,37 +1,9 @@
 <template>
-  <section class="photo-grid">
+  <section class="card-wide card-tall" :class="class">
     <slot></slot>
   </section>
 </template>
 <style scoped>
-/* .feed-grid {
-  display: grid;
-  gap: 1rem;
-
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-}
-
-.photo-grid {
-  display: grid;
-  gap: 1rem;
-
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-auto-rows: 240px;
-} */
-
-@media screen and (min-width: 600px) {
-  .card-tall {
-    /*  automatically spans from column 1 and ends at col 2;*/
-    /* grid-row: span 1 / 4; */
-    grid-row: span 2 / auto;
-  }
-
-  .card-wide {
-    grid-column: span 2 / auto;
-    /* grid-column: span 1 / 4; */
-  }
-}
-
 /* The following are From: https://youtu.be/Qhaz36TZG5Y?list=TLPQMDkwMjIwMjI3gsnCHkv2gA */
 /* .grid {
   display: grid;
@@ -50,11 +22,17 @@
 </style>
 <script>
 export default {
-  // props: {
-  //   rows: {
-  //     type: String,
-  //     default: 3,
-  //   },
-  // },
+  props: {
+    mode: {
+      type: String,
+      default: "feed",
+    },
+  },
+  computed: {
+    class() {
+      console.log("this.mode", this.mode);
+      return `${this.mode}-grid`;
+    },
+  },
 };
 </script>

@@ -1,123 +1,67 @@
 <template>
-  <div class="">
-    <img
-      v-if="show.pencilImg"
-      class="pencil-effect"
-      src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
-    />
-    <Grid>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-        />
-      </card>
+  <Page class="">
+    <Stack class="bg-white-500 h-max">
+      <Shadow type="inset"> Toggle Components </Shadow>
 
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1634828535553-70267ceac5c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://media.istockphoto.com/photos/cat-snow-leopard-irbis-uncia-uncia-picture-id1306144389"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-        />
-      </card>
-      <card>
-        <img
-          src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-        />
-      </card>
-    </Grid>
+      <Row>
+        <Button
+          theme="show[key] ? bg-ocean-500 hover:text-tahiti-400 : bg-red"
+          v-for="(item, key, index) in show"
+          :key="key"
+          @click="show[key] = !show[key]"
+        >
+          {{ key }}
+        </Button>
+
+        <Button @click="toggle('borders')">Borders</Button>
+      </Row>
+    </Stack>
 
     <!-- <p v-else>TOP</p> -->
-  </div>
-  <dashboard v-if="false" class="text-tahiti-500 text-4xl">
+  </Page>
+  <Dashboard v-if="show.dashboard" class="text-tahiti-500 text-4xl">
     <!--  Header -->
     <template v-slot:header>
       <header-bar>
         <template v-slot:left>
-          <!-- <InlineSvg
-            src="../assets/icons/awesome-face.svg"
-            transformSource="transformSvg"
-            @loaded="svgLoaded($event)"
-            @unloaded="svgUnloaded()"
-            @error="svgLoadError($event)"
-            width="150"
-            height="150"
-            fill="black"
-            aria-label="My image"
-          >
-          </InlineSvg>
-          hello -->
-
-          <!-- <LogoSVG /> -->
-          <!-- <BaseIcon name="svg" /> -->
-
-          <!-- <pre class="text-tiny">{{ show }}</pre> -->
-          <!-- <Shadow v-if="show.logo" class="m-2">
+          <Shadow v-if="show.logo" class="m-2">
             <Row>
               <i class="fa fa-pause"></i>
               <p>Your Logo HERE</p>
             </Row>
-          </Shadow> -->
-        </template>
-        <Stack class="bg-white-500 h-max">
-          <Shadow type="inset" class="text-orange-300">
-            Toggle Sandbox Components
           </Shadow>
+        </template>
 
-          <button @click="toggle('borders')">Toggle Borders</button>
-          <!-- <pre class="text-tiny">{{ values }}</pre> -->
-        </Stack>
+        <img
+          v-if="show.pencilImg"
+          class="pencil-effect"
+          src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
+        />
+
         <template v-slot:right>
-          <Stack class="bg-orange-500">
-            <Shadow type="pop" class="text-white">Hello There!</Shadow>
-            <!-- <Settings :options="show" /> -->
+          <Stack v-if="show.svg">
+            <Button type="button" class="btn-primary bg-red-600" disabled>
+              <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                <bear />
+              </svg>
+              Processing
+            </Button>
+
+            <!-- <InlineSvg
+              src="../assets/icons/awesome-face.svg"
+              transformSource="transformSvg"
+              @loaded="svgLoaded($event)"
+              @unloaded="svgUnloaded()"
+              @error="svgLoadError($event)"
+              width="150"
+              height="150"
+              fill="black"
+              aria-label="My image"
+            >
+            </InlineSvg> -->
+
+            <!-- <LogoSVG /> -->
+            <!-- <IconBase name="svg" /> -->
           </Stack>
         </template>
       </header-bar>
@@ -125,25 +69,87 @@
 
     <template v-slot:top> </template>
     <template v-slot:left>
-      <div class="bg-transparent h-64 w-128">LEFT</div>
+      <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
     </template>
     <template v-slot:right>
-      <div class="bg-transparent h-64 w-128">RIGHT</div>
+      <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
     </template>
     <template v-slot:bottom>
-      <div v-if="show.grid" class="bg-transparent h-64 w-full">bottom</div>
+      <Grid mode="animated" v-if="show.photo">
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          />
+        </card>
+
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1634828535553-70267ceac5c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://media.istockphoto.com/photos/cat-snow-leopard-irbis-uncia-uncia-picture-id1306144389"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          />
+        </card>
+        <card>
+          <img
+            src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          />
+        </card>
+      </Grid>
+
+      <!-- <div v-else-if="!show.photo" class="bg-transparent h-64 w-full">bottom</div> -->
     </template>
-  </dashboard>
+  </Dashboard>
 
   <div v-if="false" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
     <div class="container" v-if="false"></div>
-
-    <Button type="button" class="bg-red-600" disabled>
-      <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-        <bear />
-      </svg>
-      Processing
-    </Button>
 
     <div
       v-if="false"
@@ -171,8 +177,6 @@
     <gallery v-if="true" />
 
     <tailwind-card v-if="true" />
-
-    <footer></footer>
   </div>
 </template>
 <script>
@@ -180,7 +184,7 @@ import TailwindCard from "../components/examples/TailwindCard.vue";
 import { devmode } from "../helpers/generators";
 import Button from "../components/atoms/Button.vue";
 import Settings from "../components/atoms/Settings.vue";
-import BaseIcon from "../components/atoms/BaseIcon.vue";
+import IconBase from "../components/atoms/IconBase.vue";
 import Border from "../components/atoms/Border.vue";
 // import useTable from "../components/useTable";
 import axios from "axios";
@@ -192,6 +196,7 @@ import FormInput from "../components/atoms/FormInput.vue";
 // import * as icons from "../assets/icons";
 import InlineSvg from "vue-inline-svg";
 import { Card } from "../components/molecules";
+import { Page } from "../components/templates";
 
 // import * as x from "../assets/icons/awesome-face.svg";
 
@@ -207,7 +212,7 @@ export default {
     Shadow,
     FormInput,
     Settings,
-    BaseIcon,
+    IconBase,
     InlineSvg,
     Card,
     Grid,
@@ -256,9 +261,10 @@ export default {
       },
       show: {
         pencilImg: false,
-        grid: true,
-        svgs: false,
+        photo: false,
+        svg: false,
         logo: false,
+        dashboard: true,
       },
 
       // svg: "awesome-face.svg",

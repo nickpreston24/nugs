@@ -41,6 +41,8 @@ declare global {
     interface Array<T> {
         take(count: any): Array<T>;
         remove(o: T): Array<T>;
+        first(o: T): Array<T>;
+        last(o: T): Array<T>;
     }
 }
 
@@ -52,3 +54,15 @@ Array.prototype.remove = function (o) {
     // code to remove "o"
     return this;
 }
+
+Array.prototype.first = function () {
+    return this[0];
+}
+Array.prototype.last = function () {
+    return this[this.length - 1];
+}
+
+// const nums = [1, 2, 3, 5, 6, 7]
+// console.log('take', nums.take(3))
+// console.log('last', nums.last(3))
+// console.log('first', nums.first(3))

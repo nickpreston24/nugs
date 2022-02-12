@@ -1,5 +1,9 @@
 // https://codepen.io/philcheng/pen/YWyYwG?editors=1000 //
 https://www.30secondsofcode.org/css/s/image-hover-rotate
+
+<!-- Sample CSS Image hover show button
+        https://codepen.io/philcheng/pen/YWyYwG?editors=1000
+         -->
 <template>
   <div
     v-if="part.Name"
@@ -15,15 +19,15 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
         />
       </router-link>
       <!-- Upload missing image -->
-      <Stack v-else class="img-upload">
+      <Stack v-else-if="!part?.Attachment">
         <i>No Image Found...Please Upload one!</i>
         <form-input :input="onChange" type="text" src="updatedUrl" placeholder="URL">
           <i class="fa fa-link fa-lg"></i>
         </form-input>
-        <!-- <Button @click="submit">Update</Button> -->
+        <Button @click="submit">Update</Button>
       </Stack>
     </figure>
-    <p class="title hover:text-arctic-200">{{ part.Name }}</p>
+    <p class="title ellipsis hover:text-arctic-200">{{ part.Name }}</p>
     <div class="overlay"></div>
     <div class="button">
       <a><slot></slot></a>
@@ -33,13 +37,14 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
 
 <script>
 import Stack from "../flex/Stack.vue";
-
+import { Border } from "../atoms";
 export default {
   props: {
     part: Object,
   },
   components: {
     Stack,
+    Border,
   },
 };
 </script>
@@ -47,7 +52,7 @@ export default {
 <style scoped>
 .container {
   position: relative;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   width: 500px;
   height: 300px;
 }
@@ -72,6 +77,7 @@ img {
   width: 500px;
   height: 300px;
   left: 0;
+  border: 3px solid red;
 }
 
 .title {
@@ -85,6 +91,10 @@ img {
   text-transform: uppercase;
   z-index: 1;
   transition: top 0.5s ease;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
 }
 
 .container:hover .title {

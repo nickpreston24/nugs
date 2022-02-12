@@ -1,6 +1,7 @@
 import { ref, onMounted, toRefs, reactive, toRef } from "vue";
 import { devmode } from "../helpers/generators";
 import axios from "axios";
+import { Log } from "../helpers";
 
 function concat(...args) {
     return args.reduce((acc, val) => [...acc, ...val]);
@@ -28,16 +29,18 @@ export const formatRecords = (records = []) => {
 
 /** A reactive generic repository */
 export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) {
-    console.log("maxRecords", maxRecords);
+    Log(maxRecords, "maxRecords")
     const state = ref({
         records: [], //the current state for whatever table you're on.
         table: tableName, // current table
         maxRecords,
     });
-    const current = state.value;
 
-    devmode && console.log("current", current);
-    onMounted(() => {
+    const loading = ref(false)
+    const error = ref('')
+
+    onMounted(async () => {
+        loading.value = true;
         axios({
             url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
             headers: {
@@ -45,15 +48,22 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
                 Authorization: `Bearer ${apiKey}`,
             },
         }).then((result) => {
-            console.log("result", result);
+            // console.log("result", result);
             let raw = formatRecords(result?.data?.records);
-            current.records = raw;
+            state.value.records = raw;
+            Log(state.value.records)
+            // devmode && console.log("state.value.records", state.value.records);
+            loading.value = false;
 
-            devmode && console.log("current.records", current.records);
-        });
+        }).catch(error => {
+            loading.value = false;
+            error.value = error;
+        })
     });
 
-    const searchTable = async (options = { fields: [] }, tableName = "Parts") => {
+    const searchTable = async (tableName = "Parts", options = { fields: [] }) => {
+        loading.value = true;
+
         console.log("options :>> ", options);
         let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`;
         for (let i = 0; i < fields.length; i++) {
@@ -73,12 +83,16 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
                 Authorization: `Bearer ${apiKey}`,
             },
         }).then((result) => {
-            console.log("result", result);
+            // console.log("result", result);
+            Log(result)
             let raw = formatRecords(result?.data?.records);
-            current.records = raw;
+            state.value.records = raw;
 
-            console.log("current.records", current.records);
-        });
+            console.log("state.value.records", state.value.records);
+        }).catch(error => {
+            loading.value = false;
+            error.value = error;
+        })
 
         // if (tableName)
         //     current.table = tableName;
@@ -108,18 +122,23 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
     };
 
     const getById = async (id, table = null) => {
-        // console.log('id :>> ', id);
+        devmode && console.log('id :>> ', id);
 
-        if (table) current.table = table;
+        if (table) state.value.table = table;
 
-        let record = await get(current.table, id);
+        let record = await get(state.value.table, id)
+            .catch(error => {
+                loading.value = false;
+                error.value = error;
+            });
         devmode && console.log("record :>> ", record);
 
         return record;
     };
 
     const patchRecord = (table = null, data = null) => {
-        if (table) current.table = table;
+        if (table) state.value.table = table;
+        loading.value = true;
 
         const url = `https://api.airtable.com/v0/${baseKey}/${table}`;
         const headers = {
@@ -127,12 +146,20 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
             Authorization: `Bearer ${apiKey}`,
         };
         axios.patch(url, data, headers).then((result) => {
-            console.log("result", result);
+            // console.log("result", result);
+            Log(result)
             let raw = formatRecords(result?.data?.records);
-            current.records = raw;
-            console.log("current.records", current.records);
-        });
+            state.value.records = raw;
+            console.log("state.value.records", state.value.records);
+        }).catch(error => {
+            loading.value = false;
+            error.value = error;
+        })
     };
 
-    return { state: current, searchTable, getById, patchRecord };
+    return {
+        state, loading, error,
+
+        searchTable, getById, patchRecord
+    };
 }

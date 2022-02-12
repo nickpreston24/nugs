@@ -125,9 +125,6 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
-.img-upload {
-  font-family: fantasy;
-}
 
 /* Swoosh in */
 

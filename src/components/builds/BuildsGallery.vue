@@ -184,7 +184,7 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
-.img-upload {
+/* .img-upload {
   font-family: fantasy;
-}
+} */
 </style>

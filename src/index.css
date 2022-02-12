@@ -15,6 +15,8 @@
   @apply text-tahiti-500;
 }
 
+
+
 /* Added a focus-within to button won't lose focus w/ dropdown class or html select */
 .btn-primary:focus-within .dropdown .select {
   @apply outline-none ring-2 ring-tahiti-400 ring-opacity-75;
