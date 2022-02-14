@@ -51,3 +51,5 @@ export function isUndefined(value) {
 export const nameOf = (obj) => Object.keys(obj)[0];
 
 export const Log = (value, name = { value }) => devmode && console.log(`${isString(name) ? name : (Object.keys(name) || "?")} :>> `, value)
+
+// export const Alert = (error, message) => devmode && window.alert(`${message}:\n${error}`)

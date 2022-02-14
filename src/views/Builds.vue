@@ -8,7 +8,7 @@
           views.gallery.show ? "Add Builds" : "View Builds"
         }}</Button>
 
-        <!-- <BuildsGallery v-if="views.gallery.show" /> -->
+        <BuildsGallery v-if="views.gallery.show" />
 
         <!-- DEV Toggles -->
         <Row v-if="devmode">
@@ -24,13 +24,6 @@
         <Stack>
           <h1 class="text-7xl text-purple-500">Build options</h1>
 
-          <Spinner
-            v-if="false"
-            :animation-duration="2000"
-            :size="60"
-            class="color-arctic-500"
-            color="grey"
-          />
           <!-- <pre>{{ loading }}</pre> -->
 
           <Row class="gap-10">
@@ -66,7 +59,6 @@
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <!-- <legend class="border-red border-4 w-64 h-28">api key:{{ apiKey }}</legend> -->
         <!-- Checklist -->
 
         <radial-progress-bar
@@ -97,6 +89,12 @@
           </chip>
         </Grid> -->
 
+        <Spinner
+          v-if="loading"
+          :animation-duration="2000"
+          :size="60"
+          class="color-arctic-500"
+        />
         <Grid mode="photo">
           <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
             <PartCard :part="part">
@@ -187,17 +185,6 @@
           </template>
         </card> -->
         <!-- </Gradient> -->
-
-        <iframe
-          v-if="false"
-          class="airtable-embed airtable-dynamic-height"
-          src="https://airtable.com/embed/shrtU3kYArQSfPHvs?backgroundColor=blue"
-          frameborder="0"
-          onmousewheel=""
-          width="100%"
-          height="1014"
-          style="background: transparent; border: 1px solid #ccc"
-        ></iframe>
       </div>
     </Section>
   </div>
@@ -210,7 +197,7 @@ import { UniqueArray, unique } from "../helpers/array.ts";
 import { nameOf } from "../helpers";
 
 import PartCard from "../components/parts/PartCard.vue";
-import { Button } from "../components/atoms";
+import { Button, Spinner } from "../components/atoms";
 import Brandon from "../components/atoms/Brandon.vue";
 // import Toggle from "../components/atoms/Toggle.vue";
 import Chip from "../components/atoms/Chip.vue";
@@ -247,6 +234,7 @@ export default {
     Brandon,
     PartCard,
     Shadow,
+    Spinner,
   },
   data() {
     return {
@@ -307,6 +295,9 @@ export default {
 
       completedSteps,
       totalSteps,
+
+      loading,
+      error,
     };
   },
   methods: {

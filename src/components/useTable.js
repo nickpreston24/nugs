@@ -30,6 +30,7 @@ export const formatRecords = (records = []) => {
 /** A reactive generic repository */
 export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) {
     Log(maxRecords, "maxRecords")
+
     const state = ref({
         records: [], //the current state for whatever table you're on.
         table: tableName, // current table
@@ -41,6 +42,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
 
     onMounted(async () => {
         loading.value = true;
+
         axios({
             url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
             headers: {

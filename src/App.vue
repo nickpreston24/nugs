@@ -4,11 +4,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <Page>
+    <!-- <ErrorBoundary> -->
+    <Page class="border-4 border-ocean">
       <template v-slot:header>
         <Sidebar />
       </template>
     </Page>
+    <!-- </ErrorBoundary> -->
   </div>
 </template>
 <script>
@@ -18,9 +20,19 @@ import Stack from "./components/flex/Stack.vue";
 import Row from "./components/flex/Row.vue";
 import Gradient from "./components/atoms/Gradient.vue";
 import Page from "./components/templates/Page.vue";
+// import ErrorBoundary from "./helpers/ErrorBoundary.vue";
 
 export default {
-  components: { Sidebar, Footer, Stack, Row, Gradient, Page },
+  components: {
+    Sidebar,
+    Footer,
+    Stack,
+    Row,
+    Gradient,
+    Page,
+
+    // ErrorBoundary
+  },
 };
 </script>
 <style global>

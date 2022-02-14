@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <slot name="header"></slot>
-  </div>
-  <slot></slot>
-
+  <slot name="header">
+    <h1>HEADER</h1>
+  </slot>
   <router-view v-slot="{ Component }">
     <transition name="route" mode="out-in">
       <component :is="Component"></component>

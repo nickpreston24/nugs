@@ -1,53 +1,65 @@
 <template>
-  <Page class="">
+  <Page class="border-red border-4">
+    <!-- <div class="bg-yellow-500 h-64 w-64"></div> -->
+
+    <!-- <template v-slot:header> -->
     <Stack class="bg-white-500 h-max">
       <Shadow type="inset"> Toggle Components </Shadow>
 
-      <Row>
-        <Button
-          theme="show[key] ? bg-ocean-500 hover:text-tahiti-400 : bg-red"
-          v-for="(item, key, index) in show"
-          :key="key"
-          @click="show[key] = !show[key]"
-        >
-          {{ key }}
-        </Button>
+      <Border>
+        <Row class="w-5/6 overflow-scroll">
+          <Button
+            theme="show[key] ? bg-ocean-500 hover:text-tahiti-400 : bg-red"
+            v-for="(item, key, index) in show"
+            :key="key"
+            @click="show[key] = !show[key]"
+          >
+            {{ key }}
+          </Button>
 
-        <Button @click="toggle('borders')">Borders</Button>
-      </Row>
+          <Button @click="toggle('borders')">Borders</Button>
+        </Row>
+      </Border>
     </Stack>
+    <!-- </template> -->
 
-    <!-- <p v-else>TOP</p> -->
-  </Page>
-  <Dashboard v-if="show.dashboard" class="text-tahiti-500 text-4xl">
-    <!--  Header -->
-    <template v-slot:header>
-      <header-bar>
-        <template v-slot:left>
-          <Shadow v-if="show.logo" class="m-2">
-            <Row>
-              <i class="fa fa-pause"></i>
-              <p>Your Logo HERE</p>
-            </Row>
-          </Shadow>
-        </template>
+    <Dashboard v-if="show.dashboard" class="text-tahiti-500 text-4xl">
+      <!--  Header -->
+      <template v-slot:header>
+        <header-bar>
+          <template v-slot:left>
+            <Shadow v-if="show.logo" class="m-2">
+              <Row>
+                <i class="fa fa-pause"></i>
+                <p>Your Logo HERE</p>
+              </Row>
+            </Shadow>
+          </template>
 
-        <img
-          v-if="show.pencilImg"
-          class="pencil-effect"
-          src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
-        />
+          <img
+            v-if="show.pencilImg"
+            class="pencil-effect"
+            src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
+          />
 
-        <template v-slot:right>
-          <Stack v-if="show.svg">
-            <Button type="button" class="btn-primary bg-red-600" disabled>
-              <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-                <bear />
-              </svg>
-              Processing
-            </Button>
+          <template v-slot:right>
+            <Stack v-if="show.svg">
+              <!-- <Button type="button" class="btn-primary bg-red-600" disabled>
+              <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">Processing</svg>
+            </Button> -->
 
-            <!-- <InlineSvg
+              <icon-base width="32" height="32" icon-name="write"
+                ><icon-write
+              /></icon-base>
+              <icon-base class="text-ocean-500" icon-name="write"
+                ><AwesomeIcon
+              /></icon-base>
+
+              <Border class="w-32 h-32">
+                <TestIcon status="success" />
+              </Border>
+
+              <!-- <InlineSvg
               src="../assets/icons/awesome-face.svg"
               transformSource="transformSvg"
               @loaded="svgLoaded($event)"
@@ -60,141 +72,141 @@
             >
             </InlineSvg> -->
 
-            <!-- <LogoSVG /> -->
-            <!-- <IconBase name="svg" /> -->
-          </Stack>
-        </template>
-      </header-bar>
-    </template>
+              <!-- <LogoSVG /> -->
+              <!-- <IconBase name="svg" /> -->
+            </Stack>
+          </template>
+        </header-bar>
+      </template>
 
-    <template v-slot:top> </template>
-    <template v-slot:left>
-      <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
-    </template>
-    <template v-slot:right>
-      <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
-    </template>
-    <template v-slot:bottom>
-      <Grid mode="animated" v-if="show.photo">
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          />
-        </card>
+      <template v-slot:top> </template>
+      <template v-slot:left>
+        <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
+      </template>
+      <template v-slot:right>
+        <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
+      </template>
+      <template v-slot:bottom>
+        <Grid mode="feed" v-if="show.photo">
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            />
+          </card>
 
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1634828535553-70267ceac5c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://media.istockphoto.com/photos/cat-snow-leopard-irbis-uncia-uncia-picture-id1306144389"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          />
-        </card>
-        <card>
-          <img
-            src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          />
-        </card>
-      </Grid>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641236247219-57c87fe8713d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1634828535553-70267ceac5c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://media.istockphoto.com/photos/cat-snow-leopard-irbis-uncia-uncia-picture-id1306144389"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1513714920387-b00f52df9e23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1551972251-12070d63502a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            />
+          </card>
+          <card>
+            <img
+              src="https://images.unsplash.com/photo-1641490237771-a5ed5cbb1011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            />
+          </card>
+        </Grid>
 
-      <!-- <div v-else-if="!show.photo" class="bg-transparent h-64 w-full">bottom</div> -->
-    </template>
-  </Dashboard>
+        <!-- <div v-else-if="!show.photo" class="bg-transparent h-64 w-full">bottom</div> -->
+      </template>
+    </Dashboard>
 
-  <div v-if="false" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
-    <div class="container" v-if="false"></div>
+    <div v-if="false" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
+      <div class="container" v-if="false"></div>
 
-    <div
-      v-if="false"
-      class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
-    >
-      <div v-if="false" class="flex space-x-4">
-        <div class="rounded-full bg-blue-400 h-12 w-12"></div>
-        <div class="flex-1 space-y-4 py-1">
-          <div class="h-4 bg-blue-400 rounded w-3/4"></div>
-          <div class="space-y-2">
-            <div class="h-4 bg-blue-400 rounded"></div>
-            <div class="h-4 bg-blue-400 rounded w-5/6"></div>
+      <div
+        v-if="false"
+        class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
+      >
+        <div v-if="false" class="flex space-x-4">
+          <div class="rounded-full bg-blue-400 h-12 w-12"></div>
+          <div class="flex-1 space-y-4 py-1">
+            <div class="h-4 bg-blue-400 rounded w-3/4"></div>
+            <div class="space-y-2">
+              <div class="h-4 bg-blue-400 rounded"></div>
+              <div class="h-4 bg-blue-400 rounded w-5/6"></div>
+            </div>
           </div>
         </div>
       </div>
+
+      <span class="flex h-3 w-3">
+        <span
+          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"
+        ></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+      </span>
+
+      <gallery v-if="false" />
+
+      <tailwind-card v-if="true" />
     </div>
-
-    <span class="flex h-3 w-3">
-      <span
-        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"
-      ></span>
-      <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
-    </span>
-
-    <gallery v-if="true" />
-
-    <tailwind-card v-if="true" />
-  </div>
+  </Page>
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
 import { devmode } from "../helpers/generators";
-import Button from "../components/atoms/Button.vue";
-import Settings from "../components/atoms/Settings.vue";
-import IconBase from "../components/atoms/IconBase.vue";
-import Border from "../components/atoms/Border.vue";
 // import useTable from "../components/useTable";
 import axios from "axios";
 import HeaderBar from "../components/molecules/HeaderBar.vue";
 import Dashboard from "../components/templates/Dashboard.vue";
-import { Row, Stack, Grid } from "../components/flex";
-import { Shadow } from "../components/atoms";
 import FormInput from "../components/atoms/FormInput.vue";
 // import * as icons from "../assets/icons";
 import InlineSvg from "vue-inline-svg";
+import { Row, Stack, Grid } from "../components/flex";
+import { Shadow, IconBase, Button, Border, Settings } from "../components/atoms";
+import IconWrite from "../assets/icons/IconWrite.vue";
+import AwesomeIcon from "../assets/icons/AwesomeIcon.vue";
+import TestIcon from "../assets/icons/TestIcon.vue";
 import { Card } from "../components/molecules";
 import { Page } from "../components/templates";
 
@@ -216,6 +228,9 @@ export default {
     InlineSvg,
     Card,
     Grid,
+    IconWrite,
+    AwesomeIcon,
+    TestIcon,
   },
   created() {
     this.toggle("borders");
@@ -260,10 +275,10 @@ export default {
         email: "",
       },
       show: {
-        pencilImg: false,
-        photo: false,
-        svg: false,
-        logo: false,
+        pencilImg: true,
+        photo: true,
+        svg: true,
+        logo: true,
         dashboard: true,
       },
 
