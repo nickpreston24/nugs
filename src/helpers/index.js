@@ -5,6 +5,30 @@ export * from "./array.ts";
 export * from "./yup.ts";
 export * from "./generators.ts";
 
+/* 
+* Find nested values
+* https://stackoverflow.com/questions/15523514/find-by-key-deep-in-a-nested-array
+*/
+
+export function findValue(object, key, predicate) {
+    let ret = [];
+    if (object.hasOwnProperty(key) && predicate(key, object[key]) === true) {
+        ret = [...ret, object];
+    }
+    if (Object.keys(object).length) {
+        for (let i = 0; i < Object.keys(object).length; i++) {
+            let value = object[Object.keys(object)[i]];
+            if (typeof value === "object" && value != null) {
+                let o = findValue(object[Object.keys(object)[i]], key, predicate);
+                if (o != null && o instanceof Array) {
+                    ret = [...ret, ...o];
+                }
+            }
+        }
+    }
+    return ret;
+}
+
 /**
  * https://webbjocke.com/javascript-check-data-types/
  */

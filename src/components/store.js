@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { devmode } from "../helpers/generators";
+import { findValue } from "../helpers";
 
 export const store = createStore({
     state() {
@@ -28,10 +29,9 @@ export const store = createStore({
             },
             settings: {
                 // https://gbksoft.com/blog/dimensions-resolution-for-ios-and-android-app-design/
-                screen:
-                {
-                    device: '', // e.g. Apple iPhone 11 Pro
-                    dimensions: [480, 320]
+                screen: {
+                    device: "", // e.g. Apple iPhone 11 Pro
+                    dimensions: [480, 320],
                 },
 
                 developer: {
@@ -39,14 +39,13 @@ export const store = createStore({
                         enabled: false,
                     },
                     fakemode: {
-                        enabled: false
+                        enabled: false,
                     },
                     prodmode: {
-                        enabled: false
-                    }
-                }
+                        enabled: false,
+                    },
+                },
             },
-
         };
     },
     getters: {
@@ -59,22 +58,37 @@ export const store = createStore({
             state.range = newRange;
         },
         addPart(state, payload) {
-            console.log("payload", payload);
+            const part = payload;
+
+            console.log("payload", part);
+            console.log("id", part.id);
+            // console.log('state', state)
+
+            const partType = part?.Type?.toLowerCase() || "";
+            // const buildType = payload?.BuildType || "AR-15"
+
+            // const attachments = findValue(part, "Attachments", (_, x) => x);
+
+            console.log("partType", partType);
+
+            state.checklist[partType] = payload[partType]
+            console.log('checklist', state.checklist)
+            // console.log("Attachments", attachments);
         },
         toggle(state, payload) {
             const name = payload.name;
             const setting = state.settings.developer[name];
             if (!setting) {
-                console.error(`Could not find setting '${name}'`)
+                console.error(`Could not find setting '${name}'`);
             }
             setting.enabled = !setting.enabled;
-        }
+        },
     },
     actions: {
         toggleSetting({ commit }, payload) {
-            commit('toggle', payload)
-        }
-    }
+            commit("toggle", payload);
+        },
+    },
 });
 
 export default store;

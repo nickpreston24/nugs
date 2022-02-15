@@ -29,7 +29,7 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
     </figure>
     <p class="title ellipsis hover:text-arctic-200">{{ part.Name }}</p>
     <div class="overlay"></div>
-    <div class="button">
+    <div class="button" name="button">
       <a><slot></slot></a>
     </div>
   </div>

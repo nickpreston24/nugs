@@ -11,12 +11,12 @@
         <BuildsGallery v-if="views.gallery.show" />
 
         <!-- DEV Toggles -->
-        <Row v-if="devmode">
+        <!-- <Row v-if="devmode">
           <div v-for="(item, key, index) in views">
             <label class="" for="checkbox">{{ key }}</label>
             <input type="checkbox" id="key" v-model="views" />
           </div>
-        </Row>
+        </Row> -->
 
         <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
         <!-- randomBuild: { show: true }, -->
@@ -24,7 +24,7 @@
         <Stack>
           <h1 class="text-7xl text-purple-500">Build options</h1>
 
-          <!-- <pre>{{ loading }}</pre> -->
+          <pre class="text-tiny">{{ checklist }}</pre>
 
           <Row class="gap-10">
             <Stack class="gap-0.5">
@@ -282,7 +282,7 @@ export default {
 
   setup() {
     let { state, searchTable, getById, loading, error } = useTable("Parts", {
-      maxRecords: 14,
+      maxRecords: 20,
     });
 
     const completedSteps = ref(5);
@@ -305,12 +305,14 @@ export default {
       this.views.randomBuild.show = true;
       this.build.parts = random.Shuffle(this.parts).take(3);
     },
+    addToBuild() {
+
+      
+    },
+
     addToChecklist(part) {
       console.log("part", part);
       this.$store.commit("addPart", part);
-      // console.log("id", ({ id, Name, Attachments, Link, Calibers }: part));
-      // const { checklist } = this;
-      // const { buffer, upper, buttstock, lower } = checklist;
     },
     setRange(range) {
       this.$store.setRange(range);

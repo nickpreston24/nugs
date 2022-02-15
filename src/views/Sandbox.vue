@@ -42,24 +42,26 @@
             src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
           />
 
-          <template v-slot:right>
-            <Stack v-if="show.svg">
-              <!-- <Button type="button" class="btn-primary bg-red-600" disabled>
+          <template v-slot:right> </template>
+        </header-bar>
+      </template>
+
+      <template v-slot:top>
+        <Grid mode="feed" v-if="show.svg">
+          <!-- <Button type="button" class="btn-primary bg-red-600" disabled>
               <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">Processing</svg>
             </Button> -->
 
-              <icon-base width="32" height="32" icon-name="write"
-                ><icon-write
-              /></icon-base>
-              <icon-base class="text-ocean-500" icon-name="write"
-                ><AwesomeIcon
-              /></icon-base>
+          <EightPointSixBlackoutIcon class="w-32 h-32" />
+          <AwesomeIcon class="w-32 h-32" />
+          <AwesomeThinkingIcon class="w-32 h-32" />
+          <AwesomeSurprisedFaceIcon class="w-32 h-32" />
+          <AwesomeConfusedIcon class="w-32 h-32" />
+          <PistolIcon class="w-32 h-32" />
+          <StatusIcon class="w-16 h-16" status="success" />
+          <icon-base width="32" height="32" icon-name="write"><icon-write /></icon-base>
 
-              <Border class="w-32 h-32">
-                <TestIcon status="success" />
-              </Border>
-
-              <!-- <InlineSvg
+          <!-- <InlineSvg
               src="../assets/icons/awesome-face.svg"
               transformSource="transformSvg"
               @loaded="svgLoaded($event)"
@@ -72,14 +74,10 @@
             >
             </InlineSvg> -->
 
-              <!-- <LogoSVG /> -->
-              <!-- <IconBase name="svg" /> -->
-            </Stack>
-          </template>
-        </header-bar>
+          <!-- <LogoSVG /> -->
+          <!-- <IconBase name="svg" /> -->
+        </Grid>
       </template>
-
-      <template v-slot:top> </template>
       <template v-slot:left>
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
@@ -200,13 +198,19 @@ import axios from "axios";
 import HeaderBar from "../components/molecules/HeaderBar.vue";
 import Dashboard from "../components/templates/Dashboard.vue";
 import FormInput from "../components/atoms/FormInput.vue";
-// import * as icons from "../assets/icons";
 import InlineSvg from "vue-inline-svg";
 import { Row, Stack, Grid } from "../components/flex";
 import { Shadow, IconBase, Button, Border, Settings } from "../components/atoms";
-import IconWrite from "../assets/icons/IconWrite.vue";
-import AwesomeIcon from "../assets/icons/AwesomeIcon.vue";
-import TestIcon from "../assets/icons/TestIcon.vue";
+import {
+  AwesomeSurprisedFaceIcon,
+  AwesomeConfusedIcon,
+  AwesomeIcon,
+  EightPointSixBlackoutIcon,
+  IconWrite,
+  StatusIcon,
+  AwesomeThinkingIcon,
+  PistolIcon,
+} from "../assets/icons";
 import { Card } from "../components/molecules";
 import { Page } from "../components/templates";
 
@@ -230,7 +234,12 @@ export default {
     Grid,
     IconWrite,
     AwesomeIcon,
-    TestIcon,
+    StatusIcon,
+    AwesomeSurprisedFaceIcon,
+    AwesomeConfusedIcon,
+    EightPointSixBlackoutIcon,
+    AwesomeThinkingIcon,
+    PistolIcon,
   },
   created() {
     this.toggle("borders");
@@ -293,7 +302,7 @@ export default {
 </script>
 <style scoped>
 .sandbox {
-  background-image: url(../assets/icons/icons/triangles.svg);
+  background-image: url(../assets/img/triangles.svg);
 }
 
 /* https://blog.logrocket.com/advanced-effects-with-css-background-blend-modes-4b750198522a/ */

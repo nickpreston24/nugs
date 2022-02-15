@@ -3,6 +3,23 @@
     <slot></slot>
   </section>
 </template>
+<script>
+export default {
+  props: {
+    mode: {
+      type: String,
+      default: "feed",
+    },
+  },
+  computed: {
+    class() {
+      console.log("this.mode", this.mode);
+      return `${this.mode}-grid`;
+    },
+  },
+};
+</script>
+
 <style scoped>
 /* The following are From: https://youtu.be/Qhaz36TZG5Y?list=TLPQMDkwMjIwMjI3gsnCHkv2gA */
 /* .grid {
@@ -20,19 +37,3 @@
   padding: 0 5rem;
 } */
 </style>
-<script>
-export default {
-  props: {
-    mode: {
-      type: String,
-      default: "feed",
-    },
-  },
-  computed: {
-    class() {
-      console.log("this.mode", this.mode);
-      return `${this.mode}-grid`;
-    },
-  },
-};
-</script>

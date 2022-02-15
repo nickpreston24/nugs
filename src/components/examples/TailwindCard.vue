@@ -96,7 +96,7 @@
               <div>
                 <img
                   class="sm:w-64 sm:h-64 md:w-128 md:h-auto md:rounded-none rounded-full mx-auto"
-                  src="../../assets/valkyrie-barrel.jpg"
+                  src="../../assets/img/valkyrie-barrel.jpg"
                   alt=""
                   width="384"
                   height="512"

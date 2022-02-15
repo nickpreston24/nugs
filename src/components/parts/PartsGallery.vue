@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Stack>
     <div id="v-model-select" class="gentle-flex m-10">
       <select v-model="selected" @change="onSelection">
         <option disabled value="">Please select one</option>
@@ -9,25 +9,26 @@
       </select>
     </div>
 
-    <Stack>
-      <PartCard class="" :part="part" v-for="part in parts" :key="part.id">
-        <!-- <button @click="addToChecklist(part)">Add</button> -->
-        <!-- <SVGButton @click="submit" class="bg-purple-600">Update</SVGButton> -->
-      </PartCard>
-    </Stack>
-  </div>
+    <Grid mode="photo">
+      <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
+        <PartCard :part="part">
+          <!-- <SVGButton @click="submit" class="">Update</SVGButton> -->
+        </PartCard>
+      </card>
+    </Grid>
+  </Stack>
 </template>
 <script>
 //import { initialOptions } from "../../../data/airtable-curl";
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
-import Stack from "../../components/flex/Stack.vue";
+import { Stack, Grid, Row } from "../../components/flex";
 import Section from "../../components/molecules/Section.vue";
 import Label from "../../components/atoms/Label.vue";
 import FormInput from "../../components/atoms/FormInput.vue";
 import Image from "../../components/atoms/Image.vue";
 import Button from "../../components/atoms/Button.vue";
-import SVGButton from "../../components/atoms/SVGButton.vue";
+import SVGButton from "../../components/molecules/SVGButton.vue";
 import Card from "../../components/molecules/Card.vue";
 import PartCard from "../../components/parts/PartCard.vue";
 
@@ -35,6 +36,8 @@ export default {
   components: {
     Spinner,
     Stack,
+    Grid,
+    Row,
     Label,
     Section,
     Card,
