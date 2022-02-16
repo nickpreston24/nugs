@@ -79,8 +79,12 @@
         </Grid>
       </template>
       <template v-slot:left>
-        <h2>Flop:</h2>
-        <Row>
+
+
+      
+        <!-- 
+        <h1>Flop:</h1>
+          <Row>
           <div
             v-for="(card, key, index) in board.flop"
             id="index"
@@ -88,11 +92,11 @@
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
-        </Row>
+        </Row> -->
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
-        <h2>Hand:</h2>
+        <!-- <h2>Hand:</h2>
         <Row>
           <div
             v-for="(card, key, index) in board.hand"
@@ -101,7 +105,7 @@
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
-        </Row>
+        </Row> -->
         <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
       </template>
       <template v-slot:bottom>

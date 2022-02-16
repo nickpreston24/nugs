@@ -38,15 +38,6 @@ testarray.remove(3); //.remove(2);
  */
 export const identity = <T>(x: T) => x;
 
-/**Check for any unassigned values */
-// export const isEmpty = (obj: any) =>
-//   !obj ||
-//   obj === {} ||
-//   Object.values(obj).every(
-//     (v) => v === null || v === undefined || v === [] || v === {} || v === ""
-//   );
-// export const isFull = (obj: any) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
-
 // console.log('devmode', devmode);
 
 /**Random Int */

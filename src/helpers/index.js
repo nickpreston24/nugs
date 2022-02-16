@@ -10,6 +10,17 @@ export const devmode = (() => process.env.NODE_ENV !== "production")();
 
 
 
+/**Check for any unassigned values */
+export const isEmpty = (obj) =>
+    !obj ||
+    obj === {} ||
+    Object.values(obj).every(
+        (v) => v === null || v === undefined || v === [] || v === {} || v === ""
+    );
+
+export const isFull = (obj) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
+
+
 // Usage: const name = nameOf({someVar}) //'someVar'
 export const nameOf = (obj) => Object.keys(obj)[0];
 

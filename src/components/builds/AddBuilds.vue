@@ -24,7 +24,8 @@
 </template>
 <script>
 //import { create } from "../../../data/airtable-curl";
-import { isEmpty, devmode } from "../../helpers/generators";
+import { isEmpty } from "../../helpers/generators";
+import { devmode } from "../../helpers";
 const initial = {
   Name: "",
 };
