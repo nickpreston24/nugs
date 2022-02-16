@@ -170,10 +170,10 @@ export default {
     },
     relatedPics() {
       return (ids) => {
-        console.log("ids :>> ", ids);
+Log("ids :>> ", ids);
 
         let pics = this.builds.map((m) => m.Pics).filter((p) => ids.includes(p.id));
-        console.log("pics :>> ", pics);
+Log("pics :>> ", pics);
 
         return pics;
       };

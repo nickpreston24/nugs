@@ -32,9 +32,10 @@
 import { useState } from "@hookstate/vue";
 import { empties } from "../../helpers/array.ts";
 import Label from "../atoms/Label.vue";
-import { devmode, random } from "../../helpers/generators";
+import { random } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 import List from "../molecules/List.vue";
+import { Log } from "../../helpers";
 
 const initial = {
   Name: "",
@@ -71,7 +72,7 @@ export default {
       this.clear();
     },
     clear() {
-      console.log(`initial`, initial);
+      Log(`initial`, initial);
     },
     lorem() {
       let fake = {

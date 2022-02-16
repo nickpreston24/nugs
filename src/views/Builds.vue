@@ -215,6 +215,7 @@ import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
 import { Shadow } from "../components/atoms";
 import { ref } from "vue";
+import { Log } from "../helpers";
 
 export default {
   components: {
@@ -305,13 +306,10 @@ export default {
       this.views.randomBuild.show = true;
       this.build.parts = random.Shuffle(this.parts).take(3);
     },
-    addToBuild() {
-
-      
-    },
+    addToBuild() {},
 
     addToChecklist(part) {
-      console.log("part", part);
+      Log("part", part);
       this.$store.commit("addPart", part);
     },
     setRange(range) {
@@ -328,12 +326,12 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          console.log(response);
+          Log(response);
           // info.result = response.data;
         })
         .catch((err) => {
           // if (devmode) info.message = err;
-          console.log("err :>> ", err);
+          Log("err :>> ", err);
         });
     },
   },

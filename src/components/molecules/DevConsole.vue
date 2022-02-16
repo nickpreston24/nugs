@@ -17,11 +17,12 @@
   </div>
 </template>
 <script>
+import { Log } from "../../helpers";
 export default {
   computed: {
     developerSettings() {
       const settings = this.$store.state.settings.developer;
-      console.log("settings", settings);
+      Log("settings", settings);
       return settings;
     },
   },

@@ -31,6 +31,7 @@ import Button from "../../components/atoms/Button.vue";
 import SVGButton from "../../components/molecules/SVGButton.vue";
 import Card from "../../components/molecules/Card.vue";
 import PartCard from "../../components/parts/PartCard.vue";
+import { Log } from "../../helpers";
 
 export default {
   components: {
@@ -90,7 +91,7 @@ export default {
 
   methods: {
     onChange(event) {
-      console.log("event.target.value", event.target.value);
+      Log("event.target.value", event.target.value);
     },
   },
 };

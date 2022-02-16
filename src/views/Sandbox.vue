@@ -68,7 +68,7 @@
               @unloaded="svgUnloaded()"
               @error="svgLoadError($event)"
               width="150"
-              height="150"
+               height="150"
               fill="black"
               aria-label="My image"
             >
@@ -79,9 +79,29 @@
         </Grid>
       </template>
       <template v-slot:left>
+        <h2>Flop:</h2>
+        <Row>
+          <div
+            v-for="(card, key, index) in board.flop"
+            id="index"
+            class="text-tiny bg-white-500 border-black border-2 h-32 w-32"
+          >
+            <h3>{{ card.face }} of {{ card.suit }}</h3>
+          </div>
+        </Row>
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
+        <h2>Hand:</h2>
+        <Row>
+          <div
+            v-for="(card, key, index) in board.hand"
+            id="index"
+            class="bg-white-500 border-black border-2 h-32 w-32"
+          >
+            <h3>{{ card.face }} of {{ card.suit }}</h3>
+          </div>
+        </Row>
         <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
       </template>
       <template v-slot:bottom>
@@ -192,8 +212,6 @@
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
-import { devmode } from "../helpers/generators";
-// import useTable from "../components/useTable";
 import axios from "axios";
 import HeaderBar from "../components/molecules/HeaderBar.vue";
 import Dashboard from "../components/templates/Dashboard.vue";
@@ -213,8 +231,16 @@ import {
 } from "../assets/icons";
 import { Card } from "../components/molecules";
 import { Page } from "../components/templates";
+import { Log, devmode } from "../helpers";
 
-// import * as x from "../assets/icons/awesome-face.svg";
+import { random } from "../helpers/generators.ts";
+
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function (from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
 
 export default {
   components: {
@@ -255,16 +281,18 @@ export default {
     onNext() {
       let { searchTable } = useTable();
       let parts = searchTable("Parts");
-      console.log(parts);
+      Log(parts);
     },
 
     onInputChanged(e) {
-      console.log("e", e);
+      Log("e", e);
     },
 
     svgLoadError(error) {
-      console.log("error", error);
+      Log("error", error);
     },
+
+    deal() {},
   },
   data() {
     return {
@@ -292,7 +320,42 @@ export default {
       },
 
       // svg: "awesome-face.svg",
+
+      deck: [{ face: null, suit: null }],
+      poker: {
+        faces: ["A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2],
+        suits: ["Hearts", "Spades", "Diamonds", "Clubs"],
+      },
     };
+  },
+
+  computed: {
+    board() {
+      const deck = this.deck;
+
+      const { faces, suits } = this.poker;
+
+      for (let x = 0; x < faces.length; x++) {
+        for (let y = 0; y < suits.length; y++) {
+          deck.push({ face: faces[x], suit: suits[y] });
+        }
+      }
+
+      Log(deck);
+
+      for (let i = 0; i < 11; i++) {
+        random.Shuffle(deck);
+      }
+
+      let flop = deck.splice(0, 3);
+      let hand = deck.splice(0, 2);
+      let opponentHand = deck.splice(0, 2);
+
+      return {
+        flop,
+        hand,
+      };
+    },
   },
 
   mounted() {

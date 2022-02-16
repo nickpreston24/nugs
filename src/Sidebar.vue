@@ -157,9 +157,9 @@ body {
 }
 </style>
 <script>
-import { devmode } from "./helpers/generators";
 import { Row } from "./components/flex";
 import { Shadow } from "./components/atoms";
+import { Log, devmode } from "./helpers";
 
 export default {
   components: {
@@ -175,7 +175,7 @@ export default {
   methods: {
     toggleBurger() {
       this.isActive = !this.isActive;
-      console.log("active?", this.isActive);
+      Log("active?", this.isActive);
     },
   },
   computed: {

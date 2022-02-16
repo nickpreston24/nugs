@@ -1,5 +1,4 @@
 import { ref, onMounted, toRefs, reactive, toRef } from "vue";
-import { devmode } from "../helpers/generators";
 import axios from "axios";
 import { Log } from "../helpers";
 
@@ -66,7 +65,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
     const searchTable = async (tableName = "Parts", options = { fields: [] }) => {
         loading.value = true;
 
-        console.log("options :>> ", options);
+        Log("options :>> ", options);
         let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`;
         for (let i = 0; i < fields.length; i++) {
             const field = fields[i];
@@ -90,7 +89,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
             let raw = formatRecords(result?.data?.records);
             state.value.records = raw;
 
-            console.log("state.value.records", state.value.records);
+            Log("state.value.records", state.value.records);
         }).catch(error => {
             loading.value = false;
             error.value = error;
@@ -152,7 +151,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
             Log(result)
             let raw = formatRecords(result?.data?.records);
             state.value.records = raw;
-            console.log("state.value.records", state.value.records);
+            Log("state.value.records", state.value.records);
         }).catch(error => {
             loading.value = false;
             error.value = error;

@@ -16,6 +16,7 @@
 
 <script>
 import useTable from "../useTable";
+import { Log } from "../../helpers";
 
 export default {
   setup() {
@@ -42,7 +43,7 @@ export default {
       //   ...found,
       //   url: found?.Attachments[0].url || "",
       // };
-      console.log("this.state.records :>> ", this.state.records[0]);
+      Log("this.state.records :>> ", this.state.records[0]);
 
       return this.state.records[0];
     },

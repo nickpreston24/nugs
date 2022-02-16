@@ -47,8 +47,6 @@ export const identity = <T>(x: T) => x;
 //   );
 // export const isFull = (obj: any) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
 
-/*Environment*/
-export const devmode = (() => process.env.NODE_ENV !== "production")();
 // console.log('devmode', devmode);
 
 /**Random Int */

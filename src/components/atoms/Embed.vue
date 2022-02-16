@@ -1,20 +1,22 @@
 <template>
   <div>
     <h1>url</h1>
-    <p>{{ url.replace("watch?v=", "embed/") }}</p>
-    <!-- <iframe width="640" height="480" src="{{url}}"> </iframe> -->
+    <!-- <p>{{ url.replace("watch?v=", "embed/") }}</p> -->
+    <iframe width="640" height="480" src="{{url}}"> </iframe>
   </div>
 </template>
 
 <script>
+import { Log } from "./helpers";
+
 export default {
   mounted() {
-    console.log(`this.url`, this.url);
+    Log(`this.url`, this.url);
   },
-  // props: ["url"],
+  props: ["url"],
   computed: {
     embedUrl() {
-      console.log(`this.url`, this.url);
+      Log(`this.url`, this.url);
       return this.url.replace("watch?v=", "embed/").replace("t=", "start=");
     },
   },
