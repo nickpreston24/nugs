@@ -28,8 +28,7 @@
 </template>
 
 <script>
-//import { create } from "../../../data/airtable-curl";
-import { isEmpty, devmode } from "../../helpers/generators";
+import { isEmpty, devmode } from "../../helpers";
 import Button from "../atoms/Button.vue";
 
 export default {

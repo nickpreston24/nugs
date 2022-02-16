@@ -6,7 +6,7 @@ module.exports = {
   // Notice: It only affects the settings used by Vetur.
   settings: {
     "vetur.useWorkspaceDependencies": true,
-    "vetur.experimental.templateInterpolationService": true
+    "vetur.experimental.templateInterpolationService": false
   },
   // **optional** default: `[{ root: './' }]`
   // support monorepos
@@ -25,7 +25,7 @@ module.exports = {
       // **optional**
       // Where is TypeScript config file in the project?
       // It is relative to root property.
-      // tsconfig: './tsconfig.json',
+      tsconfig: './tsconfig.json',
       // **optional** default: `'./.vscode/vetur/snippets'`
       // Where is vetur custom snippets folders?
       // snippetFolder: './.vscode/vetur/snippets',

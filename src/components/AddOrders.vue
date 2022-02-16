@@ -43,8 +43,9 @@ button {
 </style>
 
 <script>
-//// import { createOrders } from "../../data/airtable-curl";
-import { isEmpty, devmode, random } from "../helpers/generators";
+import { random } from "../helpers/generators";
+import { isEmpty, devmode } from "../helpers";
+
 export default {
   methods: {
     async addOrder() {

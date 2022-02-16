@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
-import { devmode } from "../helpers/generators";
-import { findValue } from "../helpers";
+import { findValue, Log, devmode } from "../helpers";
 
 export const store = createStore({
     state() {
@@ -60,8 +59,8 @@ export const store = createStore({
         addPart(state, payload) {
             const part = payload;
 
-            console.log("payload", part);
-            console.log("id", part.id);
+            Log("payload", part);
+            Log("id", part.id);
             // console.log('state', state)
 
             const partType = part?.Type?.toLowerCase() || "";
@@ -69,10 +68,10 @@ export const store = createStore({
 
             // const attachments = findValue(part, "Attachments", (_, x) => x);
 
-            console.log("partType", partType);
+            Log("partType", partType);
 
             state.checklist[partType] = payload[partType]
-            console.log('checklist', state.checklist)
+            Log('checklist', state.checklist)
             // console.log("Attachments", attachments);
         },
         toggle(state, payload) {

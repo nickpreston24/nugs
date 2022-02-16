@@ -58,11 +58,10 @@
   </div>
 </template>
 <script>
-//import { initialOptions } from "../../../data/airtable-curl";
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
-import { devmode } from "../../helpers/generators";
 import Card from "../molecules/Card.vue";
+import { Log, devmode } from "../../helpers";
 
 export default {
   components: {
@@ -112,7 +111,7 @@ export default {
     },
     relatedParts() {
       return (ids) => {
-        console.log("ids :>> ", ids);
+        Log("ids :>> ", ids);
 
         let parts = this.parts.filter((p) => ids.includes(p.id));
         return parts;
@@ -120,10 +119,10 @@ export default {
     },
     relatedPics() {
       return (ids) => {
-        console.log("ids :>> ", ids);
+        Log("ids :>> ", ids);
 
         let pics = this.parts.map((m) => m.Pics).filter((p) => ids.includes(p.id));
-        console.log("pics :>> ", pics);
+        Log("pics :>> ", pics);
 
         return pics;
       };

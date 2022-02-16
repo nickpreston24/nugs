@@ -55,6 +55,7 @@ Array.prototype.remove = function (o) {
     return this;
 }
 
+
 Array.prototype.first = function () {
     return this[0];
 }

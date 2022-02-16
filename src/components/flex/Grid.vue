@@ -13,7 +13,6 @@ export default {
   },
   computed: {
     class() {
-      console.log("this.mode", this.mode);
       return `${this.mode}-grid`;
     },
   },

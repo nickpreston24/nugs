@@ -192,9 +192,9 @@
 <script>
 import axios from "axios";
 import useTable from "../components/useTable";
-import { devmode, random } from "../helpers/generators.ts";
+import { random } from "../helpers/generators.ts";
 import { UniqueArray, unique } from "../helpers/array.ts";
-import { nameOf } from "../helpers";
+import { nameOf, devmode } from "../helpers";
 
 import PartCard from "../components/parts/PartCard.vue";
 import { Button, Spinner } from "../components/atoms";
@@ -210,11 +210,12 @@ import Stack from "../components/flex/Stack.vue";
 import Grid from "../components/flex/Grid.vue";
 import Row from "../components/flex/Row.vue";
 import Gradient from "../components/atoms/Gradient.vue";
-import SVGButton from "../components/atoms/SVGButton.vue";
+import SVGButton from "../components/molecules/SVGButton.vue";
 import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
 import { Shadow } from "../components/atoms";
 import { ref } from "vue";
+import { Log } from "../helpers";
 
 export default {
   components: {
@@ -305,13 +306,10 @@ export default {
       this.views.randomBuild.show = true;
       this.build.parts = random.Shuffle(this.parts).take(3);
     },
-    addToBuild() {
-
-      
-    },
+    addToBuild() {},
 
     addToChecklist(part) {
-      console.log("part", part);
+      Log("part", part);
       this.$store.commit("addPart", part);
     },
     setRange(range) {
@@ -328,12 +326,12 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          console.log(response);
+          Log(response);
           // info.result = response.data;
         })
         .catch((err) => {
           // if (devmode) info.message = err;
-          console.log("err :>> ", err);
+          Log("err :>> ", err);
         });
     },
   },

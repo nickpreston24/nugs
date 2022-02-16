@@ -99,7 +99,7 @@
 <script>
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../useTable";
-import { devmode } from "../../../src/helpers/generators";
+import { devmode } from "../../../src/helpers";
 import Button from "../atoms/Button.vue";
 //import { formatRecords } from "../../../data/airtable-curl";
 import List from "../molecules/List.vue";
@@ -170,10 +170,10 @@ export default {
     },
     relatedPics() {
       return (ids) => {
-        console.log("ids :>> ", ids);
+        Log("ids :>> ", ids);
 
         let pics = this.builds.map((m) => m.Pics).filter((p) => ids.includes(p.id));
-        console.log("pics :>> ", pics);
+        Log("pics :>> ", pics);
 
         return pics;
       };

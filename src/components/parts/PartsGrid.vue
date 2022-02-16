@@ -29,24 +29,25 @@
   </div>
 </template>
 <script>
-import { devmode } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 import Card from "../molecules/Card.vue";
 import List from "../molecules/List.vue";
+import { Log } from "../../helpers";
+
 export default {
   methods: {
     onChange(e) {
       // console.log(`e.target`, e.target);
-      console.log(`e`, e);
+      Log(`e`, e);
     },
     handleSelection(item) {
-      console.log(`item`, item);
+      Log(`item`, item);
     },
     remove(e) {
       const target = e.target;
       const value = target.type === "checkbox" ? target.checked : target.value;
       // const name = target.placeholder;
-      console.log(`e`, e);
+      Log(`e`, e);
     },
   },
   data() {
