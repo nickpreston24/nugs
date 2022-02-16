@@ -6,8 +6,8 @@ function concat(...args) {
     return args.reduce((acc, val) => [...acc, ...val]);
 }
 
-const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
-const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY;
+const apiKey = 'keyl5Wo5ETa4HR4tt'//import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
+const baseKey = 'app33DDBeyXEGRflo'//import.meta.env.VITE_VERCEL_BASE_KEY;
 
 export const formatRecords = (records = []) => {
     let collection = [].concat(records);
@@ -75,8 +75,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
             url.concat(`fields%5B%5D=${field}`);
         }
 
-        devmode && console.log("url", url);
-
+        Log("url", url)
         axios({
             url,
             headers: {
@@ -84,7 +83,6 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
                 Authorization: `Bearer ${apiKey}`,
             },
         }).then((result) => {
-            // console.log("result", result);
             Log(result)
             let raw = formatRecords(result?.data?.records);
             state.value.records = raw;
@@ -123,8 +121,7 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
     };
 
     const getById = async (id, table = null) => {
-        devmode && console.log('id :>> ', id);
-
+        Log(id)
         if (table) state.value.table = table;
 
         let record = await get(state.value.table, id)
@@ -137,17 +134,15 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
         return record;
     };
 
-    const patchRecord = (table = null, data = null) => {
+    const patch = (table = null, data = null) => {
         if (table) state.value.table = table;
         loading.value = true;
-
         const url = `https://api.airtable.com/v0/${baseKey}/${table}`;
         const headers = {
-            "Content-Type": "Content-Type: application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${apiKey}`,
         };
         axios.patch(url, data, headers).then((result) => {
-            // console.log("result", result);
             Log(result)
             let raw = formatRecords(result?.data?.records);
             state.value.records = raw;
@@ -158,9 +153,61 @@ export default function useTable(tableName = "Parts", { maxRecords = 10 } = {}) 
         })
     };
 
-    return {
-        state, loading, error,
+    const create = (table = null, record) => {
 
-        searchTable, getById, patchRecord
+        const data = {
+            "records": [
+                {
+                    "fields": record?.fields || {}
+                }
+            ]
+        }
+
+        let url = "https://api.airtable.com/v0/" + baseKey + "/" + table
+        let axiosConfig = { headers: { Authorization: "Bearer " + apiKey, 'Content-Type': 'application/json' } }
+        axios
+            .post(
+                url,
+                data,
+                axiosConfig
+            )
+            .then((result) => {
+                Log(result)
+                let raw = formatRecords(result?.data?.records);
+                state.value.record = raw;
+                Log("state.value.records", state.value.records);
+            })
+            .catch(error => console.log(error))
+
+        // if (!table) return;
+        // if (table) state.value.table = table;
+        // loading.value = true;
+        // Log(data, "data")
+        // // const url = `https://api.airtable.com/v0/${baseKey}/${table}`;
+        // const url = "https://api.airtable.com/v0/app33DDBeyXEGRflo/Builds"
+        // const headers = {
+        //     'Authorization': `Bearer keyl5Wo5ETa4HR4tt`,
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json',
+        // };
+
+        // Log('url', url)
+        // // Log('apikey', apiKey)
+
+        // axios.post(url, data, headers).then((result) => {
+        //     Log(result)
+        //     let raw = formatRecords(result?.data?.records);
+        //     state.value.record = raw;
+        //     Log("state.value.records", state.value.records);
+        // }).catch(error => {
+        //     loading.value = false;
+        //     error.value = error;
+        // })
+    };
+    return {
+        // state objects
+        state, loading, error,
+        // api
+        searchTable, getById, patch, create
     };
 }

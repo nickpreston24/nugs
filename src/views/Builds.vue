@@ -4,9 +4,11 @@
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
-        <Button v-if="false" @click="views.gallery.show = !views.gallery.show">{{
-          views.gallery.show ? "Add Builds" : "View Builds"
-        }}</Button>
+        <Button
+          v-if="false"
+          @click="views.gallery.show = !views.gallery.show"
+          >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
+        >
 
         <BuildsGallery v-if="views.gallery.show" />
 
@@ -42,7 +44,9 @@
 
           <!-- Budget Option -->
           <Stack v-if="views.budgetBuild.show">
-            <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
+            <button class="text-purple-400 text-5xl mb-4">
+              Pick your Budget here!
+            </button>
             <slider min="500" @range-changed="setRange"></slider>
             <p>{{ range }}</p>
           </Stack>
@@ -96,7 +100,7 @@
           class="color-arctic-500"
         />
         <Grid mode="photo">
-          <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
+          <card v-for="part in parts" :key="part.id" class="bg-tahiti-700">
             <PartCard :part="part">
               <button @click="addToChecklist(part)">Add</button>
             </PartCard>
@@ -126,10 +130,10 @@
             <template v-slot:default>
               <!-- Show Image -->
 
-              <Stack class="">
-                <!-- <p class="w-1/3 max-h-64">{{ part.Notes }}</p> -->
+              <Stack>
+                <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
                 <p class="w-1/3 max-h-64">{{ part.Type }}</p>
-                <Image
+                <img
                   v-if="part.Attachments"
                   :src="part.Attachments?.[0]?.url"
                   class="transform transition-all hover:scale-125"
@@ -193,16 +197,11 @@
 import axios from "axios";
 import useTable from "../components/useTable";
 import { random } from "../helpers/generators.ts";
-import { UniqueArray, unique } from "../helpers/array.ts";
-import { nameOf, devmode } from "../helpers";
-
+import { devmode, Log } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
 import { Button, Spinner } from "../components/atoms";
 import Brandon from "../components/atoms/Brandon.vue";
-// import Toggle from "../components/atoms/Toggle.vue";
-import Chip from "../components/atoms/Chip.vue";
 import Section from "../components/molecules/Section.vue";
-// import RadialProgress from "../components/molecules/RadialProgress.vue";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import Card from "../components/molecules/Card.vue";
@@ -215,7 +214,6 @@ import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
 import { Shadow } from "../components/atoms";
 import { ref } from "vue";
-import { Log } from "../helpers";
 
 export default {
   components: {
@@ -229,7 +227,6 @@ export default {
     Section,
     SVGButton,
     Slider,
-    // Toggle,
     Grid,
     RadialProgressBar,
     Brandon,
@@ -248,9 +245,7 @@ export default {
 
       devmode: devmode,
 
-      build: {
-        parts: [],
-      },
+      buildId: null,
     };
   },
   computed: {
@@ -273,7 +268,9 @@ export default {
       return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
     },
     completed() {
-      const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
+      const list = Object.entries(this.$store.state.checklist).filter(
+        (entry) => !!entry
+      );
 
       // this.completedSteps = list?.length || 0;
       // console.log("this.completedSteps", this.completedSteps);
@@ -282,9 +279,10 @@ export default {
   },
 
   setup() {
-    let { state, searchTable, getById, loading, error } = useTable("Parts", {
-      maxRecords: 20,
-    });
+    let { state, searchTable, getById, loading, error, patch, create } =
+      useTable("Parts", {
+        maxRecords: 100,
+      });
 
     const completedSteps = ref(5);
     const totalSteps = ref(10);
@@ -293,9 +291,10 @@ export default {
       state,
       searchTable,
       getById,
-
+      patch,
       completedSteps,
       totalSteps,
+      create,
 
       loading,
       error,
@@ -306,11 +305,18 @@ export default {
       this.views.randomBuild.show = true;
       this.build.parts = random.Shuffle(this.parts).take(3);
     },
-    addToBuild() {},
 
     addToChecklist(part) {
-      Log("part", part);
-      this.$store.commit("addPart", part);
+      if (!this.buildId) {
+        this.create("Builds", part);
+        Log(this.state.value, "after creating build...");
+      }
+
+      this.$store.commit("addPart", {
+        fields: {
+          Name: "Empress Fidelis",
+        },
+      });
     },
     setRange(range) {
       this.$store.setRange(range);

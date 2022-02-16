@@ -59,20 +59,18 @@ export const store = createStore({
         addPart(state, payload) {
             const part = payload;
 
-            Log("payload", part);
-            Log("id", part.id);
-            // console.log('state', state)
+            Log(part, "payload");
+            Log(part.id, "id");
 
-            const partType = part?.Type?.toLowerCase() || "";
+            const partType = part?.Type || "";
             // const buildType = payload?.BuildType || "AR-15"
 
             // const attachments = findValue(part, "Attachments", (_, x) => x);
 
-            Log("partType", partType);
+            Log(partType, "partType");
 
             state.checklist[partType] = payload[partType]
-            Log('checklist', state.checklist)
-            // console.log("Attachments", attachments);
+            Log(state.checklist, 'checklist')
         },
         toggle(state, payload) {
             const name = payload.name;
