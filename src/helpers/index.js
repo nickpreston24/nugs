@@ -3,12 +3,8 @@ export * from "./array.ts";
 export * from "./yup.ts";
 export * from "./generators.ts";
 
-
-
 /*Environment*/
 export const devmode = (() => process.env.NODE_ENV !== "production")();
-
-
 
 /**Check for any unassigned values */
 export const isEmpty = (obj) =>
@@ -20,17 +16,14 @@ export const isEmpty = (obj) =>
 
 export const isFull = (obj) => !!obj && obj !== {} || Object.values(obj).every((v) => v !== null || v !== undefined || v !== [] || v !== {} || v !== "")
 
-
 // Usage: const name = nameOf({someVar}) //'someVar'
 export const nameOf = (obj) => Object.keys(obj)[0];
 
-export const Log = (value, name = { value }) =>
+export const Log = (name = '', value) =>
     devmode &&
     console.log(`${isString(name) ? name : Object.keys(name) || "?"} :>> `, value);
 
 // export const Alert = (error, message) => devmode && window.alert(`${message}:\n${error}`)
-
-
 
 /*
  * Find nested values
