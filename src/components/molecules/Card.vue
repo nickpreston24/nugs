@@ -31,4 +31,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.resizeable {
+  resize: horizontal;
+  overflow: hidden;
+}
+</style>

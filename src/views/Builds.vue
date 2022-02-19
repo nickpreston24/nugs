@@ -5,6 +5,7 @@
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
         <Button
+          class="shadow-purple-400/50 shadow-md"
           v-if="false"
           @click="views.gallery.show = !views.gallery.show"
           >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
@@ -114,19 +115,7 @@
             v-for="part in parts"
             :key="part.id"
           >
-            <template v-slot:header>
-              <!-- <div
-                class="text-orange-400 border-orange-700 border-4 border-double p-tiny"
-              >
-                <div
-                  class="text-orange-400 border-ocean-700 border-4 border-double p-tiny"
-                >
-                  <h3 class="p-tiny text-white border-purple-700 border-4 border-double">
-                    {{ part.Name }}
-                  </h3>
-                </div>
-              </div> -->
-            </template>
+            <template v-slot:header> </template>
             <template v-slot:default>
               <!-- Show Image -->
 
@@ -151,44 +140,6 @@
             </template>
           </card>
         </Grid>
-
-        <!-- <Gradient class="m-4"> -->
-        <!-- <card class="" @click="addPart">
-          <template v-slot:header>
-            <label class="text-5xl">Hanguard MS-KMR-13</label>
-          </template>
-          <template v-slot:default>
-            <Stack>
-              <Button class="text-5xl text-white border-radius hover:text-ocean-500"
-                >Add to Build</Button
-              >
-              <Image
-                src="https://cdn11.bigcommerce.com/s-16115g8ghe/images/stencil/1280x1280/products/1680/5284/BCM-BRL-MID-14-ELW-F-STD-2__04035.1571674582.jpg?c=1"
-                alt="test"
-              />
-            </Stack>
-          </template>
-        </card> -->
-        <!-- </Gradient> -->
-
-        <!-- <Gradient class="m-4"> -->
-        <!-- <card class="" @click="addPart">
-          <template v-slot:header>
-            <label class="text-5xl">Hanguard MS-KMR-13</label>
-          </template>
-          <template v-slot:default>
-            <Stack>
-              <Button class="text-5xl text-white border-radius hover:text-ocean-500"
-                >Add to Build</Button
-              >
-              <Image
-                src="https://www.weapondepot.com/wp-content/uploads/product-media/2020/07/BCM-GUNFTR-MCMR-RAIL-556-15-BLK-MLK-15837-1594054300-570x380.png"
-                alt="test"
-              />
-            </Stack>
-          </template>
-        </card> -->
-        <!-- </Gradient> -->
       </div>
     </Section>
   </div>

@@ -2,9 +2,6 @@ import { ref, onMounted, toRefs, reactive, toRef } from "vue";
 import axios from "axios";
 import { Log } from "../helpers";
 
-function concat(...args) {
-    return args.reduce((acc, val) => [...acc, ...val]);
-}
 
 const apiKey = 'keyl5Wo5ETa4HR4tt'//import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
 const baseKey = 'app33DDBeyXEGRflo'//import.meta.env.VITE_VERCEL_BASE_KEY;

@@ -63,6 +63,12 @@ Array.prototype.last = function () {
     return this[this.length - 1];
 }
 
+
+
+export function concat(...args:any[]) {
+    return args.reduce((acc, val) => [...acc, ...val]);
+}
+
 // const nums = [1, 2, 3, 5, 6, 7]
 // console.log('take', nums.take(3))
 // console.log('last', nums.last(3))

@@ -10,7 +10,7 @@
           >
             <Row>
               <!-- <i class="fa fa-beer"></i> -->
-              <h1 class="text-7xl">Blaster Builder</h1>
+              <h1 class="text-7xl drop-shadow-md">Blaster Builder</h1>
             </Row>
           </Shadow>
         </router-link>

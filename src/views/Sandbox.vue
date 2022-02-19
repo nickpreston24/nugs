@@ -60,11 +60,10 @@
           <PistolIcon class="w-32 h-32" />
           <StatusIcon class="w-16 h-16" status="success" />
           <icon-base width="32" height="32" icon-name="write"><icon-write /></icon-base>
-
-         
         </Grid>
       </template>
       <template v-slot:left>
+        <pho
         <!-- 
         <h1>Flop:</h1>
           <Row>
@@ -79,7 +78,6 @@
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
-
         <!-- <h2>Hand:</h2>
         <Row>
           <div

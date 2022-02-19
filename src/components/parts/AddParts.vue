@@ -28,14 +28,14 @@
 <style scoped></style>
 
 <script>
-//import { create } from "../../../data/airtable-curl";
 import { useState } from "@hookstate/vue";
 import { empties } from "../../helpers/array.ts";
 import Label from "../atoms/Label.vue";
 import { random } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 import List from "../molecules/List.vue";
-import { Log } from "../../helpers";
+import { Log, devmode } from "../../helpers";
+import useTable from "../../components/useTable";
 
 const initial = {
   Name: "",
@@ -45,13 +45,27 @@ const initial = {
   Weight: "",
 };
 
-const state = useState({ ...initial });
+const part = useState({ ...initial });
 
 export default {
   components: {
     Button,
     List,
+    List,
     Label,
+  },
+  setup() {
+    const { state, searchTable, getById, loading, error, patch, create } = useTable(
+      "Parts",
+      {
+        maxRecords: 100,
+      }
+    );
+    return {
+      state,
+      create,
+      patch,
+    };
   },
   methods: {
     onChange(e) {
@@ -88,7 +102,7 @@ export default {
   data() {
     return {
       devmode: devmode,
-      part: state,
+      part: part,
     };
   },
 

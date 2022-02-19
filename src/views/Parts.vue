@@ -1,23 +1,55 @@
 <template>
   <Section class="parts">
-    <Brandon class="w-64" @click="parts.show = !parts.show">{{
+    <!-- <Brandon class="w-64" @click="parts.show = !parts.show">{{
       !parts.show ? "Add Parts" : "View Parts"
-    }}</Brandon>
+    }}</Brandon> -->
 
-    <PartsGallery v-if="!parts.show" />
+    <!-- <pre class="text-tahiti-300">{{ showModal }}</pre> -->
 
-    <AddParts />
+    <Button @click="showModal = !showModal">Open Modal</Button>
+
+    <Modal :show="showModal">
+      <template #header>
+        <h3>custom header</h3>
+      </template>
+
+      <template #body>
+        <img src="https://picsum.photos/id/684/600/400" alt="" />
+      </template>
+    </Modal>
+    <!-- </Teleport> -->
+
+    <AddParts v-if="parts.show" />
+
+    <PartsGallery />
   </Section>
 </template>
 <script>
-import Button from "../components/atoms/Button.vue";
-import Brandon from "../components/atoms/Brandon.vue";
+import { Modal } from "../components/molecules";
+import { Button, Brandon } from "../components/atoms";
 import PartsGallery from "../components/parts/PartsGallery.vue";
-import Row from "../components/flex/Row.vue";
+import { Row } from "../components/flex";
 import Section from "../components/molecules/Section.vue";
 import useTable from "../components/useTable";
 import AddParts from "../components/parts/AddParts.vue";
+
+import { ref, watch } from "vue";
+
 export default {
+  setup(props) {
+    const showModal = ref(false);
+
+    watch(
+      () => props.show,
+      (show) => {
+        showModal.value = show;
+      }
+    );
+
+    return {
+      showModal,
+    };
+  },
   data() {
     return {
       parts: { show: false },
@@ -35,6 +67,7 @@ export default {
     Section,
     Brandon,
     AddParts,
+    Modal,
   },
 };
 </script>
