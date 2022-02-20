@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(item, key, index) of contents" :key="item.id">
+    <!-- <div v-for="(item, key, index) of contents" :key="item.id">
       <div class="id" @click="item?.expanded = !item?.expanded">
         <div>
           <b>{{ index }}</b>
@@ -13,7 +13,7 @@
       <div class="description" v-if="item?.expanded && item?.description">
         {{ item.description }}
       </div>
-    </div>
+    </div> -->
 
     <!-- <div id="accordion-header" class="relative py-3 sm:max-w-xl sm:mx-auto">
       <slot name="header"></slot>
@@ -47,12 +47,12 @@ export default {
       default: [],
     },
   },
-  computed: {
-    contents() {
-      console.log("this.list", this.list);
-      return this.list;
-    },
-  },
+  // computed: {
+  //   contents() {
+  //     console.log("this.list", this.list);
+  //     return this.list;
+  //   },
+  // },
 };
 </script>
 <style scoped>
