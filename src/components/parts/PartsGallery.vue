@@ -58,7 +58,7 @@ export default {
   },
 
   setup() {
-    let { state, searchTable } = useTable();
+    let { state, searchTable } = useTable("Parts", { maxRecords: 20 });
 
     return {
       state,

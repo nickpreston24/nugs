@@ -16,11 +16,11 @@
       <span v-if="devmode">{{ { ...part } }}</span>
       <Label v-if="force > 0" v-bind="force">Force: {{ force }}</Label>
       <Label v-if="wound > 0" v-bind="wound">Wound: {{ wound }}</Label>
-      <List>
+      <div class="gentle-flex">
         <Button v-if="ready" v-on:click="addPart">Add Part</Button>
         <Button @click="lorem" v-if="devmode">Lorem</Button>
         <Button @click="clear">X</Button>
-      </List>
+      </div>
       <br />
     </div>
   </div>
@@ -33,9 +33,10 @@ import { empties } from "../../helpers/array.ts";
 import Label from "../atoms/Label.vue";
 import { random } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
-import List from "../molecules/List.vue";
+import { Row } from "../../components/flex";
 import { Log, devmode } from "../../helpers";
 import useTable from "../../components/useTable";
+// import { Part } from "../../helpers/yup.ts";
 
 const initial = {
   Name: "",
@@ -43,6 +44,10 @@ const initial = {
   Link: "",
   Notes: "",
   Weight: "",
+  Weight: "",
+  Demo: "",
+  // Attachments: [],
+  // Calibers: [],
 };
 
 const part = useState({ ...initial });
@@ -50,9 +55,13 @@ const part = useState({ ...initial });
 export default {
   components: {
     Button,
-    List,
-    List,
+    Row,
     Label,
+  },
+  mounted() {
+    this.$toasts.success("This is my favorite toasts plugin.", {
+      // Any other parameter...
+    });
   },
   setup() {
     const { state, searchTable, getById, loading, error, patch, create } = useTable(
@@ -76,17 +85,24 @@ export default {
     },
     async addPart() {
       devmode && console.log(`this.part`, this.part);
-      await create("Parts", [
-        {
+      await this.create("Parts", {
+        fields: {
           ...this.part,
           Cost: parseFloat(this.part.Cost),
           Weight: parseFloat(this.part.Weight),
         },
-      ]);
+      });
       this.clear();
+
+      // this.$dtoast.pop({
+      //   preset: "success",
+      //   heading: `Custom Heading`,
+      //   content: `Custom content`,
+      // });
     },
     clear() {
       Log(`initial`, initial);
+      this.part = initial;
     },
     lorem() {
       let fake = {
@@ -96,7 +112,9 @@ export default {
         Notes: random.Paragraph(),
         Weight: random.Float(7 * 16),
       };
-      devmode && console.log(`fake`, fake);
+      // devmode && console.log(`fake`, fake);
+
+      this.part = fake;
     },
   },
   data() {

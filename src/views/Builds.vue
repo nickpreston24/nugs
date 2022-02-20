@@ -4,12 +4,12 @@
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
-        <Button
+        <!-- <Button
           class="shadow-purple-400/50 shadow-md"
           v-if="false"
           @click="views.gallery.show = !views.gallery.show"
           >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
-        >
+        > -->
 
         <BuildsGallery v-if="views.gallery.show" />
 
@@ -45,9 +45,7 @@
 
           <!-- Budget Option -->
           <Stack v-if="views.budgetBuild.show">
-            <button class="text-purple-400 text-5xl mb-4">
-              Pick your Budget here!
-            </button>
+            <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
             <slider min="500" @range-changed="setRange"></slider>
             <p>{{ range }}</p>
           </Stack>
@@ -76,12 +74,12 @@
         </radial-progress-bar>
 
         <!-- A Checklist-->
-        <!-- <Grid v-if="devmode">
+        <Grid v-if="devmode">
           <Row v-for="(item, outer) in types">
             <input type="checkbox" checked="item" />
             <label>{{ item || "item" }}</label>
           </Row>
-        </Grid> -->
+        </Grid>
 
         <!-- A filter for Search Boxes -->
 
@@ -103,7 +101,8 @@
         <Grid mode="photo">
           <card v-for="part in parts" :key="part.id" class="bg-tahiti-700">
             <PartCard :part="part">
-              <button @click="addToChecklist(part)">Add</button>
+              <button @click="addPart(part)">Add</button>
+              <!-- <button @click="addToChecklist(part)">Add</button> -->
             </PartCard>
           </card>
         </Grid>
@@ -147,6 +146,7 @@
 <script>
 import axios from "axios";
 import useTable from "../components/useTable";
+import useBuild from "../components/useBuild";
 import { random } from "../helpers/generators.ts";
 import { devmode, Log } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
@@ -200,9 +200,9 @@ export default {
     };
   },
   computed: {
-    checklist() {
-      return this.$store.state.checklist;
-    },
+    // checklist() {
+    //   return this.$store.state.checklist;
+    // },
     percent() {
       return (this.completedSteps / this.totalSteps) * 100;
     },
@@ -210,6 +210,7 @@ export default {
       return this.state.records;
     },
     types() {
+      // const list = Object.keys(this.$store.state.checklist);
       const list = Object.keys(this.$store.state.checklist);
       return list;
     },
@@ -219,9 +220,7 @@ export default {
       return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
     },
     completed() {
-      const list = Object.entries(this.$store.state.checklist).filter(
-        (entry) => !!entry
-      );
+      const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
 
       // this.completedSteps = list?.length || 0;
       // console.log("this.completedSteps", this.completedSteps);
@@ -230,11 +229,14 @@ export default {
   },
 
   setup() {
-    let { state, searchTable, getById, loading, error, patch, create } =
-      useTable("Parts", {
+    let { state, searchTable, getById, loading, error, patch, create } = useTable(
+      "Parts",
+      {
         maxRecords: 100,
-      });
+      }
+    );
 
+    const { addPart, checklist } = useBuild();
     const completedSteps = ref(5);
     const totalSteps = ref(10);
 
@@ -249,6 +251,8 @@ export default {
 
       loading,
       error,
+
+      addPart,
     };
   },
   methods: {
