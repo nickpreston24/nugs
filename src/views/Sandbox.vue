@@ -73,7 +73,6 @@
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
         </Row>
-        -->
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
