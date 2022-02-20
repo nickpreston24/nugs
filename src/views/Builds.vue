@@ -80,6 +80,13 @@
             <label>{{ item || "item" }}</label>
           </Row>
         </Grid>
+        <!-- An Accordion style picker for parts -->
+
+        <!-- <Accordion :list="builds">
+          <template v-slot:header>
+            <h1>&#x1F503;</h1>
+          </template>
+        </Accordion> -->
 
         <!-- A filter for Search Boxes -->
 
@@ -145,8 +152,8 @@
 </template>
 <script>
 import axios from "axios";
-import useTable from "../components/useTable";
-import useBuild from "../components/useBuild";
+import useTable from "../hooks/useTable";
+import useBuilds from "../hooks/useBuilds";
 import { random } from "../helpers/generators.ts";
 import { devmode, Log } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
@@ -196,105 +203,104 @@ export default {
 
       devmode: devmode,
 
-      buildId: null,
+      // buildId: null,
     };
   },
-  computed: {
-    // checklist() {
-    //   return this.$store.state.checklist;
-    // },
-    percent() {
-      return (this.completedSteps / this.totalSteps) * 100;
-    },
-    parts() {
-      return this.state.records;
-    },
-    types() {
-      // const list = Object.keys(this.$store.state.checklist);
-      const list = Object.keys(this.$store.state.checklist);
-      return list;
-    },
-    categories() {
-      const list = Object.keys(this.$store.state.checklist);
-      const arr = list.filter((r) => r.Type).map((j) => j.Type);
-      return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
-    },
-    completed() {
-      const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
+  // computed: {
+  //   // checklist() {
+  //   //   return this.$store.state.checklist;
+  //   // },
+  //   percent() {
+  //     return (this.completedSteps / this.totalSteps) * 100;
+  //   },
+  //   parts() {
+  //     return this.builds;
+  //   },
+  //   types() {
+  //     // const list = Object.keys(this.$store.state.checklist);
+  //     const list = Object.keys(this.$store.state.checklist);
+  //     return list;
+  //   },
+  //   categories() {
+  //     const list = Object.keys(this.$store.state.checklist);
+  //     const arr = list.filter((r) => r.Type).map((j) => j.Type);
+  //     return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
+  //   },
+  //   completed() {
+  //     const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
 
-      // this.completedSteps = list?.length || 0;
-      // console.log("this.completedSteps", this.completedSteps);
-      return list;
-    },
-  },
+  //     // this.completedSteps = list?.length || 0;
+  //     // console.log("this.completedSteps", this.completedSteps);
+  //     return list;
+  //   },
+  // },
 
   setup() {
-    let { state, searchTable, getById, loading, error, patch, create } = useTable(
-      "Parts",
-      {
-        maxRecords: 100,
-      }
-    );
+    // let { state, searchTable, getById, loading, error, patch, create } = useTable(
+    //   "Parts",
+    //   {
+    //     maxRecords: 100,
+    //   }
+    // );
 
-    const { addPart, checklist } = useBuild();
+    const { builds, addPart, checklist } = useBuilds();
     const completedSteps = ref(5);
     const totalSteps = ref(10);
-
+    console.log("builds", builds);
     return {
-      state,
-      searchTable,
-      getById,
-      patch,
+      builds,
+      // state,
+      // searchTable,
+      // getById,
+      // patch,
       completedSteps,
       totalSteps,
-      create,
+      // create,
 
-      loading,
-      error,
+      // loading,
+      // error,
 
       addPart,
     };
   },
   methods: {
-    getRandomBuild() {
-      this.views.randomBuild.show = true;
-      this.build.parts = random.Shuffle(this.parts).take(3);
-    },
-
-    addToChecklist(part) {
-      if (!this.buildId) {
-        this.create("Builds", part);
-        Log(this.state.value, "after creating build...");
-      }
-
-      this.$store.commit("addPart", {
-        fields: {
-          Name: "Empress Fidelis",
-        },
-      });
-    },
-    setRange(range) {
-      this.$store.setRange(range);
-    },
-    computed: {
-      range() {
-        return this.$store.state.range;
-      },
-    },
-    crud() {
-      const url = `api/sendMessage?name=${this.checklist.upper.name}`;
-      // console.log("url", url);
-      axios
-        .get(url)
-        .then((response) => {
-          Log(response);
-          // info.result = response.data;
-        })
-        .catch((err) => {
-          // if (devmode) info.message = err;
-          Log("err :>> ", err);
-        });
-    },
+    // getRandomBuild() {
+    //   this.views.randomBuild.show = true;
+    //   this.build.parts = random.Shuffle(this.parts).take(3);
+    // },
+    // addToChecklist(part) {
+    //   if (!this.buildId) {
+    //     this.create("Builds", part);
+    //     Log(this.state.value, "after creating build...");
+    //   }
+    //   this.$store.commit("addPart", {
+    //     fields: {
+    //       Name: "Empress Fidelis",
+    //     },
+    //   });
+    // },
+    // setRange(range) {
+    //   this.$store.setRange(range);
+    // },
+    // computed: {
+    //   range() {
+    //     return this.$store.state.range;
+    //   },
+    // },
+    // crud() {
+    //   const url = `api/sendMessage?name=${this.checklist.upper.name}`;
+    //   // console.log("url", url);
+    //   axios
+    //     .get(url)
+    //     .then((response) => {
+    //       Log(response);
+    //       // info.result = response.data;
+    //     })
+    //     .catch((err) => {
+    //       // if (devmode) info.message = err;
+    //       Log("err :>> ", err);
+    //     });
+    // },
   },
 };
 </script>

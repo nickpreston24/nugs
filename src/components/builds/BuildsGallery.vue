@@ -59,7 +59,7 @@
 </template>
 <script>
 import Spinner from "../atoms/Spinner.vue";
-import useTable from "../useTable";
+import useTable from "../../hooks/useTable";
 import Card from "../molecules/Card.vue";
 import { Log, devmode } from "../../helpers";
 

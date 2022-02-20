@@ -1,6 +1,6 @@
-import { ref, onMounted, toRefs, reactive, toRef } from "vue";
-import axios from "axios";
+import { ref, onMounted, toRefs, reactive, toRef, onUnmounted } from "vue";
 import { Log } from "../helpers";
+import { getRecords } from "./airtable";
 
 const initial = {
   buffer: {
@@ -23,16 +23,22 @@ const initial = {
   },
 };
 
-export default function useBuild() {
+export default function useBuilds() {
   const checklist = ref(initial);
-
+  const state = ref({
+    builds: [],
+  });
   const loading = ref(false);
   const error = ref("");
 
   onMounted(async () => {
     loading.value = true;
-
+    const records = await getRecords("Builds", 5);
+    console.log("records", records);
+    state.value.builds = records;
     loading.value = false;
+
+    console.log("my builds", state?.value?.builds);
   });
 
   /**
@@ -49,5 +55,5 @@ export default function useBuild() {
     Log("checklist", checklist.value);
   };
 
-  return { addPart, checklist };
+  return { addPart, checklist, builds: state?.value?.builds };
 }

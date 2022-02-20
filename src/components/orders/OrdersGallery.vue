@@ -98,7 +98,7 @@
 </template>
 <script>
 import Spinner from "../atoms/Spinner.vue";
-import useTable from "../useTable";
+import useTable from "../../hooks/useTable";
 import { devmode } from "../../../src/helpers";
 import Button from "../atoms/Button.vue";
 //import { formatRecords } from "../../../data/airtable-curl";

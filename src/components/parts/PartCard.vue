@@ -38,6 +38,7 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
 <script>
 import Stack from "../flex/Stack.vue";
 import { Border } from "../atoms";
+
 export default {
   props: {
     part: Object,

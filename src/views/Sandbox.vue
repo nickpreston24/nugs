@@ -63,10 +63,8 @@
         </Grid>
       </template>
       <template v-slot:left>
-        <pho
-        <!-- 
         <h1>Flop:</h1>
-          <Row>
+        <Row>
           <div
             v-for="(card, key, index) in board.flop"
             id="index"
@@ -74,7 +72,8 @@
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
-        </Row> -->
+        </Row>
+        -->
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
@@ -91,7 +90,7 @@
         <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
       </template>
       <template v-slot:bottom>
-        <Grid mode="feed" v-if="show.photo">
+        <Grid mode="photo" v-if="show.photo">
           <card>
             <img
               src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"

@@ -27,12 +27,12 @@ export default function useTable(
   tableName = "Parts",
   { maxRecords = 10 } = {}
 ) {
-  Log(maxRecords, "maxRecords");
+  // Log(maxRecords, "maxRecords");
 
   const state = ref({
     records: [], //the current state for whatever table you're on.
     table: tableName, // current table
-    maxRecords,
+    // maxRecords,
   });
 
   const loading = ref(false);

@@ -35,7 +35,7 @@ import { random } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 import { Row } from "../../components/flex";
 import { Log, devmode } from "../../helpers";
-import useTable from "../../components/useTable";
+import useTable from "../../hooks/useTable";
 // import { Part } from "../../helpers/yup.ts";
 
 const initial = {
@@ -57,11 +57,6 @@ export default {
     Button,
     Row,
     Label,
-  },
-  mounted() {
-    this.$toasts.success("This is my favorite toasts plugin.", {
-      // Any other parameter...
-    });
   },
   setup() {
     const { state, searchTable, getById, loading, error, patch, create } = useTable(

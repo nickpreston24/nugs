@@ -6,6 +6,12 @@
 
     <pre v-if="devmode" class="text-tahiti-300">{{ showModal }}</pre>
 
+    <Accordion :list="parts" class="text-white border-4 border-red">
+      <!-- <div key="1" class="panel bg-yellow-500 h-24 w-64">1</div>
+      <div key="2" class="panel bg-yellow-500 h-24 w-64">2</div>
+      <div key="3" class="panel bg-yellow-500 h-24 w-64">3</div> -->
+    </Accordion>
+
     <Button @click="showModal = !showModal">Add Part</Button>
 
     <Modal :show="showModal">
@@ -26,12 +32,12 @@
   </Section>
 </template>
 <script>
-import { Modal } from "../components/molecules";
+import { Modal, Accordion } from "../components/molecules";
 import { Button, Brandon } from "../components/atoms";
 import PartsGallery from "../components/parts/PartsGallery.vue";
 import { Row } from "../components/flex";
 import Section from "../components/molecules/Section.vue";
-import useTable from "../components/useTable";
+import useTable from "../hooks/useTable";
 import AddParts from "../components/parts/AddParts.vue";
 import { devmode } from "../helpers/";
 import { ref, watch } from "vue";
@@ -39,6 +45,11 @@ import { ref, watch } from "vue";
 export default {
   setup(props) {
     const showModal = ref(false);
+    const { state } = useTable("Parts", { maxRecords: 10 });
+    console.log("state", state);
+    console.log("state.value", state.value.records);
+    // const parts = state.records.value;
+    // console.log("parts", parts);
 
     watch(
       () => props.show,
@@ -69,6 +80,7 @@ export default {
     Brandon,
     AddParts,
     Modal,
+    Accordion,
   },
 };
 </script>

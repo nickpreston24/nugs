@@ -19,7 +19,7 @@
 </template>
 <script>
 import Spinner from "../atoms/Spinner.vue";
-import useTable from "../useTable";
+import useTable from "../../hooks/useTable";
 import { Stack, Grid, Row } from "../../components/flex";
 import Section from "../../components/molecules/Section.vue";
 import Label from "../../components/atoms/Label.vue";
