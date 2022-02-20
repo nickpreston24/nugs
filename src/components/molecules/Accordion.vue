@@ -1,21 +1,20 @@
 <template>
   <div>
-    <div v-for="c of contents" :key="c.id">
-      <div class="id" @click="c.expanded = !c.expanded">
+    <!-- <div v-for="(item, key, index) of contents" :key="item.id">
+      <div class="id" @click="item?.expanded = !item?.expanded">
         <div>
-          <b>{{ c.id }}</b>
+          <b>{{ index }}</b>
         </div>
         <div>
-          <span v-if="c.expanded">&#x2191;</span>
+          <span v-if="item?.expanded">&#x2191;</span>
           <span v-else>&#x2193;</span>
         </div>
       </div>
-      <div class="description" v-if="c.expanded">
-        <!-- {{ c.description }} -->
+      <div class="description" v-if="item?.expanded && item?.description">
+        {{ item.description }}
       </div>
-    </div>
+    </div> -->
 
-    
     <!-- <div id="accordion-header" class="relative py-3 sm:max-w-xl sm:mx-auto">
       <slot name="header"></slot>
     </div>
@@ -40,22 +39,20 @@
   </div>
 </template>
 <script>
-const contents = Array(10)
-  .fill()
-  .map((_, i) => {
-    return {
-      title: `title ${i}`,
-      description: `description ${i}`,
-      expanded: false,
-    };
-  });
 export default {
-  name: "App",
-  data() {
-    return {
-      contents,
-    };
+  props: {
+    list: {
+      type: Array,
+      required: false,
+      default: [],
+    },
   },
+  // computed: {
+  //   contents() {
+  //     console.log("this.list", this.list);
+  //     return this.list;
+  //   },
+  // },
 };
 </script>
 <style scoped>

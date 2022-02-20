@@ -1,5 +1,5 @@
 <template>
-  <Page class="border-red border-4">
+  <Page class="border-red border-2">
     <!-- <div class="bg-yellow-500 h-64 w-64"></div> -->
 
     <!-- <template v-slot:header> -->
@@ -10,7 +10,7 @@
         <Row class="w-5/6 overflow-scroll">
           <Button
             theme="show[key] ? bg-ocean-500 hover:text-tahiti-400 : bg-red"
-            v-for="(item, key, index) in show"
+            v-for="(item, key) in show"
             :key="key"
             @click="show[key] = !show[key]"
           >
@@ -60,31 +60,11 @@
           <PistolIcon class="w-32 h-32" />
           <StatusIcon class="w-16 h-16" status="success" />
           <icon-base width="32" height="32" icon-name="write"><icon-write /></icon-base>
-
-          <!-- <InlineSvg
-              src="../assets/icons/awesome-face.svg"
-              transformSource="transformSvg"
-              @loaded="svgLoaded($event)"
-              @unloaded="svgUnloaded()"
-              @error="svgLoadError($event)"
-              width="150"
-               height="150"
-              fill="black"
-              aria-label="My image"
-            >
-            </InlineSvg> -->
-
-          <!-- <LogoSVG /> -->
-          <!-- <IconBase name="svg" /> -->
         </Grid>
       </template>
       <template v-slot:left>
-
-
-      
-        <!-- 
         <h1>Flop:</h1>
-          <Row>
+        <Row>
           <div
             v-for="(card, key, index) in board.flop"
             id="index"
@@ -92,7 +72,7 @@
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
-        </Row> -->
+        </Row>
         <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
@@ -109,7 +89,7 @@
         <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
       </template>
       <template v-slot:bottom>
-        <Grid mode="feed" v-if="show.photo">
+        <Grid mode="photo" v-if="show.photo">
           <card>
             <img
               src="https://images.unsplash.com/photo-1641236247214-2d5a33c6d391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
@@ -216,11 +196,9 @@
 </template>
 <script>
 import TailwindCard from "../components/examples/TailwindCard.vue";
-import axios from "axios";
 import HeaderBar from "../components/molecules/HeaderBar.vue";
 import Dashboard from "../components/templates/Dashboard.vue";
 import FormInput from "../components/atoms/FormInput.vue";
-import InlineSvg from "vue-inline-svg";
 import { Row, Stack, Grid } from "../components/flex";
 import { Shadow, IconBase, Button, Border, Settings } from "../components/atoms";
 import {
@@ -234,9 +212,7 @@ import {
   PistolIcon,
 } from "../assets/icons";
 import { Card } from "../components/molecules";
-import { Page } from "../components/templates";
 import { Log, devmode } from "../helpers";
-
 import { random } from "../helpers/generators.ts";
 
 // Array Remove - By John Resig (MIT Licensed)
@@ -259,7 +235,6 @@ export default {
     FormInput,
     Settings,
     IconBase,
-    InlineSvg,
     Card,
     Grid,
     IconWrite,

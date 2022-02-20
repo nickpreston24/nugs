@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import useTable from "../useTable";
+import useTable from "../../hooks/useTable";
 import { Log } from "../../helpers";
 
 export default {

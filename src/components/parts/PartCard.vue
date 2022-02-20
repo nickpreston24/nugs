@@ -5,9 +5,10 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
         https://codepen.io/philcheng/pen/YWyYwG?editors=1000
          -->
 <template>
+  <!-- <Gradient>  show if selected :) -->
   <div
     v-if="part.Name"
-    class="container card flex flex-col items-center text-arctic-400 overflow-hidden"
+    class="container card flex flex-col items-center text-arctic-400 overflow-hidden border"
   >
     <figure>
       <!-- Show Image -->
@@ -20,11 +21,11 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
       </router-link>
       <!-- Upload missing image -->
       <Stack v-else-if="!part?.Attachment">
-        <i>No Image Found...Please Upload one!</i>
         <form-input :input="onChange" type="text" src="updatedUrl" placeholder="URL">
           <i class="fa fa-link fa-lg"></i>
         </form-input>
-        <Button @click="submit">Update</Button>
+        <i>Image Coming Soon!</i>
+        <!-- <Button @click="submit">Update</Button> -->
       </Stack>
     </figure>
     <p class="title ellipsis hover:text-arctic-200">{{ part.Name }}</p>
@@ -33,11 +34,13 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
       <a><slot></slot></a>
     </div>
   </div>
+  <!-- </Gradient> -->
 </template>
 
 <script>
 import Stack from "../flex/Stack.vue";
 import { Border } from "../atoms";
+
 export default {
   props: {
     part: Object,
@@ -45,6 +48,11 @@ export default {
   components: {
     Stack,
     Border,
+  },
+  computed: {
+    border() {
+      return part?.selected ? "border-4 border-orange-500" : "";
+    },
   },
 };
 </script>

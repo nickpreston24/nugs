@@ -2,6 +2,8 @@
 node_modules
 /dist
 /img
+/tests
+*.rest
 
 # local env files
 .env.local

@@ -5,7 +5,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <!-- <ErrorBoundary> -->
-    <Page class="border-4 border-ocean">
+    <Page>
       <template v-slot:header>
         <Sidebar />
       </template>

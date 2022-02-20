@@ -7,14 +7,16 @@ import List from "./List.vue";
 import RadialProgress from "./RadialProgress.vue";
 import Section from "./Section.vue";
 import DevConsole from "./DevConsole.vue";
+import Modal from "./Modal.vue";
 
 export {
-    Card,
-    HeaderBar,
-    List,
-    Section,
-    DevConsole,
-    Footer,
-    RadialProgress
-
-}
+  Card,
+  HeaderBar,
+  List,
+  Section,
+  DevConsole,
+  Footer,
+  RadialProgress,
+  Accordion,
+  Modal,
+};

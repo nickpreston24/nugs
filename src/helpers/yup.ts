@@ -40,6 +40,5 @@ const partSchema = yup.object({
 
 export type Part = yup.InferType<typeof partSchema>;
 
-const testPart = { Type: "" } as Part;
-
-console.log('testPart', testPart)
+// const testPart = <Part>{};
+// console.log('testPart', testPart)

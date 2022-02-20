@@ -1,5 +1,5 @@
 <template>
-  <Stack>
+  <div>
     <div id="v-model-select" class="gentle-flex m-10">
       <select v-model="selected" @change="onSelection">
         <option disabled value="">Please select one</option>
@@ -8,20 +8,18 @@
         </option>
       </select>
     </div>
-
     <Grid mode="photo">
       <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
-        <PartCard :part="part">
-          <!-- <SVGButton @click="submit" class="">Update</SVGButton> -->
+        <PartCard :part="part" class="hover:border-rose-500">
+          <button class="hover:text-orange-500" @click="submit">Update</button>
         </PartCard>
       </card>
     </Grid>
-  </Stack>
+  </div>
 </template>
 <script>
-//import { initialOptions } from "../../../data/airtable-curl";
 import Spinner from "../atoms/Spinner.vue";
-import useTable from "../useTable";
+import useTable from "../../hooks/useTable";
 import { Stack, Grid, Row } from "../../components/flex";
 import Section from "../../components/molecules/Section.vue";
 import Label from "../../components/atoms/Label.vue";
@@ -32,6 +30,8 @@ import SVGButton from "../../components/molecules/SVGButton.vue";
 import Card from "../../components/molecules/Card.vue";
 import PartCard from "../../components/parts/PartCard.vue";
 import { Log } from "../../helpers";
+
+const initialOptions = {};
 
 export default {
   components: {
@@ -58,7 +58,7 @@ export default {
   },
 
   setup() {
-    let { state, searchTable } = useTable();
+    let { state, searchTable } = useTable("Parts", { maxRecords: 20 });
 
     return {
       state,
@@ -70,7 +70,6 @@ export default {
 
   computed: {
     parts() {
-      // console.log("computed:  >> ", this.state.records);
       return this.state.records;
     },
   },

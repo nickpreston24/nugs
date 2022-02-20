@@ -4,11 +4,42 @@
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
-        <Button v-if="false" @click="views.gallery.show = !views.gallery.show">{{
-          views.gallery.show ? "Add Builds" : "View Builds"
-        }}</Button>
+        <!-- <Button
+          class="shadow-purple-400/50 shadow-md"
+          v-if="false"
+          @click="views.gallery.show = !views.gallery.show"
+          >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
+        > -->
 
-        <BuildsGallery v-if="views.gallery.show" />
+        <div v-if="devmode">
+          <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
+          <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
+          <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
+          <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
+          <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
+          <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
+          <!-- </Row> -->
+          <!-- <Stack>
+            <pre class="text-tiny">{{ percentCompleted }}</pre>
+            <pre class="text-tiny">{{ totalEntries }}</pre>
+          </Stack> -->
+
+          <Stack>
+            <radial-progress-bar
+              :diameter="220"
+              :completed-steps="completedSteps"
+              :total-steps="totalSteps"
+            >
+              <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
+            </radial-progress-bar>
+          </Stack>
+        </div>
+
+        <!-- Checklist -->
+
+        <!-- <pre>{{ parts.map((b) => b?.Name) }}</pre> -->
+
+        <!-- <BuildsGallery v-if="views.gallery.show" /> -->
 
         <!-- DEV Toggles -->
         <!-- <Row v-if="devmode">
@@ -21,10 +52,9 @@
         <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
         <!-- randomBuild: { show: true }, -->
         <!-- Slider bar -->
-        <Stack>
-          <h1 class="text-7xl text-purple-500">Build options</h1>
 
-          <pre class="text-tiny">{{ checklist }}</pre>
+        <Stack>
+          <h1 class="text-4xl text-purple-500">Choose One of Each Part</h1>
 
           <Row class="gap-10">
             <Stack class="gap-0.5">
@@ -59,24 +89,13 @@
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <!-- Checklist -->
+        <!-- An Accordion style picker for parts -->
 
-        <radial-progress-bar
-          v-if="false"
-          :diameter="200"
-          :completed-steps="completedSteps"
-          :total-steps="totalSteps"
-        >
-          <h2>{{ percent }}%</h2>
-        </radial-progress-bar>
-
-        <!-- A Checklist-->
-        <!-- <Grid v-if="devmode">
-          <Row v-for="(item, outer) in types">
-            <input type="checkbox" checked="item" />
-            <label>{{ item || "item" }}</label>
-          </Row>
-        </Grid> -->
+        <!-- <Accordion :list="builds">
+          <template v-slot:header>
+            <h1>&#x1F503;</h1>
+          </template>
+        </Accordion> -->
 
         <!-- A filter for Search Boxes -->
 
@@ -95,13 +114,21 @@
           :size="60"
           class="color-arctic-500"
         />
-        <Grid mode="photo">
-          <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
-            <PartCard :part="part">
-              <button @click="addToChecklist(part)">Add</button>
-            </PartCard>
-          </card>
-        </Grid>
+        <div v-for="type in partTypes">
+          <!-- {{ type }} -->
+          <h3 class="text-3xl" v-if="groupedParts[type]?.length > 0">
+            Pick your {{ type }}
+          </h3>
+
+          <!-- <h4>{{ groupedParts[type] }}</h4> -->
+          <Grid v-if="devmode" mode="photo">
+            <card v-for="part in groupedParts[type]" :key="part.id" class="bg-tahiti-700">
+              <PartCard :part="part">
+                <button @click="addPart(part)">Add</button>
+              </PartCard>
+            </card>
+          </Grid>
+        </div>
 
         <!-- Builder -->
         <Grid v-if="false">
@@ -110,26 +137,14 @@
             v-for="part in parts"
             :key="part.id"
           >
-            <template v-slot:header>
-              <!-- <div
-                class="text-orange-400 border-orange-700 border-4 border-double p-tiny"
-              >
-                <div
-                  class="text-orange-400 border-ocean-700 border-4 border-double p-tiny"
-                >
-                  <h3 class="p-tiny text-white border-purple-700 border-4 border-double">
-                    {{ part.Name }}
-                  </h3>
-                </div>
-              </div> -->
-            </template>
+            <template v-slot:header> </template>
             <template v-slot:default>
               <!-- Show Image -->
 
-              <Stack class="">
-                <!-- <p class="w-1/3 max-h-64">{{ part.Notes }}</p> -->
+              <Stack>
+                <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
                 <p class="w-1/3 max-h-64">{{ part.Type }}</p>
-                <Image
+                <img
                   v-if="part.Attachments"
                   :src="part.Attachments?.[0]?.url"
                   class="transform transition-all hover:scale-125"
@@ -147,62 +162,20 @@
             </template>
           </card>
         </Grid>
-
-        <!-- <Gradient class="m-4"> -->
-        <!-- <card class="" @click="addPart">
-          <template v-slot:header>
-            <label class="text-5xl">Hanguard MS-KMR-13</label>
-          </template>
-          <template v-slot:default>
-            <Stack>
-              <Button class="text-5xl text-white border-radius hover:text-ocean-500"
-                >Add to Build</Button
-              >
-              <Image
-                src="https://cdn11.bigcommerce.com/s-16115g8ghe/images/stencil/1280x1280/products/1680/5284/BCM-BRL-MID-14-ELW-F-STD-2__04035.1571674582.jpg?c=1"
-                alt="test"
-              />
-            </Stack>
-          </template>
-        </card> -->
-        <!-- </Gradient> -->
-
-        <!-- <Gradient class="m-4"> -->
-        <!-- <card class="" @click="addPart">
-          <template v-slot:header>
-            <label class="text-5xl">Hanguard MS-KMR-13</label>
-          </template>
-          <template v-slot:default>
-            <Stack>
-              <Button class="text-5xl text-white border-radius hover:text-ocean-500"
-                >Add to Build</Button
-              >
-              <Image
-                src="https://www.weapondepot.com/wp-content/uploads/product-media/2020/07/BCM-GUNFTR-MCMR-RAIL-556-15-BLK-MLK-15837-1594054300-570x380.png"
-                alt="test"
-              />
-            </Stack>
-          </template>
-        </card> -->
-        <!-- </Gradient> -->
       </div>
     </Section>
   </div>
 </template>
 <script>
 import axios from "axios";
-import useTable from "../components/useTable";
+import useTable from "../hooks/useTable";
+import useBuilds from "../hooks/useBuilds";
 import { random } from "../helpers/generators.ts";
-import { UniqueArray, unique } from "../helpers/array.ts";
-import { nameOf, devmode } from "../helpers";
-
+import { devmode, Log, groupBy } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
 import { Button, Spinner } from "../components/atoms";
 import Brandon from "../components/atoms/Brandon.vue";
-// import Toggle from "../components/atoms/Toggle.vue";
-import Chip from "../components/atoms/Chip.vue";
 import Section from "../components/molecules/Section.vue";
-// import RadialProgress from "../components/molecules/RadialProgress.vue";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import Card from "../components/molecules/Card.vue";
@@ -215,7 +188,6 @@ import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
 import { Shadow } from "../components/atoms";
 import { ref } from "vue";
-import { Log } from "../helpers";
 
 export default {
   components: {
@@ -229,7 +201,6 @@ export default {
     Section,
     SVGButton,
     Slider,
-    // Toggle,
     Grid,
     RadialProgressBar,
     Brandon,
@@ -247,58 +218,39 @@ export default {
       },
 
       devmode: devmode,
-
-      build: {
-        parts: [],
-      },
     };
-  },
-  computed: {
-    checklist() {
-      return this.$store.state.checklist;
-    },
-    percent() {
-      return (this.completedSteps / this.totalSteps) * 100;
-    },
-    parts() {
-      return this.state.records;
-    },
-    types() {
-      const list = Object.keys(this.$store.state.checklist);
-      return list;
-    },
-    categories() {
-      const list = Object.keys(this.$store.state.checklist);
-      const arr = list.filter((r) => r.Type).map((j) => j.Type);
-      return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
-    },
-    completed() {
-      const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
-
-      // this.completedSteps = list?.length || 0;
-      // console.log("this.completedSteps", this.completedSteps);
-      return list;
-    },
   },
 
   setup() {
-    let { state, searchTable, getById, loading, error } = useTable("Parts", {
-      maxRecords: 20,
-    });
-
-    const completedSteps = ref(5);
-    const totalSteps = ref(10);
-
-    return {
-      state,
-      searchTable,
-      getById,
-
-      completedSteps,
-      totalSteps,
-
+    const {
+      builds,
+      parts,
       loading,
       error,
+      addPart,
+      checklist,
+      percentCompleted,
+      incomplete,
+      majorParts,
+      partTypes,
+      groupedParts,
+      totalEntries,
+    } = useBuilds();
+
+    return {
+      builds,
+      parts,
+      loading,
+      error,
+      addPart,
+      checklist,
+      percentCompleted,
+      incomplete,
+      majorParts,
+      partTypes,
+      groupedParts,
+
+      totalEntries,
     };
   },
   methods: {
@@ -306,12 +258,11 @@ export default {
       this.views.randomBuild.show = true;
       this.build.parts = random.Shuffle(this.parts).take(3);
     },
-    addToBuild() {},
-
-    addToChecklist(part) {
-      Log("part", part);
-      this.$store.commit("addPart", part);
-    },
+    // addToChecklist(part) {
+    //   if (!this.buildId) {
+    //     this.create("Builds", part);
+    //     Log(this.state.value, "after creating build...");
+    //   }
     setRange(range) {
       this.$store.setRange(range);
     },
@@ -319,20 +270,6 @@ export default {
       range() {
         return this.$store.state.range;
       },
-    },
-    crud() {
-      const url = `api/sendMessage?name=${this.checklist.upper.name}`;
-      // console.log("url", url);
-      axios
-        .get(url)
-        .then((response) => {
-          Log(response);
-          // info.result = response.data;
-        })
-        .catch((err) => {
-          // if (devmode) info.message = err;
-          Log("err :>> ", err);
-        });
     },
   },
 };

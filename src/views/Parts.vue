@@ -1,23 +1,58 @@
 <template>
   <Section class="parts">
-    <Brandon class="w-64" @click="parts.show = !parts.show">{{
+    <!-- <Brandon class="w-64" @click="parts.show = !parts.show">{{
       !parts.show ? "Add Parts" : "View Parts"
-    }}</Brandon>
+    }}</Brandon> -->
 
-    <PartsGallery v-if="!parts.show" />
+    <pre v-if="devmode" class="text-tahiti-300">{{ showModal }}</pre>
 
-    <AddParts />
+    <Button @click="showModal = !showModal">Add Part</Button>
+
+    <Modal :show="showModal">
+      <template #header>
+        <h3 class="text-3xl">Add Part</h3>
+      </template>
+      <template #body>
+        <AddParts />
+      </template>
+    </Modal>
+
+    <AddParts v-if="parts.show" />
+
+    <PartsGallery />
   </Section>
 </template>
 <script>
-import Button from "../components/atoms/Button.vue";
-import Brandon from "../components/atoms/Brandon.vue";
+import { Modal, Accordion } from "../components/molecules";
+import { Button, Brandon } from "../components/atoms";
 import PartsGallery from "../components/parts/PartsGallery.vue";
-import Row from "../components/flex/Row.vue";
+import { Row } from "../components/flex";
 import Section from "../components/molecules/Section.vue";
-import useTable from "../components/useTable";
+import useTable from "../hooks/useTable";
 import AddParts from "../components/parts/AddParts.vue";
+import { devmode } from "../helpers/";
+import { ref, watch } from "vue";
+
 export default {
+  setup(props) {
+    const showModal = ref(false);
+    const { state } = useTable("Parts", { maxRecords: 10 });
+    console.log("state", state);
+    console.log("state.value", state.value.records);
+    // const parts = state.records.value;
+    // console.log("parts", parts);
+
+    watch(
+      () => props.show,
+      (show) => {
+        showModal.value = show;
+      }
+    );
+
+    return {
+      showModal,
+    };
+  },
   data() {
     return {
       parts: { show: false },
@@ -35,6 +70,8 @@ export default {
     Section,
     Brandon,
     AddParts,
+    Modal,
+    Accordion,
   },
 };
 </script>

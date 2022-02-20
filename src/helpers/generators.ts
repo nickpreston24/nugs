@@ -8,14 +8,9 @@ export function prop<T, K extends keyof T>(obj: T, key: K) {
 
 declare global {
   interface Array<T> {
-    flatten(arr: Array<T>): Array<T>;
     remove(elem: T): Array<T>;
   }
 }
-
-Array.prototype.flatten = function <T>(arr: Array<T>): Array<T> {
-  return arr.reduce((acc, value) => acc.concat(value), new Array<T>());
-};
 
 if (!Array.prototype.remove) {
   Array.prototype.remove = function <T>(this: T[], elem: T): T[] {
