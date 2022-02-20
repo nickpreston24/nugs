@@ -6,22 +6,13 @@
 
     <pre v-if="devmode" class="text-tahiti-300">{{ showModal }}</pre>
 
-    <Accordion :list="parts" class="text-white border-4 border-red">
-      <!-- <div key="1" class="panel bg-yellow-500 h-24 w-64">1</div>
-      <div key="2" class="panel bg-yellow-500 h-24 w-64">2</div>
-      <div key="3" class="panel bg-yellow-500 h-24 w-64">3</div> -->
-    </Accordion>
-
     <Button @click="showModal = !showModal">Add Part</Button>
 
     <Modal :show="showModal">
       <template #header>
         <h3 class="text-3xl">Add Part</h3>
       </template>
-
       <template #body>
-        <!-- <img src="https://picsum.photos/id/684/600/400" alt="" /> -->
-
         <AddParts />
       </template>
     </Modal>

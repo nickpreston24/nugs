@@ -1,9 +1,7 @@
 <template>
   <div>
     <div v-for="(item, key, index) of contents" :key="item.id">
-      <pre>{{ item }}</pre>
-
-      <!-- <div class="id" @click="item?.expanded = !item?.expanded">
+      <div class="id" @click="item?.expanded = !item?.expanded">
         <div>
           <b>{{ index }}</b>
         </div>
@@ -14,7 +12,7 @@
       </div>
       <div class="description" v-if="item?.expanded && item?.description">
         {{ item.description }}
-      </div> -->
+      </div>
     </div>
 
     <!-- <div id="accordion-header" class="relative py-3 sm:max-w-xl sm:mx-auto">

@@ -11,7 +11,35 @@
           >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
         > -->
 
-        <BuildsGallery v-if="views.gallery.show" />
+        <div v-if="devmode">
+          <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
+          <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
+          <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
+          <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
+          <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
+          <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
+          <!-- </Row> -->
+          <!-- <Stack>
+            <pre class="text-tiny">{{ percentCompleted }}</pre>
+            <pre class="text-tiny">{{ totalEntries }}</pre>
+          </Stack> -->
+
+          <Stack>
+            <radial-progress-bar
+              :diameter="220"
+              :completed-steps="completedSteps"
+              :total-steps="totalSteps"
+            >
+              <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
+            </radial-progress-bar>
+          </Stack>
+        </div>
+
+        <!-- Checklist -->
+
+        <!-- <pre>{{ parts.map((b) => b?.Name) }}</pre> -->
+
+        <!-- <BuildsGallery v-if="views.gallery.show" /> -->
 
         <!-- DEV Toggles -->
         <!-- <Row v-if="devmode">
@@ -24,10 +52,9 @@
         <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
         <!-- randomBuild: { show: true }, -->
         <!-- Slider bar -->
-        <Stack>
-          <h1 class="text-7xl text-purple-500">Build options</h1>
 
-          <pre class="text-tiny">{{ checklist }}</pre>
+        <Stack>
+          <h1 class="text-4xl text-purple-500">Choose One of Each Part</h1>
 
           <Row class="gap-10">
             <Stack class="gap-0.5">
@@ -62,24 +89,6 @@
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <!-- Checklist -->
-
-        <radial-progress-bar
-          v-if="false"
-          :diameter="200"
-          :completed-steps="completedSteps"
-          :total-steps="totalSteps"
-        >
-          <h2>{{ percent }}%</h2>
-        </radial-progress-bar>
-
-        <!-- A Checklist-->
-        <Grid v-if="devmode">
-          <Row v-for="(item, outer) in types">
-            <input type="checkbox" checked="item" />
-            <label>{{ item || "item" }}</label>
-          </Row>
-        </Grid>
         <!-- An Accordion style picker for parts -->
 
         <!-- <Accordion :list="builds">
@@ -105,14 +114,21 @@
           :size="60"
           class="color-arctic-500"
         />
-        <Grid mode="photo">
-          <card v-for="part in parts" :key="part.id" class="bg-tahiti-700">
-            <PartCard :part="part">
-              <button @click="addPart(part)">Add</button>
-              <!-- <button @click="addToChecklist(part)">Add</button> -->
-            </PartCard>
-          </card>
-        </Grid>
+        <div v-for="type in partTypes">
+          <!-- {{ type }} -->
+          <h3 class="text-3xl" v-if="groupedParts[type]?.length > 0">
+            Pick your {{ type }}
+          </h3>
+
+          <!-- <h4>{{ groupedParts[type] }}</h4> -->
+          <Grid v-if="devmode" mode="photo">
+            <card v-for="part in groupedParts[type]" :key="part.id" class="bg-tahiti-700">
+              <PartCard :part="part">
+                <button @click="addPart(part)">Add</button>
+              </PartCard>
+            </card>
+          </Grid>
+        </div>
 
         <!-- Builder -->
         <Grid v-if="false">
@@ -155,7 +171,7 @@ import axios from "axios";
 import useTable from "../hooks/useTable";
 import useBuilds from "../hooks/useBuilds";
 import { random } from "../helpers/generators.ts";
-import { devmode, Log } from "../helpers";
+import { devmode, Log, groupBy } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
 import { Button, Spinner } from "../components/atoms";
 import Brandon from "../components/atoms/Brandon.vue";
@@ -202,105 +218,59 @@ export default {
       },
 
       devmode: devmode,
-
-      // buildId: null,
     };
   },
-  // computed: {
-  //   // checklist() {
-  //   //   return this.$store.state.checklist;
-  //   // },
-  //   percent() {
-  //     return (this.completedSteps / this.totalSteps) * 100;
-  //   },
-  //   parts() {
-  //     return this.builds;
-  //   },
-  //   types() {
-  //     // const list = Object.keys(this.$store.state.checklist);
-  //     const list = Object.keys(this.$store.state.checklist);
-  //     return list;
-  //   },
-  //   categories() {
-  //     const list = Object.keys(this.$store.state.checklist);
-  //     const arr = list.filter((r) => r.Type).map((j) => j.Type);
-  //     return arr.filter((a, i) => arr.findIndex((s) => a === s) === i);
-  //   },
-  //   completed() {
-  //     const list = Object.entries(this.$store.state.checklist).filter((entry) => !!entry);
-
-  //     // this.completedSteps = list?.length || 0;
-  //     // console.log("this.completedSteps", this.completedSteps);
-  //     return list;
-  //   },
-  // },
 
   setup() {
-    // let { state, searchTable, getById, loading, error, patch, create } = useTable(
-    //   "Parts",
-    //   {
-    //     maxRecords: 100,
-    //   }
-    // );
+    const {
+      builds,
+      parts,
+      loading,
+      error,
+      addPart,
+      checklist,
+      percentCompleted,
+      incomplete,
+      majorParts,
+      partTypes,
+      groupedParts,
+      totalEntries,
+    } = useBuilds();
 
-    const { builds, addPart, checklist } = useBuilds();
-    const completedSteps = ref(5);
-    const totalSteps = ref(10);
-    console.log("builds", builds);
     return {
       builds,
-      // state,
-      // searchTable,
-      // getById,
-      // patch,
-      completedSteps,
-      totalSteps,
-      // create,
-
-      // loading,
-      // error,
-
+      parts,
+      loading,
+      error,
       addPart,
+      checklist,
+      percentCompleted,
+      incomplete,
+      majorParts,
+      partTypes,
+      groupedParts,
+
+      totalEntries,
     };
   },
   methods: {
-    // getRandomBuild() {
-    //   this.views.randomBuild.show = true;
-    //   this.build.parts = random.Shuffle(this.parts).take(3);
-    // },
+    getRandomBuild() {
+      this.views.randomBuild.show = true;
+      this.build.parts = random.Shuffle(this.parts).take(3);
+    },
     // addToChecklist(part) {
     //   if (!this.buildId) {
     //     this.create("Builds", part);
     //     Log(this.state.value, "after creating build...");
     //   }
-    //   this.$store.commit("addPart", {
-    //     fields: {
-    //       Name: "Empress Fidelis",
-    //     },
-    //   });
-    // },
-    // setRange(range) {
-    //   this.$store.setRange(range);
-    // },
-    // computed: {
-    //   range() {
-    //     return this.$store.state.range;
-    //   },
-    // },
-    // crud() {
-    //   const url = `api/sendMessage?name=${this.checklist.upper.name}`;
-    //   // console.log("url", url);
-    //   axios
-    //     .get(url)
-    //     .then((response) => {
-    //       Log(response);
-    //       // info.result = response.data;
-    //     })
-    //     .catch((err) => {
-    //       // if (devmode) info.message = err;
-    //       Log("err :>> ", err);
-    //     });
-    // },
+    setRange(range) {
+      this.$store.setRange(range);
+    },
+    computed: {
+      range() {
+        return this.$store.state.range;
+      },
+    },
   },
 };
 </script>

@@ -29,20 +29,10 @@ export const getRecords = async (tableName, maxRecords = 10) => {
       Authorization: `Bearer ${apiKey}`,
     },
   }).catch((error) => {
-    console.log("error", error);
+    Log("airtable error", error);
   });
 
-  let raw = formatRecords(result?.data?.records);
-  console.log("raw", raw);
-
-  return raw;
-  // .then((result) => {
-  //   let raw = formatRecords(result?.data?.records);
-  //   console.log("raw", raw);
-  // })
-  // .catch((error) => {
-  //   console.log("error", error);
-  // });
+  return formatRecords(result?.data?.records);
 };
 
 export const searchTable = async (
@@ -72,40 +62,39 @@ export const searchTable = async (
       let raw = formatRecords(result?.data?.records);
     })
     .catch((error) => {
-      console.log("error", error);
+      Log("error", error);
     });
 };
 
 export const getById = async (id, table = null) => {
-  Log(id);
+  if (!table) return "Table cannot be null!";
 
   let record = await get(table, id).catch((error) => {
-    console.log("error", error);
+    Log("error", error);
   });
 
-  devmode && console.log("record :>> ", record);
+  Log("record :>> ", record);
 
-  return record;
+  return formatRecords(record);
 };
 
-export const patch = (table = null, data = null) => {
+export const patch = async (table = null, data = null) => {
   const url = `https://api.airtable.com/v0/${baseKey}/${table}`;
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${apiKey}`,
   };
-  axios
+  const request = await axios
     .patch(url, data, headers)
-    .then((result) => {
-      Log(result);
-      let raw = formatRecords(result?.data?.records);
-    })
+
     .catch((error) => {
-      console.log("error", error);
+      Log("error", error);
     });
+
+  return formatRecords(result?.data?.records);
 };
 
-export const create = (table = null, record) => {
+export const create = async (table = null, record) => {
   const data = {
     records: [
       {
@@ -121,11 +110,10 @@ export const create = (table = null, record) => {
       "Content-Type": "application/json",
     },
   };
-  axios
+  const request = await axios
     .post(url, data, axiosConfig)
-    .then((result) => {
-      Log(result);
-      let raw = formatRecords(result?.data?.records);
-    })
-    .catch((error) => console.log(error));
+    .catch((error) => Log(error));
+
+  // TODO: return id
+  return request.data.id;
 };

@@ -1,44 +1,51 @@
-import { ref, onMounted, toRefs, reactive, toRef, onUnmounted } from "vue";
-import { Log } from "../helpers";
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import { Log, empties, get, deepCount, groupBy } from "../helpers";
 import { getRecords } from "./airtable";
 
 const initial = {
-  buffer: {
-    spring: null,
-    tube: null,
-    alt: null,
-  },
-  upper: {
-    handguard: null,
-    barrel: null,
-    bcg: null,
-    gasblock: null,
-    gastube: null,
-  },
-  buttstock: { id: null, brand: "" },
-  lower: {
-    LPK: {
-      brand: "",
-    },
-  },
+  Lower: null,
+  Barrel: null,
+  Handguard: null,
+  Upper: null,
+  Buttstock: null,
+  Brace: null,
+  "Charging Handle": null,
+  BufferSpring: null,
+  Buffer: null,
+  BufferTube: null,
+  "Pivot Pins": null,
+  BCG: null,
+  Magazine: null,
+  "Gas Block": null,
+  "Buffer Retainer": null,
+  "Gas Tube": null,
+  LPK: null,
+
+  /* Optional */
+
+  // Suppressor: null,
+  // Sling: null,
+  // Scope: null,
+  // UPK: null,
+  // Earpro: null,
+  // Cerakote: null,
 };
 
 export default function useBuilds() {
   const checklist = ref(initial);
-  const state = ref({
-    builds: [],
-  });
+  const builds = ref([]);
+  const parts = ref([]);
+
   const loading = ref(false);
   const error = ref("");
 
   onMounted(async () => {
     loading.value = true;
-    const records = await getRecords("Builds", 5);
-    console.log("records", records);
-    state.value.builds = records;
-    loading.value = false;
 
-    console.log("my builds", state?.value?.builds);
+    builds.value = await getRecords("Builds", 5);
+    parts.value = await getRecords("Parts", 50);
+
+    loading.value = false;
   });
 
   /**
@@ -46,14 +53,58 @@ export default function useBuilds() {
    */
   const addPart = (part) => {
     const partType = part?.Type || "";
-    // const buildType = payload?.BuildType || "AR-15"
-    // const attachments = findValue(part, "Attachments", (_, x) => x);
+    // part.selected = !part?.selected;
+    // console.log("part.selected", part.selected);
 
-    Log(partType, "partType");
-    Log("part", part);
-    checklist.value[partType] = part[partType];
-    Log("checklist", checklist.value);
+    //TODO: other parts of the same type will become unselected.
+    checklist.value[partType[0]] = part;
   };
 
-  return { addPart, checklist, builds: state?.value?.builds };
+  const completedSteps = computed(() => totalEntries.value - incomplete.value);
+  // const totalSteps = computed(() => 15);
+
+  const percentCompleted = computed(
+    () => (completedSteps.value / totalEntries.value) * 100.0
+  );
+
+  // const majorParts = computed(() => Object.keys(checklist.value));
+  const groupedParts = computed(() => groupBy(parts.value, "Type"));
+
+  const partTypes = computed(() => {
+    const list = parts.value;
+    const types = [].flatten(list.filter((r) => r.Type).map((j) => j.Type));
+    //dedupe
+    console.log("types", types);
+    return types.filter((a, i) => types.findIndex((s) => a === s) === i);
+  });
+
+  const incomplete = computed(() => empties(checklist.value));
+
+  const totalEntries = computed(() => {
+    // for now...
+    return Object.keys(checklist.value)?.length;
+
+    // return deepCount(initial);
+    // let total = 0;
+    // total += deepCount(Object.keys(initial?.buffer));
+    // total += deepCount(Object.keys(initial?.upper));
+    // total += deepCount(Object.keys(initial?.lower));
+    // total += deepCount(Object.keys(initial?.buttstock || {}));
+
+    // return total;
+  });
+
+  return {
+    builds,
+    parts,
+    loading,
+    error,
+    addPart,
+    checklist,
+    percentCompleted,
+    incomplete,
+    partTypes,
+    totalEntries,
+    groupedParts,
+  };
 }
