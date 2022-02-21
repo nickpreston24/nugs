@@ -1,31 +1,35 @@
 <template>
-  <div class="gentle-flex">
+  <Row>
     <form class="login-form" @submit.prevent="loginUser">
-      <form-input
-        label="Email"
-        v-model="values.email"
-        type="email"
-        @validate="validate('email')"
-        name="email"
-        :error="errors.email"
-      ></form-input>
-      <form-input
-        label="Password"
-        v-model="values.password"
-        type="password"
-        @validate="validate('password')"
-        name="password"
-        :error="errors.password"
-      ></form-input>
-      <button class="btn btn-primary btn-block">Login</button>
+      <Stack>
+        <form-input
+          class="border-2 border-warmGray-400 max-w-md bg-warmGray-500"
+          label="Email"
+          v-model="values.email"
+          type="email"
+          @validate="validate('email')"
+          name="email"
+          :error="errors.email"
+        ></form-input>
+        <form-input
+          class="border-2 border-warmGray-400 max-w-md bg-warmGray-500"
+          label="Password"
+          v-model="values.password"
+          type="password"
+          @validate="validate('password')"
+          name="password"
+          :error="errors.password"
+        ></form-input>
+        <Brandon class="btn btn-primary btn-block">Login</Brandon>
+      </Stack>
     </form>
-  </div>
+  </Row>
 </template>
 
 <script>
 import * as yup from "yup";
-import FormInput from "../components/atoms/FormInput.vue";
-
+import { FormInput, Brandon } from "../components/atoms";
+import { Row, Stack } from "../components/flex";
 const loginFormSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required(),
@@ -35,6 +39,9 @@ export default {
   name: "app",
   components: {
     "form-input": FormInput,
+    Row,
+    Stack,
+    Brandon,
   },
   data() {
     return {
@@ -72,10 +79,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.login-form {
-  max-width: 400px;
-  width: 100%;
-}
-</style>

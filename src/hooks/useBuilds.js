@@ -1,6 +1,12 @@
-import { ref, onMounted, onUnmounted, computed } from "vue";
-import { Log, empties, get, deepCount, groupBy } from "../helpers";
+import { ref, onMounted, onUnmounted, computed, reactive } from "vue";
+import { Log, countEmpty, get, deepCount, groupBy } from "../helpers";
 import { getRecords } from "./airtable";
+import { random } from "../helpers/generators";
+
+const MODE = {
+  RANDOM: "random",
+  CUSTOM: "custom",
+};
 
 const initial = {
   Lower: null,
@@ -35,6 +41,12 @@ export default function useBuilds() {
   const checklist = ref(initial);
   const builds = ref([]);
   const parts = ref([]);
+  const build = reactive({
+    previous: { parts: [] },
+    current: { parts: [] },
+  });
+
+  const buildMode = ref(MODE.CUSTOM);
 
   const loading = ref(false);
   const error = ref("");
@@ -48,6 +60,11 @@ export default function useBuilds() {
     loading.value = false;
   });
 
+  onUnmounted(async () => {
+    // builds = null;
+    // parts = null;
+  });
+
   /**
    * Add Part to the checklist
    */
@@ -58,6 +75,30 @@ export default function useBuilds() {
 
     //TODO: other parts of the same type will become unselected.
     checklist.value[partType[0]] = part;
+  };
+
+  const getRandomBuild = () => {
+    buildMode.value = MODE.RANDOM;
+    let nextChecklist = { ...initial };
+    const allParts = parts.value.filter((x) => x?.Type?.length > 0);
+
+    for (const typeName of partTypes.value) {
+      const matchingParts = allParts.filter((part) =>
+        part.Type?.includes(typeName)
+      );
+      console.log("typeName", typeName, "count: ", matchingParts?.length);
+      // console.log("matchingParts", matchingParts);
+
+      const picked = random.Shuffle(matchingParts)?.[0];
+      console.log("picked", picked);
+      // for (let index = 0; index < allPartsWithTypes.length; index++) {
+      //   // const types = element?.Type;
+      //   // if (!types) continue;
+      nextChecklist[typeName] = { ...picked };
+      // }
+    }
+
+    checklist.value = nextChecklist;
   };
 
   const completedSteps = computed(() => totalEntries.value - incomplete.value);
@@ -73,12 +114,12 @@ export default function useBuilds() {
   const partTypes = computed(() => {
     const list = parts.value;
     const types = [].flatten(list.filter((r) => r.Type).map((j) => j.Type));
-    //dedupe
     console.log("types", types);
+    //dedupe
     return types.filter((a, i) => types.findIndex((s) => a === s) === i);
   });
 
-  const incomplete = computed(() => empties(checklist.value));
+  const incomplete = computed(() => countEmpty(checklist.value));
 
   const totalEntries = computed(() => {
     // for now...
@@ -97,6 +138,7 @@ export default function useBuilds() {
   return {
     builds,
     parts,
+    build,
     loading,
     error,
     addPart,
@@ -106,5 +148,7 @@ export default function useBuilds() {
     partTypes,
     totalEntries,
     groupedParts,
+    getRandomBuild,
+    buildMode,
   };
 }

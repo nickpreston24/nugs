@@ -6,18 +6,19 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
          -->
 <template>
   <!-- <Gradient>  show if selected :) -->
-  <div
-    v-if="part.Name"
-    class="container card flex flex-col items-center text-arctic-400 overflow-hidden border"
-  >
-    <figure>
+  <Card>
+    <template v-slot:header>
+      <h1>{{ part?.Name }}</h1>
+    </template>
+    <div v-if="part.Name">
+      <!-- <figure> -->
       <!-- Show Image -->
       <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
-        <img
-          v-if="part?.Attachments"
-          :src="part?.Attachments?.[0]?.url"
-          class="transform transition-all hover:scale-125"
-        />
+        <!-- <img
+            v-if="part?.Attachments"
+            :src="part?.Attachments?.[0]?.url"
+            class="transform transition-all hover:scale-125"
+          /> -->
       </router-link>
       <!-- Upload missing image -->
       <Stack v-else-if="!part?.Attachment">
@@ -25,21 +26,24 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
           <i class="fa fa-link fa-lg"></i>
         </form-input>
         <i>Image Coming Soon!</i>
-        <!-- <Button @click="submit">Update</Button> -->
       </Stack>
-    </figure>
-    <p class="title ellipsis hover:text-arctic-200">{{ part.Name }}</p>
-    <div class="overlay"></div>
-    <div class="button" name="button">
-      <a><slot></slot></a>
+      <!-- </figure> -->
+      <!-- <p class="title ellipsis hover:text-arctic-200">{{ part.Name }}</p> -->
+      <!-- <div class="overlay w-16 border-orange-500 border-x-2"></div> -->
+      <!-- <div class="button w-16 border-red border-x-2" name="button">
+        <a><slot></slot></a>
+      </div> -->
     </div>
-  </div>
+  </Card>
+
+  <!-- <Button @click="submit">Update</Button> -->
   <!-- </Gradient> -->
 </template>
 
 <script>
 import Stack from "../flex/Stack.vue";
 import { Border } from "../atoms";
+import { Card } from "../molecules";
 
 export default {
   props: {
@@ -48,6 +52,7 @@ export default {
   components: {
     Stack,
     Border,
+    Card,
   },
   computed: {
     border() {

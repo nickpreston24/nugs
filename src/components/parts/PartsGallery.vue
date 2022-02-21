@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-white">
     <div id="v-model-select" class="gentle-flex m-10">
       <select v-model="selected" @change="onSelection">
         <option disabled value="">Please select one</option>
@@ -9,7 +9,7 @@
       </select>
     </div>
     <Grid mode="photo">
-      <card v-for="(part, key, index) in parts" :key="part.id" class="bg-tahiti-700">
+      <card v-for="(part, key, index) in parts" :key="part.id" class="bg-transparent">
         <PartCard :part="part" class="hover:border-rose-500">
           <button class="hover:text-orange-500" @click="submit">Update</button>
         </PartCard>

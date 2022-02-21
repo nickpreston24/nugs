@@ -51,6 +51,22 @@
           <li>
             <router-link class="navbar-links" to="/parts">Parts </router-link>
           </li>
+
+          <li>
+            <router-link v-if="devmode" class="navbar-links" to="/blog"
+              >Blog
+            </router-link>
+          </li>
+          <li>
+            <router-link v-if="devmode" class="navbar-links" to="/clones"
+              >Clones
+            </router-link>
+          </li>
+          <li>
+            <router-link v-if="devmode" class="navbar-links" to="/guides"
+              >Guides
+            </router-link>
+          </li>
           <li>
             <router-link class="navbar-links" v-if="devmode" to="/sandbox">
               Sandbox</router-link

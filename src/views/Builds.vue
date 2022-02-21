@@ -1,6 +1,6 @@
 <template>
   <div class="builds">
-    <Section class="text-purple-400">
+    <Section class="text-white">
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
@@ -10,30 +10,6 @@
           @click="views.gallery.show = !views.gallery.show"
           >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
         > -->
-
-        <div v-if="devmode">
-          <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
-          <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
-          <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
-          <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
-          <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
-          <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
-          <!-- </Row> -->
-          <!-- <Stack>
-            <pre class="text-tiny">{{ percentCompleted }}</pre>
-            <pre class="text-tiny">{{ totalEntries }}</pre>
-          </Stack> -->
-
-          <Stack>
-            <radial-progress-bar
-              :diameter="220"
-              :completed-steps="completedSteps"
-              :total-steps="totalSteps"
-            >
-              <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
-            </radial-progress-bar>
-          </Stack>
-        </div>
 
         <!-- Checklist -->
 
@@ -51,14 +27,15 @@
 
         <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
         <!-- randomBuild: { show: true }, -->
-        <!-- Slider bar -->
 
         <Stack>
-          <h1 class="text-4xl text-purple-500">Choose One of Each Part</h1>
-
           <Row class="gap-10">
+            <pre>{{ buildMode }}</pre>
             <Stack class="gap-0.5">
-              <brandon class="transform transition-all hover:scale-125">
+              <brandon
+                @click="startCustomBuild"
+                class="transform transition-all hover:scale-125"
+              >
                 Big Blaster Builder
               </brandon>
             </Stack>
@@ -70,20 +47,15 @@
             >
           </Row>
 
+          <h1 v-if="buildMode === 'random'" class="text-4xl text-purple-500">
+            Choose One of Each Part
+          </h1>
+
           <!-- Budget Option -->
           <Stack v-if="views.budgetBuild.show">
             <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
             <slider min="500" @range-changed="setRange"></slider>
             <p>{{ range }}</p>
-          </Stack>
-
-          <Stack v-else-if="views.randomBuild.show">
-            <!-- TODO: Create Randomizer Button & Parts Row set -->
-
-            <!-- <label class="text-orange-300">Build List:</label>
-            <pre v-if="devmode">{{ build }}</pre>
-            <label class="text-orange-300">Checklist:</label>
-            <pre v-if="devmode">{{ checklist }}</pre> -->
           </Stack>
         </Stack>
 
@@ -122,24 +94,30 @@
 
           <!-- <h4>{{ groupedParts[type] }}</h4> -->
           <Grid v-if="devmode" mode="photo">
-            <card v-for="part in groupedParts[type]" :key="part.id" class="bg-tahiti-700">
+            <div
+              v-for="part in groupedParts[type]"
+              :key="part.id"
+              class="bg-transparent border-ocean-500 border-4 h-full"
+            >
+              <!-- <Gradient v-if="part.selected"> -->
+
+              <!-- </Gradient> -->
               <PartCard :part="part">
                 <button @click="addPart(part)">Add</button>
               </PartCard>
-            </card>
+            </div>
           </Grid>
         </div>
 
         <!-- Builder -->
-        <Grid v-if="false">
-          <card
+        <!-- <Grid v-if="true">
+          <Card
             class="gallery-panel border-4 max-w-2xl"
             v-for="part in parts"
             :key="part.id"
           >
             <template v-slot:header> </template>
             <template v-slot:default>
-              <!-- Show Image -->
 
               <Stack>
                 <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
@@ -149,20 +127,53 @@
                   :src="part.Attachments?.[0]?.url"
                   class="transform transition-all hover:scale-125"
                 />
-                <!-- <figure class='' v-else-if="!part.Attachments">No Attachment</figure> -->
               </Stack>
             </template>
 
             <template v-slot:footer>
               <div class="m-10">
-                <SVGButton class="bg-orange-500" @click="addToChecklist(part)"
-                  >Add</SVGButton
-                >
+                <SVGButton class="bg-orange-500" @click="addPart(part)">Add</SVGButton>
               </div>
             </template>
-          </card>
-        </Grid>
+          </Card>
+        </Grid> -->
       </div>
+
+      <Stack>
+        <h2 class="text-4xl text-purple-500">Here's Your Build!</h2>
+        <Card v-bind="build">
+          <template v-slot:header>
+            {{ build?.Name || build?.Id || "Untitled" }}
+          </template>
+          <Row>
+            <p>{{ build?.Calibers }}</p>
+            <p>{{ build?.Weight }}</p>
+          </Row>
+          <template v-slot:footer>
+            <radial-progress-bar
+              :diameter="220"
+              :completed-steps="completedSteps"
+              :total-steps="totalSteps"
+            >
+              <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
+            </radial-progress-bar>
+          </template>
+        </Card>
+      </Stack>
+
+      <!-- <div v-if="devmode"> -->
+      <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
+      <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
+      <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
+      <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
+      <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
+      <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
+      <!-- </Row> -->
+      <!-- <Stack>
+            <pre class="text-tiny">{{ percentCompleted }}</pre>
+            <pre class="text-tiny">{{ totalEntries }}</pre>
+          </Stack> -->
+      <!-- </div> -->
     </Section>
   </div>
 </template>
@@ -173,20 +184,23 @@ import useBuilds from "../hooks/useBuilds";
 import { random } from "../helpers/generators.ts";
 import { devmode, Log, groupBy } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
-import { Button, Spinner } from "../components/atoms";
-import Brandon from "../components/atoms/Brandon.vue";
-import Section from "../components/molecules/Section.vue";
-import Image from "../components/atoms/Image.vue";
+import { Section, Card, SVGButton, Modal } from "../components/molecules";
+
+import {
+  Button,
+  Spinner,
+  Brandon,
+  Image,
+  Gradient,
+  Slider,
+  Shadow,
+} from "../components/atoms";
+
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
-import Card from "../components/molecules/Card.vue";
 import Stack from "../components/flex/Stack.vue";
 import Grid from "../components/flex/Grid.vue";
 import Row from "../components/flex/Row.vue";
-import Gradient from "../components/atoms/Gradient.vue";
-import SVGButton from "../components/molecules/SVGButton.vue";
-import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
-import { Shadow } from "../components/atoms";
 import { ref } from "vue";
 
 export default {
@@ -218,6 +232,7 @@ export default {
       },
 
       devmode: devmode,
+      showModal: false,
     };
   },
 
@@ -225,44 +240,35 @@ export default {
     const {
       builds,
       parts,
+      build,
       loading,
       error,
       addPart,
       checklist,
       percentCompleted,
-      incomplete,
-      majorParts,
       partTypes,
       groupedParts,
-      totalEntries,
+      getRandomBuild,
+      buildMode,
     } = useBuilds();
 
     return {
       builds,
       parts,
+      build,
       loading,
       error,
       addPart,
       checklist,
       percentCompleted,
-      incomplete,
-      majorParts,
       partTypes,
       groupedParts,
-
-      totalEntries,
+      getRandomBuild,
+      buildMode,
     };
   },
   methods: {
-    getRandomBuild() {
-      this.views.randomBuild.show = true;
-      this.build.parts = random.Shuffle(this.parts).take(3);
-    },
-    // addToChecklist(part) {
-    //   if (!this.buildId) {
-    //     this.create("Builds", part);
-    //     Log(this.state.value, "after creating build...");
-    //   }
+    startCustomBuild() {},
     setRange(range) {
       this.$store.setRange(range);
     },

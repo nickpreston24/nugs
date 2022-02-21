@@ -1,5 +1,5 @@
 <template>
-  <Page class="border-red border-2">
+  <Page>
     <!-- <div class="bg-yellow-500 h-64 w-64"></div> -->
 
     <!-- <template v-slot:header> -->
@@ -36,12 +36,13 @@
             </Shadow>
           </template>
 
-          <img
-            v-if="show.pencilImg"
-            class="pencil-effect"
-            src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
-          />
-
+          <Gradient :show="true">
+            <img
+              v-if="show.pencilImg"
+              class="pencil-effect"
+              src="https://storage.googleapis.com/blog-images-backup/0*L21nPsxAgdm6M14u"
+            />
+          </Gradient>
           <template v-slot:right> </template>
         </header-bar>
       </template>
@@ -200,7 +201,14 @@ import HeaderBar from "../components/molecules/HeaderBar.vue";
 import Dashboard from "../components/templates/Dashboard.vue";
 import FormInput from "../components/atoms/FormInput.vue";
 import { Row, Stack, Grid } from "../components/flex";
-import { Shadow, IconBase, Button, Border, Settings } from "../components/atoms";
+import {
+  Shadow,
+  IconBase,
+  Button,
+  Border,
+  Settings,
+  Gradient,
+} from "../components/atoms";
 import {
   AwesomeSurprisedFaceIcon,
   AwesomeConfusedIcon,
@@ -245,6 +253,7 @@ export default {
     EightPointSixBlackoutIcon,
     AwesomeThinkingIcon,
     PistolIcon,
+    Gradient,
   },
   created() {
     this.toggle("borders");
