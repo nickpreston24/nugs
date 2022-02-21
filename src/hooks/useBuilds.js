@@ -3,7 +3,7 @@ import { Log, countEmpty, get, deepCount, groupBy } from "../helpers";
 import { getRecords } from "./airtable";
 import { random } from "../helpers/generators";
 
-const MODE = {
+const modes = {
   RANDOM: "random",
   CUSTOM: "custom",
 };
@@ -41,12 +41,12 @@ export default function useBuilds() {
   const checklist = ref(initial);
   const builds = ref([]);
   const parts = ref([]);
-  const build = reactive({
-    previous: { parts: [] },
-    current: { parts: [] },
-  });
+  // const build = reactive({
+  //   previous: { parts: [] },
+  //   current: { parts: [] },
+  // });
 
-  const buildMode = ref(MODE.CUSTOM);
+  const buildMode = ref(modes.CUSTOM);
 
   const loading = ref(false);
   const error = ref("");
@@ -55,7 +55,7 @@ export default function useBuilds() {
     loading.value = true;
 
     builds.value = await getRecords("Builds", 5);
-    parts.value = await getRecords("Parts", 50);
+    parts.value = await getRecords("Parts", 150);
 
     loading.value = false;
   });
@@ -64,6 +64,12 @@ export default function useBuilds() {
     // builds = null;
     // parts = null;
   });
+
+  const clear = () => {
+    checklist.value = initial;
+    build.checklist = initial;
+    buildMode.value = modes.CUSTOM;
+  };
 
   /**
    * Add Part to the checklist
@@ -74,11 +80,14 @@ export default function useBuilds() {
     // console.log("part.selected", part.selected);
 
     //TODO: other parts of the same type will become unselected.
-    checklist.value[partType[0]] = part;
+    for (let index = 0; index < partType.length; index++) {
+      const typeName = partType[index];
+      checklist.value[typeName] = part;
+    }
   };
 
   const getRandomBuild = () => {
-    buildMode.value = MODE.RANDOM;
+    buildMode.value = modes.RANDOM;
     let nextChecklist = { ...initial };
     const allParts = parts.value.filter((x) => x?.Type?.length > 0);
 
@@ -86,11 +95,11 @@ export default function useBuilds() {
       const matchingParts = allParts.filter((part) =>
         part.Type?.includes(typeName)
       );
-      console.log("typeName", typeName, "count: ", matchingParts?.length);
+      // console.log("typeName", typeName, "count: ", matchingParts?.length);
       // console.log("matchingParts", matchingParts);
 
       const picked = random.Shuffle(matchingParts)?.[0];
-      console.log("picked", picked);
+      // console.log("picked", picked);
       // for (let index = 0; index < allPartsWithTypes.length; index++) {
       //   // const types = element?.Type;
       //   // if (!types) continue;
@@ -102,19 +111,17 @@ export default function useBuilds() {
   };
 
   const completedSteps = computed(() => totalEntries.value - incomplete.value);
-  // const totalSteps = computed(() => 15);
 
   const percentCompleted = computed(
     () => (completedSteps.value / totalEntries.value) * 100.0
   );
 
-  // const majorParts = computed(() => Object.keys(checklist.value));
   const groupedParts = computed(() => groupBy(parts.value, "Type"));
 
   const partTypes = computed(() => {
     const list = parts.value;
     const types = [].flatten(list.filter((r) => r.Type).map((j) => j.Type));
-    console.log("types", types);
+    // console.log("types", types);
     //dedupe
     return types.filter((a, i) => types.findIndex((s) => a === s) === i);
   });
@@ -135,6 +142,32 @@ export default function useBuilds() {
     // return total;
   });
 
+  // const totalCost = computed(() => {
+  //   console.log(
+  //     "Object.entries(checklist.value)",
+  //     Object.entries(checklist.value)
+  //   );
+  //   return Object.entries(checklist.value).reduce((total, item) => {
+  //     console.log("item", item);
+  //     total += item.Cost;
+  //   }, 0);
+  // });
+
+  const build = computed(() => {
+    // console.log("total:>>", totalCost.value);
+
+    // console.log(
+    //   "Object.entries(checklist.value)",
+    //   Object.entries(checklist.value)
+    // );
+
+    return {
+      ...checklist,
+      Name: "Untitled Build",
+      Calibers: ["10mm", "8.6 Creedmoor"],
+    };
+  });
+
   return {
     builds,
     parts,
@@ -150,5 +183,6 @@ export default function useBuilds() {
     groupedParts,
     getRandomBuild,
     buildMode,
+    clear,
   };
 }

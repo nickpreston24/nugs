@@ -23,13 +23,13 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
             </div>
 
             <div class="modal-body">
-              <slot name="body">default body</slot>
+              <slot>default body</slot>
             </div>
 
             <div class="modal-footer">
               <slot name="footer">
                 default footer
-                <button class="modal-default-button" @click="$emit('close')">OK</button>
+                <Button class="modal-default-button" @click="$emit('close')">OK</Button>
               </slot>
             </div>
           </div>
@@ -41,6 +41,8 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
 <script>
 import { ref, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import { Button } from "../../components/atoms";
+
 export default {
   setup(props) {
     const modal = ref(null);

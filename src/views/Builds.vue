@@ -3,6 +3,23 @@
     <Section class="text-white">
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
+        <pre>{{ showModal }}</pre>
+        <Modal :show="showModal">
+          <template #header>
+            <div class="bg-midnight">
+              <h3 class="text-3xl text-purple-500">Clear Build?</h3>
+            </div>
+          </template>
+          <p class="text-xl text-ocean-600 semibold">
+            FYI, this will clear your current build. Are you sure you wish to continue?
+          </p>
+          <template #footer>
+            <Row>
+              <Button @click="clearBuild">Yes</Button>
+              <Button @click="showModal = false">No</Button>
+            </Row>
+          </template>
+        </Modal>
 
         <Stack>
           <Row class="gap-10">
@@ -22,7 +39,30 @@
             >
           </Row>
 
-          <h1 v-if="buildMode === 'random'" class="text-4xl text-purple-500">
+          <Stack class="text-purple-500">
+            <h2 class="text-4xl">Here's Your Build!</h2>
+            <Card v-bind="build">
+              <template v-slot:header>
+                {{ build?.Name || build?.Id || "Untitled" }}
+              </template>
+              <Row>
+                <p>{{ build?.Calibers }}</p>
+                <p>{{ build?.Weight }}</p>
+              </Row>
+              <template v-slot:footer>
+                <radial-progress-bar
+                  :diameter="220"
+                  :color="green"
+                  :completed-steps="completedSteps"
+                  :total-steps="totalSteps"
+                >
+                  <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
+                </radial-progress-bar>
+              </template>
+            </Card>
+          </Stack>
+
+          <h1 v-if="buildMode !== 'random'" class="text-4xl text-purple-500">
             Choose One of Each Part
           </h1>
 
@@ -42,62 +82,41 @@
           :size="60"
           class="color-arctic-500"
         />
-        <div v-for="type in partTypes">
+        <div v-if="percentCompleted < 100.0" v-for="type in partTypes">
           <h3 class="text-3xl" v-if="groupedParts[type]?.length > 0">
             Pick your {{ type }}
           </h3>
 
-          <Grid v-if="devmode" mode="photo">
-            <div
-              v-for="part in groupedParts[type]"
-              :key="part.id"
-              class="bg-transparent border-ocean-500 border-4 h-full"
-            >
-              <Gradient v-if="part.selected">
+          <Grid mode="photo">
+            <div v-for="part in groupedParts[type]" :key="part.id" class="bg-transparent">
+              <div v-if="part.selected" class="border-yellow border-4">
                 <PartCard :part="part">
                   <button @click="addPart(part)">Add</button>
                 </PartCard>
-              </Gradient>
+              </div>
+              <div v-else-if="!part.selected">
+                <PartCard :part="part">
+                  <button @click="addPart(part)">Add</button>
+                </PartCard>
+              </div>
             </div>
           </Grid>
         </div>
       </div>
 
-      <Stack>
-        <h2 class="text-4xl text-purple-500">Here's Your Build!</h2>
-        <Card v-bind="build">
-          <template v-slot:header>
-            {{ build?.Name || build?.Id || "Untitled" }}
-          </template>
-          <Row>
-            <p>{{ build?.Calibers }}</p>
-            <p>{{ build?.Weight }}</p>
-          </Row>
-          <template v-slot:footer>
-            <radial-progress-bar
-              :diameter="220"
-              :completed-steps="completedSteps"
-              :total-steps="totalSteps"
-            >
-              <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
-            </radial-progress-bar>
-          </template>
-        </Card>
-      </Stack>
-
-      <!-- <div v-if="devmode"> -->
-      <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
-      <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
-      <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
-      <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
-      <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
-      <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
-      <!-- </Row> -->
-      <!-- <Stack>
+      <div v-if="devmode">
+        <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
+        <pre class="text-tiny">{{ checklist }}</pre>
+        <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
+        <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
+        <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
+        <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
+        <!-- </Row> -->
+        <!-- <Stack>
             <pre class="text-tiny">{{ percentCompleted }}</pre>
             <pre class="text-tiny">{{ totalEntries }}</pre>
           </Stack> -->
-      <!-- </div> -->
+      </div>
     </Section>
   </div>
 </template>
@@ -145,6 +164,7 @@ export default {
     PartCard,
     Shadow,
     Spinner,
+    Modal,
   },
   data() {
     return {
@@ -174,6 +194,7 @@ export default {
       groupedParts,
       getRandomBuild,
       buildMode,
+      clear,
     } = useBuilds();
 
     return {
@@ -189,10 +210,17 @@ export default {
       groupedParts,
       getRandomBuild,
       buildMode,
+      clear,
     };
   },
   methods: {
-    startCustomBuild() {},
+    clearBuild() {
+      this.clear();
+      this.showModal = false;
+    },
+    startCustomBuild() {
+      this.showModal = true;
+    },
     setRange(range) {
       this.$store.setRange(range);
     },
