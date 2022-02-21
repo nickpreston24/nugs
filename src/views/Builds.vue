@@ -4,33 +4,8 @@
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
-        <!-- <Button
-          class="shadow-purple-400/50 shadow-md"
-          v-if="false"
-          @click="views.gallery.show = !views.gallery.show"
-          >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
-        > -->
-
-        <!-- Checklist -->
-
-        <!-- <pre>{{ parts.map((b) => b?.Name) }}</pre> -->
-
-        <!-- <BuildsGallery v-if="views.gallery.show" /> -->
-
-        <!-- DEV Toggles -->
-        <!-- <Row v-if="devmode">
-          <div v-for="(item, key, index) in views">
-            <label class="" for="checkbox">{{ key }}</label>
-            <input type="checkbox" id="key" v-model="views" />
-          </div>
-        </Row> -->
-
-        <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
-        <!-- randomBuild: { show: true }, -->
-
         <Stack>
           <Row class="gap-10">
-            <pre>{{ buildMode }}</pre>
             <Stack class="gap-0.5">
               <brandon
                 @click="startCustomBuild"
@@ -61,25 +36,6 @@
 
         <Button v-if="false" @click="crud">Run Serverless Function</Button>
 
-        <!-- An Accordion style picker for parts -->
-
-        <!-- <Accordion :list="builds">
-          <template v-slot:header>
-            <h1>&#x1F503;</h1>
-          </template>
-        </Accordion> -->
-
-        <!-- A filter for Search Boxes -->
-
-        <!-- <h2 class="text-3xl">Filter</h2>
-        <Grid>
-          <chip
-            v-for="type in types"
-            class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
-            >{{ type }}
-          </chip>
-        </Grid> -->
-
         <Spinner
           v-if="loading"
           :animation-duration="2000"
@@ -87,56 +43,24 @@
           class="color-arctic-500"
         />
         <div v-for="type in partTypes">
-          <!-- {{ type }} -->
           <h3 class="text-3xl" v-if="groupedParts[type]?.length > 0">
             Pick your {{ type }}
           </h3>
 
-          <!-- <h4>{{ groupedParts[type] }}</h4> -->
           <Grid v-if="devmode" mode="photo">
             <div
               v-for="part in groupedParts[type]"
               :key="part.id"
               class="bg-transparent border-ocean-500 border-4 h-full"
             >
-              <!-- <Gradient v-if="part.selected"> -->
-
-              <!-- </Gradient> -->
-              <PartCard :part="part">
-                <button @click="addPart(part)">Add</button>
-              </PartCard>
+              <Gradient v-if="part.selected">
+                <PartCard :part="part">
+                  <button @click="addPart(part)">Add</button>
+                </PartCard>
+              </Gradient>
             </div>
           </Grid>
         </div>
-
-        <!-- Builder -->
-        <!-- <Grid v-if="true">
-          <Card
-            class="gallery-panel border-4 max-w-2xl"
-            v-for="part in parts"
-            :key="part.id"
-          >
-            <template v-slot:header> </template>
-            <template v-slot:default>
-
-              <Stack>
-                <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
-                <p class="w-1/3 max-h-64">{{ part.Type }}</p>
-                <img
-                  v-if="part.Attachments"
-                  :src="part.Attachments?.[0]?.url"
-                  class="transform transition-all hover:scale-125"
-                />
-              </Stack>
-            </template>
-
-            <template v-slot:footer>
-              <div class="m-10">
-                <SVGButton class="bg-orange-500" @click="addPart(part)">Add</SVGButton>
-              </div>
-            </template>
-          </Card>
-        </Grid> -->
       </div>
 
       <Stack>
@@ -280,3 +204,60 @@ export default {
   },
 };
 </script>
+
+<!-- <Button
+          class="shadow-purple-400/50 shadow-md"
+          v-if="false"
+          @click="views.gallery.show = !views.gallery.show"
+          >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
+        > -->
+
+<!-- <BuildsGallery v-if="views.gallery.show" /> -->
+
+<!-- DEV Toggles -->
+<!-- <Row v-if="devmode">
+          <div v-for="(item, key, index) in views">
+            <label class="" for="checkbox">{{ key }}</label>
+            <input type="checkbox" id="key" v-model="views" />
+          </div>
+        </Row> -->
+
+<!-- A filter for Search Boxes -->
+
+<!-- <h2 class="text-3xl">Filter</h2>
+        <Grid>
+          <chip
+            v-for="type in types"
+            class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
+            >{{ type }}
+          </chip>
+        </Grid> -->
+
+<!-- Builder -->
+<!-- <Grid v-if="true">
+          <Card
+            class="gallery-panel border-4 max-w-2xl"
+            v-for="part in parts"
+            :key="part.id"
+          >
+            <template v-slot:header> </template>
+            <template v-slot:default>
+
+              <Stack>
+                <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
+                <p class="w-1/3 max-h-64">{{ part.Type }}</p>
+                <img
+                  v-if="part.Attachments"
+                  :src="part.Attachments?.[0]?.url"
+                  class="transform transition-all hover:scale-125"
+                />
+              </Stack>
+            </template>
+
+            <template v-slot:footer>
+              <div class="m-10">
+                <SVGButton class="bg-orange-500" @click="addPart(part)">Add</SVGButton>
+              </div>
+            </template>
+          </Card>
+        </Grid> -->

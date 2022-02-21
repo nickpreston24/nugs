@@ -94,7 +94,7 @@ export default function useBuilds() {
       // for (let index = 0; index < allPartsWithTypes.length; index++) {
       //   // const types = element?.Type;
       //   // if (!types) continue;
-      nextChecklist[typeName] = { ...picked };
+      nextChecklist[typeName] = { ...picked, selected: true };
       // }
     }
 

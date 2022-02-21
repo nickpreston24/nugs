@@ -2,8 +2,9 @@
   <Page class="bullet-border bg-gradient-to-t from-rose-500 via-tahiti-600 to-ocean-500">
     <h1>Oh snap!</h1>
     <h2>
-      Looks like you're searching for something we don't yet have, but hang tight! Or, poke me at:
-      </h1>
+      Looks like you're searching for something we don't yet have, but hang tight! Or,
+      poke me at:
+      <p>{{ email }}</p>
     </h2>
     <div>
       <div>
@@ -29,6 +30,7 @@ export default {
     return {
       count: this.seconds,
       tick: 1,
+      email: "michael.n.preston@gmail.com",
     };
   },
   computed: {

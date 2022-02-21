@@ -13,6 +13,7 @@ import IconBase from "./IconBase.vue";
 import Spinner from "./Spinner.vue";
 import Brandon from "./Brandon.vue";
 import Slider from "./Slider.vue";
+import FormInput from "./FormInput.vue";
 
 export {
   BlackHoleIcon,
@@ -30,4 +31,5 @@ export {
   Spinner,
   Slider,
   Brandon,
+  FormInput,
 };
