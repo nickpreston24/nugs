@@ -41,11 +41,6 @@ export default function useBuilds() {
   const checklist = ref(initial);
   const builds = ref([]);
   const parts = ref([]);
-  // const build = reactive({
-  //   previous: { parts: [] },
-  //   current: { parts: [] },
-  // });
-
   const buildMode = ref(modes.CUSTOM);
 
   const loading = ref(false);
@@ -55,7 +50,7 @@ export default function useBuilds() {
     loading.value = true;
 
     builds.value = await getRecords("Builds", 5);
-    parts.value = await getRecords("Parts", 150);
+    parts.value = await getRecords("Parts", 100);
 
     loading.value = false;
   });
@@ -131,36 +126,9 @@ export default function useBuilds() {
   const totalEntries = computed(() => {
     // for now...
     return Object.keys(checklist.value)?.length;
-
-    // return deepCount(initial);
-    // let total = 0;
-    // total += deepCount(Object.keys(initial?.buffer));
-    // total += deepCount(Object.keys(initial?.upper));
-    // total += deepCount(Object.keys(initial?.lower));
-    // total += deepCount(Object.keys(initial?.buttstock || {}));
-
-    // return total;
   });
 
-  // const totalCost = computed(() => {
-  //   console.log(
-  //     "Object.entries(checklist.value)",
-  //     Object.entries(checklist.value)
-  //   );
-  //   return Object.entries(checklist.value).reduce((total, item) => {
-  //     console.log("item", item);
-  //     total += item.Cost;
-  //   }, 0);
-  // });
-
   const build = computed(() => {
-    // console.log("total:>>", totalCost.value);
-
-    // console.log(
-    //   "Object.entries(checklist.value)",
-    //   Object.entries(checklist.value)
-    // );
-
     return {
       ...checklist,
       Name: "Untitled Build",

@@ -29,7 +29,9 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
             <div class="modal-footer">
               <slot name="footer">
                 default footer
-                <Button class="modal-default-button" @click="$emit('close')">OK</Button>
+                <!-- <Button class="modal-default-button" @click="$emit('close')">OK</Button> -->
+
+                <Button @click="closeModal">OK</Button>
               </slot>
             </div>
           </div>
@@ -43,13 +45,22 @@ import { ref, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { Button } from "../../components/atoms";
 
+const props = {
+  show: {
+    type: Boolean,
+    default: false,
+  },
+};
+
 export default {
+  props,
   setup(props) {
     const modal = ref(null);
     const showModal = ref(false);
 
     function closeModal() {
-      showModal.value = false;
+      // showModal.value = false;
+      context.emit("close");
     }
     watch(
       () => props.show,
@@ -58,7 +69,7 @@ export default {
       }
     );
     onClickOutside(modal, () => {
-      if (showModal.value) {
+      if (showModal.value === true) {
         closeModal();
       }
     });
@@ -66,14 +77,10 @@ export default {
     return {
       modal,
       showModal,
+      closeModal,
     };
   },
   name: "Modal",
-  props: {
-    show: {
-      type: Boolean,
-    },
-  },
 };
 </script>
 

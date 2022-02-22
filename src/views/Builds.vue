@@ -1,8 +1,7 @@
 <template>
   <div class="builds">
-    <Section class="text-white">
+    <Section class="text-purple-500">
       <div>
-        <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
         <pre>{{ showModal }}</pre>
         <Modal :show="showModal">
           <template #header>
@@ -23,8 +22,9 @@
 
         <Stack>
           <Row class="gap-10">
-            <Stack class="gap-0.5">
+            <Stack class="gap-1.5 p-3xl">
               <brandon
+                type="button"
                 @click="startCustomBuild"
                 class="transform transition-all hover:scale-125"
               >
@@ -39,30 +39,39 @@
             >
           </Row>
 
-          <Stack class="text-purple-500">
-            <h2 class="text-4xl">Here's Your Build!</h2>
-            <Card v-bind="build">
+          <div>
+            <Card v-bind="build" class="bg-midnight p-4xl">
               <template v-slot:header>
-                {{ build?.Name || build?.Id || "Untitled" }}
+                <h2 class="text-4xl">Your Build</h2>
+                <h1 v-if="range" class="text-purple-500 text-xl">
+                  {{ `Your budget is from $${range[0]} to $${range[1]}` }}
+                </h1>
+                <h3>
+                  {{ build?.Name || build?.Id || "Untitled" }}
+                </h3>
+                <h4>Cost: ${{ totalCost }}</h4>
               </template>
               <Row>
                 <p>{{ build?.Calibers }}</p>
                 <p>{{ build?.Weight }}</p>
               </Row>
+
               <template v-slot:footer>
-                <radial-progress-bar
-                  :diameter="220"
-                  :color="green"
-                  :completed-steps="completedSteps"
-                  :total-steps="totalSteps"
-                >
-                  <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
-                </radial-progress-bar>
+                <Stack>
+                  <radial-progress-bar
+                    :diameter="220"
+                    :color="green"
+                    :completed-steps="completedSteps"
+                    :total-steps="totalSteps"
+                  >
+                    <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
+                  </radial-progress-bar>
+                </Stack>
               </template>
             </Card>
-          </Stack>
+          </div>
 
-          <h1 v-if="buildMode !== 'random'" class="text-4xl text-purple-500">
+          <h1 v-if="buildMode !== 'random'" class="text-4xl text-purple-500 p-lg">
             Choose One of Each Part
           </h1>
 
@@ -82,26 +91,26 @@
           :size="60"
           class="color-arctic-500"
         />
-        <div v-if="percentCompleted < 100.0" v-for="type in partTypes">
+        <Stack class="p-xl" v-if="percentCompleted < 100.0" v-for="type in partTypes">
           <h3 class="text-3xl" v-if="groupedParts[type]?.length > 0">
             Pick your {{ type }}
           </h3>
 
-          <Grid mode="photo">
+          <Row class="w-max-full">
             <div v-for="part in groupedParts[type]" :key="part.id" class="bg-transparent">
-              <div v-if="part.selected" class="border-yellow border-4">
+              <div v-if="part.selected" class="border-yellow border-2">
                 <PartCard :part="part">
-                  <button @click="addPart(part)">Add</button>
+                  <Button @click="addPart(part)">Add</Button>
                 </PartCard>
               </div>
               <div v-else-if="!part.selected">
                 <PartCard :part="part">
-                  <button @click="addPart(part)">Add</button>
+                  <Button @click="addPart(part)">Add</Button>
                 </PartCard>
               </div>
             </div>
-          </Grid>
-        </div>
+          </Row>
+        </Stack>
       </div>
 
       <div v-if="devmode">
@@ -176,11 +185,12 @@ export default {
       },
 
       devmode: devmode,
-      showModal: false,
     };
   },
 
   setup() {
+    const showModal = ref(false);
+
     const {
       builds,
       parts,
@@ -211,6 +221,8 @@ export default {
       getRandomBuild,
       buildMode,
       clear,
+
+      showModal,
     };
   },
   methods: {
@@ -219,15 +231,26 @@ export default {
       this.showModal = false;
     },
     startCustomBuild() {
-      this.showModal = true;
+      this.showModal = !this.showModal;
     },
     setRange(range) {
       this.$store.setRange(range);
     },
-    computed: {
-      range() {
-        return this.$store.state.range;
-      },
+  },
+  computed: {
+    range() {
+      return this.$store.state.range;
+    },
+    totalCost() {
+      const vals = this.build?.checklist;
+      console.log("vals", vals);
+      if (!vals) return 0;
+
+      return Object.entries(vals).reduce((total, item) => {
+        console.log("item", item);
+        total += item?.Cost || 0.0;
+        return total;
+      }, 0);
     },
   },
 };
