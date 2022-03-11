@@ -29,14 +29,13 @@
 
 <script>
 import { useState } from "@hookstate/vue";
-import { empties } from "../../helpers/array.ts";
+import { countEmpty } from "../../helpers/array.ts";
 import Label from "../atoms/Label.vue";
 import { random } from "../../helpers/generators";
 import Button from "../atoms/Button.vue";
 import { Row } from "../../components/flex";
 import { Log, devmode } from "../../helpers";
 import useTable from "../../hooks/useTable";
-// import { Part } from "../../helpers/yup.ts";
 
 const initial = {
   Name: "",
@@ -122,7 +121,7 @@ export default {
   computed: {
     ready() {
       if (!this) return false;
-      return !(empties(this.part).length === 0);
+      return !(countEmpty(this.part).length === 0);
     },
   },
 };

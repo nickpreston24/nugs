@@ -1,5 +1,9 @@
 // import VueRouter from "vue-router";
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from "vue-router";
 import Home from "../views/Home.vue";
 const routes = [
   {
@@ -27,6 +31,21 @@ const routes = [
     component: () => import("../views/Builds.vue"),
   },
   {
+    path: "/blog",
+    name: "Blog",
+    component: () => import("../views/Blog.vue"),
+  },
+  {
+    path: "/guides",
+    name: "Guides",
+    component: () => import("../views/Guides.vue"),
+  },
+  {
+    path: "/clones",
+    name: "I think I'm a Clone Now...",
+    component: () => import("../views/Clones.vue"),
+  },
+  {
     path: "/parts",
     name: "Add new Parts",
     component: () => import("../views/Parts.vue"),
@@ -45,27 +64,25 @@ const routes = [
     path: "/:pathMatch(.*)*",
     name: "404",
     component: () => import("../views/NotFound.vue"),
-  }
+  },
 ];
 const router = createRouter({
   //  Provide the history implementation to use. We are using the hash history for simplicity here.
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-
     if (to.hash) {
       return {
         selector: to.hash,
-        behavior: 'smooth'
+        behavior: "smooth",
         // , offset: { x: 0, y: 100 }
-      }
-    }
-    else if (savedPosition) {
-      return savedPosition
+      };
+    } else if (savedPosition) {
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
-  }
-})
+  },
+});
 
 export default router;

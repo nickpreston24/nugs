@@ -12,8 +12,14 @@
       <template #header>
         <h3 class="text-3xl">Add Part</h3>
       </template>
-      <template #body>
+      <div>
         <AddParts />
+      </div>
+
+      <template #footer>
+        <Row>
+          <Button @click="submit">Submit</Button>
+        </Row>
       </template>
     </Modal>
 
@@ -42,12 +48,12 @@ export default {
     // const parts = state.records.value;
     // console.log("parts", parts);
 
-    watch(
-      () => props.show,
-      (show) => {
-        showModal.value = show;
-      }
-    );
+    // watch(
+    //   () => props.show,
+    //   (show) => {
+    //     showModal.value = show;
+    //   }
+    // );
 
     return {
       showModal,

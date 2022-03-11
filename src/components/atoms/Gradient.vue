@@ -1,10 +1,21 @@
 <template>
-  <div class="bg-gray-900 gradient-border hover:bg-regal-700" id="box">
+  <div v-if="show" class="bg-gray-900 gradient-border hover:bg-regal-700" id="box">
+    <slot></slot>
+  </div>
+  <div v-else-if="!show">
     <slot></slot>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    show: {
+      required: false,
+      type: Boolean,
+      default: true,
+    },
+  },
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Raleway:200");

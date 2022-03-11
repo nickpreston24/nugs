@@ -8,6 +8,7 @@ import RadialProgress from "./RadialProgress.vue";
 import Section from "./Section.vue";
 import DevConsole from "./DevConsole.vue";
 import Modal from "./Modal.vue";
+import SVGButton from "./SVGButton.vue";
 
 export {
   Card,
@@ -19,4 +20,5 @@ export {
   RadialProgress,
   Accordion,
   Modal,
+  SVGButton,
 };

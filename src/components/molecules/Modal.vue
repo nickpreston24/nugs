@@ -19,17 +19,16 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
             aria-labelledby="modal-headline"
           >
             <div class="modal-header">
-              <slot name="header">default header</slot>
+              <slot name="header"></slot>
             </div>
 
             <div class="modal-body">
-              <slot name="body">default body</slot>
+              <slot></slot>
             </div>
 
             <div class="modal-footer">
               <slot name="footer">
-                default footer
-                <button class="modal-default-button" @click="$emit('close')">OK</button>
+                <Button @click="closeModal">OK</Button>
               </slot>
             </div>
           </div>
@@ -41,13 +40,24 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
 <script>
 import { ref, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import { Button } from "../../components/atoms";
+
+const props = {
+  show: {
+    type: Boolean,
+    default: false,
+  },
+};
+
 export default {
+  props,
   setup(props) {
     const modal = ref(null);
     const showModal = ref(false);
 
     function closeModal() {
-      showModal.value = false;
+      // showModal.value = false;
+      context.emit("close");
     }
     watch(
       () => props.show,
@@ -56,7 +66,7 @@ export default {
       }
     );
     onClickOutside(modal, () => {
-      if (showModal.value) {
+      if (showModal.value === true) {
         closeModal();
       }
     });
@@ -64,14 +74,10 @@ export default {
     return {
       modal,
       showModal,
+      closeModal,
     };
   },
   name: "Modal",
-  props: {
-    show: {
-      type: Boolean,
-    },
-  },
 };
 </script>
 

@@ -1,6 +1,12 @@
-import { ref, onMounted, onUnmounted, computed } from "vue";
-import { Log, empties, get, deepCount, groupBy } from "../helpers";
+import { ref, onMounted, onUnmounted, computed, reactive } from "vue";
+import { Log, countEmpty, get, deepCount, groupBy } from "../helpers";
 import { getRecords } from "./airtable";
+import { random } from "../helpers/generators";
+
+const modes = {
+  RANDOM: "random",
+  CUSTOM: "custom",
+};
 
 const initial = {
   Lower: null,
@@ -35,6 +41,7 @@ export default function useBuilds() {
   const checklist = ref(initial);
   const builds = ref([]);
   const parts = ref([]);
+  const buildMode = ref(modes.CUSTOM);
 
   const loading = ref(false);
   const error = ref("");
@@ -43,10 +50,21 @@ export default function useBuilds() {
     loading.value = true;
 
     builds.value = await getRecords("Builds", 5);
-    parts.value = await getRecords("Parts", 50);
+    parts.value = await getRecords("Parts", 100);
 
     loading.value = false;
   });
+
+  onUnmounted(async () => {
+    // builds = null;
+    // parts = null;
+  });
+
+  const clear = () => {
+    checklist.value = initial;
+    build.checklist = initial;
+    buildMode.value = modes.CUSTOM;
+  };
 
   /**
    * Add Part to the checklist
@@ -57,46 +75,71 @@ export default function useBuilds() {
     // console.log("part.selected", part.selected);
 
     //TODO: other parts of the same type will become unselected.
-    checklist.value[partType[0]] = part;
+    for (let index = 0; index < partType.length; index++) {
+      const typeName = partType[index];
+      checklist.value[typeName] = part;
+    }
+  };
+
+  const getRandomBuild = () => {
+    buildMode.value = modes.RANDOM;
+    let nextChecklist = { ...initial };
+    const allParts = parts.value.filter((x) => x?.Type?.length > 0);
+
+    for (const typeName of partTypes.value) {
+      const matchingParts = allParts.filter((part) =>
+        part.Type?.includes(typeName)
+      );
+      // console.log("typeName", typeName, "count: ", matchingParts?.length);
+      // console.log("matchingParts", matchingParts);
+
+      const picked = random.Shuffle(matchingParts)?.[0];
+      // console.log("picked", picked);
+      // for (let index = 0; index < allPartsWithTypes.length; index++) {
+      //   // const types = element?.Type;
+      //   // if (!types) continue;
+      nextChecklist[typeName] = { ...picked, selected: true };
+      // }
+    }
+
+    checklist.value = nextChecklist;
   };
 
   const completedSteps = computed(() => totalEntries.value - incomplete.value);
-  // const totalSteps = computed(() => 15);
 
   const percentCompleted = computed(
     () => (completedSteps.value / totalEntries.value) * 100.0
   );
 
-  // const majorParts = computed(() => Object.keys(checklist.value));
   const groupedParts = computed(() => groupBy(parts.value, "Type"));
 
   const partTypes = computed(() => {
     const list = parts.value;
     const types = [].flatten(list.filter((r) => r.Type).map((j) => j.Type));
+    // console.log("types", types);
     //dedupe
-    console.log("types", types);
     return types.filter((a, i) => types.findIndex((s) => a === s) === i);
   });
 
-  const incomplete = computed(() => empties(checklist.value));
+  const incomplete = computed(() => countEmpty(checklist.value));
 
   const totalEntries = computed(() => {
     // for now...
     return Object.keys(checklist.value)?.length;
+  });
 
-    // return deepCount(initial);
-    // let total = 0;
-    // total += deepCount(Object.keys(initial?.buffer));
-    // total += deepCount(Object.keys(initial?.upper));
-    // total += deepCount(Object.keys(initial?.lower));
-    // total += deepCount(Object.keys(initial?.buttstock || {}));
-
-    // return total;
+  const build = computed(() => {
+    return {
+      ...checklist,
+      Name: "Untitled Build",
+      Calibers: ["10mm", "8.6 Creedmoor"],
+    };
   });
 
   return {
     builds,
     parts,
+    build,
     loading,
     error,
     addPart,
@@ -106,5 +149,8 @@ export default function useBuilds() {
     partTypes,
     totalEntries,
     groupedParts,
+    getRandomBuild,
+    buildMode,
+    clear,
   };
 }

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <slot name="header">
-      <h1>
-        Hi there! This Page not implemented yet, but hang tight! Or, poke me
-        <Button @click="contactUs"> </Button>
-      </h1>
-    </slot>
+    <slot name="header" />
     <router-view v-slot="{ Component }">
       <transition name="route" mode="out-in">
         <component :is="Component"></component>

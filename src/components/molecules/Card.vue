@@ -1,7 +1,6 @@
 <template>
   <!-- NOTE: I'm keeping the 'card' class a required so that animated grids can keyframe it -->
   <div
-    class="flex flex-col justify-center items-center overflow-hidden"
     v-bind:class="animation"
     @mouseover="isHovering = true"
     @mouseout="isHovering = false"

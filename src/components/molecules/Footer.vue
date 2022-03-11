@@ -1,25 +1,23 @@
 <template>
   <Row class="text-midnight bg-gradient-to-r from-tahiti-500 to-ocean-500">
-    <Border class="w-1/3">
+    <div class="w-1/3">
       <slot name="left"></slot>
-    </Border>
-    <Border class="w-1/3">
+    </div>
+    <div class="w-1/3">
       <slot></slot>
-    </Border>
-    <Border class="w-1/3">
+    </div>
+    <div class="w-1/3">
       <slot name="right"></slot>
-    </Border>
+    </div>
   </Row>
 </template>
 <script>
 import { Right, Left, Row } from "../../components/flex";
-import { Border } from "../../components/atoms";
 export default {
   components: {
     Left,
     Right,
     Row,
-    Border,
   },
 };
 </script>

@@ -47,7 +47,7 @@ const emptyValues = new Set(["", null, undefined]);
 /**
  * Gets an array of empty non-zero values in an object
  */
-export const empties = (obj: object) =>
+export const countEmpty = (obj: object) =>
   Object.values(obj).reduce((acc: any, curr) => acc + emptyValues.has(curr), 0);
 
 export const falsies = (obj: object) =>
