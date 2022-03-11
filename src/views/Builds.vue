@@ -1,6 +1,6 @@
 <template>
   <div class="builds">
-    <Section class="text-purple-400">
+    <div class="text-purple-400 bg-midnight">
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
 
@@ -163,7 +163,7 @@
           </card>
         </Grid>
       </div>
-    </Section>
+    </div>
   </div>
 </template>
 <script>

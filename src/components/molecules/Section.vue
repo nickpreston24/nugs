@@ -1,6 +1,6 @@
 <template>
   <section
-    class="bg-gradient-to-tl from-regal-500 to-midnight border-4 border-midnight h-auto"
+    class="bg-gradient-to-tl from-regal-500 to-transparent rounded-3xl border-transparent h-auto"
   >
     <slot></slot>
   </section>

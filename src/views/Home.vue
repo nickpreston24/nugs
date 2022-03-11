@@ -1,11 +1,9 @@
 <template>
   <div>
     <parallax
-      title="Ready to Build?"
-      subtitle="😎"
       backgroundImage="https://picsum.photos/id/377/600/400"
       foregroundImage="https://laserwar.com/PromoPages/ar-15_ranger/images/body-ar15.png"
-      description="Are you really into rifles? \nGreat!  Because we can help you.  \nYou choose a budget\n We suggest the parts.  \nGet a build in minutes!  \nSound good?\n\n Pick the categories you want, here:"
+      description="Are you really into rifles? \nGreat!  This tool will help you!  \nYou choose a budget\n We suggest the parts.  \nGet a build in minutes!  \nSound good?\n\n Let's begin..."
     />
 
     <!-- 
