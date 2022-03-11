@@ -36,7 +36,6 @@ import Button from "../atoms/Button.vue";
 import { Row } from "../../components/flex";
 import { Log, devmode } from "../../helpers";
 import useTable from "../../hooks/useTable";
-// import { Part } from "../../helpers/yup.ts";
 
 const initial = {
   Name: "",

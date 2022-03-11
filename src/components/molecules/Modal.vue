@@ -19,18 +19,15 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
             aria-labelledby="modal-headline"
           >
             <div class="modal-header">
-              <slot name="header">default header</slot>
+              <slot name="header"></slot>
             </div>
 
             <div class="modal-body">
-              <slot>default body</slot>
+              <slot></slot>
             </div>
 
             <div class="modal-footer">
               <slot name="footer">
-                default footer
-                <!-- <Button class="modal-default-button" @click="$emit('close')">OK</Button> -->
-
                 <Button @click="closeModal">OK</Button>
               </slot>
             </div>
