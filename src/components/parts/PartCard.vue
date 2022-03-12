@@ -8,7 +8,7 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
   <!-- <Gradient>  show if selected :) -->
   <div
     v-if="part.Name"
-    class="container card flex flex-col items-center text-arctic-400 overflow-hidden border"
+    class="container card flex flex-col items-center text-arctic-500 overflow-hidden"
   >
     <figure>
       <!-- Show Image -->
@@ -28,7 +28,7 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
         <!-- <Button @click="submit">Update</Button> -->
       </Stack>
     </figure>
-    <p class="title ellipsis hover:text-arctic-200">{{ part.Name }}</p>
+    <p class="title lg:text-md text-sm ellipsis hover:text-arctic-200">{{ part.Name }}</p>
     <div class="overlay"></div>
     <div class="button" name="button">
       <a><slot></slot></a>
@@ -50,9 +50,9 @@ export default {
     Border,
   },
   computed: {
-    border() {
-      return part?.selected ? "border-4 border-orange-500" : "";
-    },
+    // border() {
+    //   return part?.selected ? "border-4 border-orange-500" : "";
+    // },
   },
 };
 </script>
@@ -85,7 +85,6 @@ img {
   width: 500px;
   height: 300px;
   left: 0;
-  border: 3px solid red;
 }
 
 .title {
@@ -94,7 +93,7 @@ img {
   left: 0;
   top: 120px;
   font-weight: 700;
-  font-size: 30px;
+  /* font-size: 30px; */
   text-align: center;
   text-transform: uppercase;
   z-index: 1;

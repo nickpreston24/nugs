@@ -9,8 +9,8 @@
             class="text-7xl"
           >
             <Row>
-              <h1 class="text-7xl drop-shadow-md">Blaster Builder</h1>
-              <i class="fa fa-cog" aria-hidden="true"></i>
+              <i class="fa fa-cog pb-base fa-lg lg:fa-2xl" aria-hidden="true"></i>
+              <h1 class="lg:text-7xl text-4xl drop-shadow-md">Blaster Builder</h1>
             </Row>
           </Shadow>
         </router-link>

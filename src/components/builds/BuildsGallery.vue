@@ -35,6 +35,8 @@ export default {
       value: 20,
       parts: [],
       builds: [],
+
+      devmode,
     };
   },
 

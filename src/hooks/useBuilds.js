@@ -21,8 +21,6 @@ const initial = {
   "Gas Tube": null,
   LPK: null,
 };
-// /* Optional */
-const excludedOptions = {};
 
 export default function useBuilds() {
   const checklist = ref(initial);
@@ -63,7 +61,6 @@ export default function useBuilds() {
     const list = parts.value;
     const types = [].flatten(list.filter((r) => r.Type).map((j) => j.Type));
     //dedupe
-    // console.log("types", types);
     return types.filter((a, i) => types.findIndex((s) => a === s) === i);
   });
 

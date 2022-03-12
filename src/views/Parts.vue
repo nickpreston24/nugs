@@ -10,7 +10,7 @@
 
     <Modal :show="showModal">
       <template #header>
-        <h3 class="text-3xl">Add Part</h3>
+        <h3 class="lg:text-3xl text-lg">Add Part</h3>
       </template>
       <template #body>
         <AddParts />

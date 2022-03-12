@@ -7,13 +7,13 @@
         <img :src="foregroundImage" class="foreground" />
 
         <FadeTransition>
-          <Section class="h-screen">
-            <Stack>
+          <Section class="text-tahiti-100 text-3xl">
+            <Stack class="p-10 gap-2 m-8">
               <p v-for="(item, index) in description.split('\\n')" :key="index">
                 {{ item }}
               </p>
 
-              <h1 class="">Choose your Budget:</h1>
+              <h1 class="lg:text-3xl text-lg m-8">Choose your Budget:</h1>
               <slider @range-changed="setRange" />
 
               <Row class="m-8">
@@ -31,7 +31,7 @@
 
       <Gradient v-if="false" class="m-20">
         <Stack>
-          <h1 class="shadow-2xl text-7xl text-arctic-500">{{ title }}</h1>
+          <h1 class="shadow-2xl lg:text-3xl text-lg text-arctic-500">{{ title }}</h1>
           <subtitle class="text-4xl shadow-2xl text-arctic-700">{{ subtitle }}</subtitle>
           <Row class="gap-20">
             <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
@@ -59,6 +59,9 @@ import Row from "../../components/flex/Row.vue";
 import Gradient from "../../components/atoms/Gradient.vue";
 import Slider from "../../components/atoms/Slider.vue";
 import FadeTransition from "../../components/transitions/FadeTransition.vue";
+import { useRange } from "../../hooks";
+import { useStorage } from "@vueuse/core";
+const storage = useStorage("range", []);
 
 export default {
   props: {
@@ -70,20 +73,21 @@ export default {
   },
   data() {
     return {
-      range: [],
       categories: ["Home Defense", "LEO/Military", "Hunting", "Competition"],
       title: "Ready to Build?",
       subtitle: "😎",
     };
   },
+  setup(props) {
+    const { range } = useRange();
+    return {
+      range,
+    };
+  },
   methods: {
     setRange(range) {
-      // this.$store.setRange(range);
-    },
-  },
-  computed: {
-    count() {
-      return this.$store.state.count;
+      this.range.value = range;
+      storage.value = range;
     },
   },
   components: {
@@ -98,6 +102,7 @@ export default {
     Section,
     Chip,
     FadeTransition,
+    useRange,
   },
 };
 </script>
