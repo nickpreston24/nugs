@@ -5,9 +5,6 @@ import { Log } from "../helpers";
 const apiKey = "keyl5Wo5ETa4HR4tt"; //import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
 const baseKey = "app33DDBeyXEGRflo"; //import.meta.env.VITE_VERCEL_BASE_KEY;
 
-console.log("apiKey", apiKey);
-console.log("baseKey", baseKey);
-
 export const formatRecords = (records = []) => {
   let collection = [].concat(records);
 
@@ -43,7 +40,7 @@ export default function useTable(
 
   onMounted(async () => {
     loading.value = true;
-    console.log("loading...");
+    // console.log("loading...");
     axios({
       url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
       headers: {
@@ -52,12 +49,12 @@ export default function useTable(
       },
     })
       .then((result) => {
-        console.log("result", result);
+        // console.log("result", result);
         let raw = formatRecords(result?.data?.records);
         state.value.records = raw;
         Log(state.value.records);
         devmode && console.log("state.value.records", state.value.records);
-        console.log("done loading...");
+        // console.log("done loading...");
 
         loading.value = false;
       })

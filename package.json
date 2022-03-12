@@ -6,8 +6,8 @@
     "frontend": "npm start --prefix frontend",
     "dev": "vite",
     "serve": "vite preview",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "export NODE_OPTIONS=--openssl-legacy-provider && start-storybook -p 6006",
+    "build-storybook": "export NODE_OPTIONS=--openssl-legacy-provider && build-storybook"
   },
   "dependencies": {
     "@hookstate/vue": "^3.0.0-rc.3",
@@ -17,7 +17,6 @@
     "@vueuse/core": "^7.6.2",
     "axios": "^0.26.0",
     "dotenv": "^16.0.0",
-    "min-indent": "^1.0.1",
     "neo4j-driver": "^4.4.2",
     "vue": "^3.2.31",
     "vue-router": "4.0.12",
