@@ -3,7 +3,6 @@
     <div class="text-purple-400 bg-midnight">
       <div>
         <h1 v-if="range" class="text-pink-500 text-7xl">{{ range }}</h1>
-
         <!-- <Button
           class="shadow-purple-400/50 shadow-md"
           v-if="false"
@@ -11,7 +10,7 @@
           >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
         > -->
 
-        <div v-if="devmode">
+        <div>
           <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
           <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
           <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
@@ -121,7 +120,7 @@
           </h3>
 
           <!-- <h4>{{ groupedParts[type] }}</h4> -->
-          <Grid v-if="devmode" mode="photo">
+          <Grid mode="photo">
             <card v-for="part in groupedParts[type]" :key="part.id" class="bg-tahiti-700">
               <PartCard :part="part">
                 <button @click="addPart(part)">Add</button>
@@ -216,8 +215,6 @@ export default {
         budgetBuild: { show: false },
         randomBuild: { show: false },
       },
-
-      devmode: devmode,
     };
   },
 

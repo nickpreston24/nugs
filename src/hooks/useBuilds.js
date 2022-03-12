@@ -20,16 +20,9 @@ const initial = {
   "Buffer Retainer": null,
   "Gas Tube": null,
   LPK: null,
-
-  /* Optional */
-
-  // Suppressor: null,
-  // Sling: null,
-  // Scope: null,
-  // UPK: null,
-  // Earpro: null,
-  // Cerakote: null,
 };
+// /* Optional */
+const excludedOptions = {};
 
 export default function useBuilds() {
   const checklist = ref(initial);
@@ -53,10 +46,6 @@ export default function useBuilds() {
    */
   const addPart = (part) => {
     const partType = part?.Type || "";
-    // part.selected = !part?.selected;
-    // console.log("part.selected", part.selected);
-
-    //TODO: other parts of the same type will become unselected.
     checklist.value[partType[0]] = part;
   };
 

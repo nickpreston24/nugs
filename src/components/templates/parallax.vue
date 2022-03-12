@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     setRange(range) {
-      this.$store.setRange(range);
+      // this.$store.setRange(range);
     },
   },
   computed: {

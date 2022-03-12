@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     builds() {
-      devmode && console.log("computed (builds):  >> ", this.state.records);
+      console.log("computed (builds):  >> ", this.state.records);
       return this.state.records;
     },
     relatedParts() {
