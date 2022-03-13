@@ -1,47 +1,48 @@
+<!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
 <template>
   <body class="m-0">
-    <div class="wrapper text-arctic-500">
+    <div class="wrapper text-arctic-200 text-xl">
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
 
-        <Gradient class="m-20">
-          <Stack>
-            <h1 class="shadow-2xl text-7xl text-arctic-500">{{ title }}</h1>
-            <subtitle class="text-4xl shadow-2xl text-arctic-700">{{
-              subtitle
-            }}</subtitle>
-            <Row class="gap-20">
-              <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-                <!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
-                <router-link class="shadow-2xl" to="/builds">Build</router-link>
-              </button>
-              <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-                <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
-              </button>
-            </Row>
-          </Stack>
-        </Gradient>
+        <FadeTransition>
+          <Section class="text-tahiti-100 text-3xl">
+            <Stack class="p-10 gap-2 m-8">
+              <p v-for="(item, index) in description.split('\\n')" :key="index">
+                {{ item }}
+              </p>
+
+              <h1 class="lg:text-3xl text-lg m-8">Choose your Budget:</h1>
+              <slider @range-changed="setRange" />
+
+              <Row class="m-8">
+                <chip
+                  v-for="description in categories"
+                  class="transform transition-all hover:scale-110 text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+                >
+                  <router-link to="/builds">{{ description }} </router-link>
+                </chip>
+              </Row>
+            </Stack>
+          </Section>
+        </FadeTransition>
       </header>
 
-      <Section class="h-screen">
+      <Gradient v-if="false" class="m-20">
         <Stack>
-          <p v-for="(item, index) in description.split('\\n')" :key="index">
-            {{ item }}
-          </p>
-
-          <!-- <slider @range-changed="setRange" /> -->
-
-          <Row class="m-8">
-            <chip
-              v-for="description in categories"
-              class="transform transition-all hover:scale-110 text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
-            >
-              <router-link to="/builds">{{ description }} </router-link>
-            </chip>
+          <h1 class="shadow-2xl lg:text-3xl text-lg text-arctic-500">{{ title }}</h1>
+          <subtitle class="text-4xl shadow-2xl text-arctic-700">{{ subtitle }}</subtitle>
+          <Row class="gap-20">
+            <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+              <router-link class="shadow-2xl" to="/builds">Yes!</router-link>
+            </button>
+            <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+              <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
+            </button>
           </Row>
         </Stack>
-      </Section>
+      </Gradient>
     </div>
   </body>
 </template>
@@ -57,6 +58,10 @@ import Stack from "../../components/flex/Stack.vue";
 import Row from "../../components/flex/Row.vue";
 import Gradient from "../../components/atoms/Gradient.vue";
 import Slider from "../../components/atoms/Slider.vue";
+import FadeTransition from "../../components/transitions/FadeTransition.vue";
+import { useRange } from "../../hooks";
+import { useStorage } from "@vueuse/core";
+const storage = useStorage("range", []);
 
 export default {
   props: {
@@ -68,18 +73,21 @@ export default {
   },
   data() {
     return {
-      range: [],
       categories: ["Home Defense", "LEO/Military", "Hunting", "Competition"],
+      title: "Ready to Build?",
+      subtitle: "😎",
+    };
+  },
+  setup(props) {
+    const { range } = useRange();
+    return {
+      range,
     };
   },
   methods: {
     setRange(range) {
-      this.$store.setRange(range);
-    },
-  },
-  computed: {
-    count() {
-      return this.$store.state.count;
+      this.range.value = range;
+      storage.value = range;
     },
   },
   components: {
@@ -93,6 +101,8 @@ export default {
     Slider,
     Section,
     Chip,
+    FadeTransition,
+    useRange,
   },
 };
 </script>

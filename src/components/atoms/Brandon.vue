@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-4xl hover:text-arctic-300 text-white bg-midnight border-regal-400 border-2 hover:shadow-3xl"
+    class="text-4xl p-lg hover:text-arctic-300 text-white bg-midnight border-regal-400 border-2 hover:shadow-3xl"
   >
     <!-- Top -->
     <Row class="gap-1 p-tiny">

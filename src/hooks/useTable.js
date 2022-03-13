@@ -40,7 +40,7 @@ export default function useTable(
 
   onMounted(async () => {
     loading.value = true;
-
+    // console.log("loading...");
     axios({
       url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
       headers: {
@@ -53,11 +53,14 @@ export default function useTable(
         let raw = formatRecords(result?.data?.records);
         state.value.records = raw;
         Log(state.value.records);
-        // devmode && console.log("state.value.records", state.value.records);
+        devmode && console.log("state.value.records", state.value.records);
+        // console.log("done loading...");
+
         loading.value = false;
       })
       .catch((error) => {
         loading.value = false;
+        error && console.error(error);
         error.value = error;
       });
   });

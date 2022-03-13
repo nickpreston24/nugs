@@ -4,7 +4,10 @@
     <div class="lightbox-info">
       <div class="lightbox-info-inner">
         <a :href="part.Link" target="_blank" rel="noopener noreferrer">
-          <h2 class="p-2 font-normal text-arctic-600" v-if="part?.Name">
+          <h2
+            class="p-2 font-normal lg:text-3xl text-lg text-arctic-600"
+            v-if="part?.Name"
+          >
             {{ part.Name }}
           </h2>
         </a>

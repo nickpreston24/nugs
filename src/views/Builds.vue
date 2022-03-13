@@ -1,159 +1,200 @@
 <template>
   <div class="builds">
-    <Section class="text-purple-500">
-      <div>
-        <pre>{{ showModal }}</pre>
-        <Modal :show="showModal">
-          <template #header>
-            <div class="bg-midnight">
-              <h3 class="text-3xl text-purple-500">Clear Build?</h3>
-            </div>
-          </template>
-          <p class="text-xl text-ocean-600 semibold">
-            FYI, this will clear your current build. Are you sure you wish to continue?
-          </p>
-          <template #footer>
-            <Row>
-              <Button @click="clearBuild">Yes</Button>
-              <Button @click="showModal = false">No</Button>
-            </Row>
-          </template>
-        </Modal>
+    <div class="text-purple-400 bg-midnight">
+      <Dashboard>
+        <template v-slot:header>
+          <!-- <div class="w-auto border-2 h-80"></div> -->
+        </template>
 
-        <Stack>
-          <Row class="gap-10">
-            <Stack class="gap-1.5 p-3xl">
-              <brandon
-                type="button"
-                @click="startCustomBuild"
-                class="transform transition-all hover:scale-125"
+        <template v-slot:top>
+          <div class="w-auto overflow-auto border-2 h-80">
+            <!-- <label class="text-lg lg:text-3xl">Your Picks: </label> -->
+            <Grid mode="photo">
+              <div v-for="item in picks" :key="item.id">
+                <row>
+                  <p>{{ item?.[0] }}:</p>
+
+                  {{ item?.[1]?.Name }}
+
+                  <i v-show="item?.[1]?.Name" class="fa fa-check"></i>
+                </row>
+              </div>
+            </Grid>
+          </div>
+        </template>
+        <template v-slot:left>
+          <div class="w-auto h-screen overflow-auto border-2">
+            <h1 class="text-lg text-purple-500 lg:text-3xl">Choose One of Each Part</h1>
+
+            <Spinner
+              v-if="loading"
+              :animation-duration="2000"
+              :size="60"
+              class="color-arctic-500"
+            />
+            <div v-for="type in partTypes">
+              <h3 class="text-lg lg:text-3xl" v-if="groupedParts[type]?.length > 0">
+                Pick your {{ type }}
+              </h3>
+
+              <Grid mode="feed">
+                <card
+                  v-for="part in groupedParts[type]"
+                  :key="part.id"
+                  class="bg-tahiti-700"
+                >
+                  <PartCard :part="part">
+                    <button @click="addPart(part)">Add</button>
+                  </PartCard>
+                </card>
+              </Grid>
+            </div>
+
+            <!-- Builder attempt 2-->
+            <Grid v-if="false">
+              <card
+                class="max-w-2xl border-4 gallery-panel"
+                v-for="part in parts"
+                :key="part.id"
               >
-                Big Blaster Builder
-              </brandon>
+                <!-- <template v-slot:header> </template> -->
+                <template v-slot:default>
+                  <!-- Show Image -->
+
+                  <Stack>
+                    <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
+                    <p class="w-1/3 max-h-64">{{ part.Type }}</p>
+                    <img
+                      v-if="part.Attachments"
+                      :src="part.Attachments?.[0]?.url"
+                      class="transition-all transform hover:scale-125"
+                    />
+                    <!-- <figure class='' v-else-if="!part.Attachments">No Attachment</figure> -->
+                  </Stack>
+                </template>
+
+                <template v-slot:footer>
+                  <div class="m-10">
+                    <SVGButton class="bg-orange-500" @click="addToChecklist(part)"
+                      >Add</SVGButton
+                    >
+                  </div>
+                </template>
+              </card>
+            </Grid>
+          </div></template
+        >
+        <template v-slot:right>
+          <div class="w-auto h-screen overflow-auto border-2">
+            <Stack v-if="range">
+              <label class="text-lg lg:text-3xl">{{ budgetLabel }}</label>
             </Stack>
 
-            <brandon
-              class="transform transition-all hover:scale-125"
-              @click="getRandomBuild"
-              >LET'S GO RANDOM!</brandon
-            >
-          </Row>
+            <Stack class="">
+              <radial-progress-bar
+                :diameter="250"
+                :completed-steps="completedSteps"
+                :total-steps="totalSteps"
+              >
+                <h2>Your Build is {{ percentCompleted.toFixed() }}% Done</h2>
+              </radial-progress-bar>
+            </Stack>
 
-          <div>
-            <Card v-bind="build" class="bg-midnight p-4xl">
-              <template v-slot:header>
-                <h2 class="text-4xl">Your Build</h2>
-                <h1 v-if="range" class="text-purple-500 text-xl">
-                  {{ `Your budget is from $${range[0]} to $${range[1]}` }}
-                </h1>
-                <h3>
-                  {{ build?.Name || build?.Id || "Untitled" }}
-                </h3>
-                <h4>Cost: ${{ totalCost }}</h4>
-              </template>
-              <Row>
-                <p>{{ build?.Calibers }}</p>
-                <p>{{ build?.Weight }}</p>
+            <Stack>
+              <h1 class="text-lg lg:text-3xl">Options:</h1>
+
+              <Row v-if="true" class="gap-5 lg:gap-15">
+                <brandon class="transition-all transform hover:scale-125">
+                  Customize!
+                </brandon>
+
+                <brandon
+                  class="transition-all transform hover:scale-125"
+                  @click="getRandomBuild"
+                  >Randomize!</brandon
+                >
               </Row>
 
-              <template v-slot:footer>
-                <Stack>
-                  <radial-progress-bar
-                    :diameter="220"
-                    :color="green"
-                    :completed-steps="completedSteps"
-                    :total-steps="totalSteps"
-                  >
-                    <h2>You are {{ percentCompleted.toFixed() }}% Done</h2>
-                  </radial-progress-bar>
-                </Stack>
-              </template>
-            </Card>
+              <!-- Budget Option -->
+              <Stack>
+                <button class="mb-4 text-lg text-purple-400 lg:text-3xl">
+                  Change your Budget here!
+                </button>
+                <slider min="500" @range-changed="setRange"></slider>
+                <!-- Weird this is staying constant, yet I can still set the range ref -->
+                <p v-if="devmode">{{ range }}</p>
+              </Stack>
+            </Stack>
           </div>
-
-          <h1 v-if="buildMode !== 'random'" class="text-4xl text-purple-500 p-lg">
-            Choose One of Each Part
-          </h1>
-
-          <!-- Budget Option -->
-          <Stack v-if="views.budgetBuild.show">
-            <button class="text-purple-400 text-5xl mb-4">Pick your Budget here!</button>
-            <slider min="500" @range-changed="setRange"></slider>
-            <p>{{ range }}</p>
-          </Stack>
-        </Stack>
-
-        <Button v-if="false" @click="crud">Run Serverless Function</Button>
-
-        <Spinner
-          v-if="loading"
-          :animation-duration="2000"
-          :size="60"
-          class="color-arctic-500"
-        />
-        <Stack class="p-xl" v-if="percentCompleted < 100.0" v-for="type in partTypes">
-          <h3 class="text-3xl" v-if="groupedParts[type]?.length > 0">
-            Pick your {{ type }}
-          </h3>
-
-          <Row class="w-max-full">
-            <div v-for="part in groupedParts[type]" :key="part.id" class="bg-transparent">
-              <div v-if="part.selected" class="border-yellow border-2">
-                <PartCard :part="part">
-                  <Button @click="addPart(part)">Add</Button>
-                </PartCard>
-              </div>
-              <div v-else-if="!part.selected">
-                <PartCard :part="part">
-                  <Button @click="addPart(part)">Add</Button>
-                </PartCard>
-              </div>
+        </template>
+        <template v-slot:bottom>
+          <div v-if="devmode" class="w-auto h-auto border-2">
+            <div>
+              <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
+              <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
+              <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
             </div>
-          </Row>
-        </Stack>
-      </div>
+          </div>
+        </template>
 
-      <div v-if="devmode">
-        <!-- <pre class="text-tiny">{{ groupBy(parts, "Type") }}</pre> -->
-        <pre class="text-tiny">{{ checklist }}</pre>
-        <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
-        <!-- <pre class="text-tiny">{{ partTypes }}</pre> -->
-        <!-- <pre lass="text-tiny">{{ builds.map((b) => b?.Name) }}</pre> -->
-        <!-- <pre class="text-tiny">{{ incomplete }}</pre> -->
-        <!-- </Row> -->
-        <!-- <Stack>
-            <pre class="text-tiny">{{ percentCompleted }}</pre>
-            <pre class="text-tiny">{{ totalEntries }}</pre>
-          </Stack> -->
-      </div>
-    </Section>
+        <!-- Checklist -->
+
+        <!-- <pre>{{ parts.map((b) => b?.Name) }}</pre> -->
+
+        <!-- <BuildsGallery v-if="views.gallery.show" /> -->
+
+        <!-- DEV Toggles -->
+        <!-- <Row v-if="devmode">
+          <div v-for="(item, key, index) in views">
+            <label class="text-lg lg:text-3xl" for="checkbox">{{ key }}</label>
+            <input type="checkbox" id="key" v-model="views" />
+          </div>
+        </Row> -->
+
+        <!-- gallery: { show: true }, builder: { show: true }, budgetBuild: { show: false }, -->
+        <!-- randomBuild: { show: true }, -->
+        <!-- Slider bar -->
+
+        <!-- <Button v-if="false" @click="crud">Run Serverless Function</Button> -->
+
+        <!-- An Accordion style picker for parts -->
+
+        <!-- <Accordion :list="builds">
+          <template v-slot:header>
+            <h1>&#x1F503;</h1>
+          </template>
+        </Accordion> -->
+
+        <!-- A filter for Search Boxes -->
+
+        <!-- <h2 class="text-lg lg:text-3xl">Filter</h2>
+        <Grid>
+          <chip
+            v-for="type in types"
+            class="text-white bg-orange-500 border-2 border-white shadow-2xl rounded-4xl"
+            >{{ type }}
+          </chip>
+        </Grid> -->
+      </Dashboard>
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import useTable from "../hooks/useTable";
-import useBuilds from "../hooks/useBuilds";
+import { useTable, useRange, useBuilds } from "../hooks";
 import { random } from "../helpers/generators.ts";
 import { devmode, Log, groupBy } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
-import { Section, Card, SVGButton, Modal } from "../components/molecules";
-
-import {
-  Button,
-  Spinner,
-  Brandon,
-  Image,
-  Gradient,
-  Slider,
-  Shadow,
-} from "../components/atoms";
-
+import { Button, Spinner, Brandon } from "../components/atoms";
+import { Section, Card, SVGButton } from "../components/molecules";
+import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
-import Stack from "../components/flex/Stack.vue";
-import Grid from "../components/flex/Grid.vue";
-import Row from "../components/flex/Row.vue";
+import { Stack, Grid, Row } from "../components/flex";
+import Gradient from "../components/atoms/Gradient.vue";
+import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
 import { ref } from "vue";
+import { Dashboard } from "../components/templates";
 
 export default {
   components: {
@@ -173,7 +214,7 @@ export default {
     PartCard,
     Shadow,
     Spinner,
-    Modal,
+    Dashboard,
   },
   data() {
     return {
@@ -183,8 +224,7 @@ export default {
         budgetBuild: { show: false },
         randomBuild: { show: false },
       },
-
-      devmode: devmode,
+      devmode,
     };
   },
 
@@ -207,6 +247,7 @@ export default {
       clear,
     } = useBuilds();
 
+    const { range } = useRange();
     return {
       builds,
       parts,
@@ -222,93 +263,40 @@ export default {
       buildMode,
       clear,
 
-      showModal,
+      range,
+
+      totalEntries,
     };
   },
   methods: {
-    clearBuild() {
-      this.clear();
-      this.showModal = false;
+    getRandomBuild() {
+      this.views.randomBuild.show = true;
+      this.build.parts = random.Shuffle(this.parts);
     },
-    startCustomBuild() {
-      this.showModal = !this.showModal;
-    },
+    // addToChecklist(part) {
+    //   }
     setRange(range) {
-      this.$store.setRange(range);
+      this.range.value = range;
     },
   },
   computed: {
-    range() {
-      return this.$store.state.range;
+    budgetLabel() {
+      return `Your Budget: $${this.range?.value?.[0]} -> ${this.range?.value?.[1]}`;
     },
-    totalCost() {
-      const vals = this.build?.checklist;
-      console.log("vals", vals);
-      if (!vals) return 0;
-
-      return Object.entries(vals).reduce((total, item) => {
-        console.log("item", item);
-        total += item?.Cost || 0.0;
-        return total;
-      }, 0);
+    picks() {
+      const result = new Map(Object.entries(this.checklist));
+      return result;
+    },
+    remaining() {
+      return; //this.checklist;
     },
   },
 };
 </script>
 
 <!-- <Button
-          class="shadow-purple-400/50 shadow-md"
+          class="shadow-md shadow-purple-400/50"
           v-if="false"
           @click="views.gallery.show = !views.gallery.show"
-          >{{ views.gallery.show ? "Add Builds" : "View Builds" }}</Button
+          >{{ views.gallery.show ? "Save Builds" : "See What others are building" }}</Button
         > -->
-
-<!-- <BuildsGallery v-if="views.gallery.show" /> -->
-
-<!-- DEV Toggles -->
-<!-- <Row v-if="devmode">
-          <div v-for="(item, key, index) in views">
-            <label class="" for="checkbox">{{ key }}</label>
-            <input type="checkbox" id="key" v-model="views" />
-          </div>
-        </Row> -->
-
-<!-- A filter for Search Boxes -->
-
-<!-- <h2 class="text-3xl">Filter</h2>
-        <Grid>
-          <chip
-            v-for="type in types"
-            class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
-            >{{ type }}
-          </chip>
-        </Grid> -->
-
-<!-- Builder -->
-<!-- <Grid v-if="true">
-          <Card
-            class="gallery-panel border-4 max-w-2xl"
-            v-for="part in parts"
-            :key="part.id"
-          >
-            <template v-slot:header> </template>
-            <template v-slot:default>
-
-              <Stack>
-                <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
-                <p class="w-1/3 max-h-64">{{ part.Type }}</p>
-                <img
-                  v-if="part.Attachments"
-                  :src="part.Attachments?.[0]?.url"
-                  class="transform transition-all hover:scale-125"
-                />
-              </Stack>
-            </template>
-
-            <template v-slot:footer>
-              <div class="m-10">
-                <SVGButton class="bg-orange-500" @click="addPart(part)">Add</SVGButton>
-              </div>
-            </template>
-          </Card>
-        </Grid> -->

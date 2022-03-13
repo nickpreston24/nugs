@@ -12,48 +12,7 @@
     <div>
       <slider v-model="value"></slider>
       <p>{{ value }}</p>
-      <div class="gallery-panel" v-for="build in builds" :key="build.id">
-        <!-- <card class="" @mouseenter="getPart(build.Parts)">
-          <h1>{{ build.Name }}</h1>
-          <p>&#x1F4B2; {{ build["Total Cost"] }}</p>
-          <h3 v-if="build.Weight > 0">
-            &#x1F3CB;&#xFE0F;&#x200D;&#x2642;&#xFE0F; {{ build.Weight }}
-          </h3>
-        </card> -->
-
-        <!-- <list v-for="part in relatedParts(build?.Parts)" :key="part.id">
-            <card class="">
-              <p>{{ part.Name }}</p>
-            </card>
-          </list> -->
-
-        <!-- <p>{{ build.Parts }}</p> -->
-        <!-- <ul v-for="part in relatedParts(build.id)" :key="part.id">
-            <p>{{ part.id }}</p>
-          </ul> -->
-
-        <!-- <card
-          class="gallery-item bg-green-200"
-          @mouseenter="getPart(build.Id)"
-        >
-          <template v-slot:header>
-            <h1>
-              {{ build.id }}
-            </h1>
-          </template>
-        </card> -->
-
-        <!-- <div>
-          
-          <h6>${{ build["Total Cost"] }}</h6>
-          
-
-          <div v-else class="img-upload text-arctic-600 gentle-flex">
-            <span>No Image Found...Please Upload one!</span>
-            <input type="text" v-if="show" />
-          </div>
-        </div> -->
-      </div>
+      <div class="gallery-panel" v-for="build in builds" :key="build.id"></div>
     </div>
   </div>
 </template>
@@ -76,6 +35,8 @@ export default {
       value: 20,
       parts: [],
       builds: [],
+
+      devmode,
     };
   },
 
@@ -106,7 +67,7 @@ export default {
   },
   computed: {
     builds() {
-      devmode && console.log("computed (builds):  >> ", this.state.records);
+      console.log("computed (builds):  >> ", this.state.records);
       return this.state.records;
     },
     relatedParts() {
@@ -151,12 +112,6 @@ export default {
 };
 </script>
 <style scoped>
-/* html,
-body {
-  max-height: 100vh;
-  background-color: #030303;
-} */
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
@@ -187,3 +142,32 @@ body {
   font-family: fantasy;
 } */
 </style>
+
+<!-- <card class="" @mouseenter="getPart(build.Parts)">
+          <h1>{{ build.Name }}</h1>
+          <p>&#x1F4B2; {{ build["Total Cost"] }}</p>
+          <h3 v-if="build.Weight > 0">
+            &#x1F3CB;&#xFE0F;&#x200D;&#x2642;&#xFE0F; {{ build.Weight }}
+          </h3>
+        </card> -->
+
+<!-- <card
+          class="gallery-item bg-green-200"
+          @mouseenter="getPart(build.Id)"
+        >
+          <template v-slot:header>
+            <h1>
+              {{ build.id }}
+            </h1>
+          </template>
+        </card> -->
+
+<!-- <div>
+          
+          <h6>${{ build["Total Cost"] }}</h6>
+
+          <div v-else class="img-upload text-arctic-600 gentle-flex">
+            <span>No Image Found...Please Upload one!</span>
+            <input type="text" v-if="show" />
+          </div>
+        </div> -->

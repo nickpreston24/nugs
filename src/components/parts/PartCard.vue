@@ -1,91 +1,35 @@
 <!-- Sample CSS Image hover show button
         https://codepen.io/philcheng/pen/YWyYwG?editors=1000
 https://www.30secondsofcode.org/css/s/image-hover-rotate
+  https://codepen.io/philcheng/pen/YWyYwG?editors=1000
 -->
 <template>
   <div
-    class="min-h-screen bg-trueGray-100 py-6 flex flex-col justify-center sm:py-12 border-tahiti-500 border-2"
+    v-if="part.Name"
+    class="container flex flex-col items-center overflow-hidden card text-arctic-500"
   >
-    <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-      <!-- <div
-        class="absolute inset-0 bg-gradient-to-r to-purple-500 from-blue-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-4xl"
-      ></div> -->
-      <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-        <div class="max-w-md mx-auto">
-          <div class="divide-y divide-trueGray-200">
-            <div
-              class="py-8 text-base leading-6 space-y-4 text-trueGray-700 sm:text-lg sm:leading-7"
-            >
-              <h1 class="p-lg text-cyan-800">
-                {{ part?.Name }}
-              </h1>
-              <ul class="list-disc space-y-2">
-                <li
-                  v-if="part?.Features"
-                  v-for="(feature, key, index) in part?.Features"
-                  class="flex items-start"
-                >
-                  <span :key="index" class="h-6 flex items-center sm:h-7">
-                    <svg
-                      class="flex-shrink-0 h-5 w-5 text-tahiti-500"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <p class="ml-2">
-                    Weight
-                    <code class="text-sm font-bold text-trueGray-900">{{ feature }}</code>
-                  </p>
-                </li>
-              </ul>
-              <p>
-                {{ part?.Notes }}
-              </p>
-            </div>
-            <div class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
-              <!-- <p>Want to dig deeper into Tailwind?</p> -->
-              <p>
-                <a
-                  :href="part?.Link"
-                  class="text-tahiti-600 hover:text-tahiti-700"
-                  target="_"
-                >
-                  Check it Out &rarr;
-                </a>
-              </p>
-            </div>
-            <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-              <div>
-                <img
-                  class="sm:w-64 sm:h-64 md:w-128 md:h-auto md:rounded-none rounded-full mx-auto"
-                  :src="part?.Attachments?.[0].url"
-                  alt=""
-                  width="384"
-                  height="512"
-                />
-              </div>
-              <blockquote v-if="part?.Testimonial">
-                <p class="text-lg font-semibold">
-                  {{ part?.Testimonial }}
-                </p>
-              </blockquote>
-              <figcaption class="font-medium">
-                <div v-if="part?.Cost" class="text-tahiti-600">${{ part?.Cost }}</div>
-                <div v-if="part?.Weight" class="text-trueGray-500">
-                  {{ part?.Weight }} oz
-                </div>
-              </figcaption>
-              <slot></slot>
-            </div>
-          </div>
-        </div>
-      </div>
+    <figure>
+      <!-- Show Image -->
+      <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
+        <img
+          v-if="part?.Attachments"
+          :src="part?.Attachments?.[0]?.url"
+          class="transition-all transform hover:scale-125"
+        />
+      </router-link>
+      <!-- Upload missing image -->
+      <Stack v-else-if="!part?.Attachment">
+        <form-input :input="onChange" type="text" src="updatedUrl" placeholder="URL">
+          <i class="fa fa-link fa-lg"></i>
+        </form-input>
+        <i>Image Coming Soon!</i>
+        <!-- <Button @click="submit">Update</Button> -->
+      </Stack>
+    </figure>
+    <p class="text-sm title lg:text-md ellipsis hover:text-arctic-200">{{ part.Name }}</p>
+    <div class="overlay"></div>
+    <div class="button" name="button">
+      <a><slot></slot></a>
     </div>
   </div>
 </template>
@@ -120,9 +64,106 @@ export default {
     Card,
   },
   computed: {
-    border() {
-      return this.part?.selected ? "border-4 border-white" : "border-2 border-red";
-    },
+    // border() {
+    //   return part?.selected ? "border-4 border-orange-500" : "";
+    // },
   },
 };
 </script>
+
+<style scoped>
+.container {
+  position: relative;
+  /* margin-top: 50px; */
+  width: 500px;
+  height: 300px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.5s ease;
+}
+
+.container:hover .overlay {
+  display: block;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+img {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  left: 0;
+}
+
+.title {
+  position: absolute;
+  width: 500px;
+  left: 0;
+  top: 120px;
+  font-weight: 700;
+  /* font-size: 30px; */
+  text-align: center;
+  text-transform: uppercase;
+  z-index: 1;
+  transition: top 0.5s ease;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container:hover .title {
+  top: 90px;
+}
+
+.button {
+  position: absolute;
+  width: 500px;
+  left: 0;
+  top: 180px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.button a {
+  width: 200px;
+  padding: 12px 48px;
+  text-align: center;
+  color: white;
+  border: solid 2px white;
+  z-index: 1;
+}
+
+.container:hover .button {
+  opacity: 1;
+}
+
+/* Rotate */
+
+.hover-rotate {
+  overflow: hidden;
+  margin: 8px;
+  min-width: 240px;
+  max-width: 320px;
+  width: 100%;
+}
+
+.hover-rotate img {
+  transition: all 0.3s;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.hover-rotate:hover img {
+  transform: scale(1.3) rotate(5deg);
+}
+</style>

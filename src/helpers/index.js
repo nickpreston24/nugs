@@ -6,6 +6,8 @@ export * from "./generators.ts";
 /*Environment*/
 export const devmode = (() => process.env.NODE_ENV !== "production")();
 
+export const prodmode = (() => process.env.NODE_ENV === "production")();
+
 /**Check for any unassigned values */
 export const isEmpty = (obj) =>
   !obj ||

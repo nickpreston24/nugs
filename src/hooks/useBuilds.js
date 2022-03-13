@@ -26,15 +26,6 @@ const initial = {
   "Buffer Retainer": null,
   "Gas Tube": null,
   LPK: null,
-
-  /* Optional */
-
-  // Suppressor: null,
-  // Sling: null,
-  // Scope: null,
-  // UPK: null,
-  // Earpro: null,
-  // Cerakote: null,
 };
 
 export default function useBuilds() {
@@ -71,38 +62,7 @@ export default function useBuilds() {
    */
   const addPart = (part) => {
     const partType = part?.Type || "";
-    // part.selected = !part?.selected;
-    // console.log("part.selected", part.selected);
-
-    //TODO: other parts of the same type will become unselected.
-    for (let index = 0; index < partType.length; index++) {
-      const typeName = partType[index];
-      checklist.value[typeName] = part;
-    }
-  };
-
-  const getRandomBuild = () => {
-    buildMode.value = modes.RANDOM;
-    let nextChecklist = { ...initial };
-    const allParts = parts.value.filter((x) => x?.Type?.length > 0);
-
-    for (const typeName of partTypes.value) {
-      const matchingParts = allParts.filter((part) =>
-        part.Type?.includes(typeName)
-      );
-      // console.log("typeName", typeName, "count: ", matchingParts?.length);
-      // console.log("matchingParts", matchingParts);
-
-      const picked = random.Shuffle(matchingParts)?.[0];
-      // console.log("picked", picked);
-      // for (let index = 0; index < allPartsWithTypes.length; index++) {
-      //   // const types = element?.Type;
-      //   // if (!types) continue;
-      nextChecklist[typeName] = { ...picked, selected: true };
-      // }
-    }
-
-    checklist.value = nextChecklist;
+    checklist.value[partType[0]] = part;
   };
 
   const completedSteps = computed(() => totalEntries.value - incomplete.value);
