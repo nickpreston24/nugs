@@ -46,11 +46,6 @@ export default function useBuilds() {
     loading.value = false;
   });
 
-  onUnmounted(async () => {
-    // builds = null;
-    // parts = null;
-  });
-
   const clear = () => {
     checklist.value = initial;
     build.checklist = initial;
@@ -109,7 +104,6 @@ export default function useBuilds() {
     partTypes,
     totalEntries,
     groupedParts,
-    getRandomBuild,
     buildMode,
     clear,
   };
