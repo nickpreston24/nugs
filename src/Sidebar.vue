@@ -2,7 +2,7 @@
   <body>
     <nav class="navbar sm:h-48">
       <div class="m-2 text-3xl">
-        <router-link class="navbar-links text-5xl m-10" to="/">
+        <router-link class="m-10 text-5xl navbar-links" to="/">
           <Shadow
             :className="{ basic: true }"
             :color="{ color: '#1fff11' }"
@@ -10,7 +10,7 @@
           >
             <Row>
               <i class="fa fa-cog pb-base fa-lg lg:fa-2xl" aria-hidden="true"></i>
-              <h1 class="lg:text-7xl text-4xl drop-shadow-md">Blaster Builder</h1>
+              <h1 class="text-4xl lg:text-7xl drop-shadow-md">Blaster Builder</h1>
             </Row>
           </Shadow>
         </router-link>

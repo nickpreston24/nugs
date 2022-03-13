@@ -11,8 +11,8 @@ import store from './components/store'
 
 const app = createApp(App).use(router).use(store)
 app.config.errorHandler = (error, view, info) => {
-  // send to sentry or any bug db.
-  alert(error)
+  // TODO: send to sentry or any bug db.
+  console.error(`${error}\n${info}`)
 }
 app.config.performance = true
 

@@ -64,7 +64,8 @@
         </Grid>
       </template>
       <template v-slot:left>
-        <h1>Flop:</h1>
+        <Carousel />
+        <!-- <h1>Flop:</h1>
         <Row>
           <div
             v-for="(card, key, index) in board.flop"
@@ -73,7 +74,7 @@
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
-        </Row>
+        </Row> -->
         <!-- <div class="h-64 bg-transparent w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
@@ -219,7 +220,7 @@ import {
   AwesomeThinkingIcon,
   PistolIcon,
 } from "../assets/icons";
-import { Card } from "../components/molecules";
+import { Card, Carousel } from "../components/molecules";
 import { Log, devmode } from "../helpers";
 import { random } from "../helpers/generators.ts";
 
@@ -254,6 +255,7 @@ export default {
     AwesomeThinkingIcon,
     PistolIcon,
     Gradient,
+    Carousel,
   },
   created() {
     this.toggle("borders");

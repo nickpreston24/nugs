@@ -7,20 +7,8 @@
         </template>
 
         <template v-slot:top>
-          <div class="w-auto overflow-auto border-2 h-80">
-            <!-- <label class="text-lg lg:text-3xl">Your Picks: </label> -->
-            <Grid mode="photo">
-              <div v-for="item in picks" :key="item.id">
-                <row>
-                  <p>{{ item?.[0] }}:</p>
-
-                  {{ item?.[1]?.Name }}
-
-                  <i v-show="item?.[1]?.Name" class="fa fa-check"></i>
-                </row>
-              </div>
-            </Grid>
-          </div>
+          <!-- <div class="w-auto overflow-auto border-2 h-80"></div> -->
+          <Carousel :cards="cards"></Carousel>
         </template>
         <template v-slot:left>
           <div class="w-auto h-screen overflow-auto border-2">
@@ -37,16 +25,17 @@
                 Pick your {{ type }}
               </h3>
 
-              <Grid mode="feed">
-                <card
-                  v-for="part in groupedParts[type]"
-                  :key="part.id"
-                  class="bg-tahiti-700"
-                >
+              <Grid v-if="true" mode="feed">
+                <div v-for="part in groupedParts[type]" :key="part.id">
                   <PartCard :part="part">
-                    <button @click="addPart(part)">Add</button>
+                    <button
+                      class="border-4 hover:border-orange-500 hover:text-orange-500 border-red"
+                      @click="addPart(part)"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
                   </PartCard>
-                </card>
+                </div>
               </Grid>
             </div>
 
@@ -54,7 +43,7 @@
             <Grid v-if="false">
               <card
                 class="max-w-2xl border-4 gallery-panel"
-                v-for="part in parts"
+                v-for="part in groupedParts[type]"
                 :key="part.id"
               >
                 <!-- <template v-slot:header> </template> -->
@@ -82,13 +71,12 @@
                 </template>
               </card>
             </Grid>
-          </div></template
-        >
+          </div>
+        </template>
         <template v-slot:right>
           <div class="w-auto h-screen overflow-auto border-2">
-            <Stack v-if="range">
-              <label class="text-lg lg:text-3xl">{{ budgetLabel }}</label>
-            </Stack>
+            <!-- Budget label -->
+            <!-- <label v-show="range" class="text-lg lg:text-3xl">{{ budgetLabel }}</label> -->
 
             <Stack class="">
               <radial-progress-bar
@@ -96,15 +84,27 @@
                 :completed-steps="completedSteps"
                 :total-steps="totalSteps"
               >
-                <h2>Your Build is {{ percentCompleted.toFixed() }}% Done</h2>
+                <h2>{{ percentCompleted.toFixed() }}% Done</h2>
               </radial-progress-bar>
             </Stack>
 
+            <!-- <label class="text-lg lg:text-3xl">Your Picks: </label> -->
+            <Grid v-if="true" mode="photo">
+              <div v-for="item in picks" :key="item.id">
+                <p v-if="item?.[1]?.Name" class="text-tahiti-500">
+                  <i v-show="item?.[1]?.Name" class="fa fa-check"></i> {{ item?.[0] }}
+                </p>
+                <p v-else-if="!item?.[1]?.Name" class="text-gray-500">
+                  <i v-show="item?.[1]?.Name" class="fa fa-check"></i> {{ item?.[0] }}
+                </p>
+                <!-- {{ item?.[1]?.Name }} -->
+              </div>
+            </Grid>
             <Stack>
-              <h1 class="text-lg lg:text-3xl">Options:</h1>
+              <!-- <h1 class="text-lg lg:text-3xl">Options:</h1> -->
 
               <Row v-if="true" class="gap-5 lg:gap-15">
-                <brandon class="transition-all transform hover:scale-125">
+                <brandon @click="clear" class="transition-all transform hover:scale-125">
                   Customize!
                 </brandon>
 
@@ -180,13 +180,12 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import { useTable, useRange, useBuilds } from "../hooks";
+import { useRange, useBuilds } from "../hooks";
 import { random } from "../helpers/generators.ts";
 import { devmode, Log, groupBy } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
 import { Button, Spinner, Brandon } from "../components/atoms";
-import { Section, Card, SVGButton } from "../components/molecules";
+import { Section, Card, SVGButton, Carousel } from "../components/molecules";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import { Stack, Grid, Row } from "../components/flex";
@@ -214,6 +213,7 @@ export default {
     PartCard,
     Spinner,
     Dashboard,
+    Carousel,
   },
   data() {
     return {
@@ -224,12 +224,13 @@ export default {
         randomBuild: { show: false },
       },
       devmode,
+
+      // sample:
+      cards: [2, 4, 6, 8, 10],
     };
   },
 
   setup() {
-    const showModal = ref(false);
-
     const {
       builds,
       parts,
@@ -248,6 +249,7 @@ export default {
     } = useBuilds();
 
     const { range } = useRange();
+
     return {
       builds,
       parts,
@@ -282,9 +284,12 @@ export default {
   },
   computed: {
     budgetLabel() {
-      return `Your Budget: $${this.range?.value?.[0]} -> ${this.range?.value?.[1]}`;
+      return `Your Budget: $${this.range?.value?.[0] || ""} -> ${
+        this.range?.value?.[1] || ""
+      } `;
     },
     picks() {
+      console.log("picks", this.checklist);
       const result = new Map(Object.entries(this.checklist));
       return result;
     },

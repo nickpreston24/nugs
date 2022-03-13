@@ -6,8 +6,9 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
 <template>
   <div
     v-if="part.Name"
-    class="container flex flex-col items-center overflow-hidden card text-arctic-500"
+    class="container flex flex-col items-center overflow-hidden text-purple-500 card"
   >
+    <!-- <pre>Selected? {{ part?.selected }}</pre> -->
     <figure>
       <!-- Show Image -->
       <router-link v-if="part?.Attachments" :to="`/part/${part.id}`">
@@ -26,10 +27,10 @@ https://www.30secondsofcode.org/css/s/image-hover-rotate
         <!-- <Button @click="submit">Update</Button> -->
       </Stack>
     </figure>
-    <p class="text-sm title lg:text-md ellipsis hover:text-arctic-200">{{ part.Name }}</p>
+    <p class="text-sm title lg:text-md ellipsis hover:text-purple-400">{{ part.Name }}</p>
     <div class="overlay"></div>
     <div class="button" name="button">
-      <a><slot></slot></a>
+      <a class="border-2 border-white z-1"><slot></slot></a>
     </div>
   </div>
 </template>
@@ -64,9 +65,9 @@ export default {
     Card,
   },
   computed: {
-    // border() {
-    //   return part?.selected ? "border-4 border-orange-500" : "";
-    // },
+    border() {
+      return part?.selected ? "border-4 border-orange-500" : "";
+    },
   },
 };
 </script>
@@ -74,7 +75,7 @@ export default {
 <style scoped>
 .container {
   position: relative;
-  /* margin-top: 50px; */
+  margin-top: 50px;
   width: 500px;
   height: 300px;
 }
@@ -106,7 +107,7 @@ img {
   width: 500px;
   left: 0;
   top: 120px;
-  font-weight: 700;
+  /* font-weight: 700; */
   /* font-size: 30px; */
   text-align: center;
   text-transform: uppercase;
@@ -138,8 +139,8 @@ img {
   width: 200px;
   padding: 12px 48px;
   text-align: center;
-  color: white;
-  border: solid 2px white;
+  /* color: white; */
+  /* border: solid 2px white; */
   z-index: 1;
 }
 
@@ -148,7 +149,7 @@ img {
 }
 
 /* Rotate */
-
+/* 
 .hover-rotate {
   overflow: hidden;
   margin: 8px;
@@ -165,5 +166,5 @@ img {
 
 .hover-rotate:hover img {
   transform: scale(1.3) rotate(5deg);
-}
+} */
 </style>
