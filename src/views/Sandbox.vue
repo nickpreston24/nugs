@@ -1,6 +1,6 @@
 <template>
-  <Page class="border-red border-2">
-    <!-- <div class="bg-yellow-500 h-64 w-64"></div> -->
+  <Page class="border-2 border-red">
+    <!-- <div class="w-64 h-64 bg-yellow-500"></div> -->
 
     <!-- <template v-slot:header> -->
     <Stack class="bg-white-500 h-max">
@@ -23,7 +23,7 @@
     </Stack>
     <!-- </template> -->
 
-    <Dashboard v-if="show.dashboard" class="text-tahiti-500 text-4xl">
+    <Dashboard v-if="show.dashboard" class="text-4xl text-tahiti-500">
       <!--  Header -->
       <template v-slot:header>
         <header-bar>
@@ -48,8 +48,8 @@
 
       <template v-slot:top>
         <Grid mode="feed" v-if="show.svg">
-          <!-- <Button type="button" class="btn-primary bg-red-600" disabled>
-              <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">Processing</svg>
+          <!-- <Button type="button" class="bg-red-600 btn-primary" disabled>
+              <svg class="w-5 h-5 mr-3 animate-spin" viewBox="0 0 24 24">Processing</svg>
             </Button> -->
 
           <EightPointSixBlackoutIcon class="w-32 h-32" />
@@ -68,12 +68,12 @@
           <div
             v-for="(card, key, index) in board.flop"
             id="index"
-            class="text-tiny bg-white-500 border-black border-2 h-32 w-32"
+            class="w-32 h-32 border-2 border-black text-tiny bg-white-500"
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
         </Row>
-        <!-- <div class="bg-transparent h-64 w-128">LEFT</div> -->
+        <!-- <div class="h-64 bg-transparent w-128">LEFT</div> -->
       </template>
       <template v-slot:right>
         <!-- <h2>Hand:</h2>
@@ -81,12 +81,12 @@
           <div
             v-for="(card, key, index) in board.hand"
             id="index"
-            class="bg-white-500 border-black border-2 h-32 w-32"
+            class="w-32 h-32 border-2 border-black bg-white-500"
           >
             <h3>{{ card.face }} of {{ card.suit }}</h3>
           </div>
         </Row> -->
-        <!-- <div class="bg-transparent h-64 w-128">RIGHT</div> -->
+        <!-- <div class="h-64 bg-transparent w-128">RIGHT</div> -->
       </template>
       <template v-slot:bottom>
         <Grid mode="photo" v-if="show.photo">
@@ -158,34 +158,34 @@
           </card>
         </Grid>
 
-        <!-- <div v-else-if="!show.photo" class="bg-transparent h-64 w-full">bottom</div> -->
+        <!-- <div v-else-if="!show.photo" class="w-full h-64 bg-transparent">bottom</div> -->
       </template>
     </Dashboard>
 
-    <div v-if="false" class="sandbox gentle-flex bg-white dark:bg-gray-300 z-0">
+    <div v-if="false" class="z-0 bg-white sandbox gentle-flex dark:bg-gray-300">
       <div class="container" v-if="false"></div>
 
       <div
         v-if="false"
-        class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
+        class="w-full max-w-sm p-4 mx-auto border border-blue-300 rounded-md shadow"
       >
         <div v-if="false" class="flex space-x-4">
-          <div class="rounded-full bg-blue-400 h-12 w-12"></div>
-          <div class="flex-1 space-y-4 py-1">
-            <div class="h-4 bg-blue-400 rounded w-3/4"></div>
+          <div class="w-12 h-12 bg-blue-400 rounded-full"></div>
+          <div class="flex-1 py-1 space-y-4">
+            <div class="w-3/4 h-4 bg-blue-400 rounded"></div>
             <div class="space-y-2">
               <div class="h-4 bg-blue-400 rounded"></div>
-              <div class="h-4 bg-blue-400 rounded w-5/6"></div>
+              <div class="w-5/6 h-4 bg-blue-400 rounded"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <span class="flex h-3 w-3">
+      <span class="flex w-3 h-3">
         <span
-          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"
+          class="absolute inline-flex w-full h-full bg-purple-400 rounded-full opacity-75 animate-ping"
         ></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+        <span class="relative inline-flex w-3 h-3 bg-purple-500 rounded-full"></span>
       </span>
 
       <gallery v-if="false" />

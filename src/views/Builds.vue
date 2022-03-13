@@ -3,15 +3,28 @@
     <div class="text-purple-400 bg-midnight">
       <Dashboard>
         <template v-slot:header>
-          <!-- <div class="border-2 h-80 w-auto"></div> -->
+          <!-- <div class="w-auto border-2 h-80"></div> -->
         </template>
 
         <template v-slot:top>
-          <!-- <div class="border-2 h-80 w-auto"></div> -->
+          <div class="w-auto overflow-auto border-2 h-80">
+            <!-- <label class="text-lg lg:text-3xl">Your Picks: </label> -->
+            <Grid mode="photo">
+              <div v-for="item in picks" :key="item.id">
+                <row>
+                  <p>{{ item?.[0] }}:</p>
+
+                  {{ item?.[1]?.Name }}
+
+                  <i v-show="item?.[1]?.Name" class="fa fa-check"></i>
+                </row>
+              </div>
+            </Grid>
+          </div>
         </template>
         <template v-slot:left>
-          <div class="border-2 h-screen w-auto overflow-auto">
-            <h1 class="lg:text-3xl text-lg text-purple-500">Choose One of Each Part</h1>
+          <div class="w-auto h-screen overflow-auto border-2">
+            <h1 class="text-lg text-purple-500 lg:text-3xl">Choose One of Each Part</h1>
 
             <Spinner
               v-if="loading"
@@ -20,7 +33,7 @@
               class="color-arctic-500"
             />
             <div v-for="type in partTypes">
-              <h3 class="lg:text-3xl text-lg" v-if="groupedParts[type]?.length > 0">
+              <h3 class="text-lg lg:text-3xl" v-if="groupedParts[type]?.length > 0">
                 Pick your {{ type }}
               </h3>
 
@@ -40,7 +53,7 @@
             <!-- Builder attempt 2-->
             <Grid v-if="false">
               <card
-                class="gallery-panel border-4 max-w-2xl"
+                class="max-w-2xl border-4 gallery-panel"
                 v-for="part in parts"
                 :key="part.id"
               >
@@ -54,7 +67,7 @@
                     <img
                       v-if="part.Attachments"
                       :src="part.Attachments?.[0]?.url"
-                      class="transform transition-all hover:scale-125"
+                      class="transition-all transform hover:scale-125"
                     />
                     <!-- <figure class='' v-else-if="!part.Attachments">No Attachment</figure> -->
                   </Stack>
@@ -72,9 +85,9 @@
           </div></template
         >
         <template v-slot:right>
-          <div class="h-screen w-auto border-2 overflow-auto">
+          <div class="w-auto h-screen overflow-auto border-2">
             <Stack v-if="range">
-              <label class="lg:text-3xl text-lg">{{ budgetLabel }}</label>
+              <label class="text-lg lg:text-3xl">{{ budgetLabel }}</label>
             </Stack>
 
             <Stack class="">
@@ -88,15 +101,15 @@
             </Stack>
 
             <Stack>
-              <h1 class="lg:text-3xl text-lg">Options:</h1>
+              <h1 class="text-lg lg:text-3xl">Options:</h1>
 
               <Row v-if="true" class="gap-5 lg:gap-15">
-                <brandon class="transform transition-all hover:scale-125">
+                <brandon class="transition-all transform hover:scale-125">
                   Customize!
                 </brandon>
 
                 <brandon
-                  class="transform transition-all hover:scale-125"
+                  class="transition-all transform hover:scale-125"
                   @click="getRandomBuild"
                   >Randomize!</brandon
                 >
@@ -104,31 +117,18 @@
 
               <!-- Budget Option -->
               <Stack>
-                <button class="text-purple-400 lg:text-3xl text-lg mb-4">
+                <button class="mb-4 text-lg text-purple-400 lg:text-3xl">
                   Change your Budget here!
                 </button>
                 <slider min="500" @range-changed="setRange"></slider>
                 <!-- Weird this is staying constant, yet I can still set the range ref -->
                 <p v-if="devmode">{{ range }}</p>
               </Stack>
-
-              <stack mode="feed">
-                <label class="text-lg lg:text-3xl">Your Picks: </label>
-                <div v-for="item in picks" :key="item.id">
-                  <row>
-                    <p>{{ item?.[0] }}:</p>
-
-                    {{ item?.[1]?.Name }}
-
-                    <i v-show="item?.[1]?.Name" class="fa fa-check"></i>
-                  </row>
-                </div>
-              </stack>
             </Stack>
           </div>
         </template>
         <template v-slot:bottom>
-          <div v-if="devmode" class="border-2 h-auto w-auto">
+          <div v-if="devmode" class="w-auto h-auto border-2">
             <div>
               <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
               <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
@@ -146,7 +146,7 @@
         <!-- DEV Toggles -->
         <!-- <Row v-if="devmode">
           <div v-for="(item, key, index) in views">
-            <label class="lg:text-3xl text-lg" for="checkbox">{{ key }}</label>
+            <label class="text-lg lg:text-3xl" for="checkbox">{{ key }}</label>
             <input type="checkbox" id="key" v-model="views" />
           </div>
         </Row> -->
@@ -167,11 +167,11 @@
 
         <!-- A filter for Search Boxes -->
 
-        <!-- <h2 class="lg:text-3xl text-lg">Filter</h2>
+        <!-- <h2 class="text-lg lg:text-3xl">Filter</h2>
         <Grid>
           <chip
             v-for="type in types"
-            class="text-white shadow-2xl border-white border-2 bg-orange-500 rounded-4xl"
+            class="text-white bg-orange-500 border-2 border-white shadow-2xl rounded-4xl"
             >{{ type }}
           </chip>
         </Grid> -->
@@ -291,7 +291,7 @@ export default {
 </script>
 
 <!-- <Button
-          class="shadow-purple-400/50 shadow-md"
+          class="shadow-md shadow-purple-400/50"
           v-if="false"
           @click="views.gallery.show = !views.gallery.show"
           >{{ views.gallery.show ? "Save Builds" : "See What others are building" }}</Button

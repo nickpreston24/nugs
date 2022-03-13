@@ -8,7 +8,7 @@
 
 /* Global utility classes */
 .btn-primary {
-  @apply m-0 text-white bg-orange-500 inline-flex items-center font-semibold rounded-md shadow-sm border-white border-4;
+  @apply inline-flex items-center m-0 font-semibold text-white bg-orange-500 border-4 border-white rounded-md shadow-sm;
 }
 
 .btn-primary:hover {
@@ -67,10 +67,10 @@ video {
 
 .photo-grid {
   display: grid;
-  gap: 1rem;
+  gap: .5rem;
 
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-auto-rows: 240px;
+  /* grid-auto-rows: 120px; */
 }
 
 @media screen and (min-width: 600px) {
