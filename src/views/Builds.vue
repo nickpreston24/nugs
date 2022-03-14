@@ -1,72 +1,126 @@
 <template>
   <div class="builds">
-    <div class="text-purple-400 bg-midnight">
+    <div class="bg-midnight">
       <Dashboard>
         <template v-slot:header>
           <!-- <div class="w-auto border-2 h-80"></div> -->
         </template>
 
         <template v-slot:top>
-          <h1>contents</h1>
-          <Carousel3d class="border-2">
-            <h2>contents show here?</h2>
-            <slide :index="0"> Slide 1 Content </slide>
-            <slide :index="1"> Slide 2 Content </slide>
-          </Carousel3d>
-          <!-- <div class="w-auto overflow-auto border-2 h-80"></div> -->
-          <!-- <Carousel>
-            <div
-              class="w-32 h-32 border-2 text-tahiti-400 bg-ocean-700 card"
-              v-for="card in cards"
-              :key="card"
-            >
-              <div class="card">
-                {{ card }}
-              </div>
-            </div>
-          </Carousel> -->
+          <h1 class="text-lg text-orange-300 lg:text-5xl">Pick Your Parts</h1>
         </template>
         <template v-slot:left>
-          <div class="w-auto h-screen overflow-auto border-2">
-            <h1 class="text-lg text-purple-500 lg:text-3xl">Choose One of Each Part</h1>
-
+          <div class="w-auto h-screen overflow-auto">
             <Spinner
               v-if="loading"
               :animation-duration="2000"
               :size="60"
               class="color-arctic-500"
             />
-            <div v-for="type in partTypes">
-              <h3 class="text-lg lg:text-3xl" v-if="groupedParts[type]?.length > 0">
-                Pick your {{ type }}
+            <div v-for="type in partTypes" :key="type">
+              <h3
+                class="text-lg text-purple-400 lg:text-3xl"
+                v-if="groupedParts[type]?.length > 0"
+              >
+                Pick your {{ type }} ({{ groupedParts[type]?.length || "" }} total)
               </h3>
 
-              <Grid v-if="true" mode="feed">
+              <swiper
+                class="border-2"
+                :slides-per-view="3"
+                :space-between="50"
+                :autoplay="{ delay: 2500 }"
+                @swiper="onSwiper"
+                @slideChange="onSlideChange"
+              >
+                <swiper-slide v-for="part in groupedParts[type]" :key="part?.Id">
+                  <Card
+                    :key="part.id"
+                    :part="part"
+                    class="overflow-auto text-purple-500 border-4 border-tahiti-500"
+                  >
+                    <template v-slot:header>
+                      <p>{{ part.Name }}</p>
+                    </template>
+                    <template v-slot:default>
+                      <Stack class="text-purple-500">
+                        <figure>
+                          <img
+                            v-if="part?.Attachments"
+                            :src="part?.Attachments?.[0]?.url"
+                            class="transition-all transform hover:scale-125"
+                          />
+                          <Stack v-else-if="!part?.Attachment">
+                            <form-input
+                              :input="onChange"
+                              type="text"
+                              src="updatedUrl"
+                              placeholder="URL"
+                            >
+                              <i class="fa fa-link fa-lg"></i>
+                            </form-input>
+                            <i class="text-orange-300">Image Coming Soon!</i>
+                          </Stack>
+                        </figure>
+                        <p>${{ part?.Cost || "???" }}</p>
+                      </Stack>
+                    </template>
+
+                    <template v-slot:footer>
+                      <Row class="m-2">
+                        <button
+                          tip="Hi"
+                          class="w-16 text-white border-2 border-white rounded-lg hover:border-orange-300 hover:text-orange-300"
+                          @click="addPart(part)"
+                        >
+                          <i class="fa fa-plus"></i>
+                        </button>
+
+                        <button
+                          class="w-16 text-white transform border-2 border-white rounded-lg hover:border-orange-300 hover:text-orange-300 hover:scale-110"
+                        >
+                          <a :href="part?.URL" target="_blank">
+                            <i class="fa fa-link"></i>
+                          </a>
+                        </button>
+                      </Row>
+                    </template>
+                    <!--  -->
+                  </Card>
+                </swiper-slide>
+              </swiper>
+
+              <!--   <Grid v-if="true" mode="feed">
                 <div v-for="part in groupedParts[type]" :key="part.id">
                   <PartCard :part="part">
                     <button
-                      class="border-4 hover:border-orange-500 hover:text-orange-500 border-red"
+                      class="border-4 hover:border-orange-300 hover:text-orange-300 "
                       @click="addPart(part)"
                     >
                       <i class="fa fa-plus"></i>
                     </button>
                   </PartCard>
-                </div>
-              </Grid>
+                </div> 
+              </Grid>-->
             </div>
 
             <!-- Builder attempt 2-->
             <Grid v-if="false">
-              <card
+              <Card
                 class="max-w-2xl border-4 gallery-panel"
                 v-for="part in groupedParts[type]"
                 :key="part.id"
               >
-                <!-- <template v-slot:header> </template> -->
+                <template v-slot:header>
+                  <!-- <p>
+                    {{ part?.Cost || "no $" }}
+                  </p> -->
+                </template>
                 <template v-slot:default>
-                  <!-- Show Image -->
-
                   <Stack>
+                    <p>
+                      {{ part?.Cost }}
+                    </p>
                     <p class="w-1/3 max-h-64">{{ part.Notes }}</p>
                     <p class="w-1/3 max-h-64">{{ part.Type }}</p>
                     <img
@@ -74,23 +128,22 @@
                       :src="part.Attachments?.[0]?.url"
                       class="transition-all transform hover:scale-125"
                     />
-                    <!-- <figure class='' v-else-if="!part.Attachments">No Attachment</figure> -->
                   </Stack>
                 </template>
 
                 <template v-slot:footer>
                   <div class="m-10">
-                    <SVGButton class="bg-orange-500" @click="addToChecklist(part)"
+                    <SVGButton class="bg-orange-300" @click="addToChecklist(part)"
                       >Add</SVGButton
                     >
                   </div>
                 </template>
-              </card>
+              </Card>
             </Grid>
           </div>
         </template>
         <template v-slot:right>
-          <div class="w-auto h-screen overflow-auto border-2">
+          <div class="w-auto h-screen overflow-auto text-ocean-500">
             <!-- Budget label -->
             <!-- <label v-show="range" class="text-lg lg:text-3xl">{{ budgetLabel }}</label> -->
 
@@ -104,23 +157,24 @@
               </radial-progress-bar>
             </Stack>
 
-            <!-- <label class="text-lg lg:text-3xl">Your Picks: </label> -->
             <Grid v-if="true" mode="photo">
               <div v-for="item in picks" :key="item.id">
                 <p v-if="item?.[1]?.Name" class="text-tahiti-500">
                   <i v-show="item?.[1]?.Name" class="fa fa-check"></i> {{ item?.[0] }}
                 </p>
-                <p v-else-if="!item?.[1]?.Name" class="text-gray-500">
+                <p v-else-if="!item?.[1]?.Name" class="text-gray-300">
                   <i v-show="item?.[1]?.Name" class="fa fa-check"></i> {{ item?.[0] }}
                 </p>
-                <!-- {{ item?.[1]?.Name }} -->
               </div>
             </Grid>
             <Stack>
               <!-- <h1 class="text-lg lg:text-3xl">Options:</h1> -->
-
               <Row v-if="true" class="gap-5 lg:gap-15">
-                <brandon @click="clear" class="transition-all transform hover:scale-125">
+                <brandon
+                  v-if="devmode"
+                  @click="clear"
+                  class="transition-all transform hover:scale-125"
+                >
                   Customize!
                 </brandon>
 
@@ -144,7 +198,7 @@
           </div>
         </template>
         <template v-slot:bottom>
-          <div v-if="devmode" class="w-auto h-auto border-2">
+          <div v-if="devmode" class="w-auto h-auto">
             <div>
               <!-- <pre class="text-tiny">{{ checklist }}</pre> -->
               <!-- <pre class="text-tiny">{{ groupedParts }}</pre> -->
@@ -187,7 +241,7 @@
         <Grid>
           <chip
             v-for="type in types"
-            class="text-white bg-orange-500 border-2 border-white shadow-2xl rounded-4xl"
+            class="text-white bg-orange-300 border-2 border-white shadow-2xl rounded-4xl"
             >{{ type }}
           </chip>
         </Grid> -->
@@ -196,20 +250,21 @@
   </div>
 </template>
 <script>
-import { Carousel3d, Slide } from "vue-carousel-3d";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
 import { useRange, useBuilds } from "../hooks";
 import { random } from "../helpers/generators.ts";
-import { devmode, Log, groupBy } from "../helpers";
+import { devmode } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
 import { Button, Spinner, Brandon } from "../components/atoms";
-import { Section, Card, SVGButton, Carousel } from "../components/molecules";
+import { Section, Card, SVGButton } from "../components/molecules";
 import Image from "../components/atoms/Image.vue";
 import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import { Stack, Grid, Row } from "../components/flex";
 import Gradient from "../components/atoms/Gradient.vue";
 import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
-import { ref } from "vue";
 import { Dashboard } from "../components/templates";
 
 export default {
@@ -230,9 +285,8 @@ export default {
     PartCard,
     Spinner,
     Dashboard,
-    // Carousel,
-    Carousel3d,
-    Slide,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
@@ -246,6 +300,16 @@ export default {
 
       // sample:
       cards: [2, 4, 6, 8, 10],
+      //carousel exmample:
+      slides: [
+        "https://picsum.photos/id/230/600/300",
+        "https://picsum.photos/id/231/600/300",
+        "https://picsum.photos/id/232/600/300",
+        "https://picsum.photos/id/233/600/300",
+        "https://picsum.photos/id/234/600/300",
+        "https://picsum.photos/id/235/600/300",
+        "https://picsum.photos/id/236/600/300",
+      ],
     };
   },
 

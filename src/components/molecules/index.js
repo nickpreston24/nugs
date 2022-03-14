@@ -9,7 +9,7 @@ import Section from './Section.vue'
 import DevConsole from './DevConsole.vue'
 import Modal from './Modal.vue'
 import SVGButton from './SVGButton.vue'
-import Carousel from './Carousel.vue'
+import Carousel from './carousel/Carousel1.vue'
 
 export {
   Card,

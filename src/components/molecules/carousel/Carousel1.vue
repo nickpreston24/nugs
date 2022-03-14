@@ -26,8 +26,8 @@
   </Stack>
 </template>
 <script>
-import { Button } from "../../components/atoms";
-import { Stack, Row } from "../../components/flex";
+import { Button } from "../../atoms";
+import { Stack, Row } from "../../flex";
 export default {
   props: {
     cards: {

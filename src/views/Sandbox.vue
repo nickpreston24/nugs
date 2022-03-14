@@ -26,7 +26,26 @@
     <Dashboard v-if="show.dashboard" class="text-4xl text-tahiti-500">
       <!--  Header -->
       <template v-slot:header>
-        <header-bar>
+        <div class="">
+          <swiper
+            class="border-2 border-red"
+            :slides-per-view="3"
+            :space-between="50"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
+          >
+            <swiper-slide v-for="slide in slides" :key="slide" class="carousel-slider">
+              <img :src="slide" :alt="slide" />
+            </swiper-slide>
+          </swiper>
+        </div>
+
+        <!-- <carousel>
+            <slide v-for="slide in slides" :key="slide" class="carousel-slider">
+              <img :src="slide" :alt="slide" />
+            </slide>
+          </carousel> -->
+        <!-- <header-bar>
           <template v-slot:left>
             <Shadow v-if="show.logo" class="m-2">
               <Row>
@@ -44,7 +63,7 @@
             />
           </Gradient>
           <template v-slot:right> </template>
-        </header-bar>
+        </header-bar> -->
       </template>
 
       <template v-slot:top>
@@ -196,6 +215,9 @@
   </Page>
 </template>
 <script>
+import { Swiper, SwiperSlide, useSwiper } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
 import TailwindCard from "../components/examples/TailwindCard.vue";
 import HeaderBar from "../components/molecules/HeaderBar.vue";
 import Dashboard from "../components/templates/Dashboard.vue";
@@ -219,7 +241,8 @@ import {
   AwesomeThinkingIcon,
   PistolIcon,
 } from "../assets/icons";
-import { Card, Carousel } from "../components/molecules";
+import { Card } from "../components/molecules";
+import { Carousel, Slide, SwiperExample } from "../components/molecules/carousel";
 import { Log, devmode } from "../helpers";
 import { random } from "../helpers/generators.ts";
 
@@ -231,7 +254,22 @@ Array.prototype.remove = function (from, to) {
 };
 
 export default {
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log("swiper :>> ", swiper);
+    };
+    const onSlideChange = () => {
+      console.log("slide change");
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+    };
+  },
   components: {
+    Swiper,
+    SwiperSlide,
+    useSwiper,
     TailwindCard,
     Button,
     Stack,
@@ -255,6 +293,8 @@ export default {
     PistolIcon,
     Gradient,
     Carousel,
+    Slide,
+    SwiperExample,
   },
   created() {
     this.toggle("borders");
@@ -315,6 +355,17 @@ export default {
         faces: ["A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2],
         suits: ["Hearts", "Spades", "Diamonds", "Clubs"],
       },
+
+      //carousel exmample:
+      slides: [
+        "https://picsum.photos/id/230/600/300",
+        "https://picsum.photos/id/231/600/300",
+        "https://picsum.photos/id/232/600/300",
+        "https://picsum.photos/id/233/600/300",
+        "https://picsum.photos/id/234/600/300",
+        "https://picsum.photos/id/235/600/300",
+        "https://picsum.photos/id/236/600/300",
+      ],
     };
   },
 
@@ -365,3 +416,28 @@ export default {
   filter: brightness(3) invert(1) grayscale(1);
 }
 </style>
+
+<!-- <h1>contents</h1> -->
+<!-- <Carousel3d class="border-2">
+            <h2>contents show here?</h2>
+            <slide :index="0"> Slide 1 Content </slide>
+            <slide :index="1"> Slide 2 Content </slide>
+          </Carousel3d> -->
+
+<!-- <carousel-3d>
+            <slide v-for="(slide, i) in slides" :index="i" :key="i">
+              <img src="https://placehold.it/360x270" />
+            </slide>
+          </carousel-3d> -->
+<!-- <div class="w-auto overflow-auto border-2 h-80"></div> -->
+<!-- <Carousel>
+            <div
+              class="w-32 h-32 border-2 text-tahiti-400 bg-ocean-700 card"
+              v-for="card in cards"
+              :key="card"
+            >
+              <div class="card">
+                {{ card }}
+              </div>
+            </div>
+          </Carousel> -->

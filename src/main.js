@@ -4,7 +4,6 @@ import router from './router'
 import './index.css'
 import './assets/tailwind.css'
 import store from './components/store'
-import Carousel3d from 'vue-carousel-3d'
 
 const app = createApp(App)
 
@@ -35,5 +34,5 @@ window.addEventListener('unhandledrejection', function (event) {
   console.log('event', event)
 })
 
-app.use(router).use(store).use(Carousel3d)
+app.use(router).use(store)
 app.mount('#app')
