@@ -1,9 +1,9 @@
 <!-- Developer Console -->
 <template>
-  <div v-if="devmode" class="bg-orange-500 h-32">
+  <div v-if="devmode" class="h-32 bg-orange-500">
     <!-- <pre>{{ developerSettings }}</pre> -->
     <Row v-if="devmode">
-      <div v-for="(item, key, index) in developerSettings">
+      <div v-for="(item, key) in developerSettings" :key="key">
         <label :for="item.id">{{ key }}</label>
         <input
           type="checkbox"

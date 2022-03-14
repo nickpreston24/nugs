@@ -1,7 +1,54 @@
 <template>
-  <section
-    class="bg-gradient-to-tl from-regal-600 to-transparent rounded-3xl border-transparent"
-  >
-    <slot></slot>
-  </section>
+  <transition name="bounce">
+    <section
+      v-if="show"
+      class="border-transparent bg-gradient-to-tl from-regal-600 to-transparent rounded-3xl"
+    >
+      <slot></slot>
+    </section>
+  </transition>
+  <!-- <button @click="show = !show">Toggle render</button> -->
 </template>
+<script>
+export default {
+  data() {
+    return {
+      show: true,
+    };
+  },
+};
+</script>
+<style scoped>
+/* fade */
+.slide-fade-enter-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* bounce */
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.075);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>

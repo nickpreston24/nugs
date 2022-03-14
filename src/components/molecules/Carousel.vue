@@ -14,10 +14,6 @@
             {{ card }}
           </div>
         </div>
-        <Row v-else>
-          <h1>No Items!</h1>
-          <AwesomeConfusedIcon class="w-32 h-32" />
-        </Row>
       </div>
 
       <button
@@ -32,18 +28,16 @@
 <script>
 import { Button } from "../../components/atoms";
 import { Stack, Row } from "../../components/flex";
-import { AwesomeConfusedIcon } from "../../assets/icons";
 export default {
   props: {
     cards: {
       type: Array,
       required: false,
-      //   default: [1, 2, 3, 4, 5, 6, 7, 8],
     },
   },
   data() {
     return {
-      //   cards: [1, 2, 3, 4, 5, 6, 7, 8],
+      cards: [1, 2, 3, 4, 5, 6, 7, 8],
       innerStyles: {},
       step: "",
       transitioning: false,
@@ -53,7 +47,6 @@ export default {
     Button,
     Stack,
     Row,
-    AwesomeConfusedIcon,
   },
   methods: {
     setStep() {

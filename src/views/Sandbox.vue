@@ -64,7 +64,6 @@
         </Grid>
       </template>
       <template v-slot:left>
-        <Carousel />
         <!-- <h1>Flop:</h1>
         <Row>
           <div

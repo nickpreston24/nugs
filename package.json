@@ -19,6 +19,7 @@
     "dotenv": "^16.0.0",
     "neo4j-driver": "^4.4.2",
     "vue": "^3.2.31",
+    "vue-carousel-3d": "^1.0.1",
     "vue-router": "4.0.12",
     "vue3-radial-progress": "^1.1.0",
     "vuex": "^4.0.2",
@@ -32,6 +33,7 @@
     "@storybook/vue3": "^6.4.19",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
+    "@vue/cli-plugin-babel": "^5.0.1",
     "@vue/compiler-sfc": "^3.2.31",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
@@ -45,9 +47,7 @@
     "tailwindcss": "^3.0.23",
     "typescript": "~4.5.5",
     "vite": "^2.8.4",
-    "vue-loader": "^16.8.3",
-    "@vue/cli-plugin-babel": "^5.0.1"
-
+    "vue-loader": "^16.8.3"
   },
   "license": "ISC"
 }

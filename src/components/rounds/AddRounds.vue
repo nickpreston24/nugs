@@ -35,16 +35,14 @@ export default {
   components: { Button },
   methods: {
     async addRound() {
-      await create("Rounds", [
-        {
-          ...this.round,
+      await create("Rounds", {
+        ...this.round,
 
-          // Idea: there's gotta be a way to automate this:
-          Grain: parseFloat(this.round.Grain),
-          Diameter: parseFloat(this.round.Diameter),
-          MuzzleVelocity: parseFloat(this.round.MuzzleVelocity),
-        },
-      ]);
+        // Idea: there's gotta be a way to automate this:
+        Grain: parseFloat(this.round.Grain),
+        Diameter: parseFloat(this.round.Diameter),
+        MuzzleVelocity: parseFloat(this.round.MuzzleVelocity),
+      });
       this.clear();
     },
     clear() {

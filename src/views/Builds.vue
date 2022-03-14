@@ -7,8 +7,24 @@
         </template>
 
         <template v-slot:top>
+          <h1>contents</h1>
+          <Carousel3d class="border-2">
+            <h2>contents show here?</h2>
+            <slide :index="0"> Slide 1 Content </slide>
+            <slide :index="1"> Slide 2 Content </slide>
+          </Carousel3d>
           <!-- <div class="w-auto overflow-auto border-2 h-80"></div> -->
-          <Carousel :cards="cards"></Carousel>
+          <!-- <Carousel>
+            <div
+              class="w-32 h-32 border-2 text-tahiti-400 bg-ocean-700 card"
+              v-for="card in cards"
+              :key="card"
+            >
+              <div class="card">
+                {{ card }}
+              </div>
+            </div>
+          </Carousel> -->
         </template>
         <template v-slot:left>
           <div class="w-auto h-screen overflow-auto border-2">
@@ -180,6 +196,7 @@
   </div>
 </template>
 <script>
+import { Carousel3d, Slide } from "vue-carousel-3d";
 import { useRange, useBuilds } from "../hooks";
 import { random } from "../helpers/generators.ts";
 import { devmode, Log, groupBy } from "../helpers";
@@ -213,7 +230,9 @@ export default {
     PartCard,
     Spinner,
     Dashboard,
-    Carousel,
+    // Carousel,
+    Carousel3d,
+    Slide,
   },
   data() {
     return {

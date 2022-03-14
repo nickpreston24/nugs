@@ -20,7 +20,7 @@ import Stack from "./components/flex/Stack.vue";
 import Row from "./components/flex/Row.vue";
 import Gradient from "./components/atoms/Gradient.vue";
 import Page from "./components/templates/Page.vue";
-// import ErrorBoundary from "./helpers/ErrorBoundary.vue";
+import ErrorBoundary from "./components/ErrorBoundary.vue";
 
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
     Gradient,
     Page,
 
-    // ErrorBoundary
+    ErrorBoundary,
   },
 };
 </script>

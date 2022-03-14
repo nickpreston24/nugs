@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="v-model-select" class="gentle-flex m-10">
+    <div id="v-model-select" class="m-10 gentle-flex">
       <select v-model="selected" @change="onSelection">
         <option disabled value="">Please select one</option>
         <option :key="limit" v-bind="limit" v-for="limit in limits">
@@ -73,7 +73,7 @@
               <img
                 v-if="order.Attachments"
                 :src="order.Attachments?.[0]?.url"
-                class="transform transition-all hover:scale-125"
+                class="transition-all transform hover:scale-125"
               />
             </router-link> -->
 
@@ -97,15 +97,10 @@
     </Accordion> -->
 </template>
 <script>
-import Spinner from "../atoms/Spinner.vue";
 import useTable from "../../hooks/useTable";
 import { devmode } from "../../../src/helpers";
-import Button from "../atoms/Button.vue";
-//import { formatRecords } from "../../../data/airtable-curl";
 import List from "../molecules/List.vue";
 import Card from "../molecules/Card.vue";
-import Accordion from "../molecules/Accordion.vue";
-import FlowingBorderTransition from "../transitions/FlowingBorderTransition.vue";
 // import FadeTransition from "../transitions/FadeTransition.vue";
 
 export default {

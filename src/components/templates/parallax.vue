@@ -1,37 +1,38 @@
 <!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
 <template>
   <body class="m-0">
-    <div class="wrapper text-arctic-200 text-xl">
+    <div class="text-xl wrapper text-arctic-200">
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
 
         <FadeTransition>
-          <Section class="text-tahiti-100 text-3xl">
-            <Stack class="p-10 gap-2 m-8">
+          <Section class="text-3xl text-tahiti-100">
+            <Stack class="gap-2 p-10 m-8">
               <p v-for="(item, index) in description.split('\\n')" :key="index">
                 {{ item }}
               </p>
 
-              <h1 class="lg:text-3xl text-lg m-8">Choose your Budget:</h1>
+              <h1 class="m-8 text-lg lg:text-3xl">Choose your Budget:</h1>
               <slider @range-changed="setRange" />
 
-              <Row class="m-8">
+              <Grid :mode="feed" class="gap-2 p-2">
                 <chip
                   v-for="description in categories"
-                  class="transform transition-all hover:scale-110 text-white shadow-2xl border-white border-2 bg-orange-600 rounded-4xl"
+                  :key="description"
+                  class="text-white transition-all transform bg-orange-600 border-2 border-white shadow-2xl hover:scale-110 rounded-4xl"
                 >
                   <router-link to="/builds">{{ description }} </router-link>
                 </chip>
-              </Row>
+              </Grid>
             </Stack>
           </Section>
         </FadeTransition>
       </header>
 
-      <Gradient v-if="false" class="m-20">
+      <Gradient v-if="true" class="m-20">
         <Stack>
-          <h1 class="shadow-2xl lg:text-3xl text-lg text-arctic-500">{{ title }}</h1>
+          <h1 class="text-lg shadow-2xl lg:text-3xl text-arctic-500">{{ title }}</h1>
           <subtitle class="text-4xl shadow-2xl text-arctic-700">{{ subtitle }}</subtitle>
           <Row class="gap-20">
             <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">

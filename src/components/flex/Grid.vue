@@ -1,5 +1,5 @@
 <template>
-  <section class="card-wide card-tall" :class="class">
+  <section class="card-wide card-tall" :class="gridType">
     <slot></slot>
   </section>
 </template>
@@ -12,7 +12,7 @@ export default {
     },
   },
   computed: {
-    class() {
+    gridType() {
       return `${this.mode}-grid`;
     },
   },

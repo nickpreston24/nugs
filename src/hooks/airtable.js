@@ -1,119 +1,121 @@
-import axios from "axios";
-import { Log } from "../helpers";
+import axios from 'axios'
+import { Log } from '../helpers'
 
-const apiKey = "keyl5Wo5ETa4HR4tt"; //import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
-const baseKey = "app33DDBeyXEGRflo"; //import.meta.env.VITE_VERCEL_BASE_KEY;
+const apiKey = 'keyl5Wo5ETa4HR4tt' //import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
+const baseKey = 'app33DDBeyXEGRflo' //import.meta.env.VITE_VERCEL_BASE_KEY;
 
 export const formatRecords = (records = []) => {
-  let collection = [].concat(records);
+  let collection = [].concat(records)
 
   const format = (record) => {
-    if (!record) return {};
-    let { id, fields } = record;
+    if (!record) return {}
+    let { id, fields } = record
     return {
       id,
-      ...fields,
-    };
-  };
+      ...fields
+    }
+  }
   let result =
-    collection.length > 0 ? collection.map(format) : format(collection);
+    collection.length > 0 ? collection.map(format) : format(collection)
 
-  return result;
-};
+  return result
+}
 
 export const getRecords = async (tableName, maxRecords = 10) => {
   const result = await axios({
     url: `https://api.airtable.com/v0/${baseKey}/${tableName}?maxRecords=${maxRecords}`,
     headers: {
-      "Content-Type": "x-www-form-urlencoded",
-      Authorization: `Bearer ${apiKey}`,
-    },
+      'Content-Type': 'x-www-form-urlencoded',
+      Authorization: `Bearer ${apiKey}`
+    }
   }).catch((error) => {
-    Log("airtable error", error);
-  });
+    Log('airtable error', error)
+  })
 
-  return formatRecords(result?.data?.records);
-};
+  return formatRecords(result?.data?.records)
+}
 
 export const searchTable = async (
-  tableName = "Parts",
+  tableName = 'Parts',
   options = { fields: [] }
 ) => {
-  Log("options :>> ", options);
-  let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`;
+  Log('options :>> ', options)
+  let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`
   for (let i = 0; i < fields.length; i++) {
-    const field = fields[i];
+    const field = fields[i]
     if (i > 0) {
-      url.concat(`&`);
+      url.concat(`&`)
     }
-    url.concat(`fields%5B%5D=${field}`);
+    url.concat(`fields%5B%5D=${field}`)
   }
 
-  Log("url", url);
+  Log('url', url)
   axios({
     url,
     headers: {
-      "Content-Type": "x-www-form-urlencoded",
-      Authorization: `Bearer ${apiKey}`,
-    },
+      'Content-Type': 'x-www-form-urlencoded',
+      Authorization: `Bearer ${apiKey}`
+    }
   })
     .then((result) => {
-      Log(result);
-      let raw = formatRecords(result?.data?.records);
+      Log(result)
+      let raw = formatRecords(result?.data?.records)
     })
     .catch((error) => {
-      Log("error", error);
-    });
-};
+      Log('error', error)
+    })
+}
 
 export const getById = async (id, table = null) => {
-  if (!table) return "Table cannot be null!";
+  if (!table) return 'Table cannot be null!'
 
   let record = await get(table, id).catch((error) => {
-    Log("error", error);
-  });
+    Log('error', error)
+  })
 
-  Log("record :>> ", record);
+  Log('record :>> ', record)
 
-  return formatRecords(record);
-};
+  return formatRecords(record)
+}
 
 export const patch = async (table = null, data = null) => {
-  const url = `https://api.airtable.com/v0/${baseKey}/${table}`;
+  const url = `https://api.airtable.com/v0/${baseKey}/${table}`
   const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${apiKey}`,
-  };
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${apiKey}`
+  }
   const request = await axios
     .patch(url, data, headers)
 
     .catch((error) => {
-      Log("error", error);
-    });
+      Log('error', error)
+    })
 
-  return formatRecords(result?.data?.records);
-};
+  return formatRecords(result?.data?.records)
+}
 
 export const create = async (table = null, record) => {
+  console.log('record', record)
   const data = {
     records: [
       {
-        fields: record?.fields || {},
-      },
-    ],
-  };
+        fields: record?.fields || { ...record }
+      }
+    ]
+  }
 
-  let url = "https://api.airtable.com/v0/" + baseKey + "/" + table;
+  let url = 'https://api.airtable.com/v0/' + baseKey + '/' + table
   let axiosConfig = {
     headers: {
-      Authorization: "Bearer " + apiKey,
-      "Content-Type": "application/json",
-    },
-  };
-  const request = await axios
+      Authorization: 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    }
+  }
+  const response = await axios
     .post(url, data, axiosConfig)
-    .catch((error) => Log(error));
+    .catch((error) => Log(error))
 
+  // console.log('axios response', response)
   // TODO: return id
-  return request.data.id;
-};
+  return response?.data?.id
+}

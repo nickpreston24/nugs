@@ -1,6 +1,6 @@
 <template>
   <div class="text-white">
-    <div id="v-model-select" class="gentle-flex m-10">
+    <div id="v-model-select" class="m-10 gentle-flex">
       <select v-model="selected" @change="onSelection">
         <option disabled value="">Please select one</option>
         <option :key="limit" v-bind="limit" v-for="limit in limits">
@@ -8,13 +8,13 @@
         </option>
       </select>
     </div>
-    <Grid mode="photo">
-      <card v-for="(part, key, index) in parts" :key="part.id" class="bg-transparent">
+    <Stack mode="photo">
+      <card v-for="part in parts" :key="part.id" class="bg-transparent">
         <PartCard :part="part" class="hover:border-rose-500">
           <button class="hover:text-orange-500" @click="submit">Update</button>
         </PartCard>
       </card>
-    </Grid>
+    </Stack>
   </div>
 </template>
 <script>
