@@ -1,5 +1,7 @@
 <template>
-  <slot name="header" />
+  <!-- <slot name="header" /> -->
+  <Sidebar />
+  <div :style="{ 'margin-left': sidebarWidth }"></div>
   <router-view v-slot="{ Component }">
     <transition name="route" mode="out-in">
       <ErrorBoundary v-if="prodmode">
@@ -23,8 +25,11 @@
 import Footer from "../molecules/Footer.vue";
 import ErrorBoundary from "../../components/ErrorBoundary.vue";
 import { devmode, prodmode } from "../../helpers";
+import { Sidebar } from "../../components/organisms";
+import { sidebarWidth } from "../../components/organisms/sidebar/state";
 export default {
   components: {
+    Sidebar,
     Footer,
     ErrorBoundary,
   },

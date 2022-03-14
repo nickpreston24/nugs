@@ -4,6 +4,20 @@
 
 @tailwind utilities;
 
+
+/* example : https://levelup.gitconnected.com/tailwindcss-with-css-variables-513abe2e9a5 */
+
+.root,
+#root,
+#docs-root {
+  --primary: #367ee9;
+  --secondary: #a0aec0;
+  --accent: #718096;
+  --background: #fff;
+  --main: #0d0106;
+  --header: #2d3748;
+}
+
 input.bullet-border {
   border: 2px solid #42b983;
   border-radius: 0% 50% 50% 0%;
@@ -13,3 +27,6 @@ input.bullet-border {
 .img-upload {
   font-family: fantasy;
 }
+
+
+

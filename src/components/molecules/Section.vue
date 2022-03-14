@@ -2,12 +2,11 @@
   <transition name="bounce">
     <section
       v-if="show"
-      class="border-transparent bg-gradient-to-tl from-regal-600 to-transparent rounded-3xl"
+      class="bg-gradient-to-tl from-regal-600 to-transparent rounded-3xl"
     >
       <slot></slot>
     </section>
   </transition>
-  <!-- <button @click="show = !show">Toggle render</button> -->
 </template>
 <script>
 export default {

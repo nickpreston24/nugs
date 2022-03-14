@@ -4,34 +4,30 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <!-- <ErrorBoundary> -->
     <Page>
       <template v-slot:header>
-        <Sidebar />
+        <!-- <Sidebar /> -->
       </template>
     </Page>
-    <!-- </ErrorBoundary> -->
   </div>
 </template>
 <script>
-import Sidebar from "./Sidebar.vue";
+// import { Sidebar } from "./components/organisms";
+// import { sidebarWidth } from "./components/organisms/sidebar";
 import Footer from "./components/molecules/Footer.vue";
 import Stack from "./components/flex/Stack.vue";
 import Row from "./components/flex/Row.vue";
 import Gradient from "./components/atoms/Gradient.vue";
 import Page from "./components/templates/Page.vue";
-import ErrorBoundary from "./components/ErrorBoundary.vue";
 
 export default {
   components: {
-    Sidebar,
+    // Sidebar,
     Footer,
     Stack,
     Row,
     Gradient,
     Page,
-
-    ErrorBoundary,
   },
 };
 </script>

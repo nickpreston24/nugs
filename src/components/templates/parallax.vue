@@ -1,13 +1,13 @@
 <!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
 <template>
-  <body class="m-0">
+  <body class="">
     <div class="text-xl wrapper text-arctic-200">
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
 
-        <FadeTransition>
-          <Section class="text-3xl text-tahiti-100">
+        <div>
+          <Section class="items-center text-3xl text-tahiti-100">
             <Stack class="gap-2 p-10 m-8">
               <p v-for="(item, index) in description.split('\\n')" :key="index">
                 {{ item }}
@@ -15,8 +15,11 @@
 
               <h1 class="m-8 text-lg lg:text-3xl">Choose your Budget:</h1>
               <slider @range-changed="setRange" />
+              <button class="text-3xl text-ocean-200 hover:text-orange-500">
+                <router-link class="shadow-2xl" to="/builds">Go!</router-link>
+              </button>
 
-              <Grid :mode="feed" class="gap-2 p-2">
+              <Grid v-if="false" :mode="feed" class="gap-2 p-2">
                 <chip
                   v-for="description in categories"
                   :key="description"
@@ -27,23 +30,27 @@
               </Grid>
             </Stack>
           </Section>
-        </FadeTransition>
-      </header>
 
-      <Gradient v-if="true" class="m-20">
-        <Stack>
-          <h1 class="text-lg shadow-2xl lg:text-3xl text-arctic-500">{{ title }}</h1>
-          <subtitle class="text-4xl shadow-2xl text-arctic-700">{{ subtitle }}</subtitle>
-          <Row class="gap-20">
-            <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-              <router-link class="shadow-2xl" to="/builds">Yes!</router-link>
-            </button>
-            <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
-              <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
-            </button>
-          </Row>
-        </Stack>
-      </Gradient>
+          <!-- <Gradient v-if="ready" class="w-2/3">
+            <Stack>
+              <h1 class="text-lg shadow-2xl lg:text-3xl text-arctic-500">
+                {{ title }}
+              </h1>
+              <subtitle class="text-4xl shadow-2xl text-arctic-700">{{
+                subtitle
+              }}</subtitle>
+              <Row class="gap-20">
+                <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+                  <router-link class="shadow-2xl" to="/builds">Yes!</router-link>
+                </button>
+                <button class="h-20 text-3xl text-ocean-500 hover:text-orange-500">
+                  <router-link class="shadow-2xl" to="/about">F.A.Q.</router-link>
+                </button>
+              </Row>
+            </Stack>
+          </Gradient> -->
+        </div>
+      </header>
     </div>
   </body>
 </template>
@@ -64,6 +71,9 @@ import { useRange } from "../../hooks";
 import { useStorage } from "@vueuse/core";
 const storage = useStorage("range", []);
 
+// import { useTimeout } from "@vueuse/core";
+// const { ready, start } = useTimeout(5000, { controls: true });
+
 export default {
   props: {
     title: String,
@@ -77,6 +87,8 @@ export default {
       categories: ["Home Defense", "LEO/Military", "Hunting", "Competition"],
       title: "Ready to Build?",
       subtitle: "😎",
+
+      ready: false,
     };
   },
   setup(props) {
@@ -85,10 +97,20 @@ export default {
       range,
     };
   },
+
+  mounted() {
+    this.startTimeouts();
+  },
   methods: {
     setRange(range) {
       this.range.value = range;
       storage.value = range;
+    },
+
+    startTimeouts() {
+      setTimeout(() => {
+        this.ready = true;
+      }, 2000);
     },
   },
   components: {

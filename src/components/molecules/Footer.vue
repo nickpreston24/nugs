@@ -1,5 +1,5 @@
 <template>
-  <Row class="text-midnight bg-gradient-to-r from-tahiti-500 to-ocean-500">
+  <Row class="text-midnight bg-gradient-to-r from-tahiti-700 to-tahiti-300">
     <div class="w-1/3">
       <slot name="left"></slot>
     </div>
