@@ -21,7 +21,7 @@
 import Spinner from "../atoms/Spinner.vue";
 import useTable from "../../hooks/useTable";
 import { Stack, Grid, Row } from "../../components/flex";
-import Section from "../../components/molecules/Section.vue";
+import Section from "../molecules/sections/Section.vue";
 import Label from "../../components/atoms/Label.vue";
 import FormInput from "../../components/atoms/FormInput.vue";
 import Image from "../../components/atoms/Image.vue";

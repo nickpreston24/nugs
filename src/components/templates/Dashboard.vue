@@ -10,7 +10,7 @@
       <slot name="top"></slot>
     </Border>
 
-    <Border class="h-2/3 w-full">
+    <Border class="w-full h-2/3">
       <Row>
         <Border class="w-1/2">
           <slot name="left"></slot>

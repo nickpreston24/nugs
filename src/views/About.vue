@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import { collapsed, toggleSidebar } from "../components/organisms/sidebar/state";
+import { collapsed, toggleSidebar } from "../components/organisms/sidebar/useSidebar";
 export default {
   setup() {
     return { collapsed, toggleSidebar };

@@ -1,6 +1,6 @@
 <script>
 import SidebarLink from "./SidebarLink.vue";
-import { collapsed, toggleSidebar, sidebarWidth, className } from "./state";
+import { collapsed, toggleSidebar, sidebarWidth, className, hidden } from "./useSidebar";
 
 export default {
   props: {
@@ -8,13 +8,14 @@ export default {
   },
   components: { SidebarLink },
   setup() {
-    return { collapsed, toggleSidebar, sidebarWidth, className };
+    return { collapsed, toggleSidebar, sidebarWidth, className, hidden };
   },
 };
 </script>
 <template>
   <div
-    class="duration-300 p-25 text-tahiti-100 z-1 bg-tahiti-600"
+    v-show="!hidden"
+    class="duration-300 p-25 text-tahiti-100 z-1"
     :class="className"
     :style="{ width: sidebarWidth }"
   >

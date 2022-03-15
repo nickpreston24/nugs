@@ -33,7 +33,7 @@ import { Modal, Accordion } from "../components/molecules";
 import { Button, Brandon } from "../components/atoms";
 import PartsGallery from "../components/parts/PartsGallery.vue";
 import { Row } from "../components/flex";
-import Section from "../components/molecules/Section.vue";
+import Section from "../components/molecules/sections/Section.vue";
 import useTable from "../hooks/useTable";
 import AddParts from "../components/parts/AddParts.vue";
 import { devmode } from "../helpers/";

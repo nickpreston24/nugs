@@ -1,32 +1,42 @@
 import { ref, onMounted, onUnmounted, computed, reactive } from 'vue'
-import { Log, countEmpty, get, deepCount, groupBy } from '../helpers'
+import { toRefs } from '@vueuse/core'
+import { countEmpty, get, deepCount, groupBy } from '../helpers'
 import { getRecords } from './airtable'
+import { range } from '../hooks/useRange'
 import { random } from '../helpers/generators'
+
+// const { range } = useRange()
 
 const modes = {
   RANDOM: 'random',
   CUSTOM: 'custom'
 }
 
-const initial = {
-  Lower: null,
-  Barrel: null,
-  Handguard: null,
-  Upper: null,
-  Buttstock: null,
-  Brace: null,
-  'Charging Handle': null,
-  BufferSpring: null,
-  Buffer: null,
-  BufferTube: null,
-  'Pivot Pins': null,
-  BCG: null,
-  Magazine: null,
-  'Gas Block': null,
-  'Buffer Retainer': null,
-  'Gas Tube': null,
-  LPK: null
-}
+const storage = null //localStorage.getItem('current-build')
+// console.log('storage', localStorage.getItem('current-build'))
+
+const initial = storage
+  ? storage
+  : {
+      Lower: null,
+      Barrel: null,
+      Handguard: null,
+      Upper: null,
+      Buttstock: null,
+      Brace: null,
+      'Charging Handle': null,
+      BufferSpring: null,
+      Buffer: null,
+      BufferTube: null,
+      'Pivot Pins': null,
+      BCG: null,
+      Magazine: null,
+      'Gas Block': null,
+      'Buffer Retainer': null,
+      'Gas Tube': null,
+      LPK: null
+    }
+// const exclusions = ['Sling', 'Magazine', 'Glock', 'Mod']
 
 export default function useBuilds() {
   const checklist = ref({ ...initial })
@@ -59,6 +69,9 @@ export default function useBuilds() {
   const addPart = (part) => {
     const partType = part?.Type || ''
     checklist.value[partType[0]] = { ...part, selected: true }
+
+    // save to localstorage for now:
+    // localStorage.setItem('current-build', checklist)
   }
 
   const completedSteps = computed(() => totalEntries.value - incomplete.value)
@@ -70,13 +83,22 @@ export default function useBuilds() {
   const groupedParts = computed(() => groupBy(parts.value, 'Type'))
 
   const partTypes = computed(() => {
-    const list = parts.value
-    const types = [].flatten(
-      list.filter((part) => part.Type).map((part) => part.Type)
-    )
+    // A) from db:
+
+    // const list = parts.value
+    // const types = [].flatten(
+    //   list
+    //     .filter((part) => part.Type)
+    //     .filter((element) => exclusions.indexOf(element) < 0)
+    //     .map((part) => part.Type)
+    // )
     // console.log('types', types)
+
     //dedupe
-    return types.filter((a, i) => types.findIndex((s) => a === s) === i)
+    // return types.filter((a, i) => types.findIndex((s) => a === s) === i)
+
+    // B) hard-coded
+    return Object.keys(initial)
   })
 
   const incomplete = computed(() => countEmpty(checklist.value))
@@ -84,6 +106,31 @@ export default function useBuilds() {
   const totalEntries = computed(() => {
     // for now...
     return Object.keys(checklist.value)?.length
+  })
+
+  const picks = computed(() => {
+    // console.log('picks', checklist)
+    const result = new Map(Object.entries(checklist.value))
+    return result
+  })
+
+  const buildCost = computed(() => {
+    let result = Object.values(checklist.value).map((x) => x?.Cost)
+    const cost = result.reduce((count, n) => {
+      if (!!n) count += n
+      return count
+    }, 0)
+    // console.log('cost', cost)
+    // let pickList = picks.value
+    // console.log('picks', result)
+    // console.log('picks.entries', checklist.value)
+
+    return cost.toFixed(2)
+  })
+
+  const isWithinBudget = computed(() => {
+    console.log('range.value', range.value)
+    return range?.[0]?.value <= buildCost?.value <= range?.[1]?.value //|| false
   })
 
   const build = computed(() => {
@@ -102,12 +149,16 @@ export default function useBuilds() {
     error,
     addPart,
     checklist,
+    picks,
     percentCompleted,
     incomplete,
     partTypes,
     totalEntries,
     groupedParts,
     buildMode,
-    clear
+    clear,
+    completedSteps,
+    buildCost,
+    isWithinBudget
   }
 }

@@ -1,22 +1,33 @@
+<script>
+import { show, hide, className } from "./useSection";
+
+export default {
+  data() {
+    return {
+      show,
+      hide,
+      className,
+    };
+  },
+};
+</script>
+
 <template>
   <transition name="bounce">
     <section
       v-if="show"
       class="bg-gradient-to-tl from-regal-600 to-transparent rounded-3xl"
+      :class="className"
     >
       <slot></slot>
+
+      <!-- <pre>hide? {{ hide }}</pre>
+      <pre>show? {{ show }}</pre>
+      <pre>className? {{ className }}</pre> -->
     </section>
   </transition>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      show: true,
-    };
-  },
-};
-</script>
+
 <style scoped>
 /* fade */
 .slide-fade-enter-active {

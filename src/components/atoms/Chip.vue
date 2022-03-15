@@ -1,25 +1,27 @@
 <template>
   <!-- <div :style="{ 'background-color': color }" @click="toggle" class=""> -->
-  <Row class="rounded-full">
-    <div class="m-2">
-      <slot></slot>
-    </div>
 
+  <div class="rounded-full">
     <button
       @click="close"
       class="inline-flex items-center px-6 py-3 m-2 font-semibold bg-transparent rounded-md shadow-sm"
     >
-      <!-- <icon class="fa fa-plus fa-sm text-regal-500"></icon> -->
-
-      <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+      <Row>
+        <slot></slot>
+      </Row>
+    </button>
+  </div>
+  <!-- 
+    
+      <svg class="w-5 h-5 ml-3" fill="currentColor" viewBox="0 0 20 20">
         <path
           fill-rule="evenodd"
           d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
           clip-rule="evenodd"
         ></path>
       </svg>
-    </button>
-  </Row>
+     -->
+
   <!-- </div> -->
   <!-- TODO: Use this when Vuetify catches up to Vue 3 -->
   <!-- <div id="app">

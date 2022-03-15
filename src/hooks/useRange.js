@@ -1,21 +1,20 @@
-import { ref, onMounted } from "vue";
-import { useStorage } from "@vueuse/core";
+import { ref, onMounted } from 'vue'
+// import { useStorage } from '@vueuse/core'
 
-const initialRange = [0, 9000];
-const storage = useStorage(initialRange);
+const initialRange = [0, 9000]
+// const storage = useStorage(initialRange)
 
+export const range = ref(initialRange)
 export default function useRange() {
-  const range = ref(initialRange);
-
   onMounted(() => {
-    console.log("storage.value", storage.value);
+    // console.log('storage.value', storage.value)
     // range.value = window.localStorage.getItem(
     //   "range",
     //   JSON.stringify(range.value)
     // );
-  });
+  })
 
   return {
-    range,
-  };
+    range
+  }
 }

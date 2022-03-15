@@ -1,21 +1,21 @@
 <!-- TOdo: try this: https://stackoverflow.com/questions/54535838/scroll-behaviour-vuejs-not-working-properly -->
 <template>
   <body class="">
-    <div class="text-xl wrapper text-arctic-200">
+    <div class="text-xl text-orange-300 wrapper">
       <header>
         <img :src="backgroundImage" class="background" />
         <img :src="foregroundImage" class="foreground" />
 
         <div>
-          <Section class="items-center text-3xl text-tahiti-100">
+          <Section class="items-center text-3xl">
             <Stack class="gap-2 p-10 m-8">
               <p v-for="(item, index) in description.split('\\n')" :key="index">
                 {{ item }}
               </p>
 
-              <h1 class="m-8 text-lg lg:text-3xl">Choose your Budget:</h1>
+              <h1 class="m-8 text-lg lg:text-3xl text-tahiti-100">Choose your Budget:</h1>
               <slider @range-changed="setRange" />
-              <button class="text-3xl text-ocean-200 hover:text-orange-500">
+              <button class="text-3xl text-tahiti-200 hover:text-ocean-500">
                 <router-link class="shadow-2xl" to="/builds">Go!</router-link>
               </button>
 
@@ -59,7 +59,7 @@
 import BorderedIcon from "../../components/atoms/BorderedIcon.vue";
 import Button from "../../components/atoms/Button.vue";
 import Chip from "../../components/atoms/Chip.vue";
-import Section from "../../components/molecules/Section.vue";
+import Section from "../molecules/sections/Section.vue";
 import BorderShiftButton from "../../components/atoms/BorderShiftButton.vue";
 import BlackHoleIcon from "../../components/atoms/BlackHoleIcon.vue";
 import Stack from "../../components/flex/Stack.vue";

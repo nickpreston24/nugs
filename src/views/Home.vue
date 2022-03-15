@@ -12,7 +12,6 @@
 import parallax from "../components/templates/parallax.vue";
 import BlackHoleIcon from "../components/atoms/BlackHoleIcon.vue";
 import Gradient from "../components/atoms/Gradient.vue";
-import Button from "../components/atoms/Button.vue";
 import Stack from "../components/flex/Stack.vue";
 import Row from "../components/flex/Row.vue";
 

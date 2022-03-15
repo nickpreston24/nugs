@@ -26,7 +26,7 @@ import Footer from "../molecules/Footer.vue";
 import ErrorBoundary from "../../components/ErrorBoundary.vue";
 import { devmode, prodmode } from "../../helpers";
 import { Sidebar } from "../../components/organisms";
-import { sidebarWidth } from "../../components/organisms/sidebar/state";
+import { sidebarWidth } from "../organisms/sidebar/useSidebar";
 export default {
   components: {
     Sidebar,

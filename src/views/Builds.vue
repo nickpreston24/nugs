@@ -7,7 +7,7 @@
         </template>
 
         <template v-slot:top>
-          <h1 class="text-lg text-orange-300 lg:text-5xl">Pick Your Parts</h1>
+          <!-- <h1 class="text-lg text-orange-300 lg:text-5xl">Pick Your Parts</h1> -->
         </template>
         <template v-slot:left>
           <div class="w-auto h-screen m-1 overflow-auto">
@@ -19,15 +19,17 @@
             />
             <div v-for="type in partTypes" :key="type">
               <h3
-                class="text-lg text-purple-400 lg:text-3xl"
+                class="text-lg shadow-2xl text-ocean-400 lg:text-3xl shadow-ocean-500"
                 v-if="groupedParts[type]?.length > 0"
               >
-                Pick your {{ type }} ({{ groupedParts[type]?.length || "" }} total)
+                Pick a {{ type }}
               </h3>
-
+              <!-- <p class="text-xs text-white">
+                ({{ groupedParts[type]?.length || "" }} Options)
+              </p> -->
               <swiper
-                :slides-per-view="2"
-                :space-between="50"
+                :slides-per-view="3"
+                :space-between="2"
                 :autoplay="{ delay: 2500 }"
                 :style="{
                   autoplay: {
@@ -42,10 +44,11 @@
                   <Card
                     :key="part.id"
                     :part="part"
-                    class="m-1 overflow-auto text-purple-500 border-2 rounded-lg border-tahiti-500"
+                    class="m-1 text-purple-500 border-2 rounded-lg overflow-wrap border-tahiti-500"
                   >
                     <template v-slot:header>
-                      <p>{{ part.Name }}</p>
+                      <p class="overflow-auto ellipsis">{{ part.Name }}</p>
+                      <pre>{{ part?.selected ? "y" : "" }}</pre>
                     </template>
                     <template v-slot:default>
                       <Stack class="text-purple-500">
@@ -74,6 +77,7 @@
                     <template v-slot:footer>
                       <Row class="m-2">
                         <button
+                          v-if="part?.Name && part?.Cost"
                           class="w-16 text-white border-2 border-white rounded-lg hover:border-orange-300 hover:text-orange-300"
                           @click="addPart(part)"
                         >
@@ -81,6 +85,7 @@
                         </button>
 
                         <button
+                          v-if="part?.URL"
                           class="w-16 text-white transform border-2 border-white rounded-lg hover:border-orange-300 hover:text-orange-300 hover:scale-110"
                         >
                           <a :href="part?.URL" target="_blank">
@@ -99,11 +104,13 @@
           <div class="w-auto h-screen overflow-auto text-ocean-600">
             <Card>
               <template v-slot:header>
+                <!-- <pre>completedSteps? {{ completedSteps }}</pre> -->
+                <!-- <pre>totalSteps? {{ totalSteps }}</pre> -->
                 <Stack class="">
                   <radial-progress-bar
-                    :diameter="120"
+                    :diameter="130"
                     :completed-steps="completedSteps"
-                    :total-steps="totalSteps"
+                    :total-steps="totalEntries"
                   >
                     <h2>{{ percentCompleted.toFixed() }}% Done</h2>
                   </radial-progress-bar>
@@ -128,19 +135,27 @@
                   >
                 </Row>
 
-                <!-- Budget Option -->
-                <label v-show="range" class="text-lg lg:text-3xl">{{
-                  budgetLabel
-                }}</label>
+                <!-- Budget Options -->
 
                 <Stack>
-                  <!-- <span class="mb-4 text-lg text-purple-400 lg:text-3xl">
-                  Change your Budget here!
-                </span> -->
+                  <label v-show="range" class="text-lg lg:text-2xl">{{
+                    budgetLabel
+                  }}</label>
+
                   <slider min="500" @range-changed="setRange"></slider>
-                  <!-- Weird this is staying constant, yet I can still set the range ref -->
-                  <!-- <p v-if="devmode">{{ range }}</p> -->
                 </Stack>
+
+                <label>{{ build?.Name }}</label>
+
+                <label v-if="devmode">Within Budget: {{ isWithinBudget }}</label>
+                <label>Build Cost: {{ buildCost }}</label>
+                <label
+                  >Caliber:
+                  <Chip class="text-white bg-orange-500">
+                    <p>{{ checklist["Barrel"]?.Calibers?.[0] || "unknown" }}</p>
+                    <icon class="fa-solid fa-beer"></icon>
+                  </Chip>
+                </label>
 
                 <Row class="flex-wrap" v-if="true" mode="photo">
                   <div v-for="item in picks" :key="item.id">
@@ -182,20 +197,24 @@ import { useRange, useBuilds } from "../hooks";
 import { random } from "../helpers/generators.ts";
 import { devmode } from "../helpers";
 import PartCard from "../components/parts/PartCard.vue";
-import { Button, Spinner, Brandon } from "../components/atoms";
+import { Button, Spinner, Brandon, Chip } from "../components/atoms";
 import { Section, Card, SVGButton } from "../components/molecules";
 import Image from "../components/atoms/Image.vue";
-import BuildsGallery from "../components/builds/BuildsGallery.vue";
 import { Stack, Grid, Row } from "../components/flex";
 import Gradient from "../components/atoms/Gradient.vue";
 import Slider from "../components/atoms/Slider.vue";
 import RadialProgressBar from "vue3-radial-progress";
 import { Dashboard } from "../components/templates";
-import { collapsed, toggleSidebar, mode } from "../components/organisms/sidebar/state";
+import {
+  collapsed,
+  toggleSidebar,
+  mode,
+  background,
+} from "../components/organisms/sidebar/useSidebar";
 
 export default {
   components: {
-    BuildsGallery,
+    Chip,
     Button,
     Stack,
     Row,
@@ -242,7 +261,7 @@ export default {
   setup() {
     // sidebar
     mode.value = "RIGHT";
-    collapsed.value = true;
+    background.value = "bg-gray-300 opacity-50";
 
     const {
       builds,
@@ -252,13 +271,17 @@ export default {
       error,
       addPart,
       checklist,
+      picks,
       percentCompleted,
+      completedSteps,
       incomplete,
       partTypes,
       totalEntries,
       groupedParts,
       buildMode,
       clear,
+      buildCost,
+      isWithinBudget,
     } = useBuilds();
 
     const { range } = useRange();
@@ -272,6 +295,7 @@ export default {
       error,
       addPart,
       checklist,
+      picks,
       percentCompleted,
       incomplete,
       partTypes,
@@ -287,6 +311,9 @@ export default {
       //sidebar
       toggleSidebar,
       collapsed,
+      buildCost,
+      completedSteps,
+      isWithinBudget,
     };
   },
   methods: {
@@ -302,18 +329,18 @@ export default {
   },
   computed: {
     budgetLabel() {
-      return `Your Budget: $${this.range?.value?.[0] || ""} -> ${
+      return `Budget: $${this.range?.value?.[0] || ""} -> ${
         this.range?.value?.[1] || ""
       } `;
     },
-    picks() {
-      console.log("picks", this.checklist);
-      const result = new Map(Object.entries(this.checklist));
-      return result;
-    },
-    remaining() {
-      return; //this.checklist;
-    },
+    // picks() {
+    //   console.log("picks", this.checklist);
+    //   const result = new Map(Object.entries(this.checklist));
+    //   return result;
+    // },
+    // remaining() {
+    //   return; //this.checklist;
+    // },
   },
 };
 </script>
@@ -324,8 +351,6 @@ export default {
           @click="views.gallery.show = !views.gallery.show"
           >{{ views.gallery.show ? "Save Builds" : "See What others are building" }}</Button
         > -->
-
-<!-- <BuildsGallery v-if="views.gallery.show" /> -->
 
 <!-- DEV Toggles -->
 <!-- <Row v-if="devmode">
