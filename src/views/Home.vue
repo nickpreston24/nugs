@@ -14,11 +14,18 @@ import BlackHoleIcon from "../components/atoms/BlackHoleIcon.vue";
 import Gradient from "../components/atoms/Gradient.vue";
 import Stack from "../components/flex/Stack.vue";
 import Row from "../components/flex/Row.vue";
+import { collapsed } from "../components/organisms/sidebar/useSidebar";
 
 export default {
   name: "Home",
   data() {
     return {};
+  },
+
+  mounted() {
+    setTimeout(() => {
+      collapsed.value = true;
+    }, 3000);
   },
   components: {
     parallax,

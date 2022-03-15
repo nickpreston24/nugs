@@ -216,6 +216,7 @@ import {
   toggleSidebar,
   mode,
   background,
+  hidden,
 } from "../components/organisms/sidebar/useSidebar";
 
 export default {
@@ -263,7 +264,9 @@ export default {
       ],
     };
   },
-
+  mounted() {
+    this.startTimeouts();
+  },
   setup() {
     // sidebar
     mode.value = "RIGHT";
@@ -331,6 +334,11 @@ export default {
     //   }
     setRange(range) {
       this.range.value = range;
+    },
+    startTimeouts() {
+      setTimeout(() => {
+        collapsed.value = true;
+      }, 2500);
     },
   },
   computed: {
