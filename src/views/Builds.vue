@@ -70,14 +70,20 @@
                             <i class="text-orange-300">Image Coming Soon!</i>
                           </Stack>
                         </figure>
-                        <p>${{ part?.Cost || "???" }}</p>
+                        <p>
+                          ${{
+                            part?.Cost === undefined || part?.Cost === null
+                              ? "???"
+                              : part?.Cost || 0
+                          }}
+                        </p>
                       </Stack>
                     </template>
 
                     <template v-slot:footer>
                       <Row class="m-2">
                         <button
-                          v-if="part?.Name && part?.Cost"
+                          v-if="part?.Name"
                           class="w-16 text-white border-2 border-white rounded-lg hover:border-orange-300 hover:text-orange-300"
                           @click="addPart(part)"
                         >

@@ -1,11 +1,7 @@
-import { ref, onMounted, onUnmounted, computed, reactive } from 'vue'
-import { toRefs } from '@vueuse/core'
-import { countEmpty, get, deepCount, groupBy } from '../helpers'
+import { ref, onMounted, computed, toRefs } from 'vue'
+import { countEmpty, groupBy, isArray } from '../helpers'
 import { getRecords } from './airtable'
 import { range } from '../hooks/useRange'
-import { random } from '../helpers/generators'
-
-// const { range } = useRange()
 
 const modes = {
   RANDOM: 'random',
@@ -68,7 +64,8 @@ export default function useBuilds() {
    */
   const addPart = (part) => {
     const partType = part?.Type || ''
-    checklist.value[partType[0]] = { ...part, selected: true }
+    const typeName = isArray(partType) ? partType[0] : partType
+    checklist.value[typeName] = { ...part, selected: true }
 
     // save to localstorage for now:
     // localStorage.setItem('current-build', checklist)
@@ -80,7 +77,29 @@ export default function useBuilds() {
     () => (completedSteps.value / totalEntries.value) * 100.0
   )
 
-  const groupedParts = computed(() => groupBy(parts.value, 'Type'))
+  const groupedParts = computed(() => {
+    let list = parts.value
+    // console.log('list', list)
+    let groups = groupBy(list, 'Type')
+
+    const types = Object.keys(initial)
+    types.forEach((type) => {
+      // console.log('groups[type]', groups[type])
+      let subgroup = groups[type]
+      console.log('type', type)
+      let next = {
+        Name: '< None >',
+        Cost: 0.0,
+        Attachments: [],
+        Type: type,
+        Caliber: null
+      }
+      console.log('next', next)
+      subgroup?.unshift(next)
+    })
+
+    return groups
+  })
 
   const partTypes = computed(() => {
     // A) from db:
@@ -109,7 +128,6 @@ export default function useBuilds() {
   })
 
   const picks = computed(() => {
-    // console.log('picks', checklist)
     const result = new Map(Object.entries(checklist.value))
     return result
   })
@@ -120,10 +138,6 @@ export default function useBuilds() {
       if (!!n) count += n
       return count
     }, 0)
-    // console.log('cost', cost)
-    // let pickList = picks.value
-    // console.log('picks', result)
-    // console.log('picks.entries', checklist.value)
 
     return cost.toFixed(2)
   })
