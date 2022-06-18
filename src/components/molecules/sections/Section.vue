@@ -14,13 +14,8 @@ export default {
 
 <template>
   <transition name="bounce">
-    <section
-      v-if="show"
-      class="bg-gradient-to-tl from-regal-600 to-transparent rounded-3xl"
-      :class="className"
-    >
+    <section v-if="show" :class="className">
       <slot></slot>
-
       <!-- <pre>hide? {{ hide }}</pre>
       <pre>show? {{ show }}</pre>
       <pre>className? {{ className }}</pre> -->

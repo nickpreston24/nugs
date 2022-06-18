@@ -1,15 +1,19 @@
 <template>
-  <Page class="border-2 border-red">
+  <div class="">
     <!-- <div class="w-64 h-64 bg-yellow-500"></div> -->
+
+    <Flex>
+      <h1>Flexbox</h1>
+    </Flex>
 
     <!-- <template v-slot:header> -->
     <Stack class="bg-white-500 h-max">
-      <Shadow type="inset"> Toggle Components </Shadow>
+      <!-- <Shadow type="inset"> Toggle Components </Shadow> -->
 
       <Border>
         <Row class="w-5/6 overflow-scroll">
           <Button
-            theme="show[key] ? bg-ocean-500 hover:text-tahiti-400 : bg-red"
+            theme="show[key] ? bg-ocean-500 "
             v-for="(item, key) in show"
             :key="key"
             @click="show[key] = !show[key]"
@@ -27,7 +31,8 @@
       <!--  Header -->
       <template v-slot:header>
         <div class="">
-          <swiper
+          <Button @click="crud">Oh, Crud!</Button>
+          <!-- <swiper
             class="border-2 border-red"
             :slides-per-view="3"
             :space-between="50"
@@ -37,7 +42,7 @@
             <swiper-slide v-for="slide in slides" :key="slide" class="carousel-slider">
               <img :src="slide" :alt="slide" />
             </swiper-slide>
-          </swiper>
+          </swiper> -->
         </div>
 
         <!-- <carousel>
@@ -212,7 +217,7 @@
 
       <tailwind-card v-if="true" />
     </div>
-  </Page>
+  </div>
 </template>
 <script>
 import { Swiper, SwiperSlide, useSwiper } from "swiper/vue";
@@ -245,6 +250,9 @@ import { Card } from "../components/molecules";
 import { Carousel, Slide, SwiperExample } from "../components/molecules/carousel";
 import { Log, devmode } from "../helpers";
 import { random } from "../helpers/generators.ts";
+import axios from "axios";
+
+import { Flex } from "@mpreston17/flexies";
 
 // Array Remove - By John Resig (MIT Licensed)
 Array.prototype.remove = function (from, to) {
@@ -266,40 +274,27 @@ export default {
       onSlideChange,
     };
   },
-  components: {
-    Swiper,
-    SwiperSlide,
-    useSwiper,
-    TailwindCard,
-    Button,
-    Stack,
-    Row,
-    HeaderBar,
-    Border,
-    Dashboard,
-    Shadow,
-    FormInput,
-    Settings,
-    IconBase,
-    Card,
-    Grid,
-    IconWrite,
-    AwesomeIcon,
-    StatusIcon,
-    AwesomeSurprisedFaceIcon,
-    AwesomeConfusedIcon,
-    EightPointSixBlackoutIcon,
-    AwesomeThinkingIcon,
-    PistolIcon,
-    Gradient,
-    Carousel,
-    Slide,
-    SwiperExample,
-  },
+
   created() {
     this.toggle("borders");
   },
   methods: {
+    crud() {
+      // const url = `api/sendMessage?name=${"Nick"}`;
+      const url = `api/crud`;
+      console.log("url", url);
+      axios
+        .get(url)
+        .then((response) => {
+          devmode && console.log("response", response);
+          // Log(response);
+          // info.result = response.data;
+        })
+        .catch((err) => {
+          // if (devmode) info.message = err;
+          Log("err :>> ", err);
+        });
+    },
     toggle(setting = "") {
       this.$store.dispatch("toggleSetting", { name: setting });
     },
@@ -398,8 +393,36 @@ export default {
     },
   },
 
-  mounted() {
-    // do something here
+  components: {
+    Swiper,
+    SwiperSlide,
+    useSwiper,
+    TailwindCard,
+    Button,
+    Stack,
+    Row,
+    HeaderBar,
+    Border,
+    Dashboard,
+    Shadow,
+    FormInput,
+    Settings,
+    IconBase,
+    Card,
+    Grid,
+    IconWrite,
+    Flex,
+    AwesomeIcon,
+    StatusIcon,
+    AwesomeSurprisedFaceIcon,
+    AwesomeConfusedIcon,
+    EightPointSixBlackoutIcon,
+    AwesomeThinkingIcon,
+    PistolIcon,
+    Gradient,
+    Carousel,
+    Slide,
+    SwiperExample,
   },
 };
 </script>

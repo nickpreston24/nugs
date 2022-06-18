@@ -2,8 +2,8 @@ import { ref, onMounted, toRefs, reactive, toRef } from 'vue'
 import axios from 'axios'
 import { Log, devmode } from '../helpers'
 
-const apiKey = 'keyl5Wo5ETa4HR4tt' //import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
-const baseKey = 'app33DDBeyXEGRflo' //import.meta.env.VITE_VERCEL_BASE_KEY;
+const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY
+const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY
 
 export const formatRecords = (records = []) => {
   let collection = [].concat(records)

@@ -8,27 +8,31 @@
 
         <div>
           <Section class="items-center text-3xl">
-            <Stack class="gap-2 p-10 m-8">
-              <p v-for="(item, index) in description.split('\\n')" :key="index">
-                {{ item }}
-              </p>
+            <Card class="bg-#f45">
+              <Stack class="gap-2 p-10 m-8">
+                <p v-for="(item, index) in description.split('\\n')" :key="index">
+                  {{ item }}
+                </p>
 
-              <h1 class="m-8 text-lg lg:text-3xl text-tahiti-100">Choose your Budget:</h1>
-              <slider @range-changed="setRange" />
-              <button class="text-3xl text-tahiti-200 hover:text-ocean-500">
-                <router-link class="shadow-2xl" to="/builds">Go!</router-link>
-              </button>
+                <h1 class="m-8 text-lg lg:text-3xl text-tahiti-100">
+                  Choose your Budget:
+                </h1>
+                <slider @range-changed="setRange" />
+                <button class="text-3xl text-tahiti-200 hover:text-ocean-500">
+                  <router-link class="shadow-2xl" to="/builds">Go!</router-link>
+                </button>
 
-              <Grid v-if="false" :mode="feed" class="gap-2 p-2">
-                <chip
-                  v-for="description in categories"
-                  :key="description"
-                  class="text-white transition-all transform bg-orange-600 border-2 border-white shadow-2xl hover:scale-110 rounded-4xl"
-                >
-                  <router-link to="/builds">{{ description }} </router-link>
-                </chip>
-              </Grid>
-            </Stack>
+                <Grid v-if="false" :mode="feed" class="gap-2 p-2">
+                  <chip
+                    v-for="description in categories"
+                    :key="description"
+                    class="text-white transition-all transform bg-orange-600 border-2 border-white shadow-2xl hover:scale-110 rounded-4xl"
+                  >
+                    <router-link to="/builds">{{ description }} </router-link>
+                  </chip>
+                </Grid>
+              </Stack>
+            </Card>
           </Section>
 
           <!-- <Gradient v-if="ready" class="w-2/3">

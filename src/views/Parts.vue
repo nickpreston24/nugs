@@ -10,7 +10,7 @@
 
     <Modal :show="showModal">
       <template #header>
-        <h3 class="lg:text-3xl text-lg">Add Part</h3>
+        <h3 class="text-lg lg:text-3xl">Add Part</h3>
       </template>
       <div>
         <AddParts />
@@ -28,7 +28,7 @@
     <PartsGallery />
   </Section>
 </template>
-<script>
+<script setup lang="ts">
 import { Modal, Accordion } from "../components/molecules";
 import { Button, Brandon } from "../components/atoms";
 import PartsGallery from "../components/parts/PartsGallery.vue";
@@ -39,47 +39,26 @@ import AddParts from "../components/parts/AddParts.vue";
 import { devmode } from "../helpers/";
 import { ref, watch } from "vue";
 
-export default {
-  setup(props) {
-    const showModal = ref(false);
-    const { state } = useTable("Parts", { maxRecords: 10 });
-    console.log("state", state);
-    console.log("state.value", state.value.records);
-    // const parts = state.records.value;
-    // console.log("parts", parts);
+const showModal = ref(false);
+const { state } = useParts("Parts", { maxRecords: 10 });
+// console.log("state", state);
+// console.log("state.value", state.value.records);
 
-    // watch(
-    //   () => props.show,
-    //   (show) => {
-    //     showModal.value = show;
-    //   }
-    // );
+const props = defineProps({
+  show: false,
+  form: {
+    Name: "",
+    URL: "",
+    Cost: 0.0,
+  },
+});
 
-    return {
-      showModal,
-    };
-  },
-  data() {
-    return {
-      parts: { show: false },
-      form: {
-        Name: "",
-        URL: "",
-        Cost: 0.0,
-      },
-    };
-  },
-  components: {
-    PartsGallery,
-    Button,
-    Row,
-    Section,
-    Brandon,
-    AddParts,
-    Modal,
-    Accordion,
-  },
-};
+watch(
+  () => props.show,
+  (show) => {
+    showModal.value = show;
+  }
+);
 </script>
 <style scoped>
 html,

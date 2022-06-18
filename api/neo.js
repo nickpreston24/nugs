@@ -1,10 +1,7 @@
-const dotenv = require('dotenv')
-dotenv.config();
-const dev = process.env.NODE_ENVIRONMENT === 'development'
 const uri = process.env.VITE_VERCEL_URI
 const user = process.env.VITE_VERCEL_USER
 const password = process.env.VITE_VERCEL_PASSWORD
-const neo4j = require('neo4j-driver')
+import neo4j from 'neo4j-driver'
 export const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
 // cexportonst cors = require('fastify-cors');
 
@@ -33,7 +30,6 @@ export const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
 //   }
 // })
 
-
 // fastify.route({
 //   method: "POST",
 //   url: "/api/nugs/",
@@ -50,7 +46,7 @@ export const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
 //       )
 
 //       const single = result.records[0];
-//       const node = single.get(0)
+//       con.widget-area asidest node = single.get(0)
 
 //       console.log(`node`, node.properties.name)
 //     }
@@ -71,7 +67,6 @@ export const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
 //     throw error; // we are logging this error at the time of calling this method
 //   }
 // }
-
 
 // fastify.route({
 //   method: 'GET',

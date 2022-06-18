@@ -1,5 +1,4 @@
 <template>
-  <!-- <slot name="header" /> -->
   <Sidebar />
   <div :style="{ 'margin-left': sidebarWidth }"></div>
   <router-view v-slot="{ Component }">

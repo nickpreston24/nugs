@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { Log } from '../helpers'
 
-const apiKey = 'keyl5Wo5ETa4HR4tt' //import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY;
-const baseKey = 'app33DDBeyXEGRflo' //import.meta.env.VITE_VERCEL_BASE_KEY;
+const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY
+const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY
 
 export const formatRecords = (records = []) => {
   let collection = [].concat(records)
@@ -15,6 +14,7 @@ export const formatRecords = (records = []) => {
       ...fields
     }
   }
+
   let result =
     collection.length > 0 ? collection.map(format) : format(collection)
 
@@ -28,18 +28,13 @@ export const getRecords = async (tableName, maxRecords = 10) => {
       'Content-Type': 'x-www-form-urlencoded',
       Authorization: `Bearer ${apiKey}`
     }
-  }).catch((error) => {
-    Log('airtable error', error)
   })
 
   return formatRecords(result?.data?.records)
 }
 
-export const searchTable = async (
-  tableName = 'Parts',
-  options = { fields: [] }
-) => {
-  Log('options :>> ', options)
+export const searchTable = async (tableName = null, fields = []) => {
+  if (!tableName) throw Error(`tableName cannot be null or empty`)
   let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i]
@@ -49,53 +44,100 @@ export const searchTable = async (
     url.concat(`fields%5B%5D=${field}`)
   }
 
-  Log('url', url)
-  axios({
+  console.log('airtable search url :>> ', url)
+  const result = await axios({
     url,
     headers: {
       'Content-Type': 'x-www-form-urlencoded',
       Authorization: `Bearer ${apiKey}`
     }
   })
-    .then((result) => {
-      Log(result)
-      let raw = formatRecords(result?.data?.records)
-    })
-    .catch((error) => {
-      Log('error', error)
-    })
+
+  let raw = formatRecords(result?.data?.records)
+  return raw
 }
 
-export const getById = async (id, table = null) => {
-  if (!table) return 'Table cannot be null!'
+export const getById = async (tableName = null, id = null) => {
+  if (!id) throw Error(`id cannot be null or zero`)
+  if (!tableName) throw Error(`tableName cannot be null or empty`)
 
-  let record = await get(table, id).catch((error) => {
-    Log('error', error)
-  })
-
-  Log('record :>> ', record)
+  let record = await get(tableName, id)
 
   return formatRecords(record)
 }
 
-export const patch = async (table = null, data = null) => {
-  const url = `https://api.airtable.com/v0/${baseKey}/${table}`
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${apiKey}`
-  }
-  const request = await axios
-    .patch(url, data, headers)
+export const patch = async (tableName = null, records = []) => {
+  if (!tableName) throw Error(`tableName cannot be null or empty`)
+  // if (!record) throw Error(`record cannot be empty`);
 
-    .catch((error) => {
-      Log('error', error)
-    })
+  console.log('records received', records)
+  // let id = record.id;
+  // console.log("id", id);
+  // console.log("record", { ...record });
+
+  let formattedRecords = records.map((r) => {
+    const { id, ...rest } = r
+    return {
+      id,
+      fields: { ...rest }
+    }
+  })
+
+  console.log('records to patch :>> ', formattedRecords)
+  const data = {
+    records: formattedRecords
+    // [
+    // {
+    //   id: "reczhLAjJHszwLZc6",
+    //   fields: {
+    //     Name: "Make a 10 year plan!",
+    //     Status: "Todo",
+    //     Points: 5,
+    //   },
+    // },
+    // {
+    //   id: "recUT5TOy3Pd0WEW5",
+    //   fields: {
+    //     Name: "Sweet Caroline",
+    //     Notes: "good times",
+    //     Status: "Todo",
+    //     Points: 1,
+    //   },
+    // },
+    // {
+    //   id: "recqbekj0nyFEyrZq",
+    //   fields: {
+    //     Name: "Exceed Expectations",
+    //     Notes: "...",
+    //     Status: "Todo",
+    //     Points: 3,
+    //   },
+    // },
+    // ],
+  }
+
+  console.log('data patch :>> ', data)
+
+  const url = `https://api.airtable.com/v0/${baseKey}/${tableName}`
+  let axiosConfig = {
+    headers: {
+      Authorization: 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  console.log('url', url)
+  console.log('data', data)
+  const result = await axios.patch(url, data, axiosConfig)
 
   return formatRecords(result?.data?.records)
 }
 
-export const create = async (table = null, record) => {
-  console.log('record', record)
+export const create = async (tableName = null, record) => {
+  if (!record) throw Error(`record cannot be empty`)
+  if (!tableName) throw Error(`tableName cannot be null or empty`)
+
+  // console.log("record", record);
   const data = {
     records: [
       {
@@ -104,18 +146,30 @@ export const create = async (table = null, record) => {
     ]
   }
 
-  let url = 'https://api.airtable.com/v0/' + baseKey + '/' + table
+  let url = `https://api.airtable.com/v0/${baseKey}/${tableName}`
   let axiosConfig = {
     headers: {
       Authorization: 'Bearer ' + apiKey,
       'Content-Type': 'application/json'
     }
   }
-  const response = await axios
-    .post(url, data, axiosConfig)
-    .catch((error) => Log(error))
+  const response = await axios.post(url, data, axiosConfig)
 
-  // console.log('axios response', response)
-  // TODO: return id
-  return response?.data?.id
+  console.log('response?.data', response?.data)
+  return response
+}
+
+export const deleteRecord = async (tableName = null, id = null) => {
+  if (!id) throw new Error(`id for record cannot be null!`)
+  let url = `https://api.airtable.com/v0/${baseKey}/${tableName}/${id}`
+  console.log('url', url)
+  let axiosConfig = {
+    headers: {
+      Authorization: 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    }
+  }
+  const response = await axios.delete(url, axiosConfig)
+
+  return response
 }

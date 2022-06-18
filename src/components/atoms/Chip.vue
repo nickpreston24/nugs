@@ -4,7 +4,7 @@
   <div class="rounded-full">
     <button
       @click="close"
-      class="inline-flex items-center px-6 py-3 m-2 font-semibold bg-transparent rounded-md shadow-sm"
+      class="inline-flex items-center px-6 py-3 m-1 font-semibold bg-transparent rounded-md shadow-sm"
     >
       <Row>
         <slot></slot>
