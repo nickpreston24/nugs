@@ -78,7 +78,9 @@
 <script>
 import { Row, Stack } from "../flex";
 import { Shadow } from "../atoms";
-import { devmode } from "../../helpers";
+// import { devmode } from "../../helpers";
+const devmode = import.meta.DEV || false;
+console.log('devmode :>> ', devmode);
 
 export default {
   components: {
