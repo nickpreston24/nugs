@@ -4,7 +4,6 @@
       <label :for="key">{{ key }}</label>
       <input
         type="checkbox"
-        v-model="options"
         :id="index"
         :value="value"
         @click="options[propName || key] = !options[propName || key]"
